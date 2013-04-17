@@ -3,8 +3,8 @@ describe("Concept Wiki", function() {
 
   beforeEach(function() {
     searcher = new ConceptWikiSearch("https://ops2.few.vu.nl/search/");
-      appID = $.url().param('app_id');
-      appKey = $.url().param('app_key');
+    appID = $.url().param('app_id');
+    appKey = $.url().param('app_key');
   });
 
   describe("search by tag", function() {
