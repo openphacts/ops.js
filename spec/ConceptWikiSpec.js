@@ -34,6 +34,7 @@ describe("Concept Wiki", function() {
     it("and handle errors", function() {
       var callback=function(success, status){
         expect(success).toEqual(false);
+        expect(status).toEqual(500);
       };
       searcher.byTag(appID,appKey, 'Aspirin', '20', '4', '07a84994-e464-4b96fa3d197', callback);
     });

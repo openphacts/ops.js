@@ -3,22 +3,25 @@ Openphacts.TargetSearch = function TargetSearch(baseURL) {
 }
 
 Openphacts.TargetSearch.prototype.fetchTarget = function(appID, appKey, targetUri, callback) {
-    var targetQuery = $.jsonp({
+    var targetQuery = $.ajax({
         url: this.baseURL + '/target',
         cache: true,
-        callbackParameter: "_callback",
         data: {
             _format: "json",
             uri: targetUri,
             app_id: appID,
             app_key: appKey
         },
-        success: function(response, status, request) {
-            callback.call(this, true, 200, response.result.primaryTopic);
-        },
-        // no status codes due to the nature of jsonp, just a failure message
-        error: function(options, status) {
-            callback.call(this, false);
+        statusCode: {
+            200: function(response, status, request) {
+                callback.call(this, true, 200, response.result.primaryTopic);   
+            },
+            404: function(request, status, error) {
+                callback.call(this, false, 404);
+            },
+            500: function(request, status, error) {
+                callback.call(this, false, 500);
+            }
         }
     });
 }
