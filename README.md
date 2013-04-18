@@ -10,9 +10,9 @@ Get your appID and appKey by registering at dev.openphacts.org
 ## Using the library
 JQuery must be loaded before the OPS.js library.  
 
-The following api calls can be executed:
+API call examples:
 
-1. Concept Wiki free text search
+### Concept Wiki free text search
 
 ```javascript
 var searcher = new Openphacts.ConceptWikiSearch("https://beta.openphacts.org");  
@@ -24,7 +24,7 @@ var callback=function(success, status, response){
 // limit to 20 results, species human (branch 4), with type set to compounds (uuid 07a800....)  
 searcher.byTag(appID, appKey, 'Aspirin', '20', '4', '07a84994-e464-4bbf-812a-a4b96fa3d197', callback);
 ```
-2. Compound information
+### Compound information
 
 ```javascript
 var searcher = new Openphacts.CompoundSearch("https://ops2.few.vu.nl");  
@@ -36,7 +36,7 @@ var callback=function(success, status, response){
 // compound uri is for Aspirin  
 searcher.fetchCompound(appID, appKey, 'http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', callback);
 ```
-3. Target information
+### Target information
 
 ```javascript
 var searcher = new Openphacts.TargetSearch("https://ops2.few.vu.nl");  
