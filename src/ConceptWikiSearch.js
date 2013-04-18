@@ -6,6 +6,7 @@ Openphacts.ConceptWikiSearch.prototype.byTag = function(appID, appKey, query, li
     var conceptWikiSearcher = $.jsonp({
         url: this.baseURL + "byTag",
         cache: true,
+        callbackParameter: "_callback",
         data: {
             q: query,
             limit: limit,
