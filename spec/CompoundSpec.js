@@ -15,7 +15,9 @@ describe("Compound search", function() {
       expect(searcher.fetchCompound).toHaveBeenCalled();
     });
     it("and return a response", function() {
-      var callback=function(response){
+      var callback=function(success, status, response){
+        expect(success).toEqual(true);
+        expect(status).toEqual(200);
         var compoundResult = searcher.parseCompoundResponse(response);
         expect(compoundResult.id).toBeDefined();
         expect(compoundResult.prefLabel).toBeDefined();
@@ -41,7 +43,6 @@ describe("Compound search", function() {
       searcher.fetchCompound(appID, appKey, 'http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', callback);
     });
     it("executes asynchronously", function() {
-      var searcher = new CompoundSearch("https://ops2.few.vu.nl");
       var callback = jasmine.createSpy();
       searcher.fetchCompound(appID, appKey, 'http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', callback);
       waitsFor(function() {
@@ -50,6 +51,12 @@ describe("Compound search", function() {
       runs(function() {
           expect(callback).toHaveBeenCalled();
       });
+    });
+    it("and handle errors", function() {
+      var callback=function(success){
+        expect(success).toEqual(false);
+      };
+      searcher.fetchCompound(appID, appKey, 'http://www.conceptwiki.org/concept/876876876', callback);
     });
   });
 });

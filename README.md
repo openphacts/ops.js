@@ -1,6 +1,6 @@
 # OPS.js
 
-OPS.js is a javascript based library for accessing the OpenPHACTS Linked Data API (LDA). It uses jquery to handle the asynchronous nature of the requests. OPS.js can be used to parse responses from the LDA.
+OPS.js is a javascript based library for accessing the OpenPHACTS Linked Data API (LDA). It uses jquery to handle the asynchronous nature of the requests. OPS.js can also be used to parse responses from the LDA.
 
 ## Dependencies
 JQuery 1.9.1  

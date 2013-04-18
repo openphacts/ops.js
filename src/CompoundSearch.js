@@ -3,19 +3,24 @@ function CompoundSearch(baseURL) {
 }
 
 CompoundSearch.prototype.fetchCompound = function(appID, appKey, compoundUri, callback) {
-    var compoundQuery = $.ajax({
+    var compoundQuery = $.jsonp({
         dataType: "jsonp",
-        url: this.baseURL + '/compound?_callback=?',
+        url: this.baseURL + '/compound',
         cache: true,
+        callbackParameter: "_callback",
         data: {
             _format: "json",
             uri: compoundUri,
             app_id: appID,
             app_key: appKey
+        },
+        dataType: "jsonp",
+        success: function(response, status, request) {
+            callback.call(this, true, 200, response.result.primaryTopic);
+        },
+        error: function(a, b, c) {
+            console.log(a, b, c);
         }
-    });
-    compoundQuery.success(function (response) {
-        callback.call(this, response.result.primaryTopic);
     });
 }
 
