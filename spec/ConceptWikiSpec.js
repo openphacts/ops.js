@@ -31,5 +31,11 @@ describe("Concept Wiki", function() {
           expect(callback).toHaveBeenCalled();
       });
     });
+    it("and handle errors", function() {
+      var callback=function(success, status){
+        expect(success).toEqual(false);
+      };
+      searcher.byTag(appID,appKey, 'Aspirin', '20', '4', '07a84994-e464-4b96fa3d197', callback);
+    });
   });
 });

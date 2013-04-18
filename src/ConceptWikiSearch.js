@@ -3,9 +3,8 @@ Openphacts.ConceptWikiSearch = function (baseURL) {
 }
 
 Openphacts.ConceptWikiSearch.prototype.byTag = function(appID, appKey, query, limit, branch, type, callback) {
-    var conceptWikiSearcher = $.ajax({
-        url: this.baseURL + "byTag?_callback=?",
-        dataType: "jsonp",
+    var conceptWikiSearcher = $.jsonp({
+        url: this.baseURL + "byTag",
         cache: true,
         data: {
             q: query,
@@ -14,10 +13,14 @@ Openphacts.ConceptWikiSearch.prototype.byTag = function(appID, appKey, query, li
             uuid: type,
             app_id: appID,
             app_key: appKey
+        },
+        success: function(response, status, request) {
+            callback.call(this, true, 200, response.result.primaryTopic.result);
+        },
+        // no status codes due to the nature of jsonp, just a failure message
+        error: function(options, status) {
+            callback.call(this, false);
         }
-    });
-    conceptWikiSearcher.success(function (response) {
-        callback.call(this, response.result.primaryTopic.result);
     });
 }
 
