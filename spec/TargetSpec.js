@@ -15,7 +15,7 @@ describe("Target search", function() {
       expect(searcher.fetchTarget).toHaveBeenCalled();
     });
     it("and return a response", function() {
-      var callback=function(response){
+      var callback=function(success, status, response){
         var result = searcher.parseTargetResponse(response);
         expect(result.id).toBeDefined();
         expect(result.cellularLocation).toBeDefined();
@@ -45,6 +45,12 @@ describe("Target search", function() {
       runs(function() {
           expect(callback).toHaveBeenCalled();
       });
+    });
+    it("and handle errors", function() {
+      var callback=function(success, status){
+        expect(success).toEqual(false);
+      };
+      searcher.fetchTarget(appID, appKey, 'http://www.conceptwiki.org/concept/876876876', callback);
     });
   });
 });

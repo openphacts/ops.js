@@ -3,19 +3,23 @@ Openphacts.CompoundSearch = function CompoundSearch(baseURL) {
 }
 
 Openphacts.CompoundSearch.prototype.fetchCompound = function(appID, appKey, compoundUri, callback) {
-    var compoundQuery = $.ajax({
-        dataType: "jsonp",
-        url: this.baseURL + '/compound?_callback=?',
+    var compoundQuery = $.jsonp({
+        url: this.baseURL + '/compound',
         cache: true,
+        callbackParameter: "_callback",
         data: {
             _format: "json",
             uri: compoundUri,
             app_id: appID,
             app_key: appKey
+        },
+        success: function(response, status, request) {
+            callback.call(this, true, 200, response.result.primaryTopic);
+        },
+        // no status codes due to the nature of jsonp, just a failure message
+        error: function(options, status) {
+            callback.call(this, false);
         }
-    });
-    compoundQuery.success(function (response) {
-        callback.call(this, response.result.primaryTopic);
     });
 }
 

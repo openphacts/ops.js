@@ -15,7 +15,9 @@ describe("Compound search", function() {
       expect(searcher.fetchCompound).toHaveBeenCalled();
     });
     it("and return a response", function() {
-      var callback=function(response){
+      var callback=function(success, status, response){
+        expect(success).toEqual(true);
+        expect(status).toEqual(200);
         var compoundResult = searcher.parseCompoundResponse(response);
         expect(compoundResult.id).toBeDefined();
         expect(compoundResult.prefLabel).toBeDefined();
@@ -49,6 +51,12 @@ describe("Compound search", function() {
       runs(function() {
           expect(callback).toHaveBeenCalled();
       });
+    });
+    it("and handle errors", function() {
+      var callback=function(success, status){
+        expect(success).toEqual(false);
+      };
+      searcher.fetchCompound(appID, appKey, 'http://www.conceptwiki.org/concept/876876876', callback);
     });
   });
 });
