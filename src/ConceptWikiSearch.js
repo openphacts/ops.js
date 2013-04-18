@@ -3,10 +3,9 @@ Ops.ConceptWikiSearch = function (baseURL) {
 }
 
 Ops.ConceptWikiSearch.prototype.byTag = function(appID, appKey, query, limit, branch, type, callback) {
-    var conceptWikiSearcher = $.jsonp({
+    var conceptWikiSearcher = $.ajax({
         url: this.baseURL + "byTag",
         cache: true,
-        callbackParameter: "_callback",
         data: {
             q: query,
             limit: limit,
@@ -14,13 +13,6 @@ Ops.ConceptWikiSearch.prototype.byTag = function(appID, appKey, query, limit, br
             uuid: type,
             app_id: appID,
             app_key: appKey
-        },
-        success: function(response, status, request) {
-            callback.call(this, true, 200, response.result.primaryTopic.result);
-        },
-        // no status codes due to the nature of jsonp, just a failure message
-        error: function(options, status) {
-            callback.call(this, false);
         }
     });
 }
