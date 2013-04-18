@@ -53,7 +53,7 @@ describe("Compound search", function() {
       });
     });
     it("and handle errors", function() {
-      var callback=function(success){
+      var callback=function(success, status){
         expect(success).toEqual(false);
       };
       searcher.fetchCompound(appID, appKey, 'http://www.conceptwiki.org/concept/876876876', callback);

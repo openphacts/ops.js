@@ -4,7 +4,6 @@ function CompoundSearch(baseURL) {
 
 CompoundSearch.prototype.fetchCompound = function(appID, appKey, compoundUri, callback) {
     var compoundQuery = $.jsonp({
-        dataType: "jsonp",
         url: this.baseURL + '/compound',
         cache: true,
         callbackParameter: "_callback",
@@ -14,12 +13,12 @@ CompoundSearch.prototype.fetchCompound = function(appID, appKey, compoundUri, ca
             app_id: appID,
             app_key: appKey
         },
-        dataType: "jsonp",
         success: function(response, status, request) {
             callback.call(this, true, 200, response.result.primaryTopic);
         },
-        error: function(a, b, c) {
-            console.log(a, b, c);
+        // no status codes due to the nature of jsonp, just a failure message
+        error: function(options, status) {
+            callback.call(this, false);
         }
     });
 }
