@@ -14,16 +14,11 @@ Openphacts.ConceptWikiSearch.prototype.byTag = function(appID, appKey, query, li
             app_id: appID,
             app_key: appKey
         },
-        statusCode: {
-            200: function(response, status, request) {
-                callback.call(this, true, 200, response.result.primaryTopic.result);   
-            },
-            404: function(request, status, error) {
-                callback.call(this, false, 404);
-            },
-            500: function(request, status, error) {
-                callback.call(this, false, 500);
-            }
+        success: function(response, status, request) {
+            callback.call(this, true, request.status, response.result.primaryTopic.result);   
+        },
+        error: function(request, status, error) {
+            callback.call(this, false, request.status);
         }
     });
 }
