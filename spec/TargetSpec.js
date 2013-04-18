@@ -2,7 +2,7 @@ describe("Target search", function() {
   var searcher, appID, appKey;
 
   beforeEach(function() {
-      searcher = new TargetSearch("https://ops2.few.vu.nl");
+      searcher = new Openphacts.TargetSearch("https://ops2.few.vu.nl");
       appID = $.url().param('app_id');
       appKey = $.url().param('app_key');
   });
@@ -37,7 +37,6 @@ describe("Target search", function() {
       searcher.fetchTarget(appID, appKey, 'http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', callback);
     });
     it("executes asynchronously", function() {
-      var searcher = new TargetSearch("https://ops2.few.vu.nl");
       var callback = jasmine.createSpy();
       searcher.fetchTarget(appID, appKey, 'http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', callback);
       waitsFor(function() {

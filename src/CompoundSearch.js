@@ -1,8 +1,8 @@
-function CompoundSearch(baseURL) {
+Openphacts.CompoundSearch = function CompoundSearch(baseURL) {
     this.baseURL = baseURL;
 }
 
-CompoundSearch.prototype.fetchCompound = function(appID, appKey, compoundUri, callback) {
+Openphacts.CompoundSearch.prototype.fetchCompound = function(appID, appKey, compoundUri, callback) {
     var compoundQuery = $.ajax({
         dataType: "jsonp",
         url: this.baseURL + '/compound?_callback=?',
@@ -19,7 +19,7 @@ CompoundSearch.prototype.fetchCompound = function(appID, appKey, compoundUri, ca
     });
 }
 
-CompoundSearch.prototype.parseCompoundResponse = function(response) {
+Openphacts.CompoundSearch.prototype.parseCompoundResponse = function(response) {
     var drugbankData, chemspiderData, chemblData;
     var cwUri = response["_about"];
     var id = cwUri.split("/").pop();

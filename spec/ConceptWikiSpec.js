@@ -2,7 +2,7 @@ describe("Concept Wiki", function() {
   var searcher, appID, appKey;
 
   beforeEach(function() {
-    searcher = new Ops.ConceptWikiSearch("https://ops2.few.vu.nl/search/");
+    searcher = new Openphacts.ConceptWikiSearch("https://ops2.few.vu.nl/search/");
     appID = $.url().param('app_id');
     appKey = $.url().param('app_key');
   });
@@ -30,12 +30,6 @@ describe("Concept Wiki", function() {
       runs(function() {
           expect(callback).toHaveBeenCalled();
       });
-    });
-    it("and handle errors", function() {
-      var callback=function(success, status){
-        expect(success).toEqual(false);
-      };
-      searcher.byTag(appID,appKey, 'Aspirin', '20', '4', '07a84994-e464-4ba-a4b96fa3d197', callback);
     });
   });
 });

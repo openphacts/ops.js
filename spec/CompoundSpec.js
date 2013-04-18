@@ -2,7 +2,7 @@ describe("Compound search", function() {
   var searcher, appID, appKey;
 
   beforeEach(function() {
-      searcher = new CompoundSearch("https://ops2.few.vu.nl");
+      searcher = new Openphacts.CompoundSearch("https://ops2.few.vu.nl");
       appID = $.url().param('app_id');
       appKey = $.url().param('app_key');
   });
@@ -41,7 +41,6 @@ describe("Compound search", function() {
       searcher.fetchCompound(appID, appKey, 'http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', callback);
     });
     it("executes asynchronously", function() {
-      var searcher = new CompoundSearch("https://ops2.few.vu.nl");
       var callback = jasmine.createSpy();
       searcher.fetchCompound(appID, appKey, 'http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', callback);
       waitsFor(function() {

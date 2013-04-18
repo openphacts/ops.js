@@ -1,8 +1,8 @@
-function TargetSearch(baseURL) {
+Openphacts.TargetSearch = function TargetSearch(baseURL) {
     this.baseURL = baseURL;
 }
 
-TargetSearch.prototype.fetchTarget = function(appID, appKey, targetUri, callback) {
+Openphacts.TargetSearch.prototype.fetchTarget = function(appID, appKey, targetUri, callback) {
     var targetQuery = $.ajax({
         dataType: "jsonp",
         url: this.baseURL + '/target?_callback=?',
@@ -19,7 +19,7 @@ TargetSearch.prototype.fetchTarget = function(appID, appKey, targetUri, callback
     });
 }
 
-TargetSearch.prototype.parseTargetResponse = function(response) {
+Openphacts.TargetSearch.prototype.parseTargetResponse = function(response) {
     var drugbankData, chemblData, uniprotData;
     var cwUri = response["_about"];
     var id = cwUri.split("/").pop();

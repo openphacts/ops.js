@@ -1,10 +1,11 @@
-Ops.ConceptWikiSearch = function (baseURL) {
+Openphacts.ConceptWikiSearch = function (baseURL) {
     this.baseURL = baseURL;
 }
 
-Ops.ConceptWikiSearch.prototype.byTag = function(appID, appKey, query, limit, branch, type, callback) {
+Openphacts.ConceptWikiSearch.prototype.byTag = function(appID, appKey, query, limit, branch, type, callback) {
     var conceptWikiSearcher = $.ajax({
-        url: this.baseURL + "byTag",
+        url: this.baseURL + "byTag?_callback=?",
+        dataType: "jsonp",
         cache: true,
         data: {
             q: query,
@@ -15,9 +16,12 @@ Ops.ConceptWikiSearch.prototype.byTag = function(appID, appKey, query, limit, br
             app_key: appKey
         }
     });
+    conceptWikiSearcher.success(function (response) {
+        callback.call(this, response.result.primaryTopic.result);
+    });
 }
 
-Ops.ConceptWikiSearch.prototype.parseResponse = function(response) {
+Openphacts.ConceptWikiSearch.prototype.parseResponse = function(response) {
     var uris = [];
 
     $.each(response, function (i, match) {
