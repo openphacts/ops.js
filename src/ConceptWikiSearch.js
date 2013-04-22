@@ -28,10 +28,10 @@ Openphacts.ConceptWikiSearch.prototype.parseResponse = function(response) {
     //response can be either array or singleton.
     if (response instanceof Array) {
         $.each(response, function (i, match) {
-            uris.push(match["_about"]);
+            uris.push({'uri': match["_about"], 'prefLabel': match["prefLabel"], 'match': match["match"]});
         });
     } else {
-        uris.push(response["_about"]);
+        uris.push({'uri': response["_about"], 'prefLabel': response["prefLabel"], 'match': response["match"]});
     }
     return uris;
 }

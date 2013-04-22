@@ -25,6 +25,9 @@ describe("Concept Wiki", function() {
       var callback=function(success, status, response){
         var result = searcher.parseResponse(response);
         expect(result[0]).toBeDefined();
+        expect(result[0].uri).toBeDefined();
+        expect(result[0].prefLabel).toBeDefined();
+        expect(result[0].match).toBeDefined();
       };
       searcher.byTag(appID,appKey, 'Aspirin', '20', '3', 'eeaec894-d856-4106-9fa1-662b1dc6c6f1', callback);
     });
