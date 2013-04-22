@@ -4,8 +4,7 @@ OPS.js is a javascript based library for accessing the OpenPHACTS Linked Data AP
 
 ## Dependencies
 JQuery 1.9.1  
-JQuery-jsonp (https://github.com/jaubourg/jquery-jsonp)  
-Get your appID and appKey by registering at dev.openphacts.org
+Get your openphacts api appID and appKey by registering at dev.openphacts.org
 
 ## Using the library
 JQuery must be loaded before the OPS.js library.  
