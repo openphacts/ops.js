@@ -41,12 +41,16 @@ Openphacts.TargetSearch.prototype.parseTargetResponse = function(response) {
                 });
             } else if (exactMatch["_about"].indexOf("http://purl.uniprot.org") !== -1) {
                 uniprotData = exactMatch;
-                $.each(uniprotData.classifiedWith, function(j, classified) {
-                    classifiedWith.push(classified);
-                });
-                $.each(uniprotData.seeAlso, function(j, see) {
-                    seeAlso.push(see);
-                });
+                if (uniprotData.classifiedWith) {
+                    $.each(uniprotData.classifiedWith, function(j, classified) {
+                        classifiedWith.push(classified);
+                    });
+                }
+                if (uniprotData.seeAlso) {
+                    $.each(uniprotData.seeAlso, function(j, see) {
+                        seeAlso.push(see);
+                    });
+                }
             }
         }
     });

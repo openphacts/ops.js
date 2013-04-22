@@ -36,6 +36,15 @@ describe("Target search", function() {
       };
       searcher.fetchTarget(appID, appKey, 'http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', callback);
     });
+    it("can handle singleton response", function() {
+      var callback=function(success, status, response){
+        var result = searcher.parseTargetResponse(response);
+        expect(result.organism).toBeDefined();
+        expect(success).toEqual(true);
+        expect(status).toEqual(200);
+      };
+      searcher.fetchTarget(appID, appKey, 'http://www.conceptwiki.org/concept/9e4b292d-5906-42f1-a4c1-1a48b5907242', callback);
+    });
     it("executes asynchronously", function() {
       var callback = jasmine.createSpy();
       searcher.fetchTarget(appID, appKey, 'http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', callback);
