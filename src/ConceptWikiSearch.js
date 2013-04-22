@@ -4,7 +4,7 @@ Openphacts.ConceptWikiSearch = function (baseURL) {
 
 Openphacts.ConceptWikiSearch.prototype.byTag = function(appID, appKey, query, limit, branch, type, callback) {
     var conceptWikiSearcher = $.ajax({
-        url: this.baseURL + "byTag",
+        url: this.baseURL + "/search/byTag",
         cache: true,
         data: {
             q: query,
@@ -25,9 +25,13 @@ Openphacts.ConceptWikiSearch.prototype.byTag = function(appID, appKey, query, li
 
 Openphacts.ConceptWikiSearch.prototype.parseResponse = function(response) {
     var uris = [];
-
-    $.each(response, function (i, match) {
-        uris.push(match["_about"]);
-    });
+    //response can be either array or singleton.
+    if (response instanceof Array) {
+        $.each(response, function (i, match) {
+            uris.push(match["_about"]);
+        });
+    } else {
+        uris.push(response["_about"]);
+    }
     return uris;
 }
