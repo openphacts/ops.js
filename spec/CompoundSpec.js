@@ -2,7 +2,7 @@ describe("Compound search", function() {
   var searcher, appID, appKey;
 
   beforeEach(function() {
-      searcher = new Openphacts.CompoundSearch("https://ops2.few.vu.nl");
+      searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org");
       appID = $.url().param('app_id');
       appKey = $.url().param('app_key');
   });

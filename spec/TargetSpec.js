@@ -2,7 +2,7 @@ describe("Target search", function() {
   var searcher, appID, appKey;
 
   beforeEach(function() {
-      searcher = new Openphacts.TargetSearch("https://ops2.few.vu.nl");
+      searcher = new Openphacts.TargetSearch("https://beta.openphacts.org");
       appID = $.url().param('app_id');
       appKey = $.url().param('app_key');
   });
