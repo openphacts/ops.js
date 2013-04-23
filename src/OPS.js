@@ -1,1 +1,1 @@
-var Openphacts= Openphacts || {};
+var Openphacts = Openphacts || {};
