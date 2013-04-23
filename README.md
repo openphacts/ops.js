@@ -23,6 +23,30 @@ var callback=function(success, status, response){
 // limit to 20 results, species human (branch 4), with type set to compounds (uuid 07a800....)  
 searcher.byTag(appID, appKey, 'Aspirin', '20', '4', '07a84994-e464-4bbf-812a-a4b96fa3d197', callback);
 ```
+### Concept Wiki compound search
+
+```javascript
+var searcher = new Openphacts.ConceptWikiSearch("https://beta.openphacts.org");  
+var callback=function(success, status, response){  
+    searcher.parseResponse(response);
+};  
+// success is 'true' or 'false', status is the http status code, response is the raw result which the parser function accepts  
+// response will be null in the case of errors  
+// limit to 20 results, species human (branch 4), no uri for the type is required  
+searcher.findCompounds(appID, appKey, 'Aspirin', '20', '4', callback);
+```
+### Concept Wiki target search
+
+```javascript
+var searcher = new Openphacts.ConceptWikiSearch("https://beta.openphacts.org");  
+var callback=function(success, status, response){  
+    searcher.parseResponse(response);
+};  
+// success is 'true' or 'false', status is the http status code, response is the raw result which the parser function accepts  
+// response will be null in the case of errors  
+// limit to 20 results, swissprot results (branch 3), no uri for the type is required  
+searcher.findTargets(appID, appKey, 'PDE5', '20', '3', callback);
+```
 ### Compound information
 
 ```javascript
