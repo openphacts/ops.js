@@ -73,7 +73,6 @@ describe("Compound search", function() {
         expect(status).toEqual(200);
         var compoundResult = searcher.parseCompoundPharmacologyResponse(response);
         expect(compoundResult[0]).toBeDefined();
-        expect(compoundResult[0].id).toBeDefined();
         expect(compoundResult[0].csid).toBeDefined();
       };
       searcher.compoundPharmacology(appID, appKey, 'http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', 1, 20, callback);

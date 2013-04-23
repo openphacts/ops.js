@@ -72,8 +72,8 @@ describe("Target search", function() {
     });
     it("and return a response", function() {
       var callback=function(success, status, response){
-        var result = searcher.parseTargetResponse(response);
-        expect(result[0].id).toBeDefined();
+        var result = searcher.parseTargetPharmacologyResponse(response);
+        expect(result[0].csid).toBeDefined();
       };
       searcher.targetPharmacology(appID, appKey, 'http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', 1, 20, callback);
     });

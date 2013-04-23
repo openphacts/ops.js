@@ -203,9 +203,7 @@ Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyResponse = function
         activity_standard_value_item = chemblActivityLink;
         activity_standard_units_item = chemblActivityLink;
         activity_relation_item = chemblActivityLink;
-        id = cw_compound_uri.split("/").pop();
         records.push({
-	        id: id,
 	        //for compound
 	        compound_inchikey:compound_inchikey,
 	        compound_drug_type:compound_drug_type,
