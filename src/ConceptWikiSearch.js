@@ -105,12 +105,14 @@ Openphacts.ConceptWikiSearch.prototype.findConcept = function(appID, appKey, uui
 }
 
 Openphacts.ConceptWikiSearch.prototype.parseFindConceptResponse = function(response) {
-    var prefLabel = response.prefLabel_en;
-    var definition = response.definition;
-    var altLabels = [];
-    $.each(response.altLabel_en, function(index, altLabel) {
-	    altLabels.push(altLabel);
-    });
+	var prefLabel = response.prefLabel_en;
+	var definition = response.definition;
+	var altLabels = [];
+	if (response.altLabel_en) {
+		$.each(response.altLabel_en, function(index, altLabel) {
+			altLabels.push(altLabel);
+		});
+	}
 	return {
 		prefLabel: prefLabel,
 		definition: definition,
