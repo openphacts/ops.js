@@ -35,15 +35,39 @@ var callback=function(success, status, response){
 // compound uri is for Aspirin  
 searcher.fetchCompound(appID, appKey, 'http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', callback);
 ```
+### Compound Pharmacology
+
+```javascript
+var searcher = new Openphacts.CompoundSearch("https://ops2.few.vu.nl");  
+var callback=function(success, status, response){  
+    var compoundResult = searcher.parseCompoundPharmacologyResponse(response);  
+};  
+// success is 'true' or 'false', status is the http status code, response is the raw result which the parser function accepts  
+// response will be null in the case of errors  
+// compound uri is for Aspirin, page 1, 20 results per page  
+searcher.compoundPharmacology(appID, appKey, 'http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', 1, 20, callback);
+```
 ### Target information
 
 ```javascript
-var searcher = new Openphacts.TargetSearch("https://ops2.few.vu.nl");  
+var searcher = new Openphacts.TargetSearch("https://ops2.few.vu.nl");
+var callback=function(success, status, response){  
+    var result = searcher.parseTargetResponse(response);  
+};
 searcher.fetchTarget(appID, appKey, 'http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', callback);  
 // success is 'true' or 'false', status is the http status code, response is the raw result which the parser function accepts  
 // response will be null in the case of errors  
 // target uri is for cGMP-specific 3',5'-cyclic phosphodiesterase (Homo sapiens)  
+```
+### Target Pharmacology
+
+```javascript
+var searcher = new Openphacts.TargetSearch("https://ops2.few.vu.nl");  
 var callback=function(success, status, response){  
-    var result = searcher.parseTargetResponse(response);  
+    var result = searcher.parseTargetPharmacologyResponse(response);  
 };
+searcher.targetPharmacology(appID, appKey, 'http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', 1, 20, callback);  
+// success is 'true' or 'false', status is the http status code, response is the raw result which the parser function accepts  
+// response will be null in the case of errors  
+// target uri is for cGMP-specific 3',5'-cyclic phosphodiesterase (Homo sapiens), page 1, 20 results per page  
 ```
