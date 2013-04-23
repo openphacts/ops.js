@@ -127,4 +127,38 @@ describe("Concept Wiki", function() {
       searcher.findTargets(appID,appKey, 'PDE5', '-1', '-1', callback);
     });
   });
+  describe("find a single concept", function() {
+
+    it("can be executed", function() {
+      spyOn(searcher, 'findConcept');
+      searcher.findConcept('a','b', 'c', 'd', 'e', 'f', 'h');
+      expect(searcher.findConcept).toHaveBeenCalled();
+    });
+    it("and return a response", function() {
+      var callback=function(success, status, response){
+        var result = searcher.parseFindConceptResponse(response);
+        expect(result.altLabels).toBeDefined();
+        expect(result.prefLabel).toBeDefined();
+        expect(result.definition).toBeDefined();
+      };
+      searcher.findConcept(appID, appKey, '8e3a87ae-345d-4c25-bd7a-5b3221c6e3fa', callback);
+    });
+    it("finds single concepts asynchronously", function() {
+      var callback=jasmine.createSpy();
+      searcher.findConcept(appID,appKey, '8e3a87ae-345d-4c25-bd7a-5b3221c6e3fa', callback);
+      waitsFor(function() {
+          return callback.callCount > 0;
+      });
+      runs(function() {
+          expect(callback).toHaveBeenCalled();
+      });
+    });
+    it("and handle errors", function() {
+      var callback=function(success, status){
+        expect(success).toEqual(false);
+        expect(status).toEqual(500);
+      };
+      searcher.findConcept(appID,appKey, '07a84994-e464-4b96fa3d197', callback);
+    });
+  });
 });

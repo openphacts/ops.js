@@ -85,3 +85,35 @@ Openphacts.ConceptWikiSearch.prototype.parseResponse = function(response) {
 	}
 	return uris;
 }
+
+Openphacts.ConceptWikiSearch.prototype.findConcept = function(appID, appKey, uuid, callback) {
+	var conceptWikiSearcher = $.ajax({
+		url: this.baseURL + "/getConceptDescription",
+		cache: true,
+		data: {
+			uuid: uuid,
+			app_id: appID,
+			app_key: appKey
+		},
+		success: function(response, status, request) {
+			callback.call(this, true, request.status, response.result.primaryTopic);
+		},
+		error: function(request, status, error) {
+			callback.call(this, false, request.status);
+		}
+	});
+}
+
+Openphacts.ConceptWikiSearch.prototype.parseFindConceptResponse = function(response) {
+    var prefLabel = response.prefLabel_en;
+    var definition = response.definition;
+    var altLabels = [];
+    $.each(response.altLabel_en, function(index, altLabel) {
+	    altLabels.push(altLabel);
+    });
+	return {
+		prefLabel: prefLabel,
+		definition: definition,
+		altLabels: altLabels
+	};
+}

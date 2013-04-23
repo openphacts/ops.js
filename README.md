@@ -47,6 +47,18 @@ var callback=function(success, status, response){
 // limit to 20 results, swissprot results (branch 3), no uri for the type is required  
 searcher.findTargets(appID, appKey, 'PDE5', '20', '3', callback);
 ```
+### Concept Wiki find single concept
+
+```javascript
+var searcher = new Openphacts.ConceptWikiSearch("https://beta.openphacts.org");  
+var callback=function(success, status, response){  
+    searcher.parseFindConceptResponse(response);
+};  
+// success is 'true' or 'false', status is the http status code, response is the raw result which the parser function accepts  
+// response will be null in the case of errors  
+// search with uuid for Malaria  
+searcher.findConcept(appID, appKey, '8e3a87ae-345d-4c25-bd7a-5b3221c6e3fa', callback);
+```
 ### Compound information
 
 ```javascript
