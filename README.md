@@ -26,7 +26,7 @@ searcher.byTag(appID, appKey, 'Aspirin', '20', '4', '07a84994-e464-4bbf-812a-a4b
 ### Compound information
 
 ```javascript
-var searcher = new Openphacts.CompoundSearch("https://ops2.few.vu.nl");  
+var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org");  
 var callback=function(success, status, response){  
     var compoundResult = searcher.parseCompoundResponse(response);  
 };  
@@ -38,7 +38,7 @@ searcher.fetchCompound(appID, appKey, 'http://www.conceptwiki.org/concept/389325
 ### Compound Pharmacology
 
 ```javascript
-var searcher = new Openphacts.CompoundSearch("https://ops2.few.vu.nl");  
+var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org");  
 var callback=function(success, status, response){  
     var compoundResult = searcher.parseCompoundPharmacologyResponse(response);  
 };  
@@ -50,7 +50,7 @@ searcher.compoundPharmacology(appID, appKey, 'http://www.conceptwiki.org/concept
 ### Target information
 
 ```javascript
-var searcher = new Openphacts.TargetSearch("https://ops2.few.vu.nl");
+var searcher = new Openphacts.TargetSearch("https://beta.openphacts.org");
 var callback=function(success, status, response){  
     var result = searcher.parseTargetResponse(response);  
 };
@@ -62,7 +62,7 @@ searcher.fetchTarget(appID, appKey, 'http://www.conceptwiki.org/concept/b932a1ed
 ### Target Pharmacology
 
 ```javascript
-var searcher = new Openphacts.TargetSearch("https://ops2.few.vu.nl");  
+var searcher = new Openphacts.TargetSearch("https://beta.openphacts.org");  
 var callback=function(success, status, response){  
     var result = searcher.parseTargetPharmacologyResponse(response);  
 };
