@@ -63,5 +63,36 @@ describe("Target search", function() {
       searcher.fetchTarget(appID, appKey, 'http://www.conceptwiki.org/concept/876876876', callback);
     });
   });
-});
+  describe("target pharmacology search", function() {
 
+    it("can be executed", function() {
+      spyOn(searcher, 'targetPharmacology');
+      searcher.targetPharmacology('a','b', 'c', 'd', 'e', 'f');
+      expect(searcher.targetPharmacology).toHaveBeenCalled();
+    });
+    it("and return a response", function() {
+      var callback=function(success, status, response){
+        var result = searcher.parseTargetResponse(response);
+        expect(result[0].id).toBeDefined();
+      };
+      searcher.targetPharmacology(appID, appKey, 'http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', 1, 20, callback);
+    });
+    it("executes asynchronously", function() {
+      var callback = jasmine.createSpy();
+      searcher.targetPharmacology(appID, appKey, 'http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', 1, 20, callback);
+      waitsFor(function() {
+          return callback.callCount > 0;
+      });
+      runs(function() {
+          expect(callback).toHaveBeenCalled();
+      });
+    });
+    it("and handle errors", function() {
+      var callback=function(success, status){
+        expect(success).toEqual(false);
+        expect(status).toEqual(404);
+      };
+      searcher.targetPharmacology(appID, appKey, 'http://www.conceptwiki.org/concept/876876876', 1, 20, callback);
+    });
+  });
+});

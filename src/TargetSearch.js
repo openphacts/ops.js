@@ -21,6 +21,27 @@ Openphacts.TargetSearch.prototype.fetchTarget = function(appID, appKey, targetUr
     });
 }
 
+Openphacts.TargetSearch.prototype.targetPharmacology = function(appID, appKey, targetUri, page, pageSize, callback) {
+    var targetQuery = $.ajax({
+        url: this.baseURL + '/target/pharmacology/pages',
+        cache: true,
+        data: {
+            _format: "json",
+            _page: page,
+            _pageSize: pageSize,
+            uri: targetUri,
+            app_id: appID,
+            app_key: appKey
+        },
+        success: function(response, status, request) {
+            callback.call(this, true, request.status, response.result.primaryTopic);   
+        },
+        error: function(request, status, error) {
+            callback.call(this, false, request.status);
+        }
+    });
+}
+
 Openphacts.TargetSearch.prototype.parseTargetResponse = function(response) {
     var drugbankData, chemblData, uniprotData;
     var cwUri = response["_about"];
@@ -72,4 +93,8 @@ Openphacts.TargetSearch.prototype.parseTargetResponse = function(response) {
         classifiedWith: classifiedWith,
         seeAlso: seeAlso
     };
+}
+
+Openphacts.TargetSearch.prototype.parseTargetPharmacologyResponse = function(response) {
+    return null;
 }
