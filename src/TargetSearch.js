@@ -1,16 +1,18 @@
-Openphacts.TargetSearch = function TargetSearch(baseURL) {
+Openphacts.TargetSearch = function TargetSearch(baseURL, appID, appKey) {
 	this.baseURL = baseURL;
+	this.appID = appID;
+	this.appKey = appKey;
 }
 
-Openphacts.TargetSearch.prototype.fetchTarget = function(appID, appKey, targetUri, callback) {
+Openphacts.TargetSearch.prototype.fetchTarget = function(targetURI, callback) {
 	var targetQuery = $.ajax({
 		url: this.baseURL + '/target',
 		cache: true,
 		data: {
 			_format: "json",
-			uri: targetUri,
-			app_id: appID,
-			app_key: appKey
+			uri: targetURI,
+			app_id: this.appID,
+			app_key: this.appKey
 		},
 		success: function(response, status, request) {
 			callback.call(this, true, request.status, response.result.primaryTopic);
@@ -21,7 +23,7 @@ Openphacts.TargetSearch.prototype.fetchTarget = function(appID, appKey, targetUr
 	});
 }
 
-Openphacts.TargetSearch.prototype.targetPharmacology = function(appID, appKey, targetUri, page, pageSize, callback) {
+Openphacts.TargetSearch.prototype.targetPharmacology = function(targetURI, page, pageSize, callback) {
 	var targetQuery = $.ajax({
 		url: this.baseURL + '/target/pharmacology/pages',
 		cache: true,
@@ -29,9 +31,9 @@ Openphacts.TargetSearch.prototype.targetPharmacology = function(appID, appKey, t
 			_format: "json",
 			_page: page,
 			_pageSize: pageSize,
-			uri: targetUri,
-			app_id: appID,
-			app_key: appKey
+			uri: targetURI,
+			app_id: this.appID,
+			app_key: this.appKey
 		},
 		success: function(response, status, request) {
 			callback.call(this, true, request.status, response.result);

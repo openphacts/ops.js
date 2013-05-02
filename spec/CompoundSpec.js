@@ -2,16 +2,16 @@ describe("Compound search", function() {
   var searcher, appID, appKey;
 
   beforeEach(function() {
-      searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org");
       appID = $.url().param('app_id');
       appKey = $.url().param('app_key');
+      searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org", appID, appKey);
   });
 
   describe("single compound search", function() {
 
     it("can be executed", function() {
       spyOn(searcher, 'fetchCompound');
-      searcher.fetchCompound('a','b', 'c', 'd');
+      searcher.fetchCompound('compoundURI', 'callback');
       expect(searcher.fetchCompound).toHaveBeenCalled();
     });
     it("and return a response", function() {
@@ -40,11 +40,11 @@ describe("Compound search", function() {
         expect(compoundResult.mwFreebase).toBeDefined();
         expect(compoundResult.rtb).toBeDefined();
       };
-      searcher.fetchCompound(appID, appKey, 'http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', callback);
+      searcher.fetchCompound('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', callback);
     });
     it("executes asynchronously", function() {
       var callback = jasmine.createSpy();
-      searcher.fetchCompound(appID, appKey, 'http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', callback);
+      searcher.fetchCompound('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', callback);
       waitsFor(function() {
           return callback.callCount > 0;
       });
@@ -57,14 +57,14 @@ describe("Compound search", function() {
         expect(success).toEqual(false);
         expect(status).toEqual(404);
       };
-      searcher.fetchCompound(appID, appKey, 'http://www.conceptwiki.org/concept/876876876', callback);
+      searcher.fetchCompound('http://www.conceptwiki.org/concept/876876876', callback);
     });
   });
   describe("compound pharmacology search", function() {
 
     it("can be executed", function() {
       spyOn(searcher, 'compoundPharmacology');
-      searcher.compoundPharmacology('a','b', 'c', 'd', 'e', 'f');
+      searcher.compoundPharmacology('compoundURI', 'page', 'pageSize', 'callback');
       expect(searcher.compoundPharmacology).toHaveBeenCalled();
     });
     it("and return a response", function() {
@@ -75,11 +75,11 @@ describe("Compound search", function() {
         expect(compoundResult[0]).toBeDefined();
         expect(compoundResult[0].csid).toBeDefined();
       };
-      searcher.compoundPharmacology(appID, appKey, 'http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', 1, 20, callback);
+      searcher.compoundPharmacology('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', 1, 20, callback);
     });
     it("executes asynchronously", function() {
       var callback = jasmine.createSpy();
-      searcher.compoundPharmacology(appID, appKey, 'http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', 1, 20, callback);
+      searcher.compoundPharmacology('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', 1, 20, callback);
       waitsFor(function() {
           return callback.callCount > 0;
       });
@@ -92,7 +92,7 @@ describe("Compound search", function() {
         expect(success).toEqual(false);
         expect(status).toEqual(404);
       };
-      searcher.compoundPharmacology(appID, appKey, 'http://www.conceptwiki.org/concept/876876876', 1, 20, callback);
+      searcher.compoundPharmacology('http://www.conceptwiki.org/concept/876876876', 1, 20, callback);
     });
   });
 });

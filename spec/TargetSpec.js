@@ -2,16 +2,16 @@ describe("Target search", function() {
   var searcher, appID, appKey;
 
   beforeEach(function() {
-      searcher = new Openphacts.TargetSearch("https://beta.openphacts.org");
       appID = $.url().param('app_id');
       appKey = $.url().param('app_key');
+      searcher = new Openphacts.TargetSearch("https://beta.openphacts.org", appID, appKey);
   });
 
   describe("single target search", function() {
 
     it("can be executed", function() {
       spyOn(searcher, 'fetchTarget');
-      searcher.fetchTarget('a','b', 'c', 'd');
+      searcher.fetchTarget('compound','callback');
       expect(searcher.fetchTarget).toHaveBeenCalled();
     });
     it("and return a response", function() {
@@ -34,7 +34,7 @@ describe("Target search", function() {
         expect(result.seeAlso).toBeDefined();
         expect(result.drugbankURI).toBeDefined();
       };
-      searcher.fetchTarget(appID, appKey, 'http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', callback);
+      searcher.fetchTarget('http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', callback);
     });
     it("can handle singleton response", function() {
       var callback=function(success, status, response){
@@ -43,11 +43,11 @@ describe("Target search", function() {
         expect(success).toEqual(true);
         expect(status).toEqual(200);
       };
-      searcher.fetchTarget(appID, appKey, 'http://www.conceptwiki.org/concept/9e4b292d-5906-42f1-a4c1-1a48b5907242', callback);
+      searcher.fetchTarget('http://www.conceptwiki.org/concept/9e4b292d-5906-42f1-a4c1-1a48b5907242', callback);
     });
     it("executes asynchronously", function() {
       var callback = jasmine.createSpy();
-      searcher.fetchTarget(appID, appKey, 'http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', callback);
+      searcher.fetchTarget('http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', callback);
       waitsFor(function() {
           return callback.callCount > 0;
       });
@@ -60,14 +60,14 @@ describe("Target search", function() {
         expect(success).toEqual(false);
         expect(status).toEqual(404);
       };
-      searcher.fetchTarget(appID, appKey, 'http://www.conceptwiki.org/concept/876876876', callback);
+      searcher.fetchTarget('http://www.conceptwiki.org/concept/876876876', callback);
     });
   });
   describe("target pharmacology search", function() {
 
     it("can be executed", function() {
       spyOn(searcher, 'targetPharmacology');
-      searcher.targetPharmacology('a','b', 'c', 'd', 'e', 'f');
+      searcher.targetPharmacology('targetURI','page', 'pageSize', 'callback');
       expect(searcher.targetPharmacology).toHaveBeenCalled();
     });
     it("and return a response", function() {
@@ -75,11 +75,11 @@ describe("Target search", function() {
         var result = searcher.parseTargetPharmacologyResponse(response);
         expect(result[0].csid).toBeDefined();
       };
-      searcher.targetPharmacology(appID, appKey, 'http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', 1, 20, callback);
+      searcher.targetPharmacology('http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', 1, 20, callback);
     });
     it("executes asynchronously", function() {
       var callback = jasmine.createSpy();
-      searcher.targetPharmacology(appID, appKey, 'http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', 1, 20, callback);
+      searcher.targetPharmacology('http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', 1, 20, callback);
       waitsFor(function() {
           return callback.callCount > 0;
       });
@@ -92,7 +92,7 @@ describe("Target search", function() {
         expect(success).toEqual(false);
         expect(status).toEqual(404);
       };
-      searcher.targetPharmacology(appID, appKey, 'http://www.conceptwiki.org/concept/876876876', 1, 20, callback);
+      searcher.targetPharmacology('http://www.conceptwiki.org/concept/876876876', 1, 20, callback);
     });
   });
 });

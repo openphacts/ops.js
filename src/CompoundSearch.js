@@ -1,16 +1,18 @@
-Openphacts.CompoundSearch = function CompoundSearch(baseURL) {
+Openphacts.CompoundSearch = function CompoundSearch(baseURL, appID, appKey) {
 	this.baseURL = baseURL;
+	this.appID = appID;
+	this.appKey = appKey;
 }
 
-Openphacts.CompoundSearch.prototype.fetchCompound = function(appID, appKey, compoundUri, callback) {
+Openphacts.CompoundSearch.prototype.fetchCompound = function(compoundURI, callback) {
 	var compoundQuery = $.ajax({
 		url: this.baseURL + '/compound',
 		cache: true,
 		data: {
 			_format: "json",
-			uri: compoundUri,
-			app_id: appID,
-			app_key: appKey
+			uri: compoundURI,
+			app_id: this.appID,
+			app_key: this.appKey
 		},
 		success: function(response, status, request) {
 			callback.call(this, true, request.status, response.result.primaryTopic);
@@ -21,7 +23,7 @@ Openphacts.CompoundSearch.prototype.fetchCompound = function(appID, appKey, comp
 	});
 }
 
-Openphacts.CompoundSearch.prototype.compoundPharmacology = function(appID, appKey, compoundUri, page, pageSize, callback) {
+Openphacts.CompoundSearch.prototype.compoundPharmacology = function(compoundURI, page, pageSize, callback) {
 	var compoundQuery = $.ajax({
 		url: this.baseURL + '/compound/pharmacology/pages',
 		cache: true,
@@ -29,9 +31,9 @@ Openphacts.CompoundSearch.prototype.compoundPharmacology = function(appID, appKe
 			_format: "json",
 			_page: page,
 			_pageSize: pageSize,
-			uri: compoundUri,
-			app_id: appID,
-			app_key: appKey
+			uri: compoundURI,
+			app_id: this.appID,
+			app_key: this.appKey
 		},
 		success: function(response, status, request) {
 			callback.call(this, true, request.status, response.result);
