@@ -1,8 +1,10 @@
-Openphacts.ConceptWikiSearch = function(baseURL) {
+Openphacts.ConceptWikiSearch = function(baseURL, appID, appKey) {
 	this.baseURL = baseURL;
+	this.appID = appID;
+	this.appKey = appKey;
 }
 
-Openphacts.ConceptWikiSearch.prototype.byTag = function(appID, appKey, query, limit, branch, type, callback) {
+Openphacts.ConceptWikiSearch.prototype.byTag = function(query, limit, branch, type, callback) {
 	var conceptWikiSearcher = $.ajax({
 		url: this.baseURL + "/search/byTag",
 		cache: true,
@@ -11,8 +13,8 @@ Openphacts.ConceptWikiSearch.prototype.byTag = function(appID, appKey, query, li
 			limit: limit,
 			branch: branch,
 			uuid: type,
-			app_id: appID,
-			app_key: appKey
+			app_id: this.appID,
+			app_key: this.appKey
 		},
 		success: function(response, status, request) {
 			callback.call(this, true, request.status, response.result.primaryTopic.result);
@@ -23,7 +25,7 @@ Openphacts.ConceptWikiSearch.prototype.byTag = function(appID, appKey, query, li
 	});
 }
 
-Openphacts.ConceptWikiSearch.prototype.findCompounds = function(appID, appKey, query, limit, branch, callback) {
+Openphacts.ConceptWikiSearch.prototype.findCompounds = function(query, limit, branch, callback) {
 	var conceptWikiSearcher = $.ajax({
 		url: this.baseURL + "/search/byTag",
 		cache: true,
@@ -32,8 +34,8 @@ Openphacts.ConceptWikiSearch.prototype.findCompounds = function(appID, appKey, q
 			limit: limit,
 			branch: branch,
 			uuid: '07a84994-e464-4bbf-812a-a4b96fa3d197',
-			app_id: appID,
-			app_key: appKey
+			app_id: this.appID,
+			app_key: this.appKey
 		},
 		success: function(response, status, request) {
 			callback.call(this, true, request.status, response.result.primaryTopic.result);
@@ -44,7 +46,7 @@ Openphacts.ConceptWikiSearch.prototype.findCompounds = function(appID, appKey, q
 	});
 }
 
-Openphacts.ConceptWikiSearch.prototype.findTargets = function(appID, appKey, query, limit, branch, callback) {
+Openphacts.ConceptWikiSearch.prototype.findTargets = function(query, limit, branch, callback) {
 	var conceptWikiSearcher = $.ajax({
 		url: this.baseURL + "/search/byTag",
 		cache: true,
@@ -53,8 +55,8 @@ Openphacts.ConceptWikiSearch.prototype.findTargets = function(appID, appKey, que
 			limit: limit,
 			branch: branch,
 			uuid: 'eeaec894-d856-4106-9fa1-662b1dc6c6f1',
-			app_id: appID,
-			app_key: appKey
+			app_id: this.appID,
+			app_key: this.appKey
 		},
 		success: function(response, status, request) {
 			callback.call(this, true, request.status, response.result.primaryTopic.result);
@@ -86,14 +88,14 @@ Openphacts.ConceptWikiSearch.prototype.parseResponse = function(response) {
 	return uris;
 }
 
-Openphacts.ConceptWikiSearch.prototype.findConcept = function(appID, appKey, uuid, callback) {
+Openphacts.ConceptWikiSearch.prototype.findConcept = function(uuid, callback) {
 	var conceptWikiSearcher = $.ajax({
 		url: this.baseURL + "/getConceptDescription",
 		cache: true,
 		data: {
 			uuid: uuid,
-			app_id: appID,
-			app_key: appKey
+			app_id: this.appID,
+			app_key: this.appKey
 		},
 		success: function(response, status, request) {
 			callback.call(this, true, request.status, response.result.primaryTopic);
