@@ -15,31 +15,41 @@ describe("Compound search", function() {
       expect(searcher.fetchCompound).toHaveBeenCalled();
     });
     it("and return a response", function() {
+      var this_success = null;
+      var this_status = null;
+      var this_result = null;
       var callback=function(success, status, response){
-        expect(success).toEqual(true);
-        expect(status).toEqual(200);
-        var compoundResult = searcher.parseCompoundResponse(response);
-        expect(compoundResult.id).toBeDefined();
-        expect(compoundResult.prefLabel).toBeDefined();
-        expect(compoundResult.cwUri).toBeDefined();
-        expect(compoundResult.description).toBeDefined();
-        expect(compoundResult.biotransformationItem).toBeDefined();
-        expect(compoundResult.toxicity).toBeDefined();
-        expect(compoundResult.proteinBinding).toBeDefined();
-        expect(compoundResult.csUri).toBeDefined();
-        expect(compoundResult.hba).toBeDefined();
-        expect(compoundResult.hbd).toBeDefined();
-        expect(compoundResult.inchi).toBeDefined();
-        expect(compoundResult.logp).toBeDefined();
-        expect(compoundResult.psa).toBeDefined();
-        expect(compoundResult.ro5Violations).toBeDefined();
-        expect(compoundResult.smiles).toBeDefined();
-        expect(compoundResult.chemblURI).toBeDefined();
-        expect(compoundResult.fullMWT).toBeDefined();
-        expect(compoundResult.molform).toBeDefined();
-        expect(compoundResult.mwFreebase).toBeDefined();
-        expect(compoundResult.rtb).toBeDefined();
+        this_success = success;
+	this_status = status;
+        this_result = searcher.parseCompoundResponse(response);
       };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+	expect(this_success).toBe(true);
+	expect(this_status).toBe(200);
+        expect(this_result.id).toBeDefined();
+        expect(this_result.prefLabel).toBeDefined();
+        expect(this_result.cwUri).toBeDefined();
+        expect(this_result.description).toBeDefined();
+        expect(this_result.biotransformationItem).toBeDefined();
+        expect(this_result.toxicity).toBeDefined();
+        expect(this_result.proteinBinding).toBeDefined();
+        expect(this_result.csUri).toBeDefined();
+        expect(this_result.hba).toBeDefined();
+        expect(this_result.hbd).toBeDefined();
+        expect(this_result.inchi).toBeDefined();
+        expect(this_result.logp).toBeDefined();
+        expect(this_result.psa).toBeDefined();
+        expect(this_result.ro5Violations).toBeDefined();
+        expect(this_result.smiles).toBeDefined();
+        expect(this_result.chemblURI).toBeDefined();
+        expect(this_result.fullMWT).toBeDefined();
+        expect(this_result.molform).toBeDefined();
+        expect(this_result.mwFreebase).toBeDefined();
+        expect(this_result.rtb).toBeDefined();
+      });
       searcher.fetchCompound('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', callback);
     });
     it("executes asynchronously", function() {
@@ -53,10 +63,19 @@ describe("Compound search", function() {
       });
     });
     it("and handle errors", function() {
+      var this_success = null;
+      var this_status = null;
       var callback=function(success, status){
-        expect(success).toEqual(false);
-        expect(status).toEqual(404);
+        this_success = success;
+	this_status = status;
       };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toEqual(false);
+        expect(this_status).toEqual(404);
+      });
       searcher.fetchCompound('http://www.conceptwiki.org/concept/876876876', callback);
     });
   });
@@ -68,13 +87,24 @@ describe("Compound search", function() {
       expect(searcher.compoundPharmacology).toHaveBeenCalled();
     });
     it("and return a response", function() {
+      var this_success = null;
+      var this_status = null;
+      var this_result = null;
       var callback=function(success, status, response){
-        expect(success).toEqual(true);
-        expect(status).toEqual(200);
-        var compoundResult = searcher.parseCompoundPharmacologyResponse(response);
-        expect(compoundResult[0]).toBeDefined();
-        expect(compoundResult[0].csid).toBeDefined();
+        this_success = success;
+        this_status = status;
+        this_result = searcher.parseCompoundPharmacologyResponse(response);
       };
+      waitsFor(function() {
+          return this_status != null;
+      });
+      runs(function() {
+        expect(this_success).toEqual(true);
+        expect(this_status).toEqual(200);
+        expect(this_result[0]).toBeDefined();
+        expect(this_result[0].csid).toBeDefined();
+
+      });
       searcher.compoundPharmacology('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', 1, 20, callback);
     });
     it("executes asynchronously", function() {
@@ -88,11 +118,57 @@ describe("Compound search", function() {
       });
     });
     it("and handle errors", function() {
+      var this_success = null;
+      var this_status = null;
       var callback=function(success, status){
-        expect(success).toEqual(false);
-        expect(status).toEqual(404);
+          this_success = success;
+	  this_status = status;
       };
+      waitsFor(function() {
+          return this_status != null;
+      });
+      runs(function() {
+          expect(this_success).toEqual(false);
+          expect(this_status).toEqual(404);
+      });
       searcher.compoundPharmacology('http://www.conceptwiki.org/concept/876876876', 1, 20, callback);
+    });
+  });
+  describe("compound pharmacology count", function() {
+
+    it("can be executed", function() {
+      spyOn(searcher, 'compoundPharmacologyCount');
+      searcher.compoundPharmacologyCount('compoundURI', 'callback');
+      expect(searcher.compoundPharmacologyCount).toHaveBeenCalled();
+    });
+    it("and return a response", function() {
+      var this_success = null;
+      var this_status = null;
+      var this_result = null;
+      var callback=function(success, status, response){
+          this_success = success;
+	  this_status = status;
+	  this_result = searcher.parseCompoundPharmacologyCountResponse(response);
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toEqual(true);
+        expect(this_status).toEqual(200);
+        expect(this_result).toBeDefined();
+      });
+      searcher.compoundPharmacologyCount('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', callback);
+    });
+    it("executes asynchronously", function() {
+      var callback = jasmine.createSpy();
+      searcher.compoundPharmacologyCount('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', callback);
+      waitsFor(function() {
+          return callback.callCount > 0;
+      });
+      runs(function() {
+          expect(callback).toHaveBeenCalled();
+      });
     });
   });
 });

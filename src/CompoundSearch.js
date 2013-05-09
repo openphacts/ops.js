@@ -44,6 +44,25 @@ Openphacts.CompoundSearch.prototype.compoundPharmacology = function(compoundURI,
 	});
 }
 
+Openphacts.CompoundSearch.prototype.compoundPharmacologyCount = function(compoundURI, callback) {
+	var compoundQuery = $.ajax({
+		url: this.baseURL + '/compound/pharmacology/count',
+		cache: true,
+		data: {
+			_format: "json",
+			uri: compoundURI,
+			app_id: this.appID,
+			app_key: this.appKey
+		},
+		success: function(response, status, request) {
+			callback.call(this, true, request.status, response.result);
+		},
+		error: function(request, status, error) {
+			callback.call(this, false, request.status);
+		}
+	});
+}
+
 Openphacts.CompoundSearch.prototype.parseCompoundResponse = function(response) {
 	var drugbankData, chemspiderData, chemblData;
 	var cwUri = response["_about"];
@@ -254,4 +273,8 @@ Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyResponse = function
 		});
 	});
 	return records;
+}
+
+Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyCountResponse = function(response) {
+    return response.primaryTopic.compoundPharmacologyTotalResults;
 }

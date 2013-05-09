@@ -83,6 +83,19 @@ var callback=function(success, status, response){
 // compound uri is for Aspirin, page 1, 20 results per page  
 searcher.compoundPharmacology('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', 1, 20, callback);
 ```
+### Compound Pharmacology Count
+
+```javascript
+var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org", appID, appKey);  
+var callback=function(success, status, response){  
+    var result = searcher.parseCompoundPharmacologyCountResponse(response);  
+};  
+// success is 'true' or 'false', status is the http status code, response is the raw result which the parser function accepts  
+// response will be null in the case of errors  
+// compound uri is for Aspirin  
+searcher.compoundPharmacologyCount('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', callback);
+```
+
 ### Target information
 
 ```javascript

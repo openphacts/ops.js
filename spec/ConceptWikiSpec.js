@@ -90,7 +90,7 @@ describe("Concept Wiki", function() {
       };
       searcher.findCompounds('Aspirin', '-1', '-1', callback);
     });
-  });
+ });
 
   describe("search for targets", function() {
 
@@ -126,7 +126,14 @@ describe("Concept Wiki", function() {
       };
       searcher.findTargets('PDE5', '-1', '-1', callback);
     });
-  });
+    it("and handle an empty response for targets", function() {
+      var callback=function(success, status, response){
+        var result = searcher.parseResponse(response);
+        expect(result[0]).toBeDefined();
+      };
+      searcher.findCompounds('Sorafenib', '20', '4', callback);
+    });
+ });
   describe("find a single concept", function() {
 
     it("can be executed", function() {
