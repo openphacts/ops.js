@@ -7,6 +7,7 @@ Openphacts.CompoundSearch = function CompoundSearch(baseURL, appID, appKey) {
 Openphacts.CompoundSearch.prototype.fetchCompound = function(compoundURI, callback) {
 	var compoundQuery = $.ajax({
 		url: this.baseURL + '/compound',
+                dataType: 'json',
 		cache: true,
 		data: {
 			_format: "json",
@@ -26,6 +27,7 @@ Openphacts.CompoundSearch.prototype.fetchCompound = function(compoundURI, callba
 Openphacts.CompoundSearch.prototype.compoundPharmacology = function(compoundURI, page, pageSize, callback) {
 	var compoundQuery = $.ajax({
 		url: this.baseURL + '/compound/pharmacology/pages',
+                dataType: 'json',
 		cache: true,
 		data: {
 			_format: "json",
@@ -47,6 +49,7 @@ Openphacts.CompoundSearch.prototype.compoundPharmacology = function(compoundURI,
 Openphacts.CompoundSearch.prototype.compoundPharmacologyCount = function(compoundURI, callback) {
 	var compoundQuery = $.ajax({
 		url: this.baseURL + '/compound/pharmacology/count',
+                dataType: 'json',
 		cache: true,
 		data: {
 			_format: "json",

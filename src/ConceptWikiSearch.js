@@ -7,6 +7,7 @@ Openphacts.ConceptWikiSearch = function(baseURL, appID, appKey) {
 Openphacts.ConceptWikiSearch.prototype.byTag = function(query, limit, branch, type, callback) {
 	var conceptWikiSearcher = $.ajax({
 		url: this.baseURL + "/search/byTag",
+                dataType: 'json',
 		cache: true,
 		data: {
 			q: query,
@@ -28,6 +29,7 @@ Openphacts.ConceptWikiSearch.prototype.byTag = function(query, limit, branch, ty
 Openphacts.ConceptWikiSearch.prototype.findCompounds = function(query, limit, branch, callback) {
 	var conceptWikiSearcher = $.ajax({
 		url: this.baseURL + "/search/byTag",
+                dataType: 'json',
 		cache: true,
 		data: {
 			q: query,
@@ -49,6 +51,7 @@ Openphacts.ConceptWikiSearch.prototype.findCompounds = function(query, limit, br
 Openphacts.ConceptWikiSearch.prototype.findTargets = function(query, limit, branch, callback) {
 	var conceptWikiSearcher = $.ajax({
 		url: this.baseURL + "/search/byTag",
+                dataType: 'json',
 		cache: true,
 		data: {
 			q: query,
@@ -90,6 +93,7 @@ Openphacts.ConceptWikiSearch.prototype.parseResponse = function(response) {
 
 Openphacts.ConceptWikiSearch.prototype.findConcept = function(uuid, callback) {
 	var conceptWikiSearcher = $.ajax({
+                dataType: 'json',
 		url: this.baseURL + "/getConceptDescription",
 		cache: true,
 		data: {

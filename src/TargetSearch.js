@@ -7,6 +7,7 @@ Openphacts.TargetSearch = function TargetSearch(baseURL, appID, appKey) {
 Openphacts.TargetSearch.prototype.fetchTarget = function(targetURI, callback) {
 	var targetQuery = $.ajax({
 		url: this.baseURL + '/target',
+                dataType: 'json',
 		cache: true,
 		data: {
 			_format: "json",
@@ -26,6 +27,7 @@ Openphacts.TargetSearch.prototype.fetchTarget = function(targetURI, callback) {
 Openphacts.TargetSearch.prototype.targetPharmacology = function(targetURI, page, pageSize, callback) {
 	var targetQuery = $.ajax({
 		url: this.baseURL + '/target/pharmacology/pages',
+                dataType: 'json',
 		cache: true,
 		data: {
 			_format: "json",
