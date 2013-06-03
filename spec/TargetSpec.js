@@ -15,7 +15,15 @@ describe("Target search", function() {
       expect(searcher.fetchTarget).toHaveBeenCalled();
     });
     it("and return a response", function() {
+      var this_success = null;
+      var this_status = null;
+      var this_result = null;
+      waitsFor(function() {
+        return this_success != null;
+      });
       var callback=function(success, status, response){
+        this_success = success;
+	this_status = status;
         var result = searcher.parseTargetResponse(response);
         expect(result.id).toBeDefined();
         expect(result.cellularLocation).toBeDefined();
