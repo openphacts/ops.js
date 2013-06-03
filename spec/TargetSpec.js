@@ -95,4 +95,41 @@ describe("Target search", function() {
       searcher.targetPharmacology('http://www.conceptwiki.org/concept/876876876', 1, 20, callback);
     });
   });
+  describe("target pharmacology count", function() {
+
+    it("can be executed", function() {
+      spyOn(searcher, 'targetPharmacologyCount');
+      searcher.targetPharmacologyCount('targetURI', 'callback');
+      expect(searcher.targetPharmacologyCount).toHaveBeenCalled();
+    });
+    it("and return a response", function() {
+      var this_success = null;
+      var this_status = null;
+      var this_result = null;
+      var callback=function(success, status, response){
+          this_success = success;
+	  this_status = status;
+	  this_result = searcher.parseTargetPharmacologyCountResponse(response);
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toEqual(true);
+        expect(this_status).toEqual(200);
+        expect(this_result).toBeDefined();
+      });
+      searcher.targetPharmacologyCount('http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', callback);
+    });
+    it("executes asynchronously", function() {
+      var callback = jasmine.createSpy();
+      searcher.targetPharmacologyCount('http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', callback);
+      waitsFor(function() {
+          return callback.callCount > 0;
+      });
+      runs(function() {
+          expect(callback).toHaveBeenCalled();
+      });
+    });
+  });
 });

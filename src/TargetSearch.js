@@ -46,6 +46,26 @@ Openphacts.TargetSearch.prototype.targetPharmacology = function(targetURI, page,
 	});
 }
 
+Openphacts.TargetSearch.prototype.targetPharmacologyCount = function(targetURI, callback) {
+	var targetQuery = $.ajax({
+		url: this.baseURL + '/target/pharmacology/count',
+                dataType: 'json',
+		cache: true,
+		data: {
+			_format: "json",
+			uri: targetURI,
+			app_id: this.appID,
+			app_key: this.appKey
+		},
+		success: function(response, status, request) {
+			callback.call(this, true, request.status, response.result);
+		},
+		error: function(request, status, error) {
+			callback.call(this, false, request.status);
+		}
+	});
+}
+
 Openphacts.TargetSearch.prototype.parseTargetResponse = function(response) {
 	var drugbankData, chemblData, uniprotData;
 	var cwUri = response["_about"];
@@ -288,4 +308,8 @@ Openphacts.TargetSearch.prototype.parseTargetPharmacologyResponse = function(res
 		});
 	});
 	return records;
+}
+
+Openphacts.TargetSearch.prototype.parseTargetPharmacologyCountResponse = function(response) {
+    return response.primaryTopic.targetPharmacologyTotalResults;
 }
