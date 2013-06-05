@@ -49,6 +49,7 @@ describe("Compound search", function() {
         expect(this_result.molform).toBeDefined();
         expect(this_result.mwFreebase).toBeDefined();
         expect(this_result.rtb).toBeDefined();
+        expect(this_result.inchiKey).toBeDefined();
       });
       searcher.fetchCompound('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', callback);
     });

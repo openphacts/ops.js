@@ -106,7 +106,8 @@ Openphacts.CompoundSearch.prototype.parseCompoundResponse = function(response) {
 		fullMWT: chemblData ? chemblData.full_mwt : null,
 		molform: chemblData ? chemblData.molform : null,
 		mwFreebase: chemblData ? chemblData.mw_freebase : null,
-		rtb: chemblData ? chemblData.rtb : null
+		rtb: chemblData ? chemblData.rtb : null,
+                inchiKey: chemspiderData ? chemspiderData.inchikey : null
 	};
 }
 
