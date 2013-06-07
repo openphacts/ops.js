@@ -51,6 +51,46 @@ Openphacts.StructureSearch.prototype.substructure = function(smiles, limit, star
 	});
 }
 
+Openphacts.StructureSearch.prototype.inchiKeyToURL = function(inchiKey, callback) {
+	var exactQuery = $.ajax({
+		url: this.baseURL + '/structure',
+                dataType: 'json',
+		cache: true,
+		data: {
+		    _format: "json",
+                    app_id: this.appID,
+                    app_key: this.appKey,
+                    inchi_key: inchiKey
+                },
+		success: function(response, status, request) {
+			callback.call(this, true, request.status, response.result.primaryTopic);
+		},
+		error: function(request, status, error) {
+			callback.call(this, false, request.status);
+		}
+	});
+}
+
+Openphacts.StructureSearch.prototype.inchiToURL = function(inchi, callback) {
+	var exactQuery = $.ajax({
+		url: this.baseURL + '/structure',
+                dataType: 'json',
+		cache: true,
+		data: {
+	            _format: "json",
+                    app_id: this.appID,
+                    app_key: this.appKey,
+                    inchi: inchi
+                },
+		success: function(response, status, request) {
+			callback.call(this, true, request.status, response.result.primaryTopic);
+		},
+		error: function(request, status, error) {
+			callback.call(this, false, request.status);
+		}
+	});
+}
+
 Openphacts.StructureSearch.prototype.parseExactResponse = function(response) {
 	return {
                 type: response.type,
@@ -61,4 +101,12 @@ Openphacts.StructureSearch.prototype.parseExactResponse = function(response) {
 
 Openphacts.StructureSearch.prototype.parseSubstructureResponse = function(response) {
 	return response.result;
+}
+
+Openphacts.StructureSearch.prototype.parseInchiKeyToURLResponse = function(response) {
+	return response["_about"];
+}
+
+Openphacts.StructureSearch.prototype.parseInchiToURLResponse = function(response) {
+	return response["_about"];
 }

@@ -156,3 +156,27 @@ var callback=function(success, status, response){
 // only a SMILES has been provided, no limit, start or length  
 searcher.substructure('CNC(=O)c1cc(ccn1)Oc2ccc(cc2)NC(=O)Nc3ccc(c(c3)C(F)(F)F)Cl', null, null, null, callback);
 ```
+### Inchi Key to URL structure Search
+
+```javascript
+var searcher = new Openphacts.StructureSearch("https://beta.openphacts.org", appID, appKey);  
+var callback=function(success, status, response){  
+    var result = searcher.parseInchiKeyToURLResponse(response);  
+};  
+// success is 'true' or 'false', status is the http status code, response is the raw result which the parser function accepts  
+// response will be null in the case of errors  
+// Inchi Key is for Aspirin  
+searcher.inchiKeyToURL('BSYNRYMUTXBXSQ-UHFFFAOYSA-N', callback);
+```
+### Inchi to URL structure Search
+
+```javascript
+var searcher = new Openphacts.StructureSearch("https://beta.openphacts.org", appID, appKey);  
+var callback=function(success, status, response){  
+    var result = searcher.parseInchiToURLResponse(response);  
+};  
+// success is 'true' or 'false', status is the http status code, response is the raw result which the parser function accepts  
+// response will be null in the case of errors  
+// Inchi is for Aspirin   
+searcher.inchiToURL('InChI=1S/C9H8O4/c1-6(10)13-8-5-3-2-4-7(8)9(11)12/h2-5H,1H3,(H,11,12)', callback);
+```
