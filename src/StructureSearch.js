@@ -91,6 +91,31 @@ Openphacts.StructureSearch.prototype.inchiToURL = function(inchi, callback) {
 	});
 }
 
+Openphacts.StructureSearch.prototype.similarity = function(smiles, type, threshold, limit, start, length, callback) {
+        params={};
+        params['_format'] = "json";
+        params['app_key'] = this.appKey;
+        params['app_id'] = this.appID;
+        params['searchOptions.Molecule'] = smiles;
+        type != null ? params['searchOptions.SimilarityType'] = type : params['searchOptions.SimilarityType'] = 0;
+        threshold != null ? params['searchOptions.Threshold'] = threshold : params['searchOptions.Threshold'] = 0.99;
+        limit != null ? params['resultOptions.Limit'] = limit : '';
+        start != null ? params['resultOptions.Start'] = start : '';
+        length != null ? params['resultOptions.Length'] = length : '';
+	var exactQuery = $.ajax({
+		url: this.baseURL + '/structure/similarity',
+                dataType: 'json',
+		cache: true,
+		data: params,
+		success: function(response, status, request) {
+			callback.call(this, true, request.status, response.result.primaryTopic);
+		},
+		error: function(request, status, error) {
+			callback.call(this, false, request.status);
+		}
+	});
+}
+
 Openphacts.StructureSearch.prototype.parseExactResponse = function(response) {
 	return {
                 type: response.type,
@@ -109,4 +134,8 @@ Openphacts.StructureSearch.prototype.parseInchiKeyToURLResponse = function(respo
 
 Openphacts.StructureSearch.prototype.parseInchiToURLResponse = function(response) {
 	return response["_about"];
+}
+
+Openphacts.StructureSearch.prototype.parseSimilarityResponse = function(response) {
+	return response.result;
 }

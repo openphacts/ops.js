@@ -224,4 +224,58 @@ describe("Structure search", function() {
       searcher.inchiToURL('13413434', callback);
     });
   });
+
+  describe("similarity", function() {
+
+    it("can be executed", function() {
+      spyOn(searcher, 'similarity');
+      searcher.similarity('smiles', 'type', 'threshold', null, null, null, 'callback');
+      expect(searcher.similarity).toHaveBeenCalled();
+    });
+    it("and return a response", function() {
+      var this_success = null;
+      var this_status = null;
+      var this_result = null;
+      var callback=function(success, status, response){
+          this_success = success;
+	  this_status = status;
+	  this_result = searcher.parseSimilarityResponse(response);
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toEqual(true);
+        expect(this_status).toEqual(200);
+        expect(this_result.length).toBeGreaterThan(1);
+      });
+      searcher.similarity('CC(=O)Oc1ccccc1C(=O)O', 0, 0.99, null, null, null, callback);
+    });
+    it("executes asynchronously", function() {
+      var callback = jasmine.createSpy();
+      searcher.similarity('CC(=O)Oc1ccccc1C(=O)O', 0, 0.99, null, null, null, callback);
+      waitsFor(function() {
+          return callback.callCount > 0;
+      });
+      runs(function() {
+          expect(callback).toHaveBeenCalled();
+      });
+    });
+    it("and handle errors", function() {
+      var this_success = null;
+      var this_status = null;
+      var callback=function(success, status){
+          this_success = success;
+	  this_status = status;
+      };
+      waitsFor(function() {
+          return this_status != null;
+      });
+      runs(function() {
+          expect(this_success).toEqual(false);
+          expect(this_status).toEqual(404);
+      });
+      searcher.similarity('13413434', 0, 0.99, null, null, null, callback);
+    });
+  });
 });

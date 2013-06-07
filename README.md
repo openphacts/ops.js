@@ -164,7 +164,7 @@ var callback=function(success, status, response){
     var result = searcher.parseInchiKeyToURLResponse(response);  
 };  
 // success is 'true' or 'false', status is the http status code, response is the raw result which the parser function accepts  
-// response will be null in the case of errors  
+// response is a chemspider url with id of the compound, response will be null in the case of errors  
 // Inchi Key is for Aspirin  
 searcher.inchiKeyToURL('BSYNRYMUTXBXSQ-UHFFFAOYSA-N', callback);
 ```
@@ -176,7 +176,19 @@ var callback=function(success, status, response){
     var result = searcher.parseInchiToURLResponse(response);  
 };  
 // success is 'true' or 'false', status is the http status code, response is the raw result which the parser function accepts  
-// response will be null in the case of errors  
-// Inchi is for Aspirin   
+// response is a chemspider url with id of the compound, response will be null in the case of errors  
+// Inchi is for Aspirin  
 searcher.inchiToURL('InChI=1S/C9H8O4/c1-6(10)13-8-5-3-2-4-7(8)9(11)12/h2-5H,1H3,(H,11,12)', callback);
+```
+### Similarity structure Search
+
+```javascript
+var searcher = new Openphacts.StructureSearch("https://beta.openphacts.org", appID, appKey);  
+var callback=function(success, status, response){  
+    var result = searcher.parseSimilarityResponse(response);  
+};  
+// success is 'true' or 'false', status is the http status code, response is the raw result which the parser function accepts  
+// response is an array of chemspider URLs with the id of the compounds, response will be null in the case of errors  
+// SMILES is for Aspirin with similarity type 0 for tanimoto and threshold 0.99, no limit, start or length  
+searcher.similarity('CC(=O)Oc1ccccc1C(=O)O', 0, 0.99, null, null, null, callback);
 ```
