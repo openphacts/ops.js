@@ -120,3 +120,39 @@ var callback=function(success, status, response){
 // target uri is for cGMP-specific 3',5'-cyclic phosphodiesterase (Homo sapiens), page 1, 20 results per page  
 searcher.targetPharmacology('http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', 1, 20, callback);  
 ```
+### Target Pharmacology Count
+
+```javascript
+var searcher = new Openphacts.TargetSearch("https://beta.openphacts.org", appID, appKey);  
+var callback=function(success, status, response){  
+    var result = searcher.parseTargetPharmacologyCountResponse(response);  
+};  
+// success is 'true' or 'false', status is the http status code, response is the raw result which the parser function accepts  
+// response will be null in the case of errors  
+// target uri is for cGMP-specific 3',5'-cyclic phosphodiesterase (Homo sapiens)  
+searcher.targetPharmacologyCount('http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', callback);
+```
+### Exact Structure Search
+
+```javascript
+var searcher = new Openphacts.StructureSearch("https://beta.openphacts.org", appID, appKey);  
+var callback=function(success, status, response){  
+    var result = searcher.parseExactResponse(response);  
+};  
+// success is 'true' or 'false', status is the http status code, response is the raw result which the parser function accepts  
+// response will be null in the case of errors  
+// only a SMILES and match type has been provided, no limit, start or length  
+searcher.exact('CNC(=O)c1cc(ccn1)Oc2ccc(cc2)NC(=O)Nc3ccc(c(c3)C(F)(F)F)Cl', 0, null, null, null, callback);
+```
+### Sub-structure Search
+
+```javascript
+var searcher = new Openphacts.StructureSearch("https://beta.openphacts.org", appID, appKey);  
+var callback=function(success, status, response){  
+    var result = searcher.parseSubstructureResponse(response);  
+};  
+// success is 'true' or 'false', status is the http status code, response is the raw result which the parser function accepts  
+// response will be null in the case of errors  
+// only a SMILES has been provided, no limit, start or length  
+searcher.substructure('CNC(=O)c1cc(ccn1)Oc2ccc(cc2)NC(=O)Nc3ccc(c(c3)C(F)(F)F)Cl', null, null, null, callback);
+```
