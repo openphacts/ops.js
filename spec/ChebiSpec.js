@@ -1,0 +1,118 @@
+describe("Chebi Classes", function() {
+  var searcher, appID, appKey;
+
+  beforeEach(function() {
+      appID = $.url().param('app_id');
+      appKey = $.url().param('app_key');
+      searcher = new Openphacts.ChebiSearch("https://beta.openphacts.org", appID, appKey);
+  });
+
+  describe("get ontology class members", function() {
+
+    it("can be executed", function() {
+      spyOn(searcher, 'getOntologyClassMembers');
+      searcher.getOntologyClassMembers('chebiURI', 'callback');
+      expect(searcher.getOntologyClassMembers).toHaveBeenCalled();
+    });
+    it("and return a response", function() {
+      var this_success = null;
+      var this_status = null;
+      var this_result = null;
+      var callback=function(success, status, response){
+        this_success = success;
+	this_status = status;
+        this_result = searcher.parseOntologyClassMembers(response);
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+	expect(this_success).toBe(true);
+	expect(this_status).toBe(200);
+        expect(this_result.length).toBeGreaterThan(1);
+      });
+      searcher.getOntologyClassMembers('http://purl.obolibrary.org/obo/CHEBI_38834', callback);
+    });
+    it("executes asynchronously", function() {
+      var callback = jasmine.createSpy();
+      searcher.getOntologyClassMembers('http://purl.obolibrary.org/obo/CHEBI_38834', callback);
+      waitsFor(function() {
+          return callback.callCount > 0;
+      });
+      runs(function() {
+          expect(callback).toHaveBeenCalled();
+      });
+    });
+    it("and handle errors", function() {
+      var this_success = null;
+      var this_status = null;
+      var callback=function(success, status){
+        this_success = success;
+	this_status = status;
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toEqual(false);
+        expect(this_status).toEqual(400);
+      });
+      searcher.getOntologyClassMembers('90879879879879797', callback);
+    });
+  });
+  describe("get ontology root class members", function() {
+
+    it("can be executed", function() {
+      spyOn(searcher, 'getOntologyRootClassMembers');
+      searcher.getOntologyRootClassMembers('callback');
+      expect(searcher.getOntologyRootClassMembers).toHaveBeenCalled();
+    });
+    it("and return a response", function() {
+      var this_success = null;
+      var this_status = null;
+      var this_result = null;
+      var callback=function(success, status, response){
+        this_success = success;
+	this_status = status;
+        this_result = searcher.parseOntologyRootClassMembers(response);
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+	expect(this_success).toBe(true);
+	expect(this_status).toBe(200);
+        expect(this_result.length).toBeGreaterThan(1);
+      });
+      searcher.getOntologyRootClassMembers(callback);
+    });
+    it("executes asynchronously", function() {
+      var callback = jasmine.createSpy();
+      searcher.getOntologyRootClassMembers(callback);
+      waitsFor(function() {
+          return callback.callCount > 0;
+      });
+      runs(function() {
+          expect(callback).toHaveBeenCalled();
+      });
+    });
+    it("and handle errors", function() {
+      var this_success = null;
+      var this_status = null;
+      var callback=function(success, status){
+        this_success = success;
+	this_status = status;
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toEqual(false);
+        // Origin null is not allowed by Access-Control-Allow-Origin. 
+        expect(this_status).toEqual(0);
+      });
+      var chebiSearch = new Openphacts.ChebiSearch("https://beta.openphacts.org", "sdfsdf", "sdfsdf");
+      chebiSearch.getOntologyRootClassMembers(callback);
+    });
+  });
+});

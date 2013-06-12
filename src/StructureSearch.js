@@ -116,6 +116,26 @@ Openphacts.StructureSearch.prototype.similarity = function(smiles, type, thresho
 	});
 }
 
+Openphacts.StructureSearch.prototype.smilesToURL = function(smiles, callback) {
+	var exactQuery = $.ajax({
+		url: this.baseURL + '/structure',
+                dataType: 'json',
+		cache: true,
+		data: {
+	            _format: "json",
+                    app_id: this.appID,
+                    app_key: this.appKey,
+                    smiles: smiles
+                },
+		success: function(response, status, request) {
+			callback.call(this, true, request.status, response.result.primaryTopic);
+		},
+		error: function(request, status, error) {
+			callback.call(this, false, request.status);
+		}
+	});
+}
+
 Openphacts.StructureSearch.prototype.parseExactResponse = function(response) {
 	return {
                 type: response.type,
@@ -138,4 +158,8 @@ Openphacts.StructureSearch.prototype.parseInchiToURLResponse = function(response
 
 Openphacts.StructureSearch.prototype.parseSimilarityResponse = function(response) {
 	return response.result;
+}
+
+Openphacts.StructureSearch.prototype.parseSmilesToURLResponse = function(response) {
+	return response["_about"];
 }
