@@ -168,4 +168,57 @@ describe("Chebi Classes", function() {
       searcher.getOntologyClass('90879879879879797', callback);
     });
   });
+  describe("get class pharmacology count", function() {
+
+    it("can be executed", function() {
+      spyOn(searcher, 'getClassPharmacologyCount');
+      searcher.getClassPharmacologyCount('chebiURI', 'assayOrganism', 'targetOrganism', 'activityType', 'activityValue', 'minActivityValue', 'minExActivityValue', 'maxActivityValue', 'maxExActivityValue', 'activityUnit', 'callback');
+      expect(searcher.getClassPharmacologyCount).toHaveBeenCalled();
+    });
+    it("and return a response", function() {
+      var this_success = null;
+      var this_status = null;
+      var this_result = null;
+      var callback=function(success, status, response){
+        this_success = success;
+	this_status = status;
+        this_result = searcher.parseClassPharmacologyCount(response);
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+	expect(this_success).toBe(true);
+	expect(this_status).toBe(200);
+        expect(this_result).toBeGreaterThan(1);
+      });
+      searcher.getClassPharmacologyCount('http://purl.obolibrary.org/obo/CHEBI_38834', null, null, null, null, null, null, null, null, null, callback);
+    });
+    it("executes asynchronously", function() {
+      var callback = jasmine.createSpy();
+      searcher.getClassPharmacologyCount('http://purl.obolibrary.org/obo/CHEBI_38834', null, null, null, null, null, null, null, null, null, callback);
+      waitsFor(function() {
+          return callback.callCount > 0;
+      });
+      runs(function() {
+          expect(callback).toHaveBeenCalled();
+      });
+    });
+    it("and handle errors", function() {
+      var this_success = null;
+      var this_status = null;
+      var callback=function(success, status){
+        this_success = success;
+	this_status = status;
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toEqual(false);
+        expect(this_status).toEqual(400);
+      });
+      searcher.getClassPharmacologyCount('90879879879879797', null, null, null, null, null, null, null, null, null, callback);
+    });
+  });
 });

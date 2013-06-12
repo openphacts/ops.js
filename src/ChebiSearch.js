@@ -63,6 +63,35 @@ Openphacts.ChebiSearch.prototype.getOntologyClass = function(chebiURI, callback)
 	});
 }
 
+Openphacts.ChebiSearch.prototype.getClassPharmacologyCount = function(chebiURI, assayOrganism, targetOrganism, activityType, activityValue, minActivityValue, minExActivityValue, maxActivityValue, maxExActivityValue, activityUnit, callback) {
+        params={};
+        params['_format'] = "json";
+        params['app_key'] = this.appKey;
+        params['app_id'] = this.appID;
+        params['uri'] = chebiURI;
+        assayOrganism != null ? params['assay_organism'] = assayOrganism : '';
+        targetOrganism != null ? params['target_organism'] = targetOrganism : '';
+        activityType != null ? params['activity_type'] = activityType : '';
+        activityValue != null ? params['activity_value'] = activityValue : '';
+        minActivityValue != null ? params['min-activity_value'] = minActivityValue : '';
+        minExActivityValue != null ? params['minEx-activity_value'] = minExActivityValue : '';
+        maxActivityValue != null ? params['max-activity_value'] = maxActivityValue : '';
+        maxExActivityValue != null ? params['maxEx-activity_value'] = maxExActivityValue : '';
+        activityUnit != null ? params['activity_unit'] = activityUnit : '';
+	var chebiQuery = $.ajax({
+		url: this.baseURL + '/compound/chebi/pharmacology/count',
+                dataType: 'json',
+		cache: true,
+		data: params,
+		success: function(response, status, request) {
+			callback.call(this, true, request.status, response.result.primaryTopic);
+		},
+		error: function(request, status, error) {
+			callback.call(this, false, request.status);
+		}
+	});
+}
+
 Openphacts.ChebiSearch.prototype.parseOntologyClassMembers = function(response) {
         var chebiOntologyClassMembers = [];
 	$.each(response.has_member, function(i, member) {
@@ -85,4 +114,8 @@ Openphacts.ChebiSearch.prototype.parseOntologyClass = function(response) {
             chebiOntologyRootMembers.push({uri: member["_about"], label: member.label});
 	});
 	return chebiOntologyRootMembers;
+}
+
+Openphacts.ChebiSearch.prototype.parseClassPharmacologyCount = function(response) {
+	return response.chebiPharmacologyTotalResults;
 }
