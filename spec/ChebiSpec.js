@@ -115,4 +115,57 @@ describe("Chebi Classes", function() {
       chebiSearch.getOntologyRootClassMembers(callback);
     });
   });
+  describe("get ontology class", function() {
+
+    it("can be executed", function() {
+      spyOn(searcher, 'getOntologyClass');
+      searcher.getOntologyClass('chebiURI', 'callback');
+      expect(searcher.getOntologyClass).toHaveBeenCalled();
+    });
+    it("and return a response", function() {
+      var this_success = null;
+      var this_status = null;
+      var this_result = null;
+      var callback=function(success, status, response){
+        this_success = success;
+	this_status = status;
+        this_result = searcher.parseOntologyClass(response);
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+	expect(this_success).toBe(true);
+	expect(this_status).toBe(200);
+        expect(this_result.length).toBeGreaterThan(1);
+      });
+      searcher.getOntologyClass('http://purl.obolibrary.org/obo/CHEBI_38834', callback);
+    });
+    it("executes asynchronously", function() {
+      var callback = jasmine.createSpy();
+      searcher.getOntologyClass('http://purl.obolibrary.org/obo/CHEBI_38834', callback);
+      waitsFor(function() {
+          return callback.callCount > 0;
+      });
+      runs(function() {
+          expect(callback).toHaveBeenCalled();
+      });
+    });
+    it("and handle errors", function() {
+      var this_success = null;
+      var this_status = null;
+      var callback=function(success, status){
+        this_success = success;
+	this_status = status;
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toEqual(false);
+        expect(this_status).toEqual(400);
+      });
+      searcher.getOntologyClass('90879879879879797', callback);
+    });
+  });
 });

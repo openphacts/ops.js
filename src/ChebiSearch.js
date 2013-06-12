@@ -43,6 +43,26 @@ Openphacts.ChebiSearch.prototype.getOntologyRootClassMembers = function(callback
 	});
 }
 
+Openphacts.ChebiSearch.prototype.getOntologyClass = function(chebiURI, callback) {
+	var chebiQuery = $.ajax({
+		url: this.baseURL + '/compound/chebi/node',
+                dataType: 'json',
+		cache: true,
+		data: {
+			_format: "json",
+                        uri: chebiURI,
+			app_id: this.appID,
+			app_key: this.appKey
+		},
+		success: function(response, status, request) {
+			callback.call(this, true, request.status, response.result.primaryTopic);
+		},
+		error: function(request, status, error) {
+			callback.call(this, false, request.status);
+		}
+	});
+}
+
 Openphacts.ChebiSearch.prototype.parseOntologyClassMembers = function(response) {
         var chebiOntologyClassMembers = [];
 	$.each(response.has_member, function(i, member) {
@@ -54,6 +74,14 @@ Openphacts.ChebiSearch.prototype.parseOntologyClassMembers = function(response) 
 Openphacts.ChebiSearch.prototype.parseOntologyRootClassMembers = function(response) {
         var chebiOntologyRootMembers = [];
 	$.each(response.rootNode, function(i, member) {
+            chebiOntologyRootMembers.push({uri: member["_about"], label: member.label});
+	});
+	return chebiOntologyRootMembers;
+}
+
+Openphacts.ChebiSearch.prototype.parseOntologyClass = function(response) {
+        var chebiOntologyRootMembers = [];
+	$.each(response.sibling, function(i, member) {
             chebiOntologyRootMembers.push({uri: member["_about"], label: member.label});
 	});
 	return chebiOntologyRootMembers;
