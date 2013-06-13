@@ -154,51 +154,51 @@ Openphacts.ChebiSearch.prototype.parseClassPharmacologyCount = function(response
 
 Openphacts.ChebiSearch.prototype.parseClassPharmacologyPaginated = function(response) {
         var records = [];
-        var chemblActivityURL, chemblURL, pmid, fullMWT, inDataset, cwURL, prefLabel, csURL, inchi, inchiKey, smiles, ro5Violations, assayURL, assayDescription, assayTarget, assayOrganism, assayDataset, purlURL;
         $.each(response.items, function(i, item) {
-            chemblActivityURL = item["_about"];
+            var chemblActivityURI, chemblURI, pmid, fullMWT, inDataset, cwURL, prefLabel, csURI, inchi, inchiKey, smiles, ro5Violations, assayURI, assayDescription, assayTarget, assayOrganism, assayDataset, purlURL;
+            chemblActivityURI = item["_about"];
             pmid = item.pmid;
-            chemblURL = item.forMolecule["_about"];
+            chemblURI = item.forMolecule["_about"];
             fullMWT = item.forMolecule.full_mwt;
             inDataset = item.forMolecule.inDataset;
             $.each(item.forMolecule.exactMatch, function(j, match) {
 		if (match["_about"] && match["_about"].indexOf("http://www.conceptwiki.org") !== -1) {
-                    cwURL = match["_about"];
+                    cwURI = match["_about"];
                     prefLabel = match["prefLabel"];
 		} else if (match["_about"] && match["_about"].indexOf("chemspider.com") !== -1) {
-                    csURL = match["_about"];
+                    csURI = match["_about"];
                     inchi = match.inchi;
                     inchiKey = match.inchikey;
                     smiles = match.smiles;
                     ro5Violations = match.ro5_violations;
 		} else if (match.indexOf("purl.obolibrary.org") !== -1) {
-                    purlURL = match;
+                    purlURI = match;
                 }
             });
-            assayURL = item.onAssay["_about"];
+            assayURI = item.onAssay["_about"];
             assayDescription = item.onAssay.description;
             assayTarget = item.onAssay.target;
             assayOrganism = item.onAssay.assay_organism;
             assayDataset = item.onAssay.inDataset;
             records.push({
-                    chemblActivityURL: chemblActivityURL,
-                    chemblURL: chemblURL,
+                    chemblActivityURI: chemblActivityURI,
+                    chemblURI: chemblURI,
                     pmid: pmid,
                     fullMWT: fullMWT,
                     inDataset: inDataset,
-                    cwURL: cwURL,
+                    cwURI: cwURI,
                     prefLabel: prefLabel,
-                    csURL: csURL,
+                    csURI: csURI,
                     inchi: inchi,
                     inchiKey: inchiKey,
                     smiles: smiles,
                     ro5Violations: ro5Violations,
-                    assayURL: assayURL,
+                    assayURI: assayURI,
                     assayDescription: assayDescription,
                     assayTarget: assayTarget,
                     assayOrganism: assayOrganism,
                     assayDataset: assayDataset,
-                    purlURL: purlURL
+                    purlURI: purlURI
              });
         });
 	return records;
