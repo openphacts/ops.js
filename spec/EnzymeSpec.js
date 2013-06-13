@@ -123,7 +123,7 @@ describe("Enzymes", function() {
 
     it("can be executed", function() {
       spyOn(searcher, 'getClassificationClassMembers');
-      searcher.getClassificationClassMembers('enzmeURL', 'callback');
+      searcher.getClassificationClassMembers('enzmeURI', 'callback');
       expect(searcher.getClassificationClassMembers).toHaveBeenCalled();
     });
     it("and return a response", function() {
@@ -172,6 +172,60 @@ describe("Enzymes", function() {
         expect(this_status).toEqual(400);
       });
       searcher.getClassificationClassMembers('34534533', callback);
+    });
+  });
+
+  describe("get enzyme pharmacology count", function() {
+
+    it("can be executed", function() {
+      spyOn(searcher, 'getPharmacologyCount');
+      searcher.getPharmacologyCount('enzymeURI', 'assayOrganism', 'targetOrganism', 'activityType', 'activityValue', 'minActivityValue', 'minExActivityValue', 'maxActivityValue', 'maxExActivityValue', 'activityUnit', 'callback');
+      expect(searcher.getPharmacologyCount).toHaveBeenCalled();
+    });
+    it("and return a response", function() {
+      var this_success = null;
+      var this_status = null;
+      var this_result = null;
+      var callback=function(success, status, response){
+        this_success = success;
+	this_status = status;
+        this_result = searcher.parseEnzymePharmacologyCount(response);
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+	expect(this_success).toBe(true);
+	expect(this_status).toBe(200);
+        expect(this_result).toBeGreaterThan(1);
+      });
+      searcher.getPharmacologyCount('http://purl.uniprot.org/enzyme/1.1.1.-', null, null, null, null, null, null, null, null, null, callback);
+    });
+    it("executes asynchronously", function() {
+      var callback = jasmine.createSpy();
+      searcher.getPharmacologyCount('http://purl.uniprot.org/enzyme/1.1.1.-', null, null, null, null, null, null, null, null, null, callback);
+      waitsFor(function() {
+          return callback.callCount > 0;
+      });
+      runs(function() {
+          expect(callback).toHaveBeenCalled();
+      });
+    });
+    it("and handle errors", function() {
+      var this_success = null;
+      var this_status = null;
+      var callback=function(success, status){
+        this_success = success;
+	this_status = status;
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toEqual(false);
+        expect(this_status).toEqual(400);
+      });
+      searcher.getPharmacologyCount('90879879879879797', null, null, null, null, null, null, null, null, null, callback);
     });
   });
 });
