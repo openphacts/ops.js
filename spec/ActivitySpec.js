@@ -64,4 +64,59 @@ describe("Activities", function() {
       activitySearch.getTypes(callback);
     });
   });
+  describe("get units", function() {
+
+    it("can be executed", function() {
+      spyOn(searcher, 'getUnits');
+      searcher.getUnits('activityType', 'callback');
+      expect(searcher.getUnits).toHaveBeenCalled();
+    });
+    it("and return a response", function() {
+      var this_success = null;
+      var this_status = null;
+      var this_result = null;
+      var callback=function(success, status, response){
+        this_success = success;
+	this_status = status;
+        this_result = searcher.parseUnits(response);
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+	expect(this_success).toBe(true);
+	expect(this_status).toBe(200);
+        expect(this_result.length).toBeGreaterThan(1);
+        expect(this_result[0].label).toBeDefined();
+        expect(this_result[0].uri).toBeDefined();
+      });
+      searcher.getUnits('IC50', callback);
+    });
+    it("executes asynchronously", function() {
+      var callback = jasmine.createSpy();
+      searcher.getUnits('IC50', callback);
+      waitsFor(function() {
+          return callback.callCount > 0;
+      });
+      runs(function() {
+          expect(callback).toHaveBeenCalled();
+      });
+    });
+    it("and handle errors", function() {
+      var this_success = null;
+      var this_status = null;
+      var callback=function(success, status){
+        this_success = success;
+	this_status = status;
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toEqual(false);
+        expect(this_status).toEqual(200);
+      });
+      searcher.getUnits('gjhgjj444lkjsr8svkjhxvk', callback);
+    });
+  });
 });
