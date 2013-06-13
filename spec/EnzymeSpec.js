@@ -118,4 +118,60 @@ describe("Enzymes", function() {
       searcher.getClassificationClass('34534533', callback);
     });
   });
+
+  describe("get classification class members", function() {
+
+    it("can be executed", function() {
+      spyOn(searcher, 'getClassificationClassMembers');
+      searcher.getClassificationClassMembers('enzmeURL', 'callback');
+      expect(searcher.getClassificationClassMembers).toHaveBeenCalled();
+    });
+    it("and return a response", function() {
+      var this_success = null;
+      var this_status = null;
+      var this_result = null;
+      var callback=function(success, status, response){
+        this_success = success;
+	this_status = status;
+        this_result = searcher.parseClassificationClassMembers(response);
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+	expect(this_success).toBe(true);
+	expect(this_status).toBe(200);
+        expect(this_result.length).toBeGreaterThan(1);
+        expect(this_result[0].uri).toBeDefined();
+        expect(this_result[0].names.length).toBeGreaterThan(0);
+      });
+      searcher.getClassificationClassMembers('http://purl.uniprot.org/enzyme/1.1.1.-', callback);
+    });
+    it("executes asynchronously", function() {
+      var callback = jasmine.createSpy();
+      searcher.getClassificationClassMembers('http://purl.uniprot.org/enzyme/1.1.1.-', callback);
+      waitsFor(function() {
+          return callback.callCount > 0;
+      });
+      runs(function() {
+          expect(callback).toHaveBeenCalled();
+      });
+    });
+    it("and handle errors", function() {
+      var this_success = null;
+      var this_status = null;
+      var callback=function(success, status){
+        this_success = success;
+	this_status = status;
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toEqual(false);
+        expect(this_status).toEqual(400);
+      });
+      searcher.getClassificationClassMembers('34534533', callback);
+    });
+  });
 });
