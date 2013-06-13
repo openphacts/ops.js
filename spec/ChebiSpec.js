@@ -218,7 +218,7 @@ describe("Chebi Classes", function() {
         expect(this_success).toEqual(false);
         expect(this_status).toEqual(400);
       });
-      searcher.getClassPharmacologyCount('90879879879879797', null, null, null, null, null, null, null, null, null, null, null, null, callback);
+      searcher.getClassPharmacologyCount('90879879879879797', null, null, null, null, null, null, null, null, null, callback);
     });
   });
   describe("get class pharmacology paginated", function() {
@@ -244,12 +244,30 @@ describe("Chebi Classes", function() {
 	expect(this_success).toBe(true);
 	expect(this_status).toBe(200);
         expect(this_result.length).toBeGreaterThan(1);
+        expect(this_result[0].chemblActivityURL).toBeDefined();
+        expect(this_result[0].chemblURL).toBeDefined();
+        expect(this_result[0].pmid).toBeDefined();
+        expect(this_result[0].fullMWT).toBeDefined();
+        expect(this_result[0].inDataset).toBeDefined();
+        expect(this_result[0].cwURL).toBeDefined();
+        expect(this_result[0].prefLabel).toBeDefined();
+        expect(this_result[0].csURL).toBeDefined();
+        expect(this_result[0].inchi).toBeDefined();
+        expect(this_result[0].inchiKey).toBeDefined();
+        expect(this_result[0].smiles).toBeDefined();
+        expect(this_result[0].ro5Violations).toBeDefined();
+        expect(this_result[0].assayURL).toBeDefined();
+        expect(this_result[0].assayDescription).toBeDefined();
+        expect(this_result[0].assayTarget).toBeDefined();
+        expect(this_result[0].assayOrganism).toBeDefined();
+        expect(this_result[0].assayDataset).toBeDefined();
+        expect(this_result[0].purlURL).toBeDefined();
       });
       searcher.getClassPharmacologyPaginated('http://purl.obolibrary.org/obo/CHEBI_38834', null, null, null, null, null, null, null, null, null, null, null, null, callback);
     });
     it("executes asynchronously", function() {
       var callback = jasmine.createSpy();
-      searcher.getClassPharmacologyCount('http://purl.obolibrary.org/obo/CHEBI_38834', null, null, null, null, null, null, null, null, null, null, null, null, callback);
+      searcher.getClassPharmacologyPaginated('http://purl.obolibrary.org/obo/CHEBI_38834', null, null, null, null, null, null, null, null, null, null, null, null, callback);
       waitsFor(function() {
           return callback.callCount > 0;
       });

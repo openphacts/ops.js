@@ -154,24 +154,26 @@ Openphacts.ChebiSearch.prototype.parseClassPharmacologyCount = function(response
 
 Openphacts.ChebiSearch.prototype.parseClassPharmacologyPaginated = function(response) {
         var records = [];
-        var chemblActivityURL, chemblURL, pmid, fullMWT, inDataset, cwURL, prefLabel, csURL, inchi, inchiKey, smiles, ro5Violations, assayURL, assayDescription, assayTarget, assayOrganism, assayDataset;
+        var chemblActivityURL, chemblURL, pmid, fullMWT, inDataset, cwURL, prefLabel, csURL, inchi, inchiKey, smiles, ro5Violations, assayURL, assayDescription, assayTarget, assayOrganism, assayDataset, purlURL;
         $.each(response.items, function(i, item) {
-            checmblActivityURL = item["_about"];
+            chemblActivityURL = item["_about"];
             pmid = item.pmid;
             chemblURL = item.forMolecule["_about"];
             fullMWT = item.forMolecule.full_mwt;
             inDataset = item.forMolecule.inDataset;
             $.each(item.forMolecule.exactMatch, function(j, match) {
-		if (match["_about"].indexOf("http://www.conceptwiki.org") !== -1) {
+		if (match["_about"] && match["_about"].indexOf("http://www.conceptwiki.org") !== -1) {
                     cwURL = match["_about"];
                     prefLabel = match["prefLabel"];
-		} else if (match["_about"].indexOf("chemspider.com") !== -1) {
+		} else if (match["_about"] && match["_about"].indexOf("chemspider.com") !== -1) {
                     csURL = match["_about"];
                     inchi = match.inchi;
-                    inchiKey = match.inchiKey;
+                    inchiKey = match.inchikey;
                     smiles = match.smiles;
                     ro5Violations = match.ro5_violations;
-		}
+		} else if (match.indexOf("purl.obolibrary.org") !== -1) {
+                    purlURL = match;
+                }
             });
             assayURL = item.onAssay["_about"];
             assayDescription = item.onAssay.description;
@@ -195,7 +197,8 @@ Openphacts.ChebiSearch.prototype.parseClassPharmacologyPaginated = function(resp
                     assayDescription: assayDescription,
                     assayTarget: assayTarget,
                     assayOrganism: assayOrganism,
-                    assayDataset: assayDataset
+                    assayDataset: assayDataset,
+                    purlURL: purlURL
              });
         });
 	return records;
