@@ -41,6 +41,7 @@ describe("Target search", function() {
         expect(result.classifiedWith).toBeDefined();
         expect(result.seeAlso).toBeDefined();
         expect(result.drugbankURI).toBeDefined();
+        expect(result.prefLabel).toBeDefined();
       };
       searcher.fetchTarget('http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', callback);
     });
@@ -71,6 +72,7 @@ describe("Target search", function() {
         expect(result.classifiedWith).toBeDefined();
         expect(result.seeAlso).toBeDefined();
         expect(result.drugbankURI).toBeDefined();
+        expect(result.prefLabel).toBeDefined();
       };
       searcher.fetchTarget('http://data.kasabi.com/dataset/chembl-rdf/chemblid/CHEMBL1906', callback);
     });
