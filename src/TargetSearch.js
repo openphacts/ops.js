@@ -96,7 +96,11 @@ Openphacts.TargetSearch.prototype.parseTargetResponse = function(response) {
 						seeAlso.push(see);
 					});
 				}
-			}
+			} else if (exactMatch["_about"].indexOf("conceptwiki.org") !== -1) {
+                          // if using a chembl id to search then the about would be a chembl id rather than the
+                          // cw one which we want
+                          id = exactMatch["_about"].split("/").pop();
+                        }
 		}
 	});
 	return {

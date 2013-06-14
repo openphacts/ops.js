@@ -44,6 +44,36 @@ describe("Target search", function() {
       };
       searcher.fetchTarget('http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', callback);
     });
+    it("and use a chembl uri as input", function() {
+      var this_success = null;
+      var this_status = null;
+      var this_result = null;
+      waitsFor(function() {
+        return this_success != null;
+      });
+      var callback=function(success, status, response){
+        this_success = success;
+	this_status = status;
+        var result = searcher.parseTargetResponse(response);
+        expect(result.id).toBeDefined();
+        expect(result.cellularLocation).toBeDefined();
+        expect(result.molecularWeight).toBeDefined();
+        expect(result.numberOfResidues).toBeDefined();
+        expect(result.theoreticalPi).toBeDefined();
+        expect(result.description).toBeDefined();
+        expect(result.subClassOf).toBeDefined();
+        expect(result.keywords).toBeDefined();
+        expect(result.functionAnnotation).toBeDefined();
+        expect(result.alternativeName).toBeDefined();
+        expect(result.existence).toBeDefined();
+        expect(result.organism).toBeDefined();
+        expect(result.sequence).toBeDefined();
+        expect(result.classifiedWith).toBeDefined();
+        expect(result.seeAlso).toBeDefined();
+        expect(result.drugbankURI).toBeDefined();
+      };
+      searcher.fetchTarget('http://data.kasabi.com/dataset/chembl-rdf/chemblid/CHEMBL1906', callback);
+    });
     it("can handle singleton response", function() {
       var callback=function(success, status, response){
         var result = searcher.parseTargetResponse(response);

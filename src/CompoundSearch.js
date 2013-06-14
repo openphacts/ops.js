@@ -194,6 +194,7 @@ Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyResponse = function
 			        target_inner['title'] = target_item['title']
 				target_inner['src'] = onAssay["inDataset"] ? onAssay["inDataset"] : '';
 				if (target_item["_about"]) {
+                                        target_inner['about'] = target_item['_about'];
 					var targetLink = 'https://www.ebi.ac.uk/chembl/target/inspect/' + target_item["_about"].split('/').pop();
 					target_inner['item'] = targetLink;
 				} else {
@@ -219,6 +220,7 @@ Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyResponse = function
 			    target_inner['title'] = target['title']
 			    target_inner['src'] = onAssay["inDataset"] ? onAssay["inDataset"] : '';
 			    if (target["_about"]) {
+                                target_inner['about'] = target['_about'];
 				var targetLink = 'https://www.ebi.ac.uk/chembl/target/inspect/' + target["_about"].split('/').pop();
 				target_inner['item'] = targetLink;
 			     } else {
