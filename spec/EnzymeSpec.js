@@ -157,12 +157,18 @@ describe("Enzymes", function() {
           expect(callback).toHaveBeenCalled();
       });
     });
+    it("can handle single responses", function() {
+	  var response = {'has_member': {'_about': 'abcd', 'name': 'defg'}};
+	  var result = searcher.parseClassificationClassMembers(response);
+	  expect(result[0].uri).toEqual('abcd');
+      expect(result[0].names[0]).toEqual('defg');
+    });
     it("and handle errors", function() {
       var this_success = null;
       var this_status = null;
       var callback=function(success, status){
         this_success = success;
-	this_status = status;
+	    this_status = status;
       };
       waitsFor(function() {
         return this_success != null;
@@ -252,7 +258,7 @@ describe("Enzymes", function() {
 	expect(this_success).toBe(true);
 	expect(this_status).toBe(200);
         expect(this_result.length).toBeGreaterThan(1);
-        expect(this_result[0].targetMatches.length).toBeGreaterThan(0);
+        expect(this_result[0].targets.length).toBeGreaterThan(0);
         expect(this_result[0].chemblActivityURI).toBeDefined();
         expect(this_result[0].pmid).toBeDefined();
         expect(this_result[0].relation).toBeDefined();
