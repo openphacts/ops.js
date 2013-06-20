@@ -85,9 +85,9 @@ describe("Enzymes", function() {
       runs(function() {
 	expect(this_success).toBe(true);
 	expect(this_status).toBe(200);
-        expect(this_result.length).toBeGreaterThan(1);
-        expect(this_result[0].uri).toBeDefined();
-        expect(this_result[0].name).toBeDefined();
+        expect(this_result.uri).toBeDefined();
+        expect(this_result.name).toBeDefined();
+        expect(this_result.siblings.length).toBeGreaterThan(0);
       });
       searcher.getClassificationClass('http://purl.uniprot.org/enzyme/1.1.1.-', callback);
     });
