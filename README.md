@@ -4,11 +4,13 @@ OPS.js is a javascript based library for accessing the OpenPHACTS Linked Data AP
 
 ## Dependencies
 JQuery 1.9.1  
-Get your openphacts api appID and appKey by registering at dev.openphacts.org
+Get your openphacts api appID and appKey by registering at https://dev.openphacts.org
 
 ## Using the library
 JQuery must be loaded before the OPS.js library.  
 
+Most API calls follow the pattern of request results with one asynchronous call with a callback and then parse the results with another.
+Look at https://dev.openphacts.org for more information about the source methods that the API calls use.
 API call examples:
 
 ### Concept Wiki free text search
@@ -192,3 +194,29 @@ var callback=function(success, status, response){
 // SMILES is for Aspirin with similarity type 0 for tanimoto and threshold 0.99, no limit, start or length  
 searcher.similarity('CC(=O)Oc1ccccc1C(=O)O', 0, 0.99, null, null, null, callback);
 ```
+## Other API calls available:
+
+### Enzymes
+
+EnzymeSearch - base class
+getClassificationRootClasses & parseClassificationRootClasses
+getClassificationClass & parseClassificationClass
+getClassificationClassMembers & parseClassificationClassMembers
+getPharmacologyCount & parsePharmacologyCount
+getPharmacologyPaginated & parsePharmacologyPaginated
+
+### Activities
+
+ActivitySearch - base class
+getTypes & parseTypes
+getUnits & parseUnits
+
+### Chebi
+
+ChebiSearch - base class
+getOntologyClassMembers & parseOntologyClassMembers
+getOntologyRootClassMembers & parseOntologyRootClassMembers
+getOntologyClass & parseOntologyClass
+getClassPharmacologyCount & parseClassPharmacologyCount
+getClassPharmacologyPaginated & parseClassPharmacologyPaginated
+
