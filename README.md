@@ -220,3 +220,8 @@ getOntologyClass & parseOntologyClass
 getClassPharmacologyCount & parseClassPharmacologyCount
 getClassPharmacologyPaginated & parseClassPharmacologyPaginated
 
+### Wiki Pathways
+PathwaySearch - base class
+getInformation & parseInformation
+
+
