@@ -198,30 +198,30 @@ searcher.similarity('CC(=O)Oc1ccccc1C(=O)O', 0, 0.99, null, null, null, callback
 
 ### Enzymes
 
-EnzymeSearch - base class
-getClassificationRootClasses & parseClassificationRootClasses
-getClassificationClass & parseClassificationClass
-getClassificationClassMembers & parseClassificationClassMembers
-getPharmacologyCount & parsePharmacologyCount
-getPharmacologyPaginated & parsePharmacologyPaginated
+EnzymeSearch - base class  
+getClassificationRootClasses & parseClassificationRootClasses  
+getClassificationClass & parseClassificationClass  
+getClassificationClassMembers & parseClassificationClassMembers  
+getPharmacologyCount & parsePharmacologyCount  
+getPharmacologyPaginated & parsePharmacologyPaginated  
 
 ### Activities
 
-ActivitySearch - base class
-getTypes & parseTypes
-getUnits & parseUnits
+ActivitySearch - base class  
+getTypes & parseTypes  
+getUnits & parseUnits  
 
 ### Chebi
 
-ChebiSearch - base class
-getOntologyClassMembers & parseOntologyClassMembers
-getOntologyRootClassMembers & parseOntologyRootClassMembers
-getOntologyClass & parseOntologyClass
-getClassPharmacologyCount & parseClassPharmacologyCount
-getClassPharmacologyPaginated & parseClassPharmacologyPaginated
+ChebiSearch - base class  
+getOntologyClassMembers & parseOntologyClassMembers  
+getOntologyRootClassMembers & parseOntologyRootClassMembers  
+getOntologyClass & parseOntologyClass  
+getClassPharmacologyCount & parseClassPharmacologyCount  
+getClassPharmacologyPaginated & parseClassPharmacologyPaginated  
 
 ### Wiki Pathways
-PathwaySearch - base class
-getInformation & parseInformation
+PathwaySearch - base class  
+getInformation & parseInformation  
 
 
