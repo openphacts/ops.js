@@ -29,7 +29,7 @@ describe("Structure search", function() {
       runs(function() {
         expect(this_success).toEqual(true);
         expect(this_status).toEqual(200);
-        expect(this_result.type).toEqual("ExactStructureSearch");
+        expect(this_result.type).toEqual(0);
         expect(this_result.molecule).toEqual('CNC(=O)c1cc(ccn1)Oc2ccc(cc2)NC(=O)Nc3ccc(c(c3)C(F)(F)F)Cl');
         expect(this_result.csURI).toBeDefined();
       });
@@ -111,7 +111,7 @@ describe("Structure search", function() {
       });
       runs(function() {
           expect(this_success).toEqual(false);
-          expect(this_status).toEqual(404);
+          expect(this_status).toEqual(500);
       });
       searcher.substructure('13413434', null, null, null, callback);
     });
@@ -273,7 +273,7 @@ describe("Structure search", function() {
       });
       runs(function() {
           expect(this_success).toEqual(false);
-          expect(this_status).toEqual(404);
+          expect(this_status).toEqual(500);
       });
       searcher.similarity('13413434', 0, 0.99, null, null, null, callback);
     });
