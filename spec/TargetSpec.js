@@ -4,7 +4,8 @@ describe("Target search", function() {
   beforeEach(function() {
       appID = $.url().param('app_id');
       appKey = $.url().param('app_key');
-      searcher = new Openphacts.TargetSearch("https://beta.openphacts.org", appID, appKey);
+      appUrl = $.url().param('app_url');
+      searcher = new Openphacts.TargetSearch(appUrl, appID, appKey);
   });
 
   describe("single target search", function() {

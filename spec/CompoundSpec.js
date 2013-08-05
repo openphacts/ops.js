@@ -4,7 +4,8 @@ describe("Compound search", function() {
   beforeEach(function() {
       appID = $.url().param('app_id');
       appKey = $.url().param('app_key');
-      searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org", appID, appKey);
+      appUrl = $.url().param('app_url');
+      searcher = new Openphacts.CompoundSearch(appUrl, appID, appKey);
   });
 
   describe("single compound search", function() {

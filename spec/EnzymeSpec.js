@@ -4,7 +4,8 @@ describe("Enzymes", function() {
   beforeEach(function() {
       appID = $.url().param('app_id');
       appKey = $.url().param('app_key');
-      searcher = new Openphacts.EnzymeSearch("https://beta.openphacts.org", appID, appKey);
+      appUrl = $.url().param('app_url');
+      searcher = new Openphacts.EnzymeSearch(appUrl, appID, appKey);
   });
 
   describe("get root class members", function() {
@@ -58,7 +59,7 @@ describe("Enzymes", function() {
         // Origin null is not allowed by Access-Control-Allow-Origin. 
         expect(this_status).toEqual(0);
       });
-      var enzymeSearch = new Openphacts.EnzymeSearch("https://beta.openphacts.org", "sdfsdf", "sdfsdf");
+      var enzymeSearch = new Openphacts.EnzymeSearch(appUrl, "sdfsdf", "sdfsdf");
       enzymeSearch.getClassificationRootClasses(callback);
     });
   });

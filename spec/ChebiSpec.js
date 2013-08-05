@@ -4,7 +4,8 @@ describe("Chebi Classes", function() {
   beforeEach(function() {
       appID = $.url().param('app_id');
       appKey = $.url().param('app_key');
-      searcher = new Openphacts.ChebiSearch("https://beta.openphacts.org", appID, appKey);
+      appUrl = $.url().param('app_url');
+      searcher = new Openphacts.ChebiSearch(appUrl, appID, appKey);
   });
 
   describe("get ontology class members", function() {
@@ -111,7 +112,7 @@ describe("Chebi Classes", function() {
         // Origin null is not allowed by Access-Control-Allow-Origin. 
         expect(this_status).toEqual(0);
       });
-      var chebiSearch = new Openphacts.ChebiSearch("https://beta.openphacts.org", "sdfsdf", "sdfsdf");
+      var chebiSearch = new Openphacts.ChebiSearch(appUrl, "sdfsdf", "sdfsdf");
       chebiSearch.getOntologyRootClassMembers(callback);
     });
   });

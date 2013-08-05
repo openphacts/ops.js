@@ -4,7 +4,8 @@ describe("Pathways", function() {
   beforeEach(function() {
       appID = $.url().param('app_id');
       appKey = $.url().param('app_key');
-      searcher = new Openphacts.PathwaySearch("https://beta.openphacts.org", appID, appKey);
+      appUrl = $.url().param('app_url');
+      searcher = new Openphacts.PathwaySearch(appUrl, appID, appKey);
   });
 
   describe("get information", function() {
