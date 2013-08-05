@@ -4,7 +4,8 @@ describe("Concept Wiki", function() {
   beforeEach(function() {
     appID = $.url().param('app_id');
     appKey = $.url().param('app_key');
-    searcher = new Openphacts.ConceptWikiSearch("https://beta.openphacts.org", appID, appKey);
+    appUrl = $.url().param('app_url');
+    searcher = new Openphacts.ConceptWikiSearch(appUrl, appID, appKey);
   });
 
   describe("search by tag", function() {

@@ -4,7 +4,8 @@ describe("Activities", function() {
   beforeEach(function() {
       appID = $.url().param('app_id');
       appKey = $.url().param('app_key');
-      searcher = new Openphacts.ActivitySearch("https://beta.openphacts.org", appID, appKey);
+      appUrl = $.url().param('app_url');
+      searcher = new Openphacts.ActivitySearch(appUrl, appID, appKey);
   });
 
   describe("get types", function() {
@@ -60,7 +61,7 @@ describe("Activities", function() {
         // Origin null is not allowed by Access-Control-Allow-Origin. 
         expect(this_status).toEqual(0);
       });
-      var activitySearch = new Openphacts.ActivitySearch("https://beta.openphacts.org", "sdfsdf", "sdfsdf");
+      var activitySearch = new Openphacts.ActivitySearch(appUrl, "sdfsdf", "sdfsdf");
       activitySearch.getTypes(callback);
     });
   });
