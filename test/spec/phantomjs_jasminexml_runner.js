@@ -55,8 +55,9 @@ if ( phantom.args.length !== 5 ) {
                     return jasmine.phantomjsXMLReporterPassed ? 0 : 1; //< exit(0) is success, exit(1) is failure
                 }));
             }, function() { // or, once it timesout...
+	            console.log("TIMEOUT");
                 phantom.exit(1);
-            });
+            }, 20000); //20 second timeout just in case
         } else {
             console.log("phantomjs> Could not load '" + htmlrunner + "'.");
             phantom.exit(1);
