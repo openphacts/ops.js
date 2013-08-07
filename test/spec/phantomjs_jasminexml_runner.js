@@ -6,7 +6,7 @@ var htmlrunner,
     page,
     fs;
 
-phantom.injectJs("../lib/core.js")
+phantom.injectJs("../../lib/core.js")
 
 if ( phantom.args.length !== 5 ) {
     console.log("Usage: phantom_test_runner.js HTML_RUNNER APP_ID APP_KEY APP_URL RESULT_DIR");

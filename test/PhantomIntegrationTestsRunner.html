@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Jasmine Test Runner</title>
+  <link rel="stylesheet" type="text/css" href="../lib/jasmine-1.3.1/jasmine.css">
+  <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <script type="text/javascript" src="../lib/jasmine-1.3.1/jasmine.js"></script>
+  <script type="text/javascript" src="../lib/jasmine-1.3.1/jasmine-html.js"></script>
+  <script type="text/javascript" src="../lib/jasmine-reporters/jasmine.phantomjs-reporter.js"></script>
+  <script type="text/javascript" src="../lib/purl.js"></script>
+
+  <!-- include source files here... -->
+  <script type="text/javascript" src="../src/OPS.js"></script>
+  <script type="text/javascript" src="../src/CompoundSearch.js"></script>
+  <script type="text/javascript" src="../src/TargetSearch.js"></script>
+  <script type="text/javascript" src="../src/ConceptWikiSearch.js"></script>
+  <script type="text/javascript" src="../src/StructureSearch.js"></script>
+  <script type="text/javascript" src="../src/ChebiSearch.js"></script>
+  <script type="text/javascript" src="../src/EnzymeSearch.js"></script>
+  <script type="text/javascript" src="../src/ActivitySearch.js"></script>
+  <script type="text/javascript" src="../src/PathwaySearch.js"></script>
+
+  <!-- include spec files here... -->
+  <script type="text/javascript" src="spec/integration/ConceptWikiIntegrationTests.js"></script>
+  <script type="text/javascript" src="spec/integration/TargetIntegrationTests.js"></script>
+  <script type="text/javascript" src="spec/integration/CompoundIntegrationTests.js"></script>
+
+</head>
+<body>
+
+<script type="text/javascript">
+  jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
+  jasmine.getEnv().addReporter(new jasmine.PhantomJSReporter());
+  jasmine.getEnv().execute();
+</script>
+
+</body>
+</html>

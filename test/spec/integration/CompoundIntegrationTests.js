@@ -10,12 +10,7 @@ describe("Compound search", function() {
 
   describe("single compound search", function() {
 
-    it("can be executed", function() {
-      spyOn(searcher, 'fetchCompound');
-      searcher.fetchCompound('compoundURI', 'callback');
-      expect(searcher.fetchCompound).toHaveBeenCalled();
-    });
-    it("and return a response", function() {
+    it("can return a response", function() {
       var this_success = null;
       var this_status = null;
       var this_result = null;
@@ -54,17 +49,7 @@ describe("Compound search", function() {
       });
       searcher.fetchCompound('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', callback);
     });
-    it("executes asynchronously", function() {
-      var callback = jasmine.createSpy();
-      searcher.fetchCompound('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', callback);
-      waitsFor(function() {
-          return callback.callCount > 0;
-      });
-      runs(function() {
-          expect(callback).toHaveBeenCalled();
-      });
-    });
-    it("and handle errors", function() {
+    it("can handle errors", function() {
       var this_success = null;
       var this_status = null;
       var callback=function(success, status){
@@ -83,12 +68,7 @@ describe("Compound search", function() {
   });
   describe("compound pharmacology search", function() {
 
-    it("can be executed", function() {
-      spyOn(searcher, 'compoundPharmacology');
-      searcher.compoundPharmacology('compoundURI', 'page', 'pageSize', 'callback');
-      expect(searcher.compoundPharmacology).toHaveBeenCalled();
-    });
-    it("and return a response", function() {
+    it("can return a response", function() {
       var this_success = null;
       var this_status = null;
       var this_result = null;
@@ -109,16 +89,6 @@ describe("Compound search", function() {
       });
       searcher.compoundPharmacology('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', 1, 20, callback);
     });
-    it("executes asynchronously", function() {
-      var callback = jasmine.createSpy();
-      searcher.compoundPharmacology('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', 1, 20, callback);
-      waitsFor(function() {
-          return callback.callCount > 0;
-      });
-      runs(function() {
-          expect(callback).toHaveBeenCalled();
-      });
-    });
     it("and handle errors", function() {
       var this_success = null;
       var this_status = null;
@@ -138,12 +108,7 @@ describe("Compound search", function() {
   });
   describe("compound pharmacology count", function() {
 
-    it("can be executed", function() {
-      spyOn(searcher, 'compoundPharmacologyCount');
-      searcher.compoundPharmacologyCount('compoundURI', 'callback');
-      expect(searcher.compoundPharmacologyCount).toHaveBeenCalled();
-    });
-    it("and return a response", function() {
+    it("can return a response", function() {
       var this_success = null;
       var this_status = null;
       var this_result = null;
@@ -161,16 +126,6 @@ describe("Compound search", function() {
         expect(this_result).toBeDefined();
       });
       searcher.compoundPharmacologyCount('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', callback);
-    });
-    it("executes asynchronously", function() {
-      var callback = jasmine.createSpy();
-      searcher.compoundPharmacologyCount('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', callback);
-      waitsFor(function() {
-          return callback.callCount > 0;
-      });
-      runs(function() {
-          expect(callback).toHaveBeenCalled();
-      });
     });
   });
 });
