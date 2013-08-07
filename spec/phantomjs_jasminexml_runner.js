@@ -1,16 +1,22 @@
 var htmlrunner,
     resultdir,
+    appKey,
+    appId,
+    appUrl,
     page,
     fs;
 
 phantom.injectJs("../lib/core.js")
 
-if ( phantom.args.length !== 2 ) {
-    console.log("Usage: phantom_test_runner.js HTML_RUNNER RESULT_DIR");
+if ( phantom.args.length !== 5 ) {
+    console.log("Usage: phantom_test_runner.js HTML_RUNNER APP_ID APP_KEY APP_URL RESULT_DIR");
     phantom.exit();
 } else {
     htmlrunner = phantom.args[0];
-    resultdir = phantom.args[1];
+    appId = phantom.args[1];
+    appKey = phantom.args[2];
+    appUrl = phantom.args[3];
+    resultdir = phantom.args[4];
     page = require("webpage").create();
     fs = require("fs");
     
@@ -19,7 +25,7 @@ if ( phantom.args.length !== 2 ) {
         console.log(msg);
     };
 
-    page.open(htmlrunner, function(status) {
+    page.open(htmlrunner + "?app_key=" + appKey + "&app_id=" + appId + "&app_url=" + appUrl, function(status) {
         if (status === "success") {
             utils.core.waitfor(function() { // wait for this to be true
                 return page.evaluate(function() {
