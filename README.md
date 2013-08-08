@@ -11,7 +11,24 @@ JQuery must be loaded before the OPS.js library.
 
 Most API calls follow the pattern of request results with one asynchronous call with a callback and then parse the results with another.
 Look at https://dev.openphacts.org for more information about the source methods that the API calls use.
-API call examples:
+
+## Testing the library
+
+[Jasmine](http://pivotal.github.io/jasmine/ "Jasmine javascript testing framework") is used to test the ops.js api. There are various test runners which can be used, they
+are contained within the 'test' directory with the specs for the tests in the 'test/spec' directory. FunctionalTests.html and IntegrationTests.html should be run within a browser.
+
+`file:///path_to_ops.js/test/FunctionalTests.html?app_id=sdfsdf&app_key=sdfsdfsdf&app_url=https://beta.openphacts.org`
+
+Use the appropriate values for `app_id`, `app_key` & `app_url`
+
+PhantomIntegrationTests.html and PhantomFunctionalTests.html use [phantomjs](http://phantomjs.org "PhanotmJS headless web browser"), a headless web browser, and
+can be run from the command line with  
+
+`phantomjs test/spec/phantomjs_jasminexml_runner.js test/PhantomFunctionalTests.html app_id app_key api_url test_results_output_dir`
+
+substitute `app_id`, `app_key`, `app_url` and `test_results_output_dir` for the appropriate values. You may also need to install phantomjs on your machine.
+
+## API call examples:
 
 ### Concept Wiki free text search
 
