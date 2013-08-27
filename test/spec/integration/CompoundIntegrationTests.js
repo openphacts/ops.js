@@ -20,7 +20,7 @@ describe("Compound search", function() {
         this_result = searcher.parseCompoundResponse(response);
       };
       waitsFor(function() {
-        return this_success != null;
+        return this_result != null;
       });
       runs(function() {
 	expect(this_success).toBe(true);
@@ -78,7 +78,7 @@ describe("Compound search", function() {
         this_result = searcher.parseCompoundPharmacologyResponse(response);
       };
       waitsFor(function() {
-          return this_status != null;
+          return this_result != null;
       });
       runs(function() {
         expect(this_success).toEqual(true);
@@ -97,7 +97,7 @@ describe("Compound search", function() {
 	  this_status = status;
       };
       waitsFor(function() {
-          return this_status != null;
+          return this_success != null;
       });
       runs(function() {
           expect(this_success).toEqual(false);
@@ -118,7 +118,7 @@ describe("Compound search", function() {
 	  this_result = searcher.parseCompoundPharmacologyCountResponse(response);
       };
       waitsFor(function() {
-        return this_success != null;
+        return this_result != null;
       });
       runs(function() {
         expect(this_success).toEqual(true);

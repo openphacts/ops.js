@@ -25,8 +25,8 @@
                     <executable>phantomjs</executable>
                     <workingDirectory>test</workingDirectory>
                     <arguments>
-                        <argument>./spec/phantomjs_jasminexml_runner.js</argument>
-                        <argument>PhantomTestRunner.html</argument>
+                        <argument>test/spec/phantomjs_jasminexml_runner.js</argument>
+                        <argument>test/PhantomFunctionalTests.html</argument>
 						<argument>a409dcc9</argument>
 						<argument>ad4fca9111f258325e3ca50e7217dcbc</argument>
 						<argument>https://beta.openphacts.org</argument>

@@ -58,7 +58,7 @@ describe("Target search", function() {
           return callback.callCount > 0;
       });
       runs(function() {
-          expect(callback).toHaveBeenCalled();
+        expect(callback).toHaveBeenCalled();
       });
     });
   });
