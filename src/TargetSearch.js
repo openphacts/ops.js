@@ -68,7 +68,7 @@ Openphacts.TargetSearch.prototype.targetPharmacologyCount = function(targetURI, 
 
 Openphacts.TargetSearch.prototype.parseTargetResponse = function(response) {
     var constants = new Openphacts.Constants();
-	var drugbankData = null, chemblData = null, uniprotData = null, cellularLocation = null, molecularWeight = null, numberOfResidues = null, theoreticalPi = null, drugbankURI = null, functionAnnotation  =null, alternativeName = null, existence = null, organism = null, sequence = null;
+	var drugbankData = null, chemblData = null, uniprotData = null, cellularLocation = null, molecularWeight = null, numberOfResidues = null, theoreticalPi = null, drugbankURI = null, functionAnnotation  =null, alternativeName = null, existence = null, organism = null, sequence = null, uniprotURI = null;
 	var cwUri = response[constants.ABOUT];
 	var id = cwUri.split("/").pop();
 	var keywords = [];
@@ -117,6 +117,7 @@ Openphacts.TargetSearch.prototype.parseTargetResponse = function(response) {
                 chemblItems.push(chemblDataItem);
 			} else if (constants.SRC_CLS_MAPPINGS[src] == 'uniprotValue') {
 				uniprotData = exactMatch;
+                uniprotURI = uniprotData[constants.ABOUT];
 				if (uniprotData.classifiedWith) {
 					$.each(uniprotData.classifiedWith, function(j, classified) {
 						classifiedWith.push(classified);
@@ -158,7 +159,8 @@ Openphacts.TargetSearch.prototype.parseTargetResponse = function(response) {
 		classifiedWith: classifiedWith,
 		seeAlso: seeAlso,
         prefLabel: label,
-        chemblItems: chemblItems
+        chemblItems: chemblItems,
+        cwURI: cwUri
 	};
 }
 
