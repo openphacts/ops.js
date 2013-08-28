@@ -178,11 +178,11 @@ Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyResponse = function
 			assay_organism = onAssay['organism'];
 			assay_organism_item = chembleAssayLink;
 
-			var target = onAssay['target'];
+			var target = onAssay[constants.ON_TARGET];
 			var targets = new Array();
 			var target_organisms = new Array();
 
-                        if ($.isArray(target)) {
+            if ($.isArray(target)) {
 			    $.each(target, function(index, target_item) {	
 				// For Target
 				var target_inner = {};
