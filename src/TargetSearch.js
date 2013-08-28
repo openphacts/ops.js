@@ -215,7 +215,7 @@ Openphacts.TargetSearch.prototype.parseTargetPharmacologyResponse = function(res
           }
         });
 
-		var onAssay = item["onAssay"];
+		var onAssay = item[constants.ON_ASSAY];
 		var chembl_assay_uri;
 		var assay_organism;
 		var assay_organism_item;
@@ -223,12 +223,12 @@ Openphacts.TargetSearch.prototype.parseTargetPharmacologyResponse = function(res
 		var chembldAssayLink = 'https://www.ebi.ac.uk/chembldb/assay/inspect/';
 
 		if (onAssay != null) {
-			chembl_assay_uri = onAssay["_about"];
+			chembl_assay_uri = onAssay[constants.ABOUT];
 			assay_organism = onAssay['assay_organism'];
 			assay_organism_item = chembldAssayLink + chembl_assay_uri.split('/').pop();
 			assay_description = onAssay['description'];
-			assay_description_item = chembldAssayLink + chembl_assay_uri.split('/').pop();
-			target = onAssay['target'];
+			//assay_description_item = chembldAssayLink + chembl_assay_uri.split('/').pop();
+			target = onAssay[constants.ON_TARGET];
 		}
 		var chembl_target_uri;
 		var target_pref_label;
@@ -252,9 +252,9 @@ Openphacts.TargetSearch.prototype.parseTargetPharmacologyResponse = function(res
 				target_title = target_pref_label;
 			}
 
-			target_organism = target['target_organism'];
+			target_organism = target['targetOrganismName'];
 			target_organism_item = chemblTargetLink + chembl_target_uri.split('/').pop();
-			target_concatenated_uris = target['concatenatedURIs'];
+			//target_concatenated_uris = target['concatenatedURIs'];
 			var target_organisms_inner = {};
 			target_organisms_inner['organism'] = target_organism;
 			target_organisms_inner['src'] = target_organism_item;
@@ -289,7 +289,7 @@ Openphacts.TargetSearch.prototype.parseTargetPharmacologyResponse = function(res
 			compoundDrugTypeSrc: drugbank_src,
 			compoundGenericNameSrc: drugbank_src,
 			targetTitleSrc: chembl_src,
-			targetConcatenatedUrisSrc: chembl_src,
+			//targetConcatenatedUrisSrc: chembl_src,
 
 
 			//for target
@@ -305,7 +305,7 @@ Openphacts.TargetSearch.prototype.parseTargetPharmacologyResponse = function(res
 			chemblAssayUri: chembl_assay_uri,
 			chemblTargetUri: chembl_target_uri,
 
-			targetOrganism: target_organism,
+			//targetOrganism: target_organism,
 			targetOrganisms: target_organisms,
 			//targetPrefLabel: target_pref_label,
 
@@ -321,7 +321,7 @@ Openphacts.TargetSearch.prototype.parseTargetPharmacologyResponse = function(res
 			compoundPrefLabelSrc: cw_src,
 			compoundInchiSrc: cs_src,
 			compoundSmilesSrc: cs_src,
-			targetOrganismSrc: chembl_src,
+			//targetOrganismSrc: chembl_src,
 			targetPrefLabelSrc: cw_src,
 			assayOrganismSrc: chembl_src,
 			assayDescriptionSrc: chembl_src,
@@ -341,8 +341,8 @@ Openphacts.TargetSearch.prototype.parseTargetPharmacologyResponse = function(res
 			compoundInchikeyItem: compound_inchikey_item,
 			//targetPrefLabelItem: target_pref_label_item,
 			assayOrganismItem: assay_organism_item,
-			assayDescriptionItem: assay_description_item,
-			targetOrganismItem: target_organism_item,
+			//assayDescriptionItem: assay_description_item,
+		    //targetOrganismItem: target_organism_item,
 			targets: targets
 		});
 	});
