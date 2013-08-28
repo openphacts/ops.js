@@ -37,7 +37,7 @@ describe("Compound search", function() {
         expect(this_result.inchiKey).not.toBeNull();
         expect(this_result.drugbankURI).not.toBeNull();
 
-        // These values are not guaranteed to be in the response
+        // These values are not guaranteed to be in the response from the API but should present though may be null
         expect(this_result.fullMWT).toBeDefined();
         expect(this_result.molform).toBeDefined();
         expect(this_result.mwFreebase).toBeDefined();
