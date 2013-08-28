@@ -42,3 +42,4 @@ Openphacts.Constants.prototype.PAGINATED_START_INDEX = 'startIndex';
 Openphacts.Constants.prototype.TARGET_OF_ASSAY = 'targetOfAssay';
 Openphacts.Constants.prototype.ASSAY_OF_ACTIVITY = 'assayOfActivity';
 Openphacts.Constants.prototype.HAS_TARGET_COMPONENT = 'hasTargetComponent';
+Openphacts.Constants.prototype.MOLFORM = 'molformula';

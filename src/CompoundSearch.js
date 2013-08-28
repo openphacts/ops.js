@@ -67,34 +67,30 @@ Openphacts.CompoundSearch.prototype.compoundPharmacologyCount = function(compoun
 }
 
 Openphacts.CompoundSearch.prototype.parseCompoundResponse = function(response) {
+    var constants = new Openphacts.Constants();
 	var drugbankData, chemspiderData, chemblData;
-	var cwUri = response["_about"];
+	var cwUri = response[constants.ABOUT];
 	var id = cwUri.split("/").pop();
 	var prefLabel = response.prefLabel;
-	$.each(response.exactMatch, function(i, exactMatch) {
-		if (exactMatch["_about"]) {
-			if (exactMatch["_about"].indexOf("http://www4.wiwiss.fu-berlin.de/drugbank") !== -1) {
-				drugbankData = exactMatch;
-			} else if (exactMatch["_about"].indexOf("http://linkedlifedata.com/resource/drugbank") !== -1) {
-				drugbankData = exactMatch;
-			} else if (exactMatch["_about"].indexOf("http://www.chemspider.com") !== -1) {
-				chemspiderData = exactMatch;
-			} else if (exactMatch["_about"].indexOf("http://rdf.chemspider.com") !== -1) {
-				chemspiderData = exactMatch;
-			} else if (exactMatch["_about"].indexOf("http://data.kasabi.com/dataset/chembl-rdf") !== -1) {
-				chemblData = exactMatch;
-			}
+	$.each(response.exactMatch, function(i, match) {
+        var src = match[constants.IN_DATASET];
+		if (constants.SRC_CLS_MAPPINGS[src] == 'drugbankValue') {
+			drugbankData = match;
+		} else if (constants.SRC_CLS_MAPPINGS[src] == 'chemspiderValue') {
+			chemspiderData = match;
+		} else if (constants.SRC_CLS_MAPPINGS[src] == 'chemblValue') {
+			chemblData = match;
 		}
 	});
 	return {
 		id: id,
 		prefLabel: prefLabel,
-		cwUri: cwUri,
+		cwURI: cwUri,
 		description: drugbankData ? drugbankData.description : null,
 		biotransformationItem: drugbankData ? drugbankData.biotransformation : null,
 		toxicity: drugbankData ? drugbankData.toxicity : null,
 		proteinBinding: drugbankData ? drugbankData.proteinBinding : null,
-		csUri: chemspiderData ? chemspiderData["_about"] : null,
+		csURI: chemspiderData ? chemspiderData["_about"] : null,
 		hba: chemspiderData ? chemspiderData.hba : null,
 		hbd: chemspiderData ? chemspiderData.hbd : null,
 		inchi: chemspiderData ? chemspiderData.inchi : null,
@@ -104,10 +100,11 @@ Openphacts.CompoundSearch.prototype.parseCompoundResponse = function(response) {
 		smiles: chemspiderData ? chemspiderData.smiles : null,
 		chemblURI: chemblData ? chemblData["_about"] : null,
 		fullMWT: chemblData ? chemblData.full_mwt : null,
-		molform: chemblData ? chemblData.molform : null,
+		molform: chemblData ? chemblData[constants.MOLFORM] : null,
 		mwFreebase: chemblData ? chemblData.mw_freebase : null,
 		rtb: chemblData ? chemblData.rtb : null,
-        inchiKey: chemspiderData ? chemspiderData.inchikey : null
+        inchiKey: chemspiderData ? chemspiderData.inchikey : null,
+        drugbankURI: drugbankData ? drugbankData[constants.ABOUT] : null
 	};
 }
 
@@ -184,66 +181,65 @@ Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyResponse = function
 
             if ($.isArray(target)) {
 			    $.each(target, function(index, target_item) {	
-				// For Target
-				var target_inner = {};
-			        target_inner['title'] = target_item['title']
-				target_inner['src'] = onAssay["inDataset"] ? onAssay["inDataset"] : '';
-				if (target_item["_about"]) {
-                                        target_inner['about'] = target_item['_about'];
-					var targetLink = 'https://www.ebi.ac.uk/chembl/target/inspect/' + target_item["_about"].split('/').pop();
-					target_inner['item'] = targetLink;
-				} else {
-					target_inner['item'] = '';
-				}
-				targets.push(target_inner);
+				  // For Target
+				  var target_inner = {};
+			      target_inner['title'] = target_item['title']
+				  target_inner['src'] = onAssay["inDataset"] ? onAssay["inDataset"] : '';
+				  if (target_item["_about"]) {
+                      target_inner['about'] = target_item['_about'];
+                      var targetLink = 'https://www.ebi.ac.uk/chembl/target/inspect/' + target_item["_about"].split('/').pop();
+					  target_inner['item'] = targetLink;
+				  } else {
+                      target_inner['item'] = '';
+                  }
+                  targets.push(target_inner);
 
-				// For Organism
-				var organism_inner = {};
-				organism_inner['organism'] = target_item['organism'] ? target_item['organism'] : '';
-				organism_inner['src'] = onAssay["inDataset"] ? onAssay["inDataset"] : '';
-				if (target_item["_about"]) {
-					var organismLink = 'https://www.ebi.ac.uk/chembl/target/inspect/' + target_item["_about"].split('/').pop();
-					organism_inner['item'] = organismLink;
-				} else {
-					organism_inner['item'] = '';
-				}
-				target_organisms.push(organism_inner);
-			    });
-                        } else {	
-		            // For Target
-			    var target_inner = {};
-			    target_inner['title'] = target['title']
-			    target_inner['src'] = onAssay["inDataset"] ? onAssay["inDataset"] : '';
-			    if (target["_about"]) {
-                                target_inner['about'] = target['_about'];
-				var targetLink = 'https://www.ebi.ac.uk/chembl/target/inspect/' + target["_about"].split('/').pop();
-				target_inner['item'] = targetLink;
-			     } else {
-				target_inner['item'] = '';
-			     }
-			     targets.push(target_inner);
+                  // For Organism
+                  var organism_inner = {};
+                  organism_inner['organism'] = target_item['organism'] ? target_item['organism'] : '';
+                  organism_inner['src'] = onAssay["inDataset"] ? onAssay["inDataset"] : '';
+                  if (target_item["_about"]) {
+                      var organismLink = 'https://www.ebi.ac.uk/chembl/target/inspect/' + target_item["_about"].split('/').pop();
+                      organism_inner['item'] = organismLink;
+                  } else {
+                      organism_inner['item'] = '';
+                  }
+                  target_organisms.push(organism_inner);
+                });
+            } else {	
+		        // For Target
+                var target_inner = {};
+                target_inner['title'] = target['title']
+                target_inner['src'] = onAssay["inDataset"] ? onAssay["inDataset"] : '';
+                if (target["_about"]) {
+                    target_inner['about'] = target['_about'];
+                    var targetLink = 'https://www.ebi.ac.uk/chembl/target/inspect/' + target["_about"].split('/').pop();
+                    target_inner['item'] = targetLink;
+                } else {
+                    target_inner['item'] = '';
+                }
+                targets.push(target_inner);
 
-			     // For Organism
-			     var organism_inner = {};
-			     organism_inner['organism'] = target['organism'] ? target['organism'] : '';
-			     organism_inner['src'] = onAssay["inDataset"] ? onAssay["inDataset"] : '';
-			     if (target["_about"]) {
-				var organismLink = 'https://www.ebi.ac.uk/chembl/target/inspect/' + target["_about"].split('/').pop();
-				organism_inner['item'] = organismLink;
-			     } else {
-				organism_inner['item'] = '';
-			     }
-			     target_organisms.push(organism_inner);
-                        }
-		}
+                // For Organism
+			    var organism_inner = {};
+                organism_inner['organism'] = target['organism'] ? target['organism'] : '';
+                organism_inner['src'] = onAssay["inDataset"] ? onAssay["inDataset"] : '';
+                if (target["_about"]) {
+                    var organismLink = 'https://www.ebi.ac.uk/chembl/target/inspect/' + target["_about"].split('/').pop();
+                    organism_inner['item'] = organismLink;
+                } else {
+                    organism_inner['item'] = '';
+                }
+                target_organisms.push(organism_inner);
+            }
+        }
 
-		var chemblActivityLink = 'https://www.ebi.ac.uk/ebisearch/crossrefsearch.ebi?id=' + chembl_activity_uri.split('/a').pop() + '&db=chembl-activity&ref=chembl-compound';
+        var chemblActivityLink = 'https://www.ebi.ac.uk/ebisearch/crossrefsearch.ebi?id=' + chembl_activity_uri.split('/a').pop() + '&db=chembl-activity&ref=chembl-compound';
 
-		//console.log(" chembl value " + chembl_activity_uri.split('/a').pop());
-		activity_activity_type_item = chemblActivityLink;
-		activity_standard_value_item = chemblActivityLink;
-		activity_standard_units_item = chemblActivityLink;
-		activity_relation_item = chemblActivityLink;
+        activity_activity_type_item = chemblActivityLink;
+        activity_standard_value_item = chemblActivityLink;
+        activity_standard_units_item = chemblActivityLink;
+        activity_relation_item = chemblActivityLink;
 		records.push({
 			//for compound
 			compoundInchikey: compound_inchikey,

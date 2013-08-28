@@ -23,29 +23,34 @@ describe("Compound search", function() {
         return this_result != null;
       });
       runs(function() {
-	expect(this_success).toBe(true);
-	expect(this_status).toBe(200);
-        expect(this_result.id).toBeDefined();
-        expect(this_result.prefLabel).toBeDefined();
-        expect(this_result.cwUri).toBeDefined();
-        expect(this_result.description).toBeDefined();
-        expect(this_result.biotransformationItem).toBeDefined();
-        expect(this_result.toxicity).toBeDefined();
-        expect(this_result.proteinBinding).toBeDefined();
-        expect(this_result.csUri).toBeDefined();
-        expect(this_result.hba).toBeDefined();
-        expect(this_result.hbd).toBeDefined();
-        expect(this_result.inchi).toBeDefined();
-        expect(this_result.logp).toBeDefined();
-        expect(this_result.psa).toBeDefined();
-        expect(this_result.ro5Violations).toBeDefined();
-        expect(this_result.smiles).toBeDefined();
-        expect(this_result.chemblURI).toBeDefined();
+        expect(this_success).toBe(true);
+        expect(this_status).toBe(200);
+
+        // API contract states that these will be present
+        expect(this_result.id).not.toBeNull();
+        expect(this_result.prefLabel).not.toBeNull();
+        expect(this_result.cwURI).not.toBeNull();
+        expect(this_result.csURI).not.toBeNull();
+        expect(this_result.inchi).not.toBeNull();
+        expect(this_result.smiles).not.toBeNull();
+        expect(this_result.chemblURI).not.toBeNull();
+        expect(this_result.inchiKey).not.toBeNull();
+        expect(this_result.drugbankURI).not.toBeNull();
+
+        // These values are not guaranteed to be in the response
         expect(this_result.fullMWT).toBeDefined();
         expect(this_result.molform).toBeDefined();
         expect(this_result.mwFreebase).toBeDefined();
         expect(this_result.rtb).toBeDefined();
-        expect(this_result.inchiKey).toBeDefined();
+        expect(this_result.logp).toBeDefined();
+        expect(this_result.psa).toBeDefined();
+        expect(this_result.ro5Violations).toBeDefined();
+        expect(this_result.hba).toBeDefined();
+        expect(this_result.hbd).toBeDefined();
+        expect(this_result.description).toBeDefined();
+        expect(this_result.biotransformationItem).toBeDefined();
+        expect(this_result.toxicity).toBeDefined();
+        expect(this_result.proteinBinding).toBeDefined();
       });
       searcher.fetchCompound('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', callback);
     });
