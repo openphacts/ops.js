@@ -116,27 +116,29 @@ Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyResponse = function
 
 		var chembl_activity_uri = item[constants.ABOUT];
 		var chembl_src = item[constants.IN_DATASET];
-		var activity_pubmed_id = item['pmid'];
-		var activity_relation = item['relation'];
-		var activity_standard_units = item['standardUnits'];
-		var activity_standard_value = item['standardValue'];
-		var activity_activity_type = item['activity_type'];
+        // according to the API docs pmid can be an array but an array of what?
+		var activity_pubmed_id = item['pmid'] ? item['pmid'] : null;
+		var activity_relation = item['relation'] ? item['relation'] : null;
+		var activity_standard_units = item['standardUnits'] ? item['standardUnits'] : null;
+		var activity_standard_value = item['standardValue'] ? item['standardValue'] : null;
+		var activity_activity_type = item['activity_type'] ? item['activity_type'] : null;
+        var pChembl = item['pChembl'] ? item['pChembl'] : null;
 
-		var compound_full_mwt_item;
+		var compound_full_mwt_item = null;
 
 		//big bits
 		var forMolecule = item[constants.FOR_MOLECULE];
 		var chembleMoleculeLink = 'https://www.ebi.ac.uk/chembldb/compound/inspect/';
 		if (forMolecule != null) {
 			var chembl_compound_uri = forMolecule[constants.ABOUT];
-			var compound_full_mwt = forMolecule['full_mwt'];
+			var compound_full_mwt = forMolecule['full_mwt'] ? forMolecule['full_mwt'] : null;
 			chembleMoleculeLink += chembl_compound_uri.split('/').pop();
 			compound_full_mwt_item = chembleMoleculeLink;
 			var em = forMolecule["exactMatch"];
 		}
 
-		var cw_compound_uri, compound_pref_label, cw_src, cs_compound_uri, compound_inchi, compound_inchikey, compound_smiles, cs_src, drugbank_compound_uri, compound_drug_type, compound_generic_name, drugbank_src, csid, compound_smiles_item, compound_inchi_item, compound_inchikey_item, compound_pref_label_item;
-
+		var cw_compound_uri = null, compound_pref_label = null, cw_src = null, cs_compound_uri = null, compound_inchi = null, compound_inchikey = null, compound_smiles = null, cs_src = null, drugbank_compound_uri = null, compound_drug_type = null, compound_generic_name = null, drugbank_src = null, csid = null, compound_smiles_item = null, compound_inchi_item = null, compound_inchikey_item = null, compound_pref_label_item = null;
+        var chemblMolecule = em[constants.ABOUT];
 		$.each(em, function(index, match) {
           var src = match[constants.IN_DATASET];
 			if (constants.SRC_CLS_MAPPINGS[src] == 'conceptWikiValue') {
@@ -163,7 +165,7 @@ Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyResponse = function
 			}
 		});
 
-		var target_title_item, target_organism_item, activity_activity_type_item, activity_standard_value_item, activity_standard_units_item, activity_relation_item, assay_description, assay_description_item, assay_organism, assay_organism_src, assay_organism_item;
+		var target_title_item = null, target_organism_item = null, activity_activity_type_item = null, activity_standard_value_item = null, activity_standard_units_item = null, activity_relation_item = null, assay_description = null, assay_description_item = null, assay_organism = null, assay_organism_src = null, assay_organism_item = null;
 
 		var onAssay = item[constants.ON_ASSAY];
 		if (onAssay != null) {
@@ -172,12 +174,12 @@ Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyResponse = function
 			assay_description = onAssay['description'];
 			var chembleAssayLink = chembldAssayLink + chembl_assay_uri.split('/').pop();
 			assay_description_item = chembleAssayLink;
-			assay_organism = onAssay['organism'];
+			assay_organism = onAssay['organism'] ? onAssay['organism']: null;
 			assay_organism_item = chembleAssayLink;
 
 			var target = onAssay[constants.ON_TARGET];
-			var targets = new Array();
-			var target_organisms = new Array();
+			var targets = [];
+			var target_organisms = [];
 
             if ($.isArray(target)) {
 			    $.each(target, function(index, target_item) {	
@@ -291,7 +293,8 @@ Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyResponse = function
 			compoundSmilesItem: compound_smiles_item,
 			compoundInchiItem: compound_inchi_item,
 			compoundInchikeyItem: compound_inchikey_item,
-			compoundPrefLabelItem: compound_pref_label_item
+			compoundPrefLabelItem: compound_pref_label_item,
+            pChembl: pChembl
 		});
 	});
 	return records;
