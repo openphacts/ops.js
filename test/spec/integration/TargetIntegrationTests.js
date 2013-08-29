@@ -144,6 +144,55 @@ describe("Target search", function() {
         expect(this_success).toBe(true);
         expect(this_status).toBe(200);
         expect(this_result).toBeDefined();
+
+        // optional values
+        expect(this_result[0].targetTitle).toBeDefined();
+        expect(this_result[0].compoundInchikeySrc).toBeDefined();
+        expect(this_result[0].targetTitleSrc).toBeDefined();
+        expect(this_result[0].chemblCompoundUri).toBeDefined();
+        expect(this_result[0].compoundFullMwt).toBeDefined();
+        expect(this_result[0].chemblAssayUri).toBeDefined();
+        expect(this_result[0].chemblTargetUri).toBeDefined();
+        expect(this_result[0].targetOrganisms).toBeDefined();
+        expect(this_result[0].assayOrganism).toBeDefined();
+        expect(this_result[0].assayDescription).toBeDefined();
+        expect(this_result[0].activityRelation).toBeDefined();
+        expect(this_result[0].activityStandardUnits).toBeDefined();
+        expect(this_result[0].activityStandardValue).toBeDefined();
+        expect(this_result[0].activityActivityType).toBeDefined();
+        expect(this_result[0].activityPubmedId).toBeDefined();
+        expect(this_result[0].compoundFullMwtSrc).toBeDefined();
+        expect(this_result[0].compoundPrefLabelSrc).toBeDefined();
+        expect(this_result[0].compoundInchiSrc).toBeDefined();
+        expect(this_result[0].compoundSmilesSrc).toBeDefined();
+        expect(this_result[0].targetPrefLabelSrc).toBeDefined();
+        expect(this_result[0].assayOrganismSrc).toBeDefined();
+        expect(this_result[0].assayDescriptionSrc).toBeDefined();
+        expect(this_result[0].activityRelationSrc).toBeDefined();
+        expect(this_result[0].activityStandardUnits_src).toBeDefined();
+        expect(this_result[0].activityStandardValue_src).toBeDefined();
+        expect(this_result[0].activityActivityType_src).toBeDefined();
+        expect(this_result[0].compoundPrefLabelItem).toBeDefined();
+        expect(this_result[0].activityActivityTypeItem).toBeDefined();
+        expect(this_result[0].activityRelationItem).toBeDefined();
+        expect(this_result[0].activityStandardValueItem).toBeDefined();
+        expect(this_result[0].activityStandardUnitsItem).toBeDefined();
+        expect(this_result[0].compoundFullMwtItem).toBeDefined();
+        expect(this_result[0].compoundSmilesItem).toBeDefined();
+        expect(this_result[0].compoundInchiItem).toBeDefined();
+        expect(this_result[0].compoundInchikeyItem).toBeDefined();
+        expect(this_result[0].assayOrganismItem).toBeDefined();
+        expect(this_result[0].targets).toBeDefined();
+
+        // mandatory values
+        expect(this_result[0].chemblActivityUri).not.toBeNull();
+        expect(this_result[0].cwCompoundUri).not.toBeNull();
+        expect(this_result[0].compoundPrefLabel).not.toBeNull();
+        expect(this_result[0].compoundInchikey).not.toBeNull();
+        expect(this_result[0].compoundSmiles).not.toBeNull();
+        expect(this_result[0].compoundInchi).not.toBeNull();
+        expect(this_result[0].csCompoundUri).not.toBeNull();
+        expect(this_result[0].csid).not.toBeNull();
       });
 
       searcher.targetPharmacology('http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', 1, 20, callback);

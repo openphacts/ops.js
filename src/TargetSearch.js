@@ -226,9 +226,9 @@ Openphacts.TargetSearch.prototype.parseTargetPharmacologyResponse = function(res
 
 		if (onAssay != null) {
 			chembl_assay_uri = onAssay[constants.ABOUT];
-			assay_organism = onAssay['assay_organism'];
+			assay_organism = onAssay['assay_organism'] ? onAssay['assay_organism'] : null;
 			assay_organism_item = chembldAssayLink + chembl_assay_uri.split('/').pop();
-			assay_description = onAssay['description'];
+			assay_description = onAssay['description'] ? onAssay['description'] : null;
 			//assay_description_item = chembldAssayLink + chembl_assay_uri.split('/').pop();
 			target = onAssay[constants.ON_TARGET];
 		}
@@ -285,7 +285,7 @@ Openphacts.TargetSearch.prototype.parseTargetPharmacologyResponse = function(res
 			//compoundDrugType: compound_drug_type,
 			//compoundGenericName: compound_generic_name,
 			targetTitle: target_title,
-			targetConcatenatedUris: target_concatenated_uris,
+			//targetConcatenatedUris: target_concatenated_uris,
 
 			compoundInchikeySrc: cs_src,
 			//compoundDrugTypeSrc: drugbank_src,
