@@ -209,12 +209,12 @@ Openphacts.TargetSearch.prototype.parseTargetPharmacologyResponse = function(res
               compound_inchi_item = chemSpiderLink;
               compound_inchikey_item = chemSpiderLink;
               compound_smiles_item = chemSpiderLink;
-          } else if (constants.SRC_CLS_MAPPINGS[src] == 'drugbankValue') {
-              drugbank_compound_uri = match["_about"];
-              compound_drug_type = match['drugType'];
-              compound_generic_name = match['genericName'];
-              drugbank_src = match["_about"];
-          }
+          }// else if (constants.SRC_CLS_MAPPINGS[src] == 'drugbankValue') {
+           //   drugbank_compound_uri = match["_about"];
+           //   compound_drug_type = match['drugType'];
+           //   compound_generic_name = match['genericName'];
+           //   drugbank_src = match["_about"];
+          //}
         });
 
 		var onAssay = item[constants.ON_ASSAY];
@@ -282,14 +282,14 @@ Openphacts.TargetSearch.prototype.parseTargetPharmacologyResponse = function(res
 		var activity_pubmed_id = item['pmid'];
 		records.push({ //for compound
 			compoundInchikey: compound_inchikey,
-			compoundDrugType: compound_drug_type,
-			compoundGenericName: compound_generic_name,
+			//compoundDrugType: compound_drug_type,
+			//compoundGenericName: compound_generic_name,
 			targetTitle: target_title,
 			targetConcatenatedUris: target_concatenated_uris,
 
 			compoundInchikeySrc: cs_src,
-			compoundDrugTypeSrc: drugbank_src,
-			compoundGenericNameSrc: drugbank_src,
+			//compoundDrugTypeSrc: drugbank_src,
+			//compoundGenericNameSrc: drugbank_src,
 			targetTitleSrc: chembl_src,
 			//targetConcatenatedUrisSrc: chembl_src,
 

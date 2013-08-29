@@ -51,7 +51,6 @@ describe("Target search", function() {
         expect(this_result.drugbankURI).toBeDefined();
         expect(this_result.prefLabel).toBeDefined();
         expect(this_result.chemblItems).toBeDefined();
-        expect(this_result.chemblItems.length).toBeGreaterThan(1);
       });
 
       searcher.fetchTarget('http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', callback);
@@ -75,7 +74,14 @@ describe("Target search", function() {
         expect(this_success).toBe(true);
         expect(this_status).toBe(200);
         expect(this_result).toBeDefined();
-        expect(this_result.id).toBeDefined();
+
+        // mandatory
+        expect(this_result.id).not.toBeNull();
+        expect(this_result.cwURI).not.toBeNull();
+        expect(this_result.uniprotURI).not.toBeNull();
+        expect(this_result.existence).not.toBeNull();
+
+        // optional
         expect(this_result.cellularLocation).toBeDefined();
         expect(this_result.molecularWeight).toBeDefined();
         expect(this_result.numberOfResidues).toBeDefined();
@@ -83,7 +89,6 @@ describe("Target search", function() {
         expect(this_result.keywords).toBeDefined();
         expect(this_result.functionAnnotation).toBeDefined();
         expect(this_result.alternativeName).toBeDefined();
-        expect(this_result.existence).toBeDefined();
         expect(this_result.organism).toBeDefined();
         expect(this_result.sequence).toBeDefined();
         expect(this_result.classifiedWith).toBeDefined();
