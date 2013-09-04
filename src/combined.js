@@ -123,7 +123,7 @@ Openphacts.CompoundSearch.prototype.parseCompoundResponse = function(response) {
 	var drugbankData, chemspiderData, chemblData;
 	var cwUri = response.primaryTopic[constants.ABOUT];
 	var id = cwUri.split("/").pop();
-	var prefLabel = response.prefLabel;
+	var prefLabel = response.primaryTopic.prefLabel;
 	$.each(response.primaryTopic.exactMatch, function(i, match) {
         var src = match[constants.IN_DATASET];
 		if (constants.SRC_CLS_MAPPINGS[src] == 'drugbankValue') {
