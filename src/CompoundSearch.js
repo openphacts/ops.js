@@ -69,7 +69,7 @@ Openphacts.CompoundSearch.prototype.compoundPharmacologyCount = function(compoun
 Openphacts.CompoundSearch.prototype.parseCompoundResponse = function(response) {
     var constants = new Openphacts.Constants();
 	var drugbankData, chemspiderData, chemblData;
-	var cwUri = response[constants.ABOUT];
+	var cwUri = response.primaryTopic[constants.ABOUT];
 	var id = cwUri.split("/").pop();
 	var prefLabel = response.prefLabel;
 	$.each(response.primaryTopic.exactMatch, function(i, match) {
