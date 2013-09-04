@@ -20,7 +20,7 @@ Openphacts.StructureSearch.prototype.exact = function(smiles, matchType, limit, 
 		cache: true,
 		data: params,
 		success: function(response, status, request) {
-			callback.call(this, true, request.status, response.result.primaryTopic);
+			callback.call(this, true, request.status, response.result);
 		},
 		error: function(request, status, error) {
 			callback.call(this, false, request.status);
@@ -28,22 +28,22 @@ Openphacts.StructureSearch.prototype.exact = function(smiles, matchType, limit, 
 	});
 }
 
-Openphacts.StructureSearch.prototype.substructure = function(smiles, limit, start, length, callback) {
-        params={};
-        params['_format'] = "json";
-        params['app_key'] = this.appKey;
-        params['app_id'] = this.appID;
-        params['searchOptions.Molecule'] = smiles;
-        limit != null ? params['resultOptions.Limit'] = limit : '';
-        start != null ? params['resultOptions.Start'] = start : '';
-        length != null ? params['resultOptions.Length'] = length : '';
-	var exactQuery = $.ajax({
+Openphacts.StructureSearch.prototype.substructure = function(smiles, molType, start, count, callback) {
+    params={};
+    params['_format'] = "json";
+    params['app_key'] = this.appKey;
+    params['app_id'] = this.appID;
+    params['searchOptions.Molecule'] = smiles;
+    molType != null ? params['searchOptions.MolType'] = molType : '';
+    start != null ? params['resultOptions.Start'] = start : '';
+    count != null ? params['resultOptions.Count'] = count : '';
+    var exactQuery = $.ajax({
 		url: this.baseURL + '/structure/substructure',
                 dataType: 'json',
 		cache: true,
 		data: params,
 		success: function(response, status, request) {
-			callback.call(this, true, request.status, response.result.primaryTopic);
+			callback.call(this, true, request.status, response.result);
 		},
 		error: function(request, status, error) {
 			callback.call(this, false, request.status);
@@ -63,7 +63,7 @@ Openphacts.StructureSearch.prototype.inchiKeyToURL = function(inchiKey, callback
                     inchi_key: inchiKey
                 },
 		success: function(response, status, request) {
-			callback.call(this, true, request.status, response.result.primaryTopic);
+			callback.call(this, true, request.status, response.result);
 		},
 		error: function(request, status, error) {
 			callback.call(this, false, request.status);
@@ -83,7 +83,7 @@ Openphacts.StructureSearch.prototype.inchiToURL = function(inchi, callback) {
                     inchi: inchi
                 },
 		success: function(response, status, request) {
-			callback.call(this, true, request.status, response.result.primaryTopic);
+			callback.call(this, true, request.status, response.result);
 		},
 		error: function(request, status, error) {
 			callback.call(this, false, request.status);
@@ -91,7 +91,7 @@ Openphacts.StructureSearch.prototype.inchiToURL = function(inchi, callback) {
 	});
 }
 
-Openphacts.StructureSearch.prototype.similarity = function(smiles, type, threshold, limit, start, length, callback) {
+Openphacts.StructureSearch.prototype.similarity = function(smiles, type, threshold, alpha, beta, start, count, callback) {
         params={};
         params['_format'] = "json";
         params['app_key'] = this.appKey;
@@ -99,16 +99,17 @@ Openphacts.StructureSearch.prototype.similarity = function(smiles, type, thresho
         params['searchOptions.Molecule'] = smiles;
         type != null ? params['searchOptions.SimilarityType'] = type : params['searchOptions.SimilarityType'] = 0;
         threshold != null ? params['searchOptions.Threshold'] = threshold : params['searchOptions.Threshold'] = 0.99;
-        limit != null ? params['resultOptions.Limit'] = limit : '';
+        alpha != null ? params['searchOptions.Alpha'] = alpha : '';
+        beta != null ? params['searchOptions.Beta'] = beta : '';
         start != null ? params['resultOptions.Start'] = start : '';
-        length != null ? params['resultOptions.Length'] = length : '';
+        count != null ? params['resultOptions.Count'] = count : '';
 	var exactQuery = $.ajax({
 		url: this.baseURL + '/structure/similarity',
                 dataType: 'json',
 		cache: true,
 		data: params,
 		success: function(response, status, request) {
-			callback.call(this, true, request.status, response.result.primaryTopic);
+			callback.call(this, true, request.status, response.result);
 		},
 		error: function(request, status, error) {
 			callback.call(this, false, request.status);
@@ -128,7 +129,7 @@ Openphacts.StructureSearch.prototype.smilesToURL = function(smiles, callback) {
                     smiles: smiles
                 },
 		success: function(response, status, request) {
-			callback.call(this, true, request.status, response.result.primaryTopic);
+			callback.call(this, true, request.status, response.result);
 		},
 		error: function(request, status, error) {
 			callback.call(this, false, request.status);
@@ -138,28 +139,42 @@ Openphacts.StructureSearch.prototype.smilesToURL = function(smiles, callback) {
 
 Openphacts.StructureSearch.prototype.parseExactResponse = function(response) {
 	return {
-                type: response.type,
-                molecule: response.Molecule,
-                csURI: response.result
+                type: response.primaryTopic.type,
+                molecule: response.primaryTopic.Molecule,
+                csURI: response.primaryTopic.result,
+                matchType: response.primaryTopic.MatchType ? response.primaryTopic.MatchType : null,
+                complexity: response.primaryTopic.Complexity ? response.primaryTopic.Complexity : null,
+                isotopic: response.primaryTopic.Isotopic ? response.primaryTopic.Isotopic : null,
+                hasSpectra: response.primaryTopic.HasSpectra ? response.primaryTopic.HasSpectra : null,
+                hasPatents: response.primaryTopic.HasPatents ? response.primaryTopic.HasPatents : null
         };
 }
 
 Openphacts.StructureSearch.prototype.parseSubstructureResponse = function(response) {
-	return response.result;
+	return response;
 }
 
 Openphacts.StructureSearch.prototype.parseInchiKeyToURLResponse = function(response) {
-	return response["_about"];
+	return response.primaryTopic["_about"];
 }
 
 Openphacts.StructureSearch.prototype.parseInchiToURLResponse = function(response) {
-	return response["_about"];
+	return response.primaryTopic["_about"];
 }
 
 Openphacts.StructureSearch.prototype.parseSimilarityResponse = function(response) {
-	return response.result;
+    var constants = new Openphacts.Constants();
+    var results = [];
+    if ($.isArray(response.primaryTopic.result)) {
+        $.each(response.primaryTopic.result, function(i, result) {
+          results.push({"about": result[constants.ABOUT], "relevance": result[constants.RELEVANCE]});
+        });
+    } else {
+        //TODO do not know what the response format is for a single result
+    }
+	return results;
 }
 
 Openphacts.StructureSearch.prototype.parseSmilesToURLResponse = function(response) {
-	return response["_about"];
+	return response.primaryTopic["_about"];
 }

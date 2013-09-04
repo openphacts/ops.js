@@ -16,7 +16,7 @@ Openphacts.TargetSearch.prototype.fetchTarget = function(targetURI, callback) {
 			app_key: this.appKey
 		},
 		success: function(response, status, request) {
-			callback.call(this, true, request.status, response.result.primaryTopic);
+			callback.call(this, true, request.status, response.result);
 		},
 		error: function(request, status, error) {
 			callback.call(this, false, request.status);
@@ -75,8 +75,8 @@ Openphacts.TargetSearch.prototype.parseTargetResponse = function(response) {
 	var classifiedWith = [];
 	var seeAlso = [];
     var chemblItems = [];
-    var label = response[constants.PREF_LABEL];
-	$.each(response[constants.EXACT_MATCH], function(i, exactMatch) {
+    var label = response.primaryTopic[constants.PREF_LABEL];
+	$.each(response.primaryTopic[constants.EXACT_MATCH], function(i, exactMatch) {
         var src = exactMatch[constants.IN_DATASET];
 		if (src) {
 			if (constants.SRC_CLS_MAPPINGS[src] == 'drugbankValue') {

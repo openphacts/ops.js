@@ -6,23 +6,24 @@ Openphacts.EnzymeSearch = function EnzymeSearch(baseURL, appID, appKey) {
 
 Openphacts.EnzymeSearch.prototype.getClassificationRootClasses = function(callback) {
 	var enzymeQuery = $.ajax({
-		url: this.baseURL + '/target/enzyme/root',
+		url: this.baseURL + '/tree',
                 dataType: 'json',
 		cache: true,
 		data: {
+            root: "enzyme",
 			_format: "json",
 			app_id: this.appID,
 			app_key: this.appKey
 		},
 		success: function(response, status, request) {
-			callback.call(this, true, request.status, response.result.primaryTopic);
+			callback.call(this, true, request.status, response.result);
 		},
 		error: function(request, status, error) {
 			callback.call(this, false, request.status);
 		}
 	});
 }
-
+//TODO not sure what api call this is in 1.3
 Openphacts.EnzymeSearch.prototype.getClassificationClass = function(enzymeURI, callback) {
 	var enzymeQuery = $.ajax({
 		url: this.baseURL + '/target/enzyme/node',
@@ -35,7 +36,7 @@ Openphacts.EnzymeSearch.prototype.getClassificationClass = function(enzymeURI, c
 			app_key: this.appKey
 		},
 		success: function(response, status, request) {
-			callback.call(this, true, request.status, response.result.primaryTopic);
+			callback.call(this, true, request.status, response.result);
 		},
 		error: function(request, status, error) {
 			callback.call(this, false, request.status);
@@ -45,7 +46,7 @@ Openphacts.EnzymeSearch.prototype.getClassificationClass = function(enzymeURI, c
 
 Openphacts.EnzymeSearch.prototype.getClassificationClassMembers = function(enzymeURI, callback) {
 	var enzymeQuery = $.ajax({
-		url: this.baseURL + '/target/enzyme/members',
+		url: this.baseURL + '/tree/children',
                 dataType: 'json',
 		cache: true,
 		data: {
@@ -55,7 +56,7 @@ Openphacts.EnzymeSearch.prototype.getClassificationClassMembers = function(enzym
 			app_key: this.appKey
 		},
 		success: function(response, status, request) {
-			callback.call(this, true, request.status, response.result.primaryTopic);
+			callback.call(this, true, request.status, response.result);
 		},
 		error: function(request, status, error) {
 			callback.call(this, false, request.status);
@@ -126,8 +127,8 @@ Openphacts.EnzymeSearch.prototype.getPharmacologyPaginated = function(enzymeURI,
 
 Openphacts.EnzymeSearch.prototype.parseClassificationRootClasses = function(response) {
         var enzymeRootClasses = [];
-	$.each(response.rootNode, function(i, member) {
-            enzymeRootClasses.push({uri: member["_about"], name: member.name});
+	$.each(response.result.primaryTopic.rootNode, function(i, member) {
+            enzymeRootClasses.push({uri: member["_about"], name: member.prefLabel});
 	});
 	return enzymeRootClasses;
 }
@@ -144,8 +145,8 @@ Openphacts.EnzymeSearch.prototype.parseClassificationClass = function(response) 
 
 Openphacts.EnzymeSearch.prototype.parseClassificationClassMembers = function(response) {
         var enzymeClasses = [];
-        if ($.isArray(response.has_member)) {
-	        $.each(response.has_member, function(i, member) {
+        if ($.isArray(response.primaryTopic.childNode)) {
+	        $.each(response.primaryTopic.childNode, function(i, member) {
                 var about = member["_about"];
                 var names = [];
                 if ($.isArray(member.name)) {
@@ -158,14 +159,14 @@ Openphacts.EnzymeSearch.prototype.parseClassificationClassMembers = function(res
                 enzymeClasses.push({uri: about, names: names});
 	        });
         } else {
-	        var about = response.has_member["_about"];
+	        var about = response.primaryTopic.childNode["_about"];
             var names = [];
-            if ($.isArray(response.has_member.name)) {
-                $.each(response.has_member.name, function(j, label) {
+            if ($.isArray(response.primaryTopic.childNode.prefLabel)) {
+                $.each(response.primaryTopic.childNode.prefLabel, function(j, label) {
                     names.push(label);
                 });
             } else {
-                names.push(response.has_member.name);
+                names.push(response.primaryTopic.childNode.prefLabel);
             }
             enzymeClasses.push({uri: about, names: names});
         }

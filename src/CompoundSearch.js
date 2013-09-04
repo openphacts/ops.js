@@ -16,7 +16,7 @@ Openphacts.CompoundSearch.prototype.fetchCompound = function(compoundURI, callba
 			app_key: this.appKey
 		},
 		success: function(response, status, request) {
-			callback.call(this, true, request.status, response.result.primaryTopic);
+			callback.call(this, true, request.status, response.result);
 		},
 		error: function(request, status, error) {
 			callback.call(this, false, request.status);
@@ -72,7 +72,7 @@ Openphacts.CompoundSearch.prototype.parseCompoundResponse = function(response) {
 	var cwUri = response[constants.ABOUT];
 	var id = cwUri.split("/").pop();
 	var prefLabel = response.prefLabel;
-	$.each(response.exactMatch, function(i, match) {
+	$.each(response.primaryTopic.exactMatch, function(i, match) {
         var src = match[constants.IN_DATASET];
 		if (constants.SRC_CLS_MAPPINGS[src] == 'drugbankValue') {
 			drugbankData = match;
