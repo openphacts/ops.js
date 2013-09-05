@@ -131,6 +131,7 @@ describe("Compound search", function() {
         expect(this_result[0].compoundInchikeyItem).toBeDefined();
         expect(this_result[0].compoundPrefLabelItem).toBeDefined();
         expect(this_result[0].pChembl).toBeDefined();
+        expect(this_result[0].activityValue).toBeDefined();
 
         // mandatory values
         expect(this_result[0].chemblActivityUri).not.toBeNull();

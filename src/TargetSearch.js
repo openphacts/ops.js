@@ -69,7 +69,7 @@ Openphacts.TargetSearch.prototype.targetPharmacologyCount = function(targetURI, 
 Openphacts.TargetSearch.prototype.parseTargetResponse = function(response) {
     var constants = new Openphacts.Constants();
 	var drugbankData = null, chemblData = null, uniprotData = null, cellularLocation = null, molecularWeight = null, numberOfResidues = null, theoreticalPi = null, drugbankURI = null, functionAnnotation  =null, alternativeName = null, existence = null, organism = null, sequence = null, uniprotURI = null;
-	var cwUri = response[constants.ABOUT];
+	var cwUri = response.primaryTopic[constants.ABOUT];
 	var id = cwUri.split("/").pop();
 	var keywords = [];
 	var classifiedWith = [];

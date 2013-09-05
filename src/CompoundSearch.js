@@ -122,6 +122,8 @@ Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyResponse = function
 		var activity_standard_units = item['standardUnits'] ? item['standardUnits'] : null;
 		var activity_standard_value = item['standardValue'] ? item['standardValue'] : null;
 		var activity_activity_type = item['activity_type'] ? item['activity_type'] : null;
+        //TODO seems to be some confusion about what the value is called
+        var activity_activity_value = item['activity_value'] ? item['activity_value'] : null;
         var pChembl = item['pChembl'] ? item['pChembl'] : null;
 
 		var compound_full_mwt_item = null;
@@ -270,6 +272,7 @@ Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyResponse = function
 			activityStandardUnits: activity_standard_units,
 			activityStandardValue: activity_standard_value,
 			activityActivityType: activity_activity_type,
+            activityValue: activity_activity_value,
 
 			compoundFullMwtSrc: chembl_src,
 			compoundPrefLabel_src: cw_src,
