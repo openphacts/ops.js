@@ -95,7 +95,7 @@ Openphacts.TargetSearch.prototype.parseTargetResponse = function(response) {
                 chemblLinkOut += chemblUri.split('/').pop();
                 chemblDataItem['linkOut'] = chemblLinkOut;
                 // synomnys
-                var synonmysData;
+                var synonymsData;
                 if (chemblData[constants.LABEL]) {
                     synonymsData = chemblData[constants.LABEL];
                 }
