@@ -120,10 +120,11 @@ Openphacts.CompoundSearch.prototype.compoundPharmacologyCount = function(compoun
 
 Openphacts.CompoundSearch.prototype.parseCompoundResponse = function(response) {
     var constants = new Openphacts.Constants();
+    var id = null, prefLabel = null, cwURI = null;
 	var drugbankData, chemspiderData, chemblData;
-	var cwUri = response.primaryTopic[constants.ABOUT];
-	var id = cwUri.split("/").pop();
-	var prefLabel = response.primaryTopic.prefLabel;
+	cwUri = response.primaryTopic[constants.ABOUT];
+	id = cwUri.split("/").pop();
+	prefLabel = response.primaryTopic.prefLabel;
 	$.each(response.primaryTopic.exactMatch, function(i, match) {
         var src = match[constants.IN_DATASET];
 		if (constants.SRC_CLS_MAPPINGS[src] == 'drugbankValue') {
@@ -135,6 +136,7 @@ Openphacts.CompoundSearch.prototype.parseCompoundResponse = function(response) {
 		}
 	});
 	return {
+        // TODO ensure that no 'undefined' objects can be returned
 		id: id,
 		prefLabel: prefLabel,
 		cwURI: cwUri,
@@ -320,7 +322,7 @@ Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyResponse = function
 			targetOrganisms: target_organisms,
 			assayOrganism: assay_organism,
 			assayDescription: assay_description,
-			activity_Relation: activity_relation,
+			activityRelation: activity_relation,
 			activityStandardUnits: activity_standard_units,
 			activityStandardValue: activity_standard_value,
 			activityActivityType: activity_activity_type,
@@ -582,7 +584,7 @@ Openphacts.TargetSearch.prototype.parseTargetResponse = function(response) {
                 chemblLinkOut += chemblUri.split('/').pop();
                 chemblDataItem['linkOut'] = chemblLinkOut;
                 // synomnys
-                var synonmysData;
+                var synonymsData;
                 if (chemblData[constants.LABEL]) {
                     synonymsData = chemblData[constants.LABEL];
                 }
