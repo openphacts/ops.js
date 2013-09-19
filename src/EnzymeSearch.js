@@ -181,7 +181,7 @@ Openphacts.EnzymeSearch.prototype.parsePharmacologyPaginated = function(response
         var records = [];
         $.each(response.items, function(i, item) {
             var targets = [];
-            var chemblActivityURI, pmid, relation, standardUnits, standardValue, activityType, inDataset, fullMWT, chemblURI, cwURI, prefLabel, csURI, inchi, inchiKey, smiles, ro5Violations, targetURI, targetTitle, targetOrganism, assayURI, assayDescription;
+            var chemblActivityURI, pmid, relation, standardUnits, standardValue, activityType, inDataset, fullMWT, chemblURI, cwURI, prefLabel, csURI, inchi, inchiKey, smiles, ro5Violations, targetURI, targetTitle, targetOrganism, assayURI, assayDescription, assayOrganism, cwCompoundURI;
             chemblActivityURI = item["_about"];
             pmid = item.pmid;
             relation = item.relation;
@@ -194,6 +194,7 @@ Openphacts.EnzymeSearch.prototype.parsePharmacologyPaginated = function(response
             $.each(item.forMolecule.exactMatch, function(j, match) {
 		if (match["_about"] && match["_about"].indexOf("http://www.conceptwiki.org") !== -1) {
                     cwURI = match["_about"];
+                    cwCompoundURI = cwURI;
                     prefLabel = match["prefLabel"];
 		} else if (match["_about"] && match["_about"].indexOf("chemspider.com") !== -1) {
                     csURI = match["_about"];
@@ -235,7 +236,9 @@ Openphacts.EnzymeSearch.prototype.parsePharmacologyPaginated = function(response
                              targetTitle: targetTitle,
                              targetOrganism: targetOrganism,
                              assayURI: assayURI,
-                             assayDescription: assayDescription
+                             assayDescription: assayDescription,
+                             assayOrganism: assayOrganism,
+                             cwCompoundURI:cwCompoundURI
                          });
         });
         return records;
