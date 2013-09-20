@@ -68,7 +68,7 @@ Openphacts.CompoundSearch.prototype.compoundPharmacologyCount = function(compoun
 
 Openphacts.CompoundSearch.prototype.parseCompoundResponse = function(response) {
     var constants = new Openphacts.Constants();
-    var id = null, prefLabel = null, cwURI = null;
+    var id = null, prefLabel = null, cwURI = null, description = null, biotransformationItem = null, toxicity = null, proteinBinding = null, csURI = null, hba = null, hbd = null, inchi = null, logp = null, psa = null, ro5Violations = null, smiles = null, chemblURI = null, fullMWT = null, molform = null, mwFreebase = null,	rtb = null, inchiKey = null, drugbankURI = null;
 	var drugbankData, chemspiderData, chemblData;
 	cwUri = response.primaryTopic[constants.ABOUT];
 	id = cwUri.split("/").pop();
@@ -83,30 +83,54 @@ Openphacts.CompoundSearch.prototype.parseCompoundResponse = function(response) {
 			chemblData = match;
 		}
 	});
+    if (drugbankData) {
+		description =  drugbankData.description ? drugbankData.description : null;
+		biotransformationItem = drugbankData.biotransformation ? drugbankData.biotransformation : null;
+		toxicity =  drugbankData.toxicity ? drugbankData.toxicity : null;
+		proteinBinding =  drugbankData.proteinBinding ? drugbankData.proteinBinding : null;
+        drugbankURI =  drugbankData[constants.ABOUT] ? drugbankData[constants.ABOUT] : null;
+    }
+    if (chemspiderData) {
+		csURI =  chemspiderData["_about"] ? chemspiderData["_about"] : null;
+		hba =  chemspiderData ? chemspiderData.hba : null;
+		hbd =  chemspiderData.hbd ? chemspiderData.hbd : null;
+		inchi = chemspiderData.inchi ? chemspiderData.inchi : null;
+		logp =  chemspiderData.logp ? chemspiderData.logp : null;
+		psa = chemspiderData.psa ? chemspiderData.psa : null;
+		ro5Violations =  chemspiderData.ro5_violations ? chemspiderData.ro5_violations : null;
+		smiles =  chemspiderData.smiles ? chemspiderData.smiles : null;
+        inchiKey = chemspiderData.inchikey ? chemspiderData.inchikey : null;
+    }
+    if (chemblData) {
+		chemblURI =  chemblData["_about"] ? chemblData["_about"] : null;
+		fullMWT =  chemblData.full_mwt ? chemblData.full_mwt : null;
+		molform =  chemblData [constants.MOLFORM] ? chemblData[constants.MOLFORM] : null;
+		mwFreebase =  chemblData.mw_freebase ? chemblData.mw_freebase : null;
+		rtb =  chemblData.rtb ? chemblData.rtb : null;
+    }
 	return {
-        // TODO ensure that no 'undefined' objects can be returned
 		id: id,
 		prefLabel: prefLabel,
 		cwURI: cwUri,
-		description: drugbankData ? drugbankData.description : null,
-		biotransformationItem: drugbankData ? drugbankData.biotransformation : null,
-		toxicity: drugbankData ? drugbankData.toxicity : null,
-		proteinBinding: drugbankData ? drugbankData.proteinBinding : null,
-		csURI: chemspiderData ? chemspiderData["_about"] : null,
-		hba: chemspiderData ? chemspiderData.hba : null,
-		hbd: chemspiderData ? chemspiderData.hbd : null,
-		inchi: chemspiderData ? chemspiderData.inchi : null,
-		logp: chemspiderData ? chemspiderData.logp : null,
-		psa: chemspiderData ? chemspiderData.psa : null,
-		ro5Violations: chemspiderData ? chemspiderData.ro5_violations : null,
-		smiles: chemspiderData ? chemspiderData.smiles : null,
-		chemblURI: chemblData ? chemblData["_about"] : null,
-		fullMWT: chemblData ? chemblData.full_mwt : null,
-		molform: chemblData ? chemblData[constants.MOLFORM] : null,
-		mwFreebase: chemblData ? chemblData.mw_freebase : null,
-		rtb: chemblData ? chemblData.rtb : null,
-        inchiKey: chemspiderData ? chemspiderData.inchikey : null,
-        drugbankURI: drugbankData ? drugbankData[constants.ABOUT] : null
+		description: description,
+		biotransformationItem: biotransformationItemS,
+		toxicity: toxicity,
+		proteinBinding: proteinBinding,
+		csURI: csURI,
+		hba: hba,
+		hbd: hbd,
+		inchi: inchi,
+		logp: logp,
+		psa: psa,
+		ro5Violations: ro5Violations,
+		smiles: smiles,
+		chemblURI: chemblURI,
+		fullMWT: fullMWT,
+		molform: molform,
+		mwFreebase: mwFreebase,
+		rtb: rtb,
+        inchiKey: inchiKey,
+        drugbankURI: drugbankURI
 	};
 }
 
