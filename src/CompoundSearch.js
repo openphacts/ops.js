@@ -113,7 +113,7 @@ Openphacts.CompoundSearch.prototype.parseCompoundResponse = function(response) {
 		prefLabel: prefLabel,
 		cwURI: cwUri,
 		description: description,
-		biotransformationItem: biotransformationItemS,
+		biotransformationItem: biotransformationItem,
 		toxicity: toxicity,
 		proteinBinding: proteinBinding,
 		csURI: csURI,

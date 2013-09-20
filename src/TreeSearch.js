@@ -158,8 +158,8 @@ Openphacts.TreeSearch.prototype.parseTargetClassPharmacologyPaginated = function
       activityType = item.activity_type;
       inDataset = item[constants.IN_DATASET];
       forMolecule = item[constants.FOR_MOLECULE];
-      chemblURI = forMolecule[constants.ABOUT];
-      fullMWT = forMolecule[constants.FULL_MWT];
+      chemblURI = forMolecule[constants.ABOUT] ? forMolecule[constants.ABOUT] : null;
+      fullMWT = forMolecule[constants.FULL_MWT] ? forMolecule[constants.FULL_MWT] : null;
       $.each(forMolecule[constants.EXACT_MATCH], function(j, match) {
         var src = match[constants.IN_DATASET];
 		if (constants.SRC_CLS_MAPPINGS[src] == 'conceptWikiValue') {

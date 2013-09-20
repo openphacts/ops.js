@@ -183,7 +183,7 @@ Openphacts.TargetSearch.prototype.parseTargetPharmacologyResponse = function(res
 
 		if (forMolecule != null) {
 			chembl_compound_uri = forMolecule["_about"];
-			compound_full_mwt = forMolecule['full_mwt'];
+			compound_full_mwt = forMolecule['full_mwt'] ? forMolecule['full_mwt'] : null;
 			chembleMoleculeLink += chembl_compound_uri.split('/').pop();
 			compound_full_mwt_item = chembleMoleculeLink;
 			em = forMolecule["exactMatch"];
@@ -236,7 +236,7 @@ Openphacts.TargetSearch.prototype.parseTargetPharmacologyResponse = function(res
 		var target_pref_label;
 		var target_pref_label_item;
 		var targetMatch;
-		var target_title;
+		var target_title = null;
 		var target_organism;
 		var target_organism_item;
 		var target_concatenated_uris;
@@ -246,13 +246,15 @@ Openphacts.TargetSearch.prototype.parseTargetPharmacologyResponse = function(res
 		if (target != null) {
 			chembl_target_uri = target["_about"];
 			//target_pref_label = target['prefLabel'];
-			targetMatch = target['exactMatch'];
-			if (targetMatch != null) {
-				var targetMatchURI = targetMatch["_about"];
-				target_pref_label = targetMatch['prefLabel'];
-				target_pref_label_item = targetMatchURI;
-				target_title = target_pref_label;
-			}
+            //TODO The exact match stuff does not seem to exist any more
+			//targetMatch = target['exactMatch'];
+            target_title = target.title;
+			//if (targetMatch != null) {
+			//	var targetMatchURI = targetMatch["_about"];
+			//	target_pref_label = targetMatch['prefLabel'];
+			//	target_pref_label_item = targetMatchURI;
+			//	target_title = target_pref_label ? target_pref_label : null;
+			//}
 
 			target_organism = target['targetOrganismName'];
 			target_organism_item = chemblTargetLink + chembl_target_uri.split('/').pop();
@@ -262,8 +264,8 @@ Openphacts.TargetSearch.prototype.parseTargetPharmacologyResponse = function(res
 			target_organisms_inner['src'] = target_organism_item;
 			target_organisms.push(target_organisms_inner);
 			var targets_inner = {};
-			targets_inner['title'] = target_pref_label;
-			targets_inner['cw_uri'] = target_pref_label_item;
+			targets_inner['title'] = target_title;
+			targets_inner['cw_uri'] = target_pref_label_item ? target_pref_label_item : null;
 			targets.push(targets_inner);
 		}
 
