@@ -36,7 +36,7 @@ describe("Structure search", function() {
         expect(this_result.hasSpectra).toBeDefined();
         expect(this_result.hasPatents).toBeDefined();
       });
-      searcher.exact('CNC(=O)c1cc(ccn1)Oc2ccc(cc2)NC(=O)Nc3ccc(c(c3)C(F)(F)F)Cl', 0, null, null, null, callback);
+      searcher.exact('CNC(=O)c1cc(ccn1)Oc2ccc(cc2)NC(=O)Nc3ccc(c(c3)C(F)(F)F)Cl', 0, callback);
     });
     it("and handle errors", function() {
       var this_success = null;
@@ -52,7 +52,7 @@ describe("Structure search", function() {
         expect(this_success).toEqual(false);
         expect(this_status).toEqual(500);
       });
-      searcher.exact('13413434', 0, null, null, null, callback);
+      searcher.exact('13413434', 0, callback);
     });
   });
 
@@ -68,7 +68,7 @@ describe("Structure search", function() {
         this_result = searcher.parseSubstructureResponse(response);
       };
       waitsFor(function() {
-        return this_success != null;
+        return this_result != null;
       });
       runs(function() {
         expect(this_success).toEqual(true);

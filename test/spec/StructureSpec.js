@@ -12,12 +12,12 @@ describe("Structure search", function() {
 
     it("can be executed", function() {
       spyOn(searcher, 'exact');
-      searcher.exact('smiles', 'match', 'limit', 'start', 'length', 'callback');
+      searcher.exact('smiles', 'match', 'callback');
       expect(searcher.exact).toHaveBeenCalled();
     });
     it("executes asynchronously", function() {
       var callback = jasmine.createSpy();
-      searcher.exact('CNC(=O)c1cc(ccn1)Oc2ccc(cc2)NC(=O)Nc3ccc(c(c3)C(F)(F)F)Cl', 0, null, null, null, callback);
+      searcher.exact('CNC(=O)c1cc(ccn1)Oc2ccc(cc2)NC(=O)Nc3ccc(c(c3)C(F)(F)F)Cl', 0, callback);
       waitsFor(function() {
           return callback.callCount > 0;
       });
@@ -31,7 +31,7 @@ describe("Structure search", function() {
 
     it("can be executed", function() {
       spyOn(searcher, 'substructure');
-      searcher.substructure('smiles', 'limit', 'start', 'length', 'callback');
+      searcher.substructure('smiles', 'moltype', 'start', 'count', 'callback');
       expect(searcher.substructure).toHaveBeenCalled();
     });
     it("executes asynchronously", function() {

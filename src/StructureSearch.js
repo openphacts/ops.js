@@ -4,16 +4,13 @@ Openphacts.StructureSearch = function StructureSearch(baseURL, appID, appKey) {
 	this.appKey = appKey;
 }
 
-Openphacts.StructureSearch.prototype.exact = function(smiles, matchType, limit, start, length, callback) {
+Openphacts.StructureSearch.prototype.exact = function(smiles, matchType, callback) {
         params={};
         params['_format'] = "json";
         params['app_key'] = this.appKey;
         params['app_id'] = this.appID;
         params['searchOptions.Molecule'] = smiles;
         matchType != null ? params['searchOptions.MatchType'] = matchType : '';
-        limit != null ? params['resultOptions.Limit'] = limit : '';
-        start != null ? params['resultOptions.Start'] = start : '';
-        length != null ? params['resultOptions.Length'] = length : '';
 	var exactQuery = $.ajax({
 		url: this.baseURL + '/structure/exact',
                 dataType: 'json',
