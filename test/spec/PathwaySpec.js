@@ -122,4 +122,23 @@ describe("Pathways", function() {
     });
   });
 
+  describe("get compounds for pathway ", function() {
+
+    it("can be executed", function() {
+      spyOn(searcher, 'getCompounds');
+      searcher.getCompounds('URI', 'lens', 'callback');
+      expect(searcher.getCompounds).toHaveBeenCalled();
+    });
+    it("executes asynchronously", function() {
+      var callback = jasmine.createSpy();
+      searcher.getCompounds('http://identifiers.org/ncbigene/282478', null, callback);
+      waitsFor(function() {
+          return callback.callCount > 0;
+      });
+      runs(function() {
+          expect(callback).toHaveBeenCalled();
+      });
+    });
+  });
+
 });

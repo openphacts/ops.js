@@ -292,4 +292,51 @@ describe("Pathways", function() {
     });
   });
 
+  describe("get compounds for pathway", function() {
+
+    it("and return a response", function() {
+      var this_success = null;
+      var this_status = null;
+      var this_result = null;
+      var callback=function(success, status, response){
+        this_success = success;
+	    this_status = status;
+        this_result = searcher.parseGetCompoundsResponse(response);
+      };
+      waitsFor(function() {
+        return this_result != null;
+      });
+      runs(function() {
+	    expect(this_success).toBe(true);
+	    expect(this_status).toBe(200);
+        expect(this_result).not.toBeNull();
+        expect(this_result.title).toBeDefined();
+        expect(this_result.revision).toBeDefined();
+        expect(this_result.parts).toBeDefined();
+        //mandatory
+        expect(this_result.title).not.toBeNull();
+        expect(this_result.revision).not.toBeNull();
+        expect(this_result.parts).not.toBeNull();
+
+      });
+      searcher.getCompounds('http://identifiers.org/wikipathways/WP1008', null, callback);
+    });
+    it("and handle errors", function() {
+      var this_success = null;
+      var this_status = null;
+      var callback=function(success, status){
+        this_success = success;
+	    this_status = status;
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toEqual(false);
+        expect(this_status).toEqual(400);
+      });
+      searcher.getCompounds('456436236', null, callback);
+    });
+  });
+
 });
