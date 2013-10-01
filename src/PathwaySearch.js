@@ -123,6 +123,27 @@ Openphacts.PathwaySearch.prototype.countPathwaysByTarget = function(URI, organis
 	});
 }
 
+Openphacts.PathwaySearch.prototype.getTargets = function(URI, lens, callback) {
+        params={};
+        params['_format'] = "json";
+        params['app_key'] = this.appKey;
+        params['app_id'] = this.appID;
+        params['uri'] = URI;
+        lens ? params['lens'] = lens : '';
+	var pathwayQuery = $.ajax({
+		url: this.baseURL + '/pathway/getTargets',
+        dataType: 'json',
+		cache: true,
+		data: params,
+		success: function(response, status, request) {
+			callback.call(this, true, request.status, response.result);
+		},
+		error: function(request, status, error) {
+			callback.call(this, false, request.status);
+		}
+	});
+}
+
 Openphacts.PathwaySearch.prototype.parseInformationResponse = function(response) {
         var constants = new Openphacts.Constants();
         var latest_version, identifier, revision, title, description, parts, inDataset, pathwayOntology, organism, organismLabel;
@@ -219,4 +240,27 @@ Openphacts.PathwaySearch.prototype.parseByTargetResponse = function(response) {
 Openphacts.PathwaySearch.prototype.parseCountPathwaysByTargetResponse = function(response) {
     var constants = new Openphacts.Constants();
 	return response.primaryTopic[constants.PATHWAY_COUNT];
+}
+
+Openphacts.PathwaySearch.prototype.parseGetTargetsResponse = function(response) {
+        var constants = new Openphacts.Constants();
+        var latest_version, revision, title, parts;
+        latest_version = response.primaryTopic.latest_version;
+        title = latest_version.title;
+        revision = latest_version[constants.ABOUT];
+        var partsComplete = latest_version.hasPart ? latest_version.hasPart : null;
+        var parts = [];
+        if ($.isArray(partsComplete)) {
+	        $.each(partsComplete, function(i, part) {
+              parts.push(part);
+	        });
+        } else {
+            //TODO check this out since the api docs are not really clear if this is true
+            parts.push(partsComplete);
+        }
+	return {
+                'title': title, 
+                'revision': revision,  
+                'parts': parts
+            };
 }

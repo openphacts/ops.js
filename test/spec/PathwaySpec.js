@@ -103,4 +103,23 @@ describe("Pathways", function() {
     });
   });
 
+  describe("get targets for pathway ", function() {
+
+    it("can be executed", function() {
+      spyOn(searcher, 'getTargets');
+      searcher.getTargets('URI', 'lens', 'callback');
+      expect(searcher.getTargets).toHaveBeenCalled();
+    });
+    it("executes asynchronously", function() {
+      var callback = jasmine.createSpy();
+      searcher.getTargets('http://identifiers.org/ncbigene/282478', null, callback);
+      waitsFor(function() {
+          return callback.callCount > 0;
+      });
+      runs(function() {
+          expect(callback).toHaveBeenCalled();
+      });
+    });
+  });
+
 });

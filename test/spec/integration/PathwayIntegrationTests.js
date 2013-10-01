@@ -25,7 +25,6 @@ describe("Pathways", function() {
       runs(function() {
 	    expect(this_success).toBe(true);
 	    expect(this_status).toBe(200);
-        //optional
         expect(this_result.title).toBeDefined();
         expect(this_result.description).toBeDefined();
         expect(this_result.revision).toBeDefined();
@@ -76,7 +75,6 @@ describe("Pathways", function() {
         expect(this_result.length).toBeGreaterThan(0);
         var pathway_result = this_result[0];
         expect(pathway_result).not.toBeNull;
-        //optional
         expect(pathway_result.title).toBeDefined();
         expect(pathway_result.description).toBeDefined();
         expect(pathway_result.pathwayOntology).toBeDefined();
@@ -172,7 +170,6 @@ describe("Pathways", function() {
         expect(this_result.length).toBeGreaterThan(0);
         var pathway_result = this_result[0];
         expect(pathway_result).not.toBeNull;
-        //optional
         expect(pathway_result.title).toBeDefined();
         expect(pathway_result.description).toBeDefined();
         expect(pathway_result.pathwayOntology).toBeDefined();
@@ -245,6 +242,53 @@ describe("Pathways", function() {
         expect(this_status).toEqual(400);
       });
       searcher.countPathwaysByTarget('456436236', null, null, callback);
+    });
+  });
+
+  describe("get targets for pathway", function() {
+
+    it("and return a response", function() {
+      var this_success = null;
+      var this_status = null;
+      var this_result = null;
+      var callback=function(success, status, response){
+        this_success = success;
+	    this_status = status;
+        this_result = searcher.parseGetTargetsResponse(response);
+      };
+      waitsFor(function() {
+        return this_result != null;
+      });
+      runs(function() {
+	    expect(this_success).toBe(true);
+	    expect(this_status).toBe(200);
+        expect(this_result).not.toBeNull();
+        expect(this_result.title).toBeDefined();
+        expect(this_result.revision).toBeDefined();
+        expect(this_result.parts).toBeDefined();
+        //mandatory
+        expect(this_result.title).not.toBeNull();
+        expect(this_result.revision).not.toBeNull();
+        expect(this_result.parts).not.toBeNull();
+
+      });
+      searcher.getTargets('http://identifiers.org/wikipathways/WP1008', null, callback);
+    });
+    it("and handle errors", function() {
+      var this_success = null;
+      var this_status = null;
+      var callback=function(success, status){
+        this_success = success;
+	    this_status = status;
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toEqual(false);
+        expect(this_status).toEqual(400);
+      });
+      searcher.getTargets('456436236', null, callback);
     });
   });
 
