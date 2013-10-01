@@ -239,6 +239,12 @@ getClassPharmacologyPaginated & parseClassPharmacologyPaginated
 
 ### Wiki Pathways
 PathwaySearch - base class  
-getInformation & parseInformation  
-
-
+information & parseInformation  
+pathwaysByCompound & parsePathwaysByCompoundResponse  
+countPathwaysByCompound & parseCountPathwaysByCompoundResponse  
+pathwaysByTarget & parsePathwaysByTargetResponse  
+countPathwaysByTarget & parseCountPathwaysByTargetResponse  
+pathwaysByReference & parsePathwaysByReferenceResponse  
+countPathwaysByReference & parseCountPathwaysByReferenceResponse  
+getCompounds & parseGetCompoundsResponse  
+getTargets & parseGetTargetsResponse  
