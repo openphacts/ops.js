@@ -11,13 +11,13 @@ describe("Pathways", function() {
   describe("get information", function() {
 
     it("can be executed", function() {
-      spyOn(searcher, 'getInformation');
-      searcher.getInformation('uri', 'lens', 'callback');
-      expect(searcher.getInformation).toHaveBeenCalled();
+      spyOn(searcher, 'information');
+      searcher.information('uri', 'lens', 'callback');
+      expect(searcher.information).toHaveBeenCalled();
     });
     it("executes asynchronously", function() {
       var callback = jasmine.createSpy();
-      searcher.getInformation("http://rdf.wikipathways.org/WP1019_r48131", null, callback);
+      searcher.information('http://rdf.wikipathways.org/WP1019', null, callback);
       waitsFor(function() {
           return callback.callCount > 0;
       });
@@ -26,4 +26,24 @@ describe("Pathways", function() {
       });
     });
   });
+
+  describe("by compound", function() {
+
+    it("can be executed", function() {
+      spyOn(searcher, 'byCompound');
+      searcher.byCompound('URI', 'organism', 'lens', 'page', 'pageSize', 'orderBy', 'callback');
+      expect(searcher.byCompound).toHaveBeenCalled();
+    });
+    it("executes asynchronously", function() {
+      var callback = jasmine.createSpy();
+      searcher.byCompound('http://www.conceptwiki.org/concept/83931753-9e3f-4e90-b104-e3bcd0b4d833', null, null, null, null, null, callback);
+      waitsFor(function() {
+          return callback.callCount > 0;
+      });
+      runs(function() {
+          expect(callback).toHaveBeenCalled();
+      });
+    });
+  });
+
 });
