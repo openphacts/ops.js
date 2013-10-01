@@ -160,4 +160,23 @@ describe("Pathways", function() {
     });
   });
 
+  describe("count pathways by reference", function() {
+
+    it("can be executed", function() {
+      spyOn(searcher, 'countPathwaysByReference');
+      searcher.countPathwaysByReference('URI', 'organism', 'lens', 'callback');
+      expect(searcher.countPathwaysByReference).toHaveBeenCalled();
+    });
+    it("executes asynchronously", function() {
+      var callback = jasmine.createSpy();
+      searcher.countPathwaysByReference('http://identifiers.org/pubmed/9789062', null, null, callback);
+      waitsFor(function() {
+          return callback.callCount > 0;
+      });
+      runs(function() {
+          expect(callback).toHaveBeenCalled();
+      });
+    });
+  });
+
 });

@@ -192,6 +192,28 @@ Openphacts.PathwaySearch.prototype.byReference = function(URI, organism, lens, p
 	});
 }
 
+Openphacts.PathwaySearch.prototype.countPathwaysByReference = function(URI, organism, lens, callback) {
+        params={};
+        params['_format'] = "json";
+        params['app_key'] = this.appKey;
+        params['app_id'] = this.appID;
+        params['uri'] = URI;
+        organism ? params['pathway_organism'] = organism : '';
+        lens ? params['lens'] = lens : '';
+	var pathwayQuery = $.ajax({
+		url: this.baseURL + '/pathways/byReference/count',
+        dataType: 'json',
+		cache: true,
+		data: params,
+		success: function(response, status, request) {
+			callback.call(this, true, request.status, response.result);
+		},
+		error: function(request, status, error) {
+			callback.call(this, false, request.status);
+		}
+	});
+}
+
 Openphacts.PathwaySearch.prototype.parseInformationResponse = function(response) {
         var constants = new Openphacts.Constants();
         var latest_version, identifier, revision, title, description, parts, inDataset, pathwayOntology, organism, organismLabel;
@@ -365,4 +387,9 @@ Openphacts.PathwaySearch.prototype.parseByReferenceResponse = function(response)
                         });
         });
 	return pathways;
+}
+
+Openphacts.PathwaySearch.prototype.parseCountPathwaysByReferenceResponse = function(response) {
+    var constants = new Openphacts.Constants();
+	return response.primaryTopic[constants.PATHWAY_COUNT];
 }
