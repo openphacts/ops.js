@@ -69,8 +69,9 @@ Openphacts.CompoundSearch.prototype.compoundPharmacologyCount = function(compoun
 Openphacts.CompoundSearch.prototype.parseCompoundResponse = function(response) {
     var constants = new Openphacts.Constants();
     var id = null, prefLabel = null, cwURI = null, description = null, biotransformationItem = null, toxicity = null, proteinBinding = null, csURI = null, hba = null, hbd = null, inchi = null, logp = null, psa = null, ro5Violations = null, smiles = null, chemblURI = null, fullMWT = null, molform = null, mwFreebase = null,	rtb = null, inchiKey = null, drugbankURI = null;
-	var drugbankData, chemspiderData, chemblData;
+	var drugbankData, chemspiderData, chemblData, conceptWikiData;
 	cwUri = response.primaryTopic[constants.ABOUT];
+    // this id is not strictly true since we could have searched using a chemspider id etc
 	id = cwUri.split("/").pop();
 	prefLabel = response.primaryTopic.prefLabel;
 	$.each(response.primaryTopic.exactMatch, function(i, match) {
@@ -81,7 +82,9 @@ Openphacts.CompoundSearch.prototype.parseCompoundResponse = function(response) {
 			chemspiderData = match;
 		} else if (constants.SRC_CLS_MAPPINGS[src] == 'chemblValue') {
 			chemblData = match;
-		}
+		} else if (constants.SRC_CLS_MAPPINGS[src] == 'conceptWikiValue') {
+            conceptWikiData = match;
+        }
 	});
     if (drugbankData) {
 		description =  drugbankData.description ? drugbankData.description : null;
@@ -108,29 +111,33 @@ Openphacts.CompoundSearch.prototype.parseCompoundResponse = function(response) {
 		mwFreebase =  chemblData.mw_freebase ? chemblData.mw_freebase : null;
 		rtb =  chemblData.rtb ? chemblData.rtb : null;
     }
+    if (conceptWikiData) {
+        id =  conceptWikiData["_about"].split("/").pop();
+    }
+
 	return {
-		id: id,
-		prefLabel: prefLabel,
-		cwURI: cwUri,
-		description: description,
-		biotransformationItem: biotransformationItem,
-		toxicity: toxicity,
-		proteinBinding: proteinBinding,
-		csURI: csURI,
-		hba: hba,
-		hbd: hbd,
-		inchi: inchi,
-		logp: logp,
-		psa: psa,
-		ro5Violations: ro5Violations,
-		smiles: smiles,
-		chemblURI: chemblURI,
-		fullMWT: fullMWT,
-		molform: molform,
-		mwFreebase: mwFreebase,
-		rtb: rtb,
-        inchiKey: inchiKey,
-        drugbankURI: drugbankURI
+		"id": id,
+		"prefLabel": prefLabel,
+		"cwURI": cwUri,
+		"description": description,
+		"biotransformationItem": biotransformationItem,
+		"toxicity": toxicity,
+		"proteinBinding": proteinBinding,
+		"csURI": csURI,
+		"hba": hba,
+		"hbd": hbd,
+		"inchi": inchi,
+		"logp": logp,
+		"psa": psa,
+		"ro5Violations": ro5Violations,
+		"smiles": smiles,
+		"chemblURI": chemblURI,
+		"fullMWT": fullMWT,
+		"molform": molform,
+		"mwFreebase": mwFreebase,
+		"rtb": rtb,
+        "inchiKey": inchiKey,
+        "drugbankURI": drugbankURI
 	};
 }
 

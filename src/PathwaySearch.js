@@ -4,19 +4,20 @@ Openphacts.PathwaySearch = function PathwaySearch(baseURL, appID, appKey) {
 	this.appKey = appKey;
 }
 
-Openphacts.PathwaySearch.prototype.getInformation = function(callback, uri) {
-	var activityQuery = $.ajax({
+Openphacts.PathwaySearch.prototype.getInformation = function(URI, lens, callback) {
+        params={};
+        params['_format'] = "json";
+        params['app_key'] = this.appKey;
+        params['app_id'] = this.appID;
+        params['uri'] = URI;
+        lens ? params['lens'] = lens : '';
+	var pathwayQuery = $.ajax({
 		url: this.baseURL + '/pathway',
-                dataType: 'json',
+        dataType: 'json',
 		cache: true,
-		data: {
-			_format: "json",
-			app_id: this.appID,
-			app_key: this.appKey,
-                        uri: uri
-		},
+		data: params,
 		success: function(response, status, request) {
-			callback.call(this, true, request.status, response.result.primaryTopic);
+			callback.call(this, true, request.status, response.result);
 		},
 		error: function(request, status, error) {
 			callback.call(this, false, request.status);
@@ -25,26 +26,27 @@ Openphacts.PathwaySearch.prototype.getInformation = function(callback, uri) {
 }
 
 Openphacts.PathwaySearch.prototype.parseInformation = function(response) {
-        var identifier, title, description, inDataset, ontology, organism, organismLabel;
-        identifier = response.identifier;
-        title = response.title;
-        description = response.description;
-        inDataset = response.inDataset;
-        ontology = response.pathwayOntology;
-        organism = response.organism ? response.organism["_about"] : null;
-        organismLabel = response.organism ? response.organism.label : null;
+        var constants = new Openphacts.Constants();
+        var latest_version, identifier, revision, title, description, parts, inDataset, pathwayOntology, organism, organismLabel;
+        latest_version = response.primaryTopic.latest_version;
+        title = latest_version.title;
+        organism = latest_version.organism[constants.ABOUT];
+        organismLabel = latest_version.organism.label;
+        pathwayOntology = latest_version.pathwayOntology;
+        description = latest_version.description ? latest_version.description : null;
+        revision = latest_version[constants.ABOUT];
+        var partsComplete = latest_version.hasPart ? latest_version.hasPart : null;
         var parts = [];
-	$.each(response.hasPart, function(i, part) {
+	$.each(partsComplete, function(i, part) {
             parts.push({about: part["_about"], type: part.type});
 	});
 	return {
-                   identifier: identifier, 
-                   title: title, 
-                   description: description, 
-                   inDataset: inDataset, 
-                   ontology: ontology,
-                   organism: organism, 
-                   organismLabel: organismLabel, 
-                   parts: parts
+                   'title': title, 
+                   'description': description, 
+                   'revision': 'revision', 
+                   'pathwayOntology': pathwayOntology,
+                   'organism': organism, 
+                   'organismLabel': organismLabel, 
+                   'parts': parts
                 };
 }

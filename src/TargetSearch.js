@@ -66,6 +66,26 @@ Openphacts.TargetSearch.prototype.targetPharmacologyCount = function(targetURI, 
 	});
 }
 
+Openphacts.TargetSearch.prototype.targetTypes = function(lens, callback) {
+	var targetQuery = $.ajax({
+		url: this.baseURL + '/target/types',
+                dataType: 'json',
+		cache: true,
+		data: {
+			_format: "json",
+			lens: lens,
+			app_id: this.appID,
+			app_key: this.appKey
+		},
+		success: function(response, status, request) {
+			callback.call(this, true, request.status, response.result);
+		},
+		error: function(request, status, error) {
+			callback.call(this, false, request.status);
+		}
+	});
+}
+
 Openphacts.TargetSearch.prototype.parseTargetResponse = function(response) {
     var constants = new Openphacts.Constants();
 	var drugbankData = null, chemblData = null, uniprotData = null, cellularLocation = null, molecularWeight = null, numberOfResidues = null, theoreticalPi = null, drugbankURI = null, functionAnnotation  =null, alternativeName = null, existence = null, organism = null, sequence = null, uniprotURI = null;
@@ -273,15 +293,15 @@ Openphacts.TargetSearch.prototype.parseTargetPharmacologyResponse = function(res
 
 		var activity_activity_type_item, activity_standard_value_item, activity_standard_units_item, activity_relation_item;
 
-		var activity_activity_type = item['activity_type'];
+		var activity_activity_type = item['activity_type'] ? item['activity_type'] : null;
 		activity_activity_type_item = chemblActivityLink;
-		var activity_standard_value = item['activity_value'];
+		var activity_standard_value = item['activity_value'] ? item['activity_value'] : null;
 		activity_standard_value_item = chemblActivityLink;
-		var activity_standard_units = item['standardUnits'];
+		var activity_standard_units = item['standardUnits'] ? item['standardUnits'] : null;
 		activity_standard_units_item = chemblActivityLink;
-		var activity_relation = item['activity_relation'];
+		var activity_relation = item['activity_relation'] ? item['activity_relation'] : null;
 		activity_relation_item = chemblActivityLink;
-		var activity_pubmed_id = item['pmid'];
+		var activity_pubmed_id = item['pmid'] ? item['pmid'] : null;
 		records.push({ //for compound
 			compoundInchikey: compound_inchikey,
 			//compoundDrugType: compound_drug_type,

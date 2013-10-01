@@ -8,7 +8,7 @@ describe("Trees", function() {
       searcher = new Openphacts.TreeSearch(appUrl, appID, appKey);
   });
 
-  describe("get root nodes", function() {
+  describe("get root nodes for enzymes", function() {
 
     it("and return a response", function() {
       var this_success = null;
@@ -47,7 +47,124 @@ describe("Trees", function() {
     });
   });
 
-  describe("get child nodes", function() {
+  describe("get root nodes for chebi", function() {
+
+    it("and return a response", function() {
+      var this_success = null;
+      var this_status = null;
+      var this_result = null;
+      var callback=function(success, status, response){
+        this_success = success;
+        this_status = status;
+        this_result = searcher.parseRootNodes(response);
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toBe(true);
+        expect(this_status).toBe(200);
+        expect(this_result.length).toBeGreaterThan(1);
+      });
+      searcher.getRootNodes('chebi', callback);
+    });
+    it("and handle errors", function() {
+      var this_success = null;
+      var this_status = null;
+      var callback=function(success, status){
+        this_success = success;
+        this_status = status;
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toEqual(false);
+        expect(this_status).toEqual(500);
+      });
+      searcher.getRootNodes('http://sdfgdgdg', callback);
+    });
+  });
+
+  describe("get root chembl", function() {
+
+    it("and return a response", function() {
+      var this_success = null;
+      var this_status = null;
+      var this_result = null;
+      var callback=function(success, status, response){
+        this_success = success;
+        this_status = status;
+        this_result = searcher.parseRootNodes(response);
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toBe(true);
+        expect(this_status).toBe(200);
+        expect(this_result.length).toBeGreaterThan(1);
+      });
+      searcher.getRootNodes('chembl', callback);
+    });
+    it("and handle errors", function() {
+      var this_success = null;
+      var this_status = null;
+      var callback=function(success, status){
+        this_success = success;
+        this_status = status;
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toEqual(false);
+        expect(this_status).toEqual(500);
+      });
+      searcher.getRootNodes('http://sdfgdgdg', callback);
+    });
+  });
+
+  describe("get root nodes for go", function() {
+
+    it("and return a response", function() {
+      var this_success = null;
+      var this_status = null;
+      var this_result = null;
+      var callback=function(success, status, response){
+        this_success = success;
+        this_status = status;
+        this_result = searcher.parseRootNodes(response);
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toBe(true);
+        expect(this_status).toBe(200);
+        expect(this_result.length).toBeGreaterThan(1);
+      });
+      searcher.getRootNodes('go', callback);
+    });
+    it("and handle errors", function() {
+      var this_success = null;
+      var this_status = null;
+      var callback=function(success, status){
+        this_success = success;
+        this_status = status;
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toEqual(false);
+        expect(this_status).toEqual(500);
+      });
+      searcher.getRootNodes('http://sdfgdgdg', callback);
+    });
+  });
+
+  describe("get child nodes for enzyme", function() {
 
     it("and return a response", function() {
       var this_success = null;
@@ -88,7 +205,130 @@ describe("Trees", function() {
     });
   });
 
-  describe("get pharmacology count", function() {
+  describe("get child nodes for chembl", function() {
+
+    it("and return a response", function() {
+      var this_success = null;
+      var this_status = null;
+      var this_result = null;
+      var callback=function(success, status, response){
+        this_success = success;
+        this_status = status;
+        this_result = searcher.parseChildNodes(response);
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toBe(true);
+        expect(this_status).toBe(200);
+        expect(this_result.length).toBeGreaterThan(1);
+        expect(this_result[0].uri).toBeDefined();
+        expect(this_result[0].names.length).toBeGreaterThan(0);
+      });
+      searcher.getChildNodes('http://rdf.ebi.ac.uk/resource/chembl/protclass/CHEMBL_PC_1000', callback);
+    });
+    it("and handle errors", function() {
+      var this_success = null;
+      var this_status = null;
+      var callback=function(success, status){
+        this_success = success;
+	    this_status = status;
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toEqual(false);
+        expect(this_status).toEqual(404);
+      });
+      searcher.getChildNodes('http://34534533', callback);
+    });
+  });
+
+  describe("get child nodes for chebi", function() {
+
+    it("and return a response", function() {
+      var this_success = null;
+      var this_status = null;
+      var this_result = null;
+      var callback=function(success, status, response){
+        this_success = success;
+        this_status = status;
+        this_result = searcher.parseChildNodes(response);
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toBe(true);
+        expect(this_status).toBe(200);
+        expect(this_result.length).toBeGreaterThan(1);
+        expect(this_result[0].uri).toBeDefined();
+        expect(this_result[0].names.length).toBeGreaterThan(0);
+      });
+      searcher.getChildNodes('http://purl.obolibrary.org/obo/CHEBI_24431', callback);
+    });
+    it("and handle errors", function() {
+      var this_success = null;
+      var this_status = null;
+      var callback=function(success, status){
+        this_success = success;
+	    this_status = status;
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toEqual(false);
+        expect(this_status).toEqual(404);
+      });
+      searcher.getChildNodes('http://34534533', callback);
+    });
+  });
+
+  describe("get child nodes for go", function() {
+
+    it("and return a response", function() {
+      var this_success = null;
+      var this_status = null;
+      var this_result = null;
+      var callback=function(success, status, response){
+        this_success = success;
+        this_status = status;
+        this_result = searcher.parseChildNodes(response);
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toBe(true);
+        expect(this_status).toBe(200);
+        expect(this_result.length).toBeGreaterThan(1);
+        expect(this_result[0].uri).toBeDefined();
+        expect(this_result[0].names.length).toBeGreaterThan(0);
+      });
+      searcher.getChildNodes('http://purl.org/obo/owl/GO#GO_0003674', callback);
+    });
+    it("and handle errors", function() {
+      var this_success = null;
+      var this_status = null;
+      var callback=function(success, status){
+        this_success = success;
+	    this_status = status;
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toEqual(false);
+        expect(this_status).toEqual(404);
+      });
+      searcher.getChildNodes('http://34534533', callback);
+    });
+  });
+
+  describe("get pharmacology count for enzymes", function() {
 
     it("and return a response", function() {
       var this_success = null;
@@ -127,7 +367,7 @@ describe("Trees", function() {
     });
   });
 
-  describe("get pharmacology paginated", function() {
+  describe("get pharmacology paginated for enzymes", function() {
 
     it("and return a response", function() {
       var this_success = null;

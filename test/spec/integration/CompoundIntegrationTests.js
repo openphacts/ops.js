@@ -103,7 +103,7 @@ describe("Compound search", function() {
         expect(this_result[0].targetOrganisms).toBeDefined();
         expect(this_result[0].assayOrganism).toBeDefined();
         expect(this_result[0].assayDescription).toBeDefined();
-        expect(this_result[0].activity_Relation).toBeDefined();
+        expect(this_result[0].activityRelation).toBeDefined();
         expect(this_result[0].activityStandardUnits).toBeDefined();
         expect(this_result[0].activityStandardValue).toBeDefined();
         expect(this_result[0].activityActivityType).toBeDefined();

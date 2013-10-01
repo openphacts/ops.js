@@ -183,13 +183,13 @@ Openphacts.TreeSearch.prototype.parseTargetClassPharmacologyPaginated = function
 //          });
 //      }
       var onAssay = item[constants.ON_ASSAY];
-      assayURI = onAssay["_about"];
-      assayDescription = onAssay.description;
-      publishedRelation = item.publishedRelation;
-      publishedType = item.publishedType;
-      publishedUnits = item.publishedUnits;
-      publishedValue = item.publishedValue;
-      standardUnits = item.standardUnits;
+      assayURI = onAssay["_about"] ? onAssay["_about"] : null;
+      assayDescription = onAssay.description ? onAssay.description : null;
+      publishedRelation = item.publishedRelation ? item.publishedRelation : null;
+      publishedType = item.publishedType ? item.publishedType : null;
+      publishedUnits = item.publishedUnits ? item.publishedUnits : null;
+      publishedValue = item.publishedValue ? item.publishedValue : null;
+      standardUnits = item.standardUnits ? item.standardUnits : null;
       records.push({
           //targets: targets,
           chemblActivityURI: chemblActivityURI,
