@@ -112,4 +112,44 @@ describe("Pathways", function() {
       searcher.byCompound('456436236', null, null, null, null, null, callback);
     });
   });
+
+  describe("count pathways by compound", function() {
+
+    it("and return a response", function() {
+      var this_success = null;
+      var this_status = null;
+      var this_result = null;
+      var callback=function(success, status, response){
+        this_success = success;
+	    this_status = status;
+        this_result = searcher.parseCountPathwaysByCompoundResponse(response);
+      };
+      waitsFor(function() {
+        return this_result != null;
+      });
+      runs(function() {
+	    expect(this_success).toBe(true);
+	    expect(this_status).toBe(200);
+        expect(this_result).not.toBeNull();
+      });
+      searcher.countPathwaysByCompound('http://www.conceptwiki.org/concept/83931753-9e3f-4e90-b104-e3bcd0b4d833', null, null, callback);
+    });
+    it("and handle errors", function() {
+      var this_success = null;
+      var this_status = null;
+      var callback=function(success, status){
+        this_success = success;
+	this_status = status;
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toEqual(false);
+        expect(this_status).toEqual(400);
+      });
+      searcher.countPathwaysByCompound('456436236', null, null, callback);
+    });
+  });
+
 });

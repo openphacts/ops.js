@@ -31,6 +31,7 @@ Openphacts.PathwaySearch.prototype.byCompound = function(URI, organism, lens, pa
         params['app_key'] = this.appKey;
         params['app_id'] = this.appID;
         params['uri'] = URI;
+        organism ? params['pathway_organism'] = organism : '';
         lens ? params['lens'] = lens : '';
         page ? page = params['_page'] : '';
         pageSize ? pageSize = params['_pageSize'] : '';
@@ -50,6 +51,29 @@ Openphacts.PathwaySearch.prototype.byCompound = function(URI, organism, lens, pa
 		}
 	});
 }
+
+Openphacts.PathwaySearch.prototype.countPathwaysByCompound = function(URI, organism, lens, callback) {
+        params={};
+        params['_format'] = "json";
+        params['app_key'] = this.appKey;
+        params['app_id'] = this.appID;
+        params['uri'] = URI;
+        organism ? params['pathway_organism'] = organism : '';
+        lens ? params['lens'] = lens : '';
+	var pathwayQuery = $.ajax({
+		url: this.baseURL + '/pathways/byCompound/count',
+        dataType: 'json',
+		cache: true,
+		data: params,
+		success: function(response, status, request) {
+			callback.call(this, true, request.status, response.result);
+		},
+		error: function(request, status, error) {
+			callback.call(this, false, request.status);
+		}
+	});
+}
+
 
 Openphacts.PathwaySearch.prototype.parseInformationResponse = function(response) {
         var constants = new Openphacts.Constants();
@@ -106,4 +130,9 @@ Openphacts.PathwaySearch.prototype.parseByCompoundResponse = function(response) 
                         });
         });
 	return pathways;
+}
+
+Openphacts.PathwaySearch.prototype.parseCountPathwaysByCompoundResponse = function(response) {
+    var constants = new Openphacts.Constants();
+	return response.primaryTopic[constants.PATHWAY_COUNT];
 }
