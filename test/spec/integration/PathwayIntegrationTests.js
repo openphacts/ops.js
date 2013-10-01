@@ -523,5 +523,56 @@ describe("Pathways", function() {
     });
   });
 
+  describe("list pathways", function() {
+
+    it("and return a response", function() {
+      var this_success = null;
+      var this_status = null;
+      var this_result = null;
+      var callback=function(success, status, response){
+        this_success = success;
+	    this_status = status;
+        this_result = searcher.parseListResponse(response);
+      };
+      waitsFor(function() {
+        return this_result != null;
+      });
+      runs(function() {
+	    expect(this_success).toBe(true);
+	    expect(this_status).toBe(200);
+        expect(this_result.length).toBeGreaterThan(0);
+        var pathway_result = this_result[0];
+        expect(pathway_result).not.toBeNull;
+        expect(pathway_result.title).toBeDefined();
+        expect(pathway_result.description).toBeDefined();
+        expect(pathway_result.pathwayOntology).toBeDefined();
+        expect(pathway_result.identifier).toBeDefined();
+        //mandatory
+        expect(pathway_result.title).not.toBeNull();
+        expect(pathway_result.organism).not.toBeNull();
+        expect(pathway_result.organismLabel).not.toBeNull();
+        expect(pathway_result.identifier).not.toBeNull();
+      });
+      searcher.list(null, null, null, null, null, callback);
+    });
+    it("and handle errors", function() {
+      var this_success = null;
+      var this_status = null;
+      var callback=function(success, status){
+        this_success = success;
+        this_status = status;
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toEqual(false);
+        // CORS not allowed due to auth failure since call will otherwise be OK and return the list as normal
+        expect(this_status).toEqual(0);
+      });
+      var localSearcher = new Openphacts.PathwaySearch(appUrl, 'jhgjhg', 'jhgjhg');
+      localSearcher.list(null, null, null, null, null, callback);
+    });
+  });
 
 });
