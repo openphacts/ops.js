@@ -79,17 +79,18 @@ describe("Pathways", function() {
         expect(pathway_result.description).toBeDefined();
         expect(pathway_result.pathwayOntology).toBeDefined();
         expect(pathway_result.identifier).toBeDefined();
-        expect(pathway_result.type).toBeDefined();
-        expect(pathway_result.prefLabel).toBeDefined();
-        expect(pathway_result.about).toBeDefined();
+        expect(pathway_result.geneProduct).toBeDefined();
+        expect(pathway_result.geneProduct.prefLabel).toBeDefined();
+        expect(pathway_result.geneProduct.URI).toBeDefined();
+        expect(pathway_result.geneProduct.cwURI).toBeDefined();
         //mandatory
         expect(pathway_result.title).not.toBeNull();
         expect(pathway_result.organism).not.toBeNull();
         expect(pathway_result.organismLabel).not.toBeNull();
         expect(pathway_result.identifier).not.toBeNull();
-        expect(pathway_result.type).not.toBeNull();
-        expect(pathway_result.prefLabel).not.toBeNull();
-        expect(pathway_result.about).not.toBeNull();
+        expect(pathway_result.geneProduct.prefLabel).not.toBeNull();
+        expect(pathway_result.geneProduct.URI).not.toBeNull();
+        expect(pathway_result.geneProduct.cwURI).not.toBeNull();
       });
       searcher.byCompound('http://www.conceptwiki.org/concept/83931753-9e3f-4e90-b104-e3bcd0b4d833', null, null, null, null, null, callback);
     });
@@ -174,17 +175,18 @@ describe("Pathways", function() {
         expect(pathway_result.description).toBeDefined();
         expect(pathway_result.pathwayOntology).toBeDefined();
         expect(pathway_result.identifier).toBeDefined();
-        expect(pathway_result.type).toBeDefined();
-        expect(pathway_result.prefLabel).toBeDefined();
-        expect(pathway_result.about).toBeDefined();
+        expect(pathway_result.geneProduct).toBeDefined();
+        expect(pathway_result.geneProduct.prefLabel).toBeDefined();
+        expect(pathway_result.geneProduct.URI).toBeDefined();
+        expect(pathway_result.geneProduct.cwURI).toBeDefined();
         //mandatory
         expect(pathway_result.title).not.toBeNull();
         expect(pathway_result.organism).not.toBeNull();
         expect(pathway_result.organismLabel).not.toBeNull();
         expect(pathway_result.identifier).not.toBeNull();
-        expect(pathway_result.type).not.toBeNull();
-        expect(pathway_result.prefLabel).not.toBeNull();
-        expect(pathway_result.about).not.toBeNull();
+        expect(pathway_result.geneProduct.prefLabel).not.toBeNull();
+        expect(pathway_result.geneProduct.URI).not.toBeNull();
+        expect(pathway_result.geneProduct.cwURI).not.toBeNull();
       });
       searcher.byTarget('http://identifiers.org/ncbigene/282478', null, null, null, null, null, callback);
     });
@@ -336,6 +338,58 @@ describe("Pathways", function() {
         expect(this_status).toEqual(400);
       });
       searcher.getCompounds('456436236', null, callback);
+    });
+  });
+
+  describe("pathways by reference", function() {
+
+    it("and return a response", function() {
+      var this_success = null;
+      var this_status = null;
+      var this_result = null;
+      var callback=function(success, status, response){
+        this_success = success;
+	    this_status = status;
+        this_result = searcher.parseByReferenceResponse(response);
+      };
+      waitsFor(function() {
+        return this_result != null;
+      });
+      runs(function() {
+	    expect(this_success).toBe(true);
+	    expect(this_status).toBe(200);
+        expect(this_result.length).toBeGreaterThan(0);
+        var pathway_result = this_result[0];
+        expect(pathway_result).not.toBeNull;
+        expect(pathway_result.title).toBeDefined();
+        expect(pathway_result.description).toBeDefined();
+        expect(pathway_result.pathwayOntology).toBeDefined();
+        expect(pathway_result.identifier).toBeDefined();
+        expect(pathway_result.publication).toBeDefined();
+        //mandatory
+        expect(pathway_result.title).not.toBeNull();
+        expect(pathway_result.organism).not.toBeNull();
+        expect(pathway_result.organismLabel).not.toBeNull();
+        expect(pathway_result.identifier).not.toBeNull();
+        expect(pathway_result.publication).not.toBeNull();
+      });
+      searcher.byReference('http://identifiers.org/pubmed/9789062', null, null, null, null, null, callback);
+    });
+    it("and handle errors", function() {
+      var this_success = null;
+      var this_status = null;
+      var callback=function(success, status){
+        this_success = success;
+        this_status = status;
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toEqual(false);
+        expect(this_status).toEqual(400);
+      });
+      searcher.byReference('456436236', null, null, null, null, null, callback);
     });
   });
 

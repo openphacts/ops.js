@@ -141,4 +141,23 @@ describe("Pathways", function() {
     });
   });
 
+  describe("by reference", function() {
+
+    it("can be executed", function() {
+      spyOn(searcher, 'byReference');
+      searcher.byReference('URI', 'organism', 'lens', 'page', 'pageSize', 'orderBy', 'callback');
+      expect(searcher.byReference).toHaveBeenCalled();
+    });
+    it("executes asynchronously", function() {
+      var callback = jasmine.createSpy();
+      searcher.byReference('http://identifiers.org/pubmed/9789062', null, null, null, null, null, callback);
+      waitsFor(function() {
+          return callback.callCount > 0;
+      });
+      runs(function() {
+          expect(callback).toHaveBeenCalled();
+      });
+    });
+  });
+
 });

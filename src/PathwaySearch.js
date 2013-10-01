@@ -165,6 +165,33 @@ Openphacts.PathwaySearch.prototype.getCompounds = function(URI, lens, callback) 
 	});
 }
 
+Openphacts.PathwaySearch.prototype.byReference = function(URI, organism, lens, page, pageSize, orderBy, callback) {
+        params={};
+        params['_format'] = "json";
+        params['app_key'] = this.appKey;
+        params['app_id'] = this.appID;
+        params['uri'] = URI;
+        organism ? params['pathway_organism'] = organism : '';
+        lens ? params['lens'] = lens : '';
+        page ? page = params['_page'] : '';
+        pageSize ? pageSize = params['_pageSize'] : '';
+        //TODO order by neeeds an RDF like syntax to work eg ?cw_uri or DESC(?cw_uri), need to hide that
+        //from users by having a descending flag and creating the correct syntax here
+        orderBy ? orderBy = params['_orderBy'] : '';
+	var pathwayQuery = $.ajax({
+		url: this.baseURL + '/pathways/byReference',
+        dataType: 'json',
+		cache: true,
+		data: params,
+		success: function(response, status, request) {
+			callback.call(this, true, request.status, response.result);
+		},
+		error: function(request, status, error) {
+			callback.call(this, false, request.status);
+		}
+	});
+}
+
 Openphacts.PathwaySearch.prototype.parseInformationResponse = function(response) {
         var constants = new Openphacts.Constants();
         var latest_version, identifier, revision, title, description, parts, inDataset, pathwayOntology, organism, organismLabel;
@@ -202,7 +229,10 @@ Openphacts.PathwaySearch.prototype.parseByCompoundResponse = function(response) 
           parts = item.hasPart;
           about = parts[constants.ABOUT];
           type = parts.type;
-          prefLabel = parts.exactMatch.prefLabel;
+          var geneProduct = {};
+          geneProduct['prefLabel'] = parts.exactMatch.prefLabel;
+          geneProduct['URI'] = parts[constants.ABOUT];
+          geneProduct['cwURI'] = parts.exactMatch[constants.ABOUT];
           organism = item.pathway_organism[constants.ABOUT];
           organismLabel = item.pathway_organism.label;
           description = item.description ? item.description : null;
@@ -214,8 +244,7 @@ Openphacts.PathwaySearch.prototype.parseByCompoundResponse = function(response) 
                            'pathwayOntology': pathwayOntology,
                            'organism': organism, 
                            'organismLabel': organismLabel, 
-                           'type': type,
-                           'prefLabel': prefLabel,
+                           'geneProduct': geneProduct,
                            'about': about
                         });
         });
@@ -238,7 +267,10 @@ Openphacts.PathwaySearch.prototype.parseByTargetResponse = function(response) {
           parts = item.hasPart;
           about = parts[constants.ABOUT];
           type = parts.type;
-          prefLabel = parts.exactMatch.prefLabel;
+          var geneProduct = {};
+          geneProduct['prefLabel'] = parts.exactMatch.prefLabel;
+          geneProduct['URI'] = parts[constants.ABOUT];
+          geneProduct['cwURI'] = parts.exactMatch[constants.ABOUT];
           organism = item.pathway_organism[constants.ABOUT];
           organismLabel = item.pathway_organism.label;
           description = item.description ? item.description : null;
@@ -250,8 +282,7 @@ Openphacts.PathwaySearch.prototype.parseByTargetResponse = function(response) {
                            'pathwayOntology': pathwayOntology,
                            'organism': organism, 
                            'organismLabel': organismLabel, 
-                           'type': type,
-                           'prefLabel': prefLabel,
+                           'geneProduct': geneProduct,
                            'about': about
                         });
         });
@@ -307,4 +338,31 @@ Openphacts.PathwaySearch.prototype.parseGetCompoundsResponse = function(response
                 'revision': revision,  
                 'parts': parts
             };
+}
+
+Openphacts.PathwaySearch.prototype.parseByReferenceResponse = function(response) {
+        var constants = new Openphacts.Constants();
+        var items = response.items;
+        var pathways = [];
+        $.each(items, function(i, item) {
+          var title, identifier, organism, organismLabel, parts, publication, prefLabel, description, pathwayOntology;
+          title = item.title;
+          identifier = item.identifier;
+          parts = item.hasPart;
+          publication = parts[constants.ABOUT];
+          organism = item.pathway_organism[constants.ABOUT];
+          organismLabel = item.pathway_organism.label;
+          description = item.description ? item.description : null;
+          pathwayOntology = item.pathwayOntology ? item.pathwayOntology : null;
+          pathways.push({
+                           'title': title, 
+                           'identifier': identifier,
+                           'description': description, 
+                           'pathwayOntology': pathwayOntology,
+                           'organism': organism, 
+                           'organismLabel': organismLabel, 
+                           'publication': publication,
+                        });
+        });
+	return pathways;
 }
