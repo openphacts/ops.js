@@ -65,4 +65,42 @@ describe("Pathways", function() {
     });
   });
 
+  describe("by target", function() {
+
+    it("can be executed", function() {
+      spyOn(searcher, 'byTarget');
+      searcher.byTarget('URI', 'organism', 'lens', 'page', 'pageSize', 'orderBy', 'callback');
+      expect(searcher.byTarget).toHaveBeenCalled();
+    });
+    it("executes asynchronously", function() {
+      var callback = jasmine.createSpy();
+      searcher.byTarget('http://identifiers.org/ncbigene/282478', null, null, null, null, null, callback);
+      waitsFor(function() {
+          return callback.callCount > 0;
+      });
+      runs(function() {
+          expect(callback).toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe("count pathways by target", function() {
+
+    it("can be executed", function() {
+      spyOn(searcher, 'countPathwaysByTarget');
+      searcher.countPathwaysByTarget('URI', 'organism', 'lens', 'callback');
+      expect(searcher.countPathwaysByTarget).toHaveBeenCalled();
+    });
+    it("executes asynchronously", function() {
+      var callback = jasmine.createSpy();
+      searcher.countPathwaysByTarget('http://identifiers.org/ncbigene/282478', null, null, callback);
+      waitsFor(function() {
+          return callback.callCount > 0;
+      });
+      runs(function() {
+          expect(callback).toHaveBeenCalled();
+      });
+    });
+  });
+
 });
