@@ -282,6 +282,31 @@ Openphacts.PathwaySearch.prototype.list = function(organism, lens, page, pageSiz
 	});
 }
 
+Openphacts.PathwaySearch.prototype.organisms = function(lens, page, pageSize, orderBy, callback) {
+        params={};
+        params['_format'] = "json";
+        params['app_key'] = this.appKey;
+        params['app_id'] = this.appID;
+        lens ? params['lens'] = lens : '';
+        page ? page = params['_page'] : '';
+        pageSize ? pageSize = params['_pageSize'] : '';
+        //TODO order by neeeds an RDF like syntax to work eg ?cw_uri or DESC(?cw_uri), need to hide that
+        //from users by having a descending flag and creating the correct syntax here
+        orderBy ? orderBy = params['_orderBy'] : '';
+	var pathwayQuery = $.ajax({
+		url: this.baseURL + '/pathways/organisms',
+        dataType: 'json',
+		cache: true,
+		data: params,
+		success: function(response, status, request) {
+			callback.call(this, true, request.status, response.result);
+		},
+		error: function(request, status, error) {
+			callback.call(this, false, request.status);
+		}
+	});
+}
+
 Openphacts.PathwaySearch.prototype.parseInformationResponse = function(response) {
         var constants = new Openphacts.Constants();
         var latest_version, identifier, revision, title, description, parts, inDataset, pathwayOntology, organism, organismLabel;
@@ -508,5 +533,31 @@ Openphacts.PathwaySearch.prototype.parseListResponse = function(response) {
                            'organismLabel': organismLabel, 
                         });
         });
+	return pathways;
+}
+
+Openphacts.PathwaySearch.prototype.parseOrganismsResponse = function(response) {
+        var constants = new Openphacts.Constants();
+        var items = response.items;
+        var organisms = [];
+        if ($.isArray(items)) {
+            $.each(items, function(i, item) {
+              var URI, count, label;
+              URI = item[constants.ABOUT];;
+              count = item.pathway_count;
+              label = item.label;
+              organisms.push({
+                           'URI': URI, 
+                           'count': count,
+                           'label': label
+                            });
+            });
+        } else {
+            organisms.push({
+                         'URI': items[constants.ABOUT], 
+                         'count': items.pathway_count,
+                         'label': items.label
+                          });
+        }
 	return pathways;
 }
