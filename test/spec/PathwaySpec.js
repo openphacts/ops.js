@@ -198,4 +198,23 @@ describe("Pathways", function() {
     });
   });
 
+  describe("count pathways", function() {
+
+    it("can be executed", function() {
+      spyOn(searcher, 'countPathways');
+      searcher.countPathways('organism', 'lens', 'callback');
+      expect(searcher.countPathways).toHaveBeenCalled();
+    });
+    it("executes asynchronously", function() {
+      var callback = jasmine.createSpy();
+      searcher.countPathways(null, null, callback);
+      waitsFor(function() {
+          return callback.callCount > 0;
+      });
+      runs(function() {
+          expect(callback).toHaveBeenCalled();
+      });
+    });
+  });
+
 });
