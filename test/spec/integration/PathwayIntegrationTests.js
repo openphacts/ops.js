@@ -267,11 +267,12 @@ describe("Pathways", function() {
         expect(this_result).not.toBeNull();
         expect(this_result.title).toBeDefined();
         expect(this_result.revision).toBeDefined();
-        expect(this_result.parts).toBeDefined();
+        expect(this_result.geneProducts).toBeDefined();
+        expect(this_result.geneProducts.length).toBeGreaterThan(0);
         //mandatory
         expect(this_result.title).not.toBeNull();
         expect(this_result.revision).not.toBeNull();
-        expect(this_result.parts).not.toBeNull();
+        expect(this_result.geneProducts).not.toBeNull();
 
       });
       searcher.getTargets('http://identifiers.org/wikipathways/WP1008', null, callback);
@@ -314,11 +315,12 @@ describe("Pathways", function() {
         expect(this_result).not.toBeNull();
         expect(this_result.title).toBeDefined();
         expect(this_result.revision).toBeDefined();
-        expect(this_result.parts).toBeDefined();
+        expect(this_result.metabolites).toBeDefined();
+        expect(this_result.metabolites.length).toBeGreaterThan(0);
         //mandatory
         expect(this_result.title).not.toBeNull();
         expect(this_result.revision).not.toBeNull();
-        expect(this_result.parts).not.toBeNull();
+        expect(this_result.metabolites).not.toBeNull();
 
       });
       searcher.getCompounds('http://identifiers.org/wikipathways/WP1008', null, callback);
@@ -431,5 +433,54 @@ describe("Pathways", function() {
       searcher.countPathwaysByReference('456436236', null, null, callback);
     });
   });
+
+  describe("get references for pathway", function() {
+
+    it("and return a response", function() {
+      var this_success = null;
+      var this_status = null;
+      var this_result = null;
+      var callback=function(success, status, response){
+        this_success = success;
+	    this_status = status;
+        this_result = searcher.parseGetReferencesResponse(response);
+      };
+      waitsFor(function() {
+        return this_result != null;
+      });
+      runs(function() {
+	    expect(this_success).toBe(true);
+	    expect(this_status).toBe(200);
+        expect(this_result).not.toBeNull();
+        expect(this_result.title).toBeDefined();
+        expect(this_result.revision).toBeDefined();
+        expect(this_result.references).toBeDefined();
+        expect(this_result.references.length).toBeGreaterThan(0);
+        //mandatory
+        expect(this_result.title).not.toBeNull();
+        expect(this_result.revision).not.toBeNull();
+        expect(this_result.references).not.toBeNull();
+
+      });
+      searcher.getReferences('http://identifiers.org/wikipathways/WP1015', null, callback);
+    });
+    it("and handle errors", function() {
+      var this_success = null;
+      var this_status = null;
+      var callback=function(success, status){
+        this_success = success;
+	    this_status = status;
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toEqual(false);
+        expect(this_status).toEqual(400);
+      });
+      searcher.getReferences('456436236', null, callback);
+    });
+  });
+
 
 });

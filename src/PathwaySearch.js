@@ -214,6 +214,27 @@ Openphacts.PathwaySearch.prototype.countPathwaysByReference = function(URI, orga
 	});
 }
 
+Openphacts.PathwaySearch.prototype.getReferences = function(URI, lens, callback) {
+        params={};
+        params['_format'] = "json";
+        params['app_key'] = this.appKey;
+        params['app_id'] = this.appID;
+        params['uri'] = URI;
+        lens ? params['lens'] = lens : '';
+	var pathwayQuery = $.ajax({
+		url: this.baseURL + '/pathway/getReferences',
+        dataType: 'json',
+		cache: true,
+		data: params,
+		success: function(response, status, request) {
+			callback.call(this, true, request.status, response.result);
+		},
+		error: function(request, status, error) {
+			callback.call(this, false, request.status);
+		}
+	});
+}
+
 Openphacts.PathwaySearch.prototype.parseInformationResponse = function(response) {
         var constants = new Openphacts.Constants();
         var latest_version, identifier, revision, title, description, parts, inDataset, pathwayOntology, organism, organismLabel;
@@ -323,19 +344,18 @@ Openphacts.PathwaySearch.prototype.parseGetTargetsResponse = function(response) 
         title = latest_version.title;
         revision = latest_version[constants.ABOUT];
         var partsComplete = latest_version.hasPart ? latest_version.hasPart : null;
-        var parts = [];
+        var geneProducts = [];
         if ($.isArray(partsComplete)) {
 	        $.each(partsComplete, function(i, part) {
-              parts.push(part);
+              geneProducts.push(part);
 	        });
         } else {
-            //TODO check this out since the api docs are not really clear if this is true
-            parts.push(partsComplete);
+            geneProducts.push(partsComplete);
         }
 	return {
                 'title': title, 
                 'revision': revision,  
-                'parts': parts
+                'geneProducts': geneProducts
             };
 }
 
@@ -346,19 +366,19 @@ Openphacts.PathwaySearch.prototype.parseGetCompoundsResponse = function(response
         title = latest_version.title;
         revision = latest_version[constants.ABOUT];
         var partsComplete = latest_version.hasPart ? latest_version.hasPart : null;
-        var parts = [];
+        var metabolites = [];
         if ($.isArray(partsComplete)) {
 	        $.each(partsComplete, function(i, part) {
-              parts.push(part);
+              metabolites.push(part);
 	        });
         } else {
             //TODO check this out since the api docs are not really clear if this is true
-            parts.push(partsComplete);
+            metabolites.push(partsComplete);
         }
 	return {
                 'title': title, 
                 'revision': revision,  
-                'parts': parts
+                'metabolites': metabolites
             };
 }
 
@@ -392,4 +412,26 @@ Openphacts.PathwaySearch.prototype.parseByReferenceResponse = function(response)
 Openphacts.PathwaySearch.prototype.parseCountPathwaysByReferenceResponse = function(response) {
     var constants = new Openphacts.Constants();
 	return response.primaryTopic[constants.PATHWAY_COUNT];
+}
+
+Openphacts.PathwaySearch.prototype.parseGetReferencesResponse = function(response) {
+        var constants = new Openphacts.Constants();
+        var latest_version, revision, title, parts;
+        latest_version = response.primaryTopic.latest_version;
+        title = latest_version.title;
+        revision = latest_version[constants.ABOUT];
+        var partsComplete = latest_version.hasPart ? latest_version.hasPart : null;
+        var references = [];
+        if ($.isArray(partsComplete)) {
+	        $.each(partsComplete, function(i, part) {
+              references.push(part);
+	        });
+        } else {
+            references.push(partsComplete);
+        }
+	return {
+                'title': title, 
+                'revision': revision,  
+                'references': references
+            };
 }

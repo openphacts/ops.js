@@ -179,4 +179,23 @@ describe("Pathways", function() {
     });
   });
 
+  describe("get references for pathway ", function() {
+
+    it("can be executed", function() {
+      spyOn(searcher, 'getReferences');
+      searcher.getReferences('URI', 'lens', 'callback');
+      expect(searcher.getReferences).toHaveBeenCalled();
+    });
+    it("executes asynchronously", function() {
+      var callback = jasmine.createSpy();
+      searcher.getReferences('http://identifiers.org/wikipathways/WP1015', null, callback);
+      waitsFor(function() {
+          return callback.callCount > 0;
+      });
+      runs(function() {
+          expect(callback).toHaveBeenCalled();
+      });
+    });
+  });
+
 });
