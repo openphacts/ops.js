@@ -1047,7 +1047,16 @@ Openphacts.StructureSearch.prototype.parseExactResponse = function(response) {
 }
 
 Openphacts.StructureSearch.prototype.parseSubstructureResponse = function(response) {
-	return response;
+    var constants = new Openphacts.Constants();
+    var results = [];
+    if ($.isArray(response.primaryTopic.result)) {
+        $.each(response.primaryTopic.result, function(i, result) {
+          results.push({"about": result[constants.ABOUT], "relevance": result[constants.RELEVANCE]});
+        });
+    } else {
+        results.push({"about": response.primaryTopic.result[constants.ABOUT], "relevance": response.primaryTopic.result[constants.RELEVANCE]});
+    }
+	return results;
 }
 
 Openphacts.StructureSearch.prototype.parseInchiKeyToURLResponse = function(response) {
@@ -1066,7 +1075,7 @@ Openphacts.StructureSearch.prototype.parseSimilarityResponse = function(response
           results.push({"about": result[constants.ABOUT], "relevance": result[constants.RELEVANCE]});
         });
     } else {
-        //TODO do not know what the response format is for a single result
+        results.push({"about": response.primaryTopic.result[constants.ABOUT], "relevance": response.primaryTopic.result[constants.RELEVANCE]});
     }
 	return results;
 }
