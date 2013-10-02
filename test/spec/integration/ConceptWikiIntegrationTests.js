@@ -27,6 +27,9 @@ describe("Concept Wiki", function() {
 
       runs(function() {
         expect(this_result[0]).toBeDefined();
+        expect(this_result[0].uri).toBeDefined();
+        expect(this_result[0].prefLabel).toBeDefined();
+        expect(this_result[0].match).toBeDefined();
       });
       searcher.byTag('Aspirin', '20', '4', '07a84994-e464-4bbf-812a-a4b96fa3d197', callback);
     });
