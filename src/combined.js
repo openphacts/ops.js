@@ -204,8 +204,10 @@ Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyResponse = function
 		var chembl_src = item[constants.IN_DATASET];
         // according to the API docs pmid can be an array but an array of what?
 		var activity_pubmed_id = item['pmid'] ? item['pmid'] : null;
-		var activity_relation = item['relation'] ? item['relation'] : null;
-		var activity_standard_units = item['standardUnits'] ? item['standardUnits'] : null;
+		var activity_relation = item['activity_relation'] ? item['activity_relation'] : null;
+        var activity_unit_block = item['activity_unit'];
+        var activity_standard_units = activity_unit_block ? activity_unit_block.prefLabel : null;
+		//var activity_standard_units = item['standardUnits'] ? item['standardUnits'] : null;
 		var activity_standard_value = item['standardValue'] ? item['standardValue'] : null;
 		var activity_activity_type = item['activity_type'] ? item['activity_type'] : null;
         //TODO seems to be some confusion about what the value is called
@@ -262,7 +264,7 @@ Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyResponse = function
 			assay_description = onAssay['description'];
 			var chembleAssayLink = chembldAssayLink + chembl_assay_uri.split('/').pop();
 			assay_description_item = chembleAssayLink;
-			assay_organism = onAssay['organism'] ? onAssay['organism']: null;
+			assay_organism = onAssay['assayOrganismName'] ? onAssay['assayOrganismName']: null;
 			assay_organism_item = chembleAssayLink;
 
 			var target = onAssay[constants.ON_TARGET];
@@ -286,7 +288,7 @@ Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyResponse = function
 
                   // For Organism
                   var organism_inner = {};
-                  organism_inner['organism'] = target_item['organism'] ? target_item['organism'] : '';
+                  organism_inner['organism'] = target_item.targetOrganismName ? target_item.targetOrganismName : '';
                   organism_inner['src'] = onAssay["inDataset"] ? onAssay["inDataset"] : '';
                   if (target_item["_about"]) {
                       var organismLink = 'https://www.ebi.ac.uk/chembl/target/inspect/' + target_item["_about"].split('/').pop();
@@ -312,7 +314,7 @@ Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyResponse = function
 
                 // For Organism
 			    var organism_inner = {};
-                organism_inner['organism'] = target['organism'] ? target['organism'] : '';
+                organism_inner['organism'] = target.targetOrganismName ? target.targetOrganismName : '';
                 organism_inner['src'] = onAssay["inDataset"] ? onAssay["inDataset"] : '';
                 if (target["_about"]) {
                     var organismLink = 'https://www.ebi.ac.uk/chembl/target/inspect/' + target["_about"].split('/').pop();
