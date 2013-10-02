@@ -248,3 +248,7 @@ pathwaysByReference & parsePathwaysByReferenceResponse
 countPathwaysByReference & parseCountPathwaysByReferenceResponse  
 getCompounds & parseGetCompoundsResponse  
 getTargets & parseGetTargetsResponse  
+getReferences & parseGetReferencesResponse
+countPathways & parseCountPathwaysResponse
+list & parseListResponse
+organisms & parseOrganismsResponse

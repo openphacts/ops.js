@@ -73,9 +73,12 @@ describe("Structure search", function() {
       runs(function() {
         expect(this_success).toEqual(true);
         expect(this_status).toEqual(200);
-        expect(this_result.length).toBeGreaterThan(1);
+        expect(this_result.length).toBeGreaterThan(0);
+        expect(this_result[0].about).not.toBeNull();
+        expect(this_result[0].relevance).not.toBeNull();
       });
-      searcher.substructure('CNC(=O)c1cc(ccn1)Oc2ccc(cc2)NC(=O)Nc3ccc(c(c3)C(F)(F)F)Cl', null, null, null, callback);
+      //searcher.substructure('CNC(=O)c1cc(ccn1)Oc2ccc(cc2)NC(=O)Nc3ccc(c(c3)C(F)(F)F)Cl', null, null, null, callback);
+      searcher.substructure('CC(=O)OC1=CC=CC=C1C(=O)O', null, null, null, callback);
     });
     it("and handle errors", function() {
       var this_success = null;
