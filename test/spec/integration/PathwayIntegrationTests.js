@@ -567,11 +567,57 @@ describe("Pathways", function() {
       });
       runs(function() {
         expect(this_success).toEqual(false);
-        // CORS not allowed due to auth failure since call will otherwise be OK and return the list as normal
-        expect(this_status).toEqual(0);
+        expect(this_status).toEqual(404);
       });
-      var localSearcher = new Openphacts.PathwaySearch(appUrl, 'jhgjhg', 'jhgjhg');
-      localSearcher.list(null, null, null, null, null, callback);
+      searcher.list('fake organism', null, null, null, null, callback);
+    });
+  });
+
+  describe("organisms", function() {
+
+    it("and return a response", function() {
+      var this_success = null;
+      var this_status = null;
+      var this_result = null;
+      var callback=function(success, status, response){
+        this_success = success;
+	    this_status = status;
+        this_result = searcher.parseOrganismsResponse(response);
+      };
+      waitsFor(function() {
+        return this_result != null;
+      });
+      runs(function() {
+	    expect(this_success).toBe(true);
+	    expect(this_status).toBe(200);
+        expect(this_result.length).toBeGreaterThan(0);
+        var organisms_result = this_result[0];
+        expect(organisms_result).not.toBeNull;
+        expect(organisms_result.URI).toBeDefined();
+        expect(organisms_result.count).toBeDefined();
+        expect(organisms_result.label).toBeDefined();
+        //mandatory
+        expect(organisms_result.URI).not.toBeNull();
+        expect(organisms_result.count).not.toBeNull();
+        expect(organisms_result.label).not.toBeNull();
+      });
+      searcher.organisms(null, null, null, null, callback);
+    });
+    it("and handle errors", function() {
+      var this_success = null;
+      var this_status = null;
+      var callback=function(success, status){
+        this_success = success;
+        this_status = status;
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toEqual(false);
+        expect(this_status).toEqual(400);
+      });
+      searcher.organisms('fake lens', null, null, null, callback);
     });
   });
 

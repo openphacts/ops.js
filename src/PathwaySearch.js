@@ -559,5 +559,5 @@ Openphacts.PathwaySearch.prototype.parseOrganismsResponse = function(response) {
                          'label': items.label
                           });
         }
-	return pathways;
+	return organisms;
 }

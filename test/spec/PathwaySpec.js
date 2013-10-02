@@ -236,4 +236,23 @@ describe("Pathways", function() {
     });
   });
 
+  describe("organisms", function() {
+
+    it("can be executed", function() {
+      spyOn(searcher, 'organisms');
+      searcher.organisms('lens', 'page', 'pageSize', 'orderBy', 'callback');
+      expect(searcher.organisms).toHaveBeenCalled();
+    });
+    it("executes asynchronously", function() {
+      var callback = jasmine.createSpy();
+      searcher.organisms(null, null, null, null, callback);
+      waitsFor(function() {
+          return callback.callCount > 0;
+      });
+      runs(function() {
+          expect(callback).toHaveBeenCalled();
+      });
+    });
+  });
+
 });
