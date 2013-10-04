@@ -403,6 +403,7 @@ describe("Trees", function() {
         expect(this_result[0].inchiKey).toBeDefined();
         expect(this_result[0].smiles).toBeDefined();
         expect(this_result[0].ro5Violations).toBeDefined();
+        expect(this_result[0].pChembl).toBeDefined();
         //expect(this_result[0].targetURI).toBeDefined();
         //expect(this_result[0].targetOrganism).toBeDefined();
         expect(this_result[0].assayURI).toBeDefined();
