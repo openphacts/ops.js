@@ -158,7 +158,7 @@ var callback=function(success, status, response){
 // only a SMILES has been provided, no limit, start or length  
 searcher.substructure('CNC(=O)c1cc(ccn1)Oc2ccc(cc2)NC(=O)Nc3ccc(c(c3)C(F)(F)F)Cl', null, null, null, callback);
 ```
-### Inchi Key to URL structure Search
+### InChI Key to URL structure Search
 
 ```javascript
 var searcher = new Openphacts.StructureSearch("https://beta.openphacts.org", appID, appKey);  
