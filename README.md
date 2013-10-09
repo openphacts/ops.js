@@ -170,7 +170,7 @@ var callback=function(success, status, response){
 // Inchi Key is for Aspirin  
 searcher.inchiKeyToURL('BSYNRYMUTXBXSQ-UHFFFAOYSA-N', callback);
 ```
-### Inchi to URL structure Search
+### InChI to URL structure Search
 
 ```javascript
 var searcher = new Openphacts.StructureSearch("https://beta.openphacts.org", appID, appKey);  
