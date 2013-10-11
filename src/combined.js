@@ -1489,13 +1489,13 @@ Openphacts.PathwaySearch.prototype.byCompound = function(URI, organism, lens, pa
         params['app_key'] = this.appKey;
         params['app_id'] = this.appID;
         params['uri'] = URI;
-        organism ? params['pathway_organism'] = organism : '';
+        organism ? params['organism'] = organism : '';
         lens ? params['lens'] = lens : '';
-        page ? page = params['_page'] : '';
-        pageSize ? pageSize = params['_pageSize'] : '';
+        page ? params['_page'] = page : '';
+        pageSize ? params['_pageSize'] = pageSize : '';
         //TODO order by neeeds an RDF like syntax to work eg ?cw_uri or DESC(?cw_uri), need to hide that
         //from users by having a descending flag and creating the correct syntax here
-        orderBy ? orderBy = params['_orderBy'] : '';
+        orderBy ? params['_orderBy'] = orderBy : '';
 	var pathwayQuery = $.ajax({
 		url: this.baseURL + '/pathways/byCompound',
         dataType: 'json',
@@ -1540,8 +1540,8 @@ Openphacts.PathwaySearch.prototype.byTarget = function(URI, organism, lens, page
         params['uri'] = URI;
         organism ? params['pathway_organism'] = organism : '';
         lens ? params['lens'] = lens : '';
-        page ? page = params['_page'] : '';
-        pageSize ? pageSize = params['_pageSize'] : '';
+        page ? params['_page'] = page : '';
+        pageSize ? params['_pageSize'] = pageSize : '';
         //TODO order by neeeds an RDF like syntax to work eg ?cw_uri or DESC(?cw_uri), need to hide that
         //from users by having a descending flag and creating the correct syntax here
         orderBy ? orderBy = params['_orderBy'] : '';
@@ -1631,8 +1631,8 @@ Openphacts.PathwaySearch.prototype.byReference = function(URI, organism, lens, p
         params['uri'] = URI;
         organism ? params['pathway_organism'] = organism : '';
         lens ? params['lens'] = lens : '';
-        page ? page = params['_page'] : '';
-        pageSize ? pageSize = params['_pageSize'] : '';
+        page ? params['_page'] = page : '';
+        pageSize ? params['_pageSize'] = pageSize : '';
         //TODO order by neeeds an RDF like syntax to work eg ?cw_uri or DESC(?cw_uri), need to hide that
         //from users by having a descending flag and creating the correct syntax here
         orderBy ? orderBy = params['_orderBy'] : '';
@@ -1721,8 +1721,8 @@ Openphacts.PathwaySearch.prototype.list = function(organism, lens, page, pageSiz
         params['app_id'] = this.appID;
         organism ? params['pathway_organism'] = organism : '';
         lens ? params['lens'] = lens : '';
-        page ? page = params['_page'] : '';
-        pageSize ? pageSize = params['_pageSize'] : '';
+        page ? params['_page'] = page : '';
+        pageSize ? params['_pageSize'] = pageSize : '';
         //TODO order by neeeds an RDF like syntax to work eg ?cw_uri or DESC(?cw_uri), need to hide that
         //from users by having a descending flag and creating the correct syntax here
         orderBy ? orderBy = params['_orderBy'] : '';
@@ -1746,8 +1746,8 @@ Openphacts.PathwaySearch.prototype.organisms = function(lens, page, pageSize, or
         params['app_key'] = this.appKey;
         params['app_id'] = this.appID;
         lens ? params['lens'] = lens : '';
-        page ? page = params['_page'] : '';
-        pageSize ? pageSize = params['_pageSize'] : '';
+        page ? params['_page'] = page : '';
+        pageSize ? params['_pageSize'] = pageSize : '';
         //TODO order by neeeds an RDF like syntax to work eg ?cw_uri or DESC(?cw_uri), need to hide that
         //from users by having a descending flag and creating the correct syntax here
         orderBy ? orderBy = params['_orderBy'] : '';
