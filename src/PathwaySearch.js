@@ -338,16 +338,15 @@ Openphacts.PathwaySearch.prototype.parseByCompoundResponse = function(response) 
         var items = response.items;
         var pathways = [];
         $.each(items, function(i, item) {
-          var title, identifier, organism, organismLabel, parts, about, type, prefLabel, description, pathwayOntology;
+          var title, identifier, organism, organismLabel, parts, about, type, prefLabel, description, pathwayOntology, geneProductLabel, geneProductURI, geneProductCWURI;
           title = item.title;
           identifier = item.identifier;
           parts = item.hasPart;
           about = parts[constants.ABOUT];
           type = parts.type;
-          var geneProduct = {};
-          geneProduct['prefLabel'] = parts.exactMatch.prefLabel;
-          geneProduct['URI'] = parts[constants.ABOUT];
-          geneProduct['cwURI'] = parts.exactMatch[constants.ABOUT];
+          geneProductLabel = parts.exactMatch.prefLabel;
+          geneProductURI = parts[constants.ABOUT];
+          geneProductCWURI = parts.exactMatch[constants.ABOUT];
           organism = item.pathway_organism[constants.ABOUT];
           organismLabel = item.pathway_organism.label;
           description = item.description ? item.description : null;
@@ -359,7 +358,9 @@ Openphacts.PathwaySearch.prototype.parseByCompoundResponse = function(response) 
                            'pathwayOntology': pathwayOntology,
                            'organism': organism, 
                            'organismLabel': organismLabel, 
-                           'geneProduct': geneProduct,
+                           'geneProductLabel': geneProductLabel,
+                           'geneProductURI': geneProductURI,
+                           'geneProductCWURI': geneProductCWURI,
                            'about': about
                         });
         });
@@ -376,16 +377,15 @@ Openphacts.PathwaySearch.prototype.parseByTargetResponse = function(response) {
         var items = response.items;
         var pathways = [];
         $.each(items, function(i, item) {
-          var title, identifier, organism, organismLabel, parts, about, type, prefLabel, description, pathwayOntology;
+          var title, identifier, organism, organismLabel, parts, about, type, prefLabel, description, pathwayOntology, geneProductLabel, geneProductURI, geneProductCWURI;
           title = item.title;
           identifier = item.identifier;
           parts = item.hasPart;
           about = parts[constants.ABOUT];
           type = parts.type;
-          var geneProduct = {};
-          geneProduct['prefLabel'] = parts.exactMatch.prefLabel;
-          geneProduct['URI'] = parts[constants.ABOUT];
-          geneProduct['cwURI'] = parts.exactMatch[constants.ABOUT];
+          geneProductLabel = parts.exactMatch.prefLabel;
+          geneProductURI = parts[constants.ABOUT];
+          geneProductCWURI = parts.exactMatch[constants.ABOUT];
           organism = item.pathway_organism[constants.ABOUT];
           organismLabel = item.pathway_organism.label;
           description = item.description ? item.description : null;
@@ -397,7 +397,9 @@ Openphacts.PathwaySearch.prototype.parseByTargetResponse = function(response) {
                            'pathwayOntology': pathwayOntology,
                            'organism': organism, 
                            'organismLabel': organismLabel, 
-                           'geneProduct': geneProduct,
+                           'geneProductLabel': geneProductLabel,
+                           'geneProductURI': geneProductURI,
+                           'geneProductCWURI': geneProductCWURI,
                            'about': about
                         });
         });

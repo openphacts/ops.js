@@ -347,7 +347,7 @@ describe("Trees", function() {
         expect(this_status).toBe(200);
         expect(this_result).toBeGreaterThan(1);
       });
-      searcher.getTargetClassPharmacologyCount('http://purl.uniprot.org/enzyme/1.1.1.-', null, null, null, null, null, null, null, null, null, null, null, callback);
+      searcher.getTargetClassPharmacologyCount('http://purl.uniprot.org/enzyme/1.1.1.-', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);
     });
     it("and handle errors", function() {
       var this_success = null;
@@ -363,7 +363,7 @@ describe("Trees", function() {
         expect(this_success).toEqual(false);
         expect(this_status).toEqual(400);
       });
-      searcher.getTargetClassPharmacologyCount('90879879879879797', null, null, null, null, null, null, null, null, null, null, null, callback);
+      searcher.getTargetClassPharmacologyCount('90879879879879797', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);
     });
   });
 
@@ -409,7 +409,7 @@ describe("Trees", function() {
         expect(this_result[0].assayURI).toBeDefined();
         expect(this_result[0].assayDescription).toBeDefined();
       });
-      searcher.getTargetClassPharmacologyPaginated('http://purl.uniprot.org/enzyme/1.1.1.-', null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);
+      searcher.getTargetClassPharmacologyPaginated('http://purl.uniprot.org/enzyme/1.1.1.-', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);
     });
     it("and handle errors", function() {
       var this_success = null;
@@ -425,7 +425,7 @@ describe("Trees", function() {
         expect(this_success).toEqual(false);
         expect(this_status).toEqual(404);
       });
-      searcher.getTargetClassPharmacologyPaginated('http://90879879879879797', null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);
+      searcher.getTargetClassPharmacologyPaginated('http://90879879879879797', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);
     });
   });
 });

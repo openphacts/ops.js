@@ -44,7 +44,7 @@ Openphacts.TreeSearch.prototype.getChildNodes = function(URI, callback) {
 	});
 }
 
-Openphacts.TreeSearch.prototype.getTargetClassPharmacologyCount = function(URI, assayOrganism, targetOrganism, activityType, activityValue, activityUnit, minActivityValue, minExActivityValue, maxActivityValue, maxExActivityValue, relation, pChembl, callback) {
+Openphacts.TreeSearch.prototype.getTargetClassPharmacologyCount = function(URI, assayOrganism, targetOrganism, activityType, activityValue, activityUnit, minActivityValue, minExActivityValue, maxActivityValue, maxExActivityValue, relation, pChembl, minpChembl, minExpChembl, maxpChembl, maxExpChembl, targetType, lens, callback) {
         params={};
         params['_format'] = "json";
         params['app_key'] = this.appKey;
@@ -57,6 +57,11 @@ Openphacts.TreeSearch.prototype.getTargetClassPharmacologyCount = function(URI, 
         activityUnit != null ? params['activity_unit'] = activityUnit : '';
         relation != null ? params['relation'] = relation : '';
         pChembl != null ? params['pChembl'] = pChembl : '';
+        minpChembl != null ? params['min-pChembl'] = minpChembl : '';
+        minExpChembl != null ? params['minEx-pChembl'] = minExpChembl : '';
+        maxpChembl != null ? params['max-pChembl'] = maxpChembl : '';
+        maxExpChembl != null ? params['maxEx-pChembl'] = maxExpChembl : '';
+        lens != null ? params['lens'] = lens : '';
 	var query = $.ajax({
 		url: this.baseURL + '/target/tree/pharmacology/count',
         dataType: 'json',
@@ -71,7 +76,7 @@ Openphacts.TreeSearch.prototype.getTargetClassPharmacologyCount = function(URI, 
 	});
 }
 
-Openphacts.TreeSearch.prototype.getTargetClassPharmacologyPaginated = function(URI, assayOrganism, targetOrganism, activityType, activityValue, activityUnit, minActivityValue, minExActivityValue, maxActivityValue, maxExActivityValue, relation, pChembl, page, pageSize, orderBy, callback) {
+Openphacts.TreeSearch.prototype.getTargetClassPharmacologyPaginated = function(URI, assayOrganism, targetOrganism, activityType, activityValue, activityUnit, minActivityValue, minExActivityValue, maxActivityValue, maxExActivityValue, relation, pChembl, minpChembl, minExpChembl, maxpChembl, maxExpChembl, targetType, lens, page, pageSize, orderBy, callback) {
         params={};
         params['_format'] = "json";
         params['app_key'] = this.appKey;
@@ -84,11 +89,84 @@ Openphacts.TreeSearch.prototype.getTargetClassPharmacologyPaginated = function(U
         activityUnit != null ? params['activity_unit'] = activityUnit : '';
         relation != null ? params['relation'] = relation : '';
         pChembl != null ? params['pChembl'] = pChembl : '';
+        minpChembl != null ? params['min-pChembl'] = minpChembl : '';
+        minExpChembl != null ? params['minEx-pChembl'] = minExpChembl : '';
+        maxpChembl != null ? params['max-pChembl'] = maxpChembl : '';
+        maxExpChembl != null ? params['maxEx-pChembl'] = maxExpChembl : '';
+        lens != null ? params['lens'] = lens : '';
         page != null ? params['_page'] = page : '';
         pageSize != null ? params['_pageSize'] = pageSize : '';
         orderBy != null ? params['_orderBy'] = orderBy : '';
 	var query = $.ajax({
 		url: this.baseURL + '/target/tree/pharmacology/pages',
+        dataType: 'json',
+		cache: true,
+		data: params,
+		success: function(response, status, request) {
+			callback.call(this, true, request.status, response.result);
+		},
+		error: function(request, status, error) {
+			callback.call(this, false, request.status);
+		}
+	});
+}
+
+Openphacts.TreeSearch.prototype.getCompoundClassPharmacologyCount = function(URI, assayOrganism, targetOrganism, activityType, activityValue, activityUnit, minActivityValue, minExActivityValue, maxActivityValue, maxExActivityValue, relation, pChembl, minpChembl, minExpChembl, maxpChembl, maxExpChembl, targetType, lens, callback) {
+        params={};
+        params['_format'] = "json";
+        params['app_key'] = this.appKey;
+        params['app_id'] = this.appID;
+        params['uri'] = URI;
+        assayOrganism != null ? params['assay_organism'] = assayOrganism : '';
+        targetOrganism != null ? params['target_organism'] = targetOrganism : '';
+        activityType != null ? params['activity_type'] = activityType : '';
+        activityValue != null ? params['activity_value'] = activityValue : '';
+        activityUnit != null ? params['activity_unit'] = activityUnit : '';
+        relation != null ? params['relation'] = relation : '';
+        pChembl != null ? params['pChembl'] = pChembl : '';
+        minpChembl != null ? params['min-pChembl'] = minpChembl : '';
+        minExpChembl != null ? params['minEx-pChembl'] = minExpChembl : '';
+        maxpChembl != null ? params['max-pChembl'] = maxpChembl : '';
+        maxExpChembl != null ? params['maxEx-pChembl'] = maxExpChembl : '';
+        lens != null ? params['lens'] = lens : '';
+	var query = $.ajax({
+		url: this.baseURL + '/compound/tree/pharmacology/count',
+        dataType: 'json',
+		cache: true,
+		data: params,
+		success: function(response, status, request) {
+			callback.call(this, true, request.status, response.result);
+		},
+		error: function(request, status, error) {
+			callback.call(this, false, request.status);
+		}
+	});
+}
+
+Openphacts.TreeSearch.prototype.getCompoundClassPharmacologyPaginated = function(URI, assayOrganism, targetOrganism, activityType, activityValue, activityUnit, minActivityValue, minExActivityValue, maxActivityValue, maxExActivityValue, relation, pChembl, minpChembl, minExpChembl, maxpChembl, maxExpChembl, targetType, lens, page, pageSize, orderBy, callback) {
+        params={};
+        params['_format'] = "json";
+        params['app_key'] = this.appKey;
+        params['app_id'] = this.appID;
+        params['uri'] = URI;
+        assayOrganism != null ? params['assay_organism'] = assayOrganism : '';
+        targetOrganism != null ? params['target_organism'] = targetOrganism : '';
+        activityType != null ? params['activity_type'] = activityType : '';
+        activityValue != null ? params['activity_value'] = activityValue : '';
+        activityUnit != null ? params['activity_unit'] = activityUnit : '';
+        relation != null ? params['relation'] = relation : '';
+        pChembl != null ? params['pChembl'] = pChembl : '';
+        minpChembl != null ? params['min-pChembl'] = minpChembl : '';
+        minExpChembl != null ? params['minEx-pChembl'] = minExpChembl : '';
+        maxpChembl != null ? params['max-pChembl'] = maxpChembl : '';
+        maxExpChembl != null ? params['maxEx-pChembl'] = maxExpChembl : '';
+        targetType != null ? params['target_type'] = targetType : '';
+        lens != null ? params['lens'] = lens : '';
+        page != null ? params['_page'] = page : '';
+        pageSize != null ? params['_pageSize'] = pageSize : '';
+        orderBy != null ? params['_orderBy'] = orderBy : '';
+	var query = $.ajax({
+		url: this.baseURL + '/compound/tree/pharmacology/pages',
         dataType: 'json',
 		cache: true,
 		data: params,

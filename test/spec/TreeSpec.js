@@ -56,12 +56,12 @@ describe("Trees", function() {
 
     it("can be executed", function() {
       spyOn(searcher, 'getTargetClassPharmacologyCount');
-      searcher.getTargetClassPharmacologyCount('URI', 'assayOrganism', 'targetOrganism', 'activityType', 'activityValue', 'activityUnit', 'relation', 'pChembl', 'callback');
+      searcher.getTargetClassPharmacologyCount('URI', 'assayOrganism', 'targetOrganism', 'activityType', 'activityValue', 'activityUnit', 'relation', 'pChembl', 'min-pChembl', 'minEx-pChembl', 'max-pChembl', 'maxEx-pChembl', 'targetType', 'lens', 'callback');
       expect(searcher.getTargetClassPharmacologyCount).toHaveBeenCalled();
     });
     it("executes asynchronously", function() {
       var callback = jasmine.createSpy();
-      searcher.getTargetClassPharmacologyCount('http://purl.uniprot.org/enzyme/1.1.1.-', null, null, null, null, null, null, null, null, null, callback);
+      searcher.getTargetClassPharmacologyCount('http://purl.uniprot.org/enzyme/1.1.1.-', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);
       waitsFor(function() {
           return callback.callCount > 0;
       });
@@ -75,11 +75,11 @@ describe("Trees", function() {
 
     it("can be executed", function() {
       spyOn(searcher, 'getTargetClassPharmacologyPaginated');
-      searcher.getTargetClassPharmacologyPaginated('URI', 'assayOrganism', 'targetOrganism', 'activityType', 'activityValue', 'activityUnit', 'relation', 'pChembl', 'page', 'pageSize', 'orderBy', 'callback');
+      searcher.getTargetClassPharmacologyPaginated('URI', 'assayOrganism', 'targetOrganism', 'activityType', 'activityValue', 'activityUnit', 'relation', 'pChembl', 'min-pChembl', 'minEx-pChembl', 'max-pChembl', 'maxEx-pChembl', 'targetType', 'lens', 'page', 'pageSize', 'orderBy', 'callback');
     });
     it("executes asynchronously", function() {
       var callback = jasmine.createSpy();
-      searcher.getTargetClassPharmacologyPaginated('http://purl.uniprot.org/enzyme/1.1.1.-', null, null, null, null, null, null, null, null, null, null, callback);
+      searcher.getTargetClassPharmacologyPaginated('http://purl.uniprot.org/enzyme/1.1.1.-', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);
       waitsFor(function() {
           return callback.callCount > 0;
       });
