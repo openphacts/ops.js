@@ -31,8 +31,12 @@ Openphacts.MapSearch.prototype.parseMapURLResponse = function(response) {
         var constants = new Openphacts.Constants();
         var items = response.primaryTopic[constants.EXACT_MATCH];
         var urls = [];
-        $.each(items, function(i, item) {
-          urls.push(item);
-        });
+        if ($.isArray(items)) {
+	        $.each(items, function(i, item) {
+              urls.push(item);
+	        });
+        } else {
+            urls.push(item);
+        }
 	return urls;
 }

@@ -4,6 +4,7 @@ Openphacts.Constants = function() {};
 Openphacts.Constants.prototype.SRC_CLS_MAPPINGS = {
   'http://www.conceptwiki.org': 'conceptWikiValue',
   'http://www.conceptwiki.org/': 'conceptWikiValue',
+  'http://ops.conceptwiki.org/': 'conceptWikiValue',
   'http://data.kasabi.com/dataset/chembl-rdf': 'chemblValue',
   'http://rdf.ebi.ac.uk/resource/chembl/molecule' : 'chemblValue',
   'http://www.ebi.ac.uk/chembl' : 'chemblValue',
@@ -2067,8 +2068,12 @@ Openphacts.MapSearch.prototype.parseMapURLResponse = function(response) {
         var constants = new Openphacts.Constants();
         var items = response.primaryTopic[constants.EXACT_MATCH];
         var urls = [];
-        $.each(items, function(i, item) {
-          urls.push(item);
-        });
+        if ($.isArray(items)) {
+	        $.each(items, function(i, item) {
+              urls.push(item);
+	        });
+        } else {
+            urls.push(item);
+        }
 	return urls;
 }
