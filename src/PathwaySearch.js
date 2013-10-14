@@ -311,12 +311,12 @@ Openphacts.PathwaySearch.prototype.parseInformationResponse = function(response)
         var constants = new Openphacts.Constants();
         var latest_version, identifier, revision, title, description, parts, inDataset, pathwayOntology, organism, organismLabel;
         latest_version = response.primaryTopic.latest_version;
-        title = latest_version.title;
-        organism = latest_version.organism[constants.ABOUT];
-        organismLabel = latest_version.organism.label;
-        pathwayOntology = latest_version.pathwayOntology;
+        title = latest_version.title ? latest_version.title : null;
+        organism = latest_version.organism[constants.ABOUT] ? latest_version.organism[constants.ABOUT] : null;
+        organismLabel = latest_version.organism.label ? latest_version.organism.label : null;
+        pathwayOntology = latest_version.pathwayOntology ? latest_version.pathwayOntology : null;
         description = latest_version.description ? latest_version.description : null;
-        revision = latest_version[constants.ABOUT];
+        revision = latest_version[constants.ABOUT] ? latest_version[constants.ABOUT] : null;
         var partsComplete = latest_version.hasPart ? latest_version.hasPart : null;
         var parts = [];
 	$.each(partsComplete, function(i, part) {
