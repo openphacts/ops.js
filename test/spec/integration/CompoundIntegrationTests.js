@@ -52,7 +52,7 @@ describe("Compound search", function() {
         expect(this_result.toxicity).toBeDefined();
         expect(this_result.proteinBinding).toBeDefined();
       });
-      searcher.fetchCompound('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', callback);
+      searcher.fetchCompound('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', null, callback);
     });
     it("use identifiers.org uri in request", function() {
       var this_success = null;
@@ -112,7 +112,7 @@ describe("Compound search", function() {
         expect(this_success).toEqual(false);
         expect(this_status).toEqual(404);
       });
-      searcher.fetchCompound('http://www.conceptwiki.org/concept/876876876', callback);
+      searcher.fetchCompound('http://www.conceptwiki.org/concept/876876876', null, callback);
     });
   });
   describe("compound pharmacology search", function() {
