@@ -531,17 +531,18 @@ Openphacts.TargetSearch = function TargetSearch(baseURL, appID, appKey) {
 	this.appKey = appKey;
 }
 
-Openphacts.TargetSearch.prototype.fetchTarget = function(targetURI, callback) {
+Openphacts.TargetSearch.prototype.fetchTarget = function(targetURI, lens, callback) {
+    params={};
+    params['_format'] = "json";
+    params['app_key'] = this.appKey;
+    params['app_id'] = this.appID;
+    params['uri'] = targetURI;
+    lens ? params['lens'] = lens : '';
 	var targetQuery = $.ajax({
 		url: this.baseURL + '/target',
-                dataType: 'json',
+        dataType: 'json',
 		cache: true,
-		data: {
-			_format: "json",
-			uri: targetURI,
-			app_id: this.appID,
-			app_key: this.appKey
-		},
+		data: params,
 		success: function(response, status, request) {
 			callback.call(this, true, request.status, response.result);
 		},
