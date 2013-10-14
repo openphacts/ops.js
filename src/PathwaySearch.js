@@ -316,12 +316,14 @@ Openphacts.PathwaySearch.prototype.parseInformationResponse = function(response)
         organismLabel = latest_version.organism.label ? latest_version.organism.label : null;
         pathwayOntology = latest_version.pathwayOntology ? latest_version.pathwayOntology : null;
         var pathwayOntologies = [];
-        if ($.isArray(pathwayOntology)) {
-	        $.each(pathwayOntology, function(i, ontology) {
-              pathwayOntologies.push(ontology);
-	        });
-        } else {
-            pathwayOntologies.push(pathwayOntology);
+        if (pathwayOntology) {
+            if ($.isArray(pathwayOntology)) {
+	            $.each(pathwayOntology, function(i, ontology) {
+                  pathwayOntologies.push(ontology);
+	            });
+            } else {
+                pathwayOntologies.push(pathwayOntology);
+            }
         }
         description = latest_version.description ? latest_version.description : null;
         revision = latest_version[constants.ABOUT] ? latest_version[constants.ABOUT] : null;
