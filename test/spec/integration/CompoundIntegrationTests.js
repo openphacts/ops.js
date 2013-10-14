@@ -96,7 +96,7 @@ describe("Compound search", function() {
         expect(this_result.toxicity).toBeDefined();
         expect(this_result.proteinBinding).toBeDefined();
       });
-      searcher.fetchCompound('http://identifiers.org/hmdb/HMDB00123', callback);
+      searcher.fetchCompound('http://identifiers.org/hmdb/HMDB00123', null, callback);
     });
     it("can handle errors", function() {
       var this_success = null;
