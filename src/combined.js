@@ -1773,6 +1773,14 @@ Openphacts.PathwaySearch.prototype.parseInformationResponse = function(response)
         organism = latest_version.organism[constants.ABOUT] ? latest_version.organism[constants.ABOUT] : null;
         organismLabel = latest_version.organism.label ? latest_version.organism.label : null;
         pathwayOntology = latest_version.pathwayOntology ? latest_version.pathwayOntology : null;
+        var pathwayOntologies = [];
+        if ($.isArray(pathwayOntology)) {
+	        $.each(pathwayOntology, function(i, ontology) {
+              pathwayOntologies.push(ontology);
+	        });
+        } else {
+            pathwayOntologies.push(pathwayOntology);
+        }
         description = latest_version.description ? latest_version.description : null;
         revision = latest_version[constants.ABOUT] ? latest_version[constants.ABOUT] : null;
         var partsComplete = latest_version.hasPart ? latest_version.hasPart : null;
@@ -1784,7 +1792,7 @@ Openphacts.PathwaySearch.prototype.parseInformationResponse = function(response)
                    'title': title, 
                    'description': description, 
                    'revision': 'revision', 
-                   'pathwayOntology': pathwayOntology,
+                   'pathwayOntologies': pathwayOntologies,
                    'organism': organism, 
                    'organismLabel': organismLabel, 
                    'parts': parts

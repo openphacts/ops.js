@@ -28,7 +28,7 @@ describe("Pathways", function() {
         expect(this_result.title).toBeDefined();
         expect(this_result.description).toBeDefined();
         expect(this_result.revision).toBeDefined();
-        expect(this_result.pathwayOntology).toBeDefined();
+        expect(this_result.pathwayOntologies).toBeDefined();
         expect(this_result.parts).toBeDefined();
         //mandatory
         expect(this_result.title).not.toBeNull();
