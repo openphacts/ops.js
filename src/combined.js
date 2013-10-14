@@ -57,17 +57,18 @@ Openphacts.CompoundSearch = function CompoundSearch(baseURL, appID, appKey) {
 	this.appKey = appKey;
 }
 
-Openphacts.CompoundSearch.prototype.fetchCompound = function(compoundURI, callback) {
+Openphacts.CompoundSearch.prototype.fetchCompound = function(compoundURI, lens, callback) {
+    params={};
+    params['_format'] = "json";
+    params['app_key'] = this.appKey;
+    params['app_id'] = this.appID;
+    params['uri'] = compoundURI;
+    lens ? params['lens'] = lens : '';
 	var compoundQuery = $.ajax({
 		url: this.baseURL + '/compound',
-                dataType: 'json',
+        dataType: 'json',
 		cache: true,
-		data: {
-			_format: "json",
-			uri: compoundURI,
-			app_id: this.appID,
-			app_key: this.appKey
-		},
+		data: params,
 		success: function(response, status, request) {
 			callback.call(this, true, request.status, response.result);
 		},
