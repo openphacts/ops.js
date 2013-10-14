@@ -126,7 +126,7 @@ Openphacts.CompoundSearch.prototype.parseCompoundResponse = function(response) {
 	cwUri = response.primaryTopic[constants.ABOUT];
     // this id is not strictly true since we could have searched using a chemspider id etc
 	id = cwUri.split("/").pop();
-	prefLabel = response.primaryTopic.prefLabel;
+	prefLabel = response.primaryTopic.prefLabel ? response.primaryTopic.prefLabel : null;
 	$.each(response.primaryTopic.exactMatch, function(i, match) {
         var src = match[constants.IN_DATASET];
 		if (constants.SRC_CLS_MAPPINGS[src] == 'drugbankValue') {
@@ -166,6 +166,7 @@ Openphacts.CompoundSearch.prototype.parseCompoundResponse = function(response) {
     }
     if (conceptWikiData) {
         id =  conceptWikiData["_about"].split("/").pop();
+        prefLabel = conceptWikiData.prefLabel ? conceptWikiData.prefLabel : null;
     }
 
 	return {
