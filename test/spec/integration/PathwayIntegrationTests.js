@@ -27,6 +27,7 @@ describe("Pathways", function() {
 	    expect(this_status).toBe(200);
         expect(this_result.title).toBeDefined();
         expect(this_result.description).toBeDefined();
+        expect(this_result.identifier).toBeDefined();
         expect(this_result.revision).toBeDefined();
         expect(this_result.pathwayOntologies).toBeDefined();
         expect(this_result.parts).toBeDefined();
@@ -34,6 +35,7 @@ describe("Pathways", function() {
         expect(this_result.title).not.toBeNull();
         expect(this_result.organism).not.toBeNull();
         expect(this_result.organismLabel).not.toBeNull();
+        expect(this_result.description).not.toBeNull();
       });
       searcher.information('http://identifiers.org/wikipathways/WP1019', null, callback);
     });

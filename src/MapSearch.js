@@ -36,7 +36,7 @@ Openphacts.MapSearch.prototype.parseMapURLResponse = function(response) {
               urls.push(item);
 	        });
         } else {
-            urls.push(item);
+            urls.push(items);
         }
 	return urls;
 }

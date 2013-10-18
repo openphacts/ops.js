@@ -3,6 +3,7 @@ Openphacts.Constants = function() {};
 Openphacts.Constants.prototype.SRC_CLS_MAPPINGS = {
   'http://www.conceptwiki.org': 'conceptWikiValue',
   'http://www.conceptwiki.org/': 'conceptWikiValue',
+  'http://ops.conceptwiki.org': 'conceptWikiValue',
   'http://ops.conceptwiki.org/': 'conceptWikiValue',
   'http://data.kasabi.com/dataset/chembl-rdf': 'chemblValue',
   'http://rdf.ebi.ac.uk/resource/chembl/molecule' : 'chemblValue',
