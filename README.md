@@ -7,7 +7,7 @@ JQuery 1.9.1
 Get your openphacts api appID and appKey by registering at https://dev.openphacts.org
 
 ## Licence
-The OPS.js library is released under the MIT License, http://opensource.org/licenses/MIT. See licence.txt for more details.
+The OPS.js source code is released under the MIT License, http://opensource.org/licenses/MIT. See licence.txt for more details.
 
 ## Using the library
 JQuery must be loaded before the OPS.js library.  
