@@ -1,3 +1,5 @@
+//This content is released under the MIT License, http://opensource.org/licenses/MIT. See licence.txt for more details.
+
 Openphacts.Constants = function() {};
 
 Openphacts.Constants.prototype.SRC_CLS_MAPPINGS = {
