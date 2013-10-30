@@ -181,9 +181,10 @@ describe("Trees", function() {
       runs(function() {
         expect(this_success).toBe(true);
         expect(this_status).toBe(200);
-        expect(this_result.length).toBeGreaterThan(1);
-        expect(this_result[0].uri).toBeDefined();
-        expect(this_result[0].names.length).toBeGreaterThan(0);
+        expect(this_result.label).not.toBeNull();
+        expect(this_result.children.length).toBeGreaterThan(1);
+        expect(this_result.children[0].uri).toBeDefined();
+        expect(this_result.children[0].names.length).toBeGreaterThan(0);
       });
       searcher.getChildNodes('http://purl.uniprot.org/enzyme/1.1.1.-', callback);
     });
@@ -205,6 +206,49 @@ describe("Trees", function() {
     });
   });
 
+  describe("get parent nodes for enzyme", function() {
+
+    it("and return a response", function() {
+      var this_success = null;
+      var this_status = null;
+      var this_result = null;
+      var callback=function(success, status, response){
+        this_success = success;
+        this_status = status;
+        this_result = searcher.parseParentNodes(response);
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toBe(true);
+        expect(this_status).toBe(200);
+        expect(this_result.label).not.toBeNull();
+        expect(this_result.parents.length).toBeGreaterThan(0);
+        expect(this_result.parents[0].uri).toBeDefined();
+        expect(this_result.parents[0].names.length).toBeGreaterThan(0);
+      });
+      searcher.getParentNodes('http://purl.uniprot.org/enzyme/3.5.4.31', callback);
+    });
+    it("and handle errors", function() {
+      var this_success = null;
+      var this_status = null;
+      var callback=function(success, status){
+        this_success = success;
+	    this_status = status;
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toEqual(false);
+        expect(this_status).toEqual(404);
+      });
+      searcher.getParentNodes('http://34534533', callback);
+    });
+  });
+
+
   describe("get child nodes for chembl", function() {
 
     it("and return a response", function() {
@@ -222,9 +266,10 @@ describe("Trees", function() {
       runs(function() {
         expect(this_success).toBe(true);
         expect(this_status).toBe(200);
-        expect(this_result.length).toBeGreaterThan(1);
-        expect(this_result[0].uri).toBeDefined();
-        expect(this_result[0].names.length).toBeGreaterThan(0);
+        expect(this_result.label).not.toBeNull();
+        expect(this_result.children.length).toBeGreaterThan(1);
+        expect(this_result.children[0].uri).toBeDefined();
+        expect(this_result.children[0].names.length).toBeGreaterThan(0);
       });
       searcher.getChildNodes('http://rdf.ebi.ac.uk/resource/chembl/protclass/CHEMBL_PC_1000', callback);
     });
@@ -263,9 +308,10 @@ describe("Trees", function() {
       runs(function() {
         expect(this_success).toBe(true);
         expect(this_status).toBe(200);
-        expect(this_result.length).toBeGreaterThan(1);
-        expect(this_result[0].uri).toBeDefined();
-        expect(this_result[0].names.length).toBeGreaterThan(0);
+        expect(this_result.label).not.toBeNull();
+        expect(this_result.children.length).toBeGreaterThan(1);
+        expect(this_result.children[0].uri).toBeDefined();
+        expect(this_result.children[0].names.length).toBeGreaterThan(0);
       });
       searcher.getChildNodes('http://purl.obolibrary.org/obo/CHEBI_24431', callback);
     });
@@ -304,9 +350,10 @@ describe("Trees", function() {
       runs(function() {
         expect(this_success).toBe(true);
         expect(this_status).toBe(200);
-        expect(this_result.length).toBeGreaterThan(1);
-        expect(this_result[0].uri).toBeDefined();
-        expect(this_result[0].names.length).toBeGreaterThan(0);
+        expect(this_result.label).not.toBeNull();
+        expect(this_result.children.length).toBeGreaterThan(1);
+        expect(this_result.children[0].uri).toBeDefined();
+        expect(this_result.children[0].names.length).toBeGreaterThan(0);
       });
       searcher.getChildNodes('http://purl.org/obo/owl/GO#GO_0003674', callback);
     });

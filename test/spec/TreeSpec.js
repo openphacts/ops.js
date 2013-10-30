@@ -45,10 +45,37 @@ describe("Trees", function() {
       });
     });
     it("can handle single responses", function() {
-	  var response = {'primaryTopic': {'childNode': {'_about': 'abcd', 'prefLabel': 'defg'}}};
+	  var response = {'primaryTopic': {'prefLabel': 'hijk', 'childNode': {'_about': 'abcd', 'prefLabel': 'defg'}}};
 	  var result = searcher.parseChildNodes(response);
-	  expect(result[0].uri).toEqual('abcd');
-      expect(result[0].names[0]).toEqual('defg');
+	  expect(result.label).toEqual('hijk');
+	  expect(result.children[0].uri).toEqual('abcd');
+      expect(result.children[0].names[0]).toEqual('defg');
+    });
+  });
+
+  describe("get parent nodes", function() {
+
+    it("can be executed", function() {
+      spyOn(searcher, 'getParentNodes');
+      searcher.getChildNodes('URI', 'callback');
+      expect(searcher.getParentNodes).toHaveBeenCalled();
+    });
+    it("executes asynchronously", function() {
+      var callback = jasmine.createSpy();
+      searcher.getParentNodes('http://purl.uniprot.org/enzyme/1.1.1.-', callback);
+      waitsFor(function() {
+          return callback.callCount > 0;
+      });
+      runs(function() {
+          expect(callback).toHaveBeenCalled();
+      });
+    });
+    it("can handle single responses", function() {
+	  var response = {'primaryTopic': {'prefLabel': 'hijk', 'parentNode': {'_about': 'abcd', 'prefLabel': 'defg'}}};
+	  var result = searcher.parseChildNodes(response);
+	  expect(result.label).toEqual('hijk');
+	  expect(result.parents[0].uri).toEqual('abcd');
+      expect(result.parents[0].names[0]).toEqual('defg');
     });
   });
 

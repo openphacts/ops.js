@@ -46,6 +46,27 @@ Openphacts.TreeSearch.prototype.getChildNodes = function(URI, callback) {
 	});
 }
 
+Openphacts.TreeSearch.prototype.getParentNodes = function(URI, callback) {
+	var query = $.ajax({
+		url: this.baseURL + '/tree/parents',
+                dataType: 'json',
+		cache: true,
+		data: {
+			_format: "json",
+                        uri: URI,
+			app_id: this.appID,
+			app_key: this.appKey
+		},
+		success: function(response, status, request) {
+			callback.call(this, true, request.status, response.result);
+		},
+		error: function(request, status, error) {
+			callback.call(this, false, request.status);
+		}
+	});
+}
+
+
 Openphacts.TreeSearch.prototype.getTargetClassPharmacologyCount = function(URI, assayOrganism, targetOrganism, activityType, activityValue, activityUnit, minActivityValue, minExActivityValue, maxActivityValue, maxExActivityValue, relation, pChembl, minpChembl, minExpChembl, maxpChembl, maxExpChembl, targetType, lens, callback) {
         params={};
         params['_format'] = "json";
@@ -190,7 +211,14 @@ Openphacts.TreeSearch.prototype.parseRootNodes = function(response) {
 }
 
 Openphacts.TreeSearch.prototype.parseChildNodes = function(response) {
-    var enzymeClasses = [];
+	var constants = new Openphacts.Constants();
+	var childResponse = {};
+    var treeClasses = [];
+    var label = response.primaryTopic.prefLabel;
+    if ($.isArray(label)) {
+	  label = label[0];
+    }
+    childResponse['label'] = label;
     if ($.isArray(response.primaryTopic.childNode)) {
 	  $.each(response.primaryTopic.childNode, function(i, member) {
                 var about = member["_about"];
@@ -202,7 +230,7 @@ Openphacts.TreeSearch.prototype.parseChildNodes = function(response) {
                 } else {
                    names.push(member.prefLabel);
                 }
-                enzymeClasses.push({uri: about, names: names});
+                treeClasses.push({uri: about, names: names});
 	        });
         } else {
 	        var about = response.primaryTopic.childNode["_about"];
@@ -214,10 +242,50 @@ Openphacts.TreeSearch.prototype.parseChildNodes = function(response) {
             } else {
                 names.push(response.primaryTopic.childNode.prefLabel);
             }
-            enzymeClasses.push({uri: about, names: names});
+            treeClasses.push({uri: about, names: names});
         }
-	    return enzymeClasses;
+        childResponse['children'] = treeClasses;
+	    return childResponse;
 }
+
+Openphacts.TreeSearch.prototype.parseParentNodes = function(response) {
+	var constants = new Openphacts.Constants();
+	var parentResponse = {};
+    var treeClasses = [];
+    var label = response.primaryTopic.prefLabel;
+    if ($.isArray(label)) {
+	  label = label[0];
+    }
+    parentResponse['label'] = label;
+    if ($.isArray(response.primaryTopic.parentNode)) {
+	  $.each(response.primaryTopic.parentNode, function(i, member) {
+                var about = member["_about"];
+                var names = [];
+                if ($.isArray(member.prefLabel)) {
+                    $.each(member.prefLabel, function(j, label) {
+                        names.push(label);
+                    });
+                } else {
+                   names.push(member.prefLabel);
+                }
+                treeClasses.push({uri: about, names: names});
+	        });
+        } else {
+	        var about = response.primaryTopic.parentNode["_about"];
+            var names = [];
+            if ($.isArray(response.primaryTopic.parentNode.prefLabel)) {
+                $.each(response.primaryTopic.parentNode.prefLabel, function(j, label) {
+                    names.push(label);
+                });
+            } else {
+                names.push(response.primaryTopic.parentNode.prefLabel);
+            }
+            treeClasses.push({uri: about, names: names});
+        }
+        parentResponse['parents'] = treeClasses;
+	    return parentResponse;
+}
+
 
 Openphacts.TreeSearch.prototype.parseTargetClassPharmacologyCount = function(response) {
     var constants = new Openphacts.Constants();
