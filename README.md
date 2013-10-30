@@ -6,6 +6,9 @@ OPS.js is a javascript based library for accessing the OpenPHACTS Linked Data AP
 JQuery 1.9.1  
 Get your openphacts api appID and appKey by registering at https://dev.openphacts.org
 
+## Licence
+This content is released under the MIT License, http://opensource.org/licenses/MIT.
+
 ## Using the library
 JQuery must be loaded before the OPS.js library.  
 
@@ -175,7 +178,7 @@ var callback=function(success, status, response){
 // only a SMILES has been provided, no limit, start or length  
 searcher.substructure('CNC(=O)c1cc(ccn1)Oc2ccc(cc2)NC(=O)Nc3ccc(c(c3)C(F)(F)F)Cl', null, null, null, callback);
 ```
-### Inchi Key to URL structure Search
+### InChI Key to URL structure Search
 
 ```javascript
 var searcher = new Openphacts.StructureSearch("https://beta.openphacts.org", appID, appKey);  
@@ -187,7 +190,7 @@ var callback=function(success, status, response){
 // Inchi Key is for Aspirin  
 searcher.inchiKeyToURL('BSYNRYMUTXBXSQ-UHFFFAOYSA-N', callback);
 ```
-### Inchi to URL structure Search
+### InChI to URL structure Search
 
 ```javascript
 var searcher = new Openphacts.StructureSearch("https://beta.openphacts.org", appID, appKey);  
