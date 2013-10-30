@@ -6,6 +6,9 @@ OPS.js is a javascript based library for accessing the OpenPHACTS Linked Data AP
 JQuery 1.9.1  
 Get your openphacts api appID and appKey by registering at https://dev.openphacts.org
 
+## Licence
+MIT
+
 ## Using the library
 JQuery must be loaded before the OPS.js library.  
 
