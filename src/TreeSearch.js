@@ -203,10 +203,14 @@ Openphacts.TreeSearch.prototype.getCompoundClassPharmacologyPaginated = function
 }
 
 Openphacts.TreeSearch.prototype.parseRootNodes = function(response) {
-        var enzymeRootClasses = [];
-	$.each(response.primaryTopic.hasPart.rootNode, function(i, member) {
-            enzymeRootClasses.push({uri: member["_about"], name: member.prefLabel});
-	});
+    var enzymeRootClasses = [];
+    if ($.isArray(response.primaryTopic.hasPart.rootNode)) {
+	    $.each(response.primaryTopic.hasPart.rootNode, function(i, member) {
+          enzymeRootClasses.push({uri: member["_about"], name: member.prefLabel});
+	    });
+    } else {
+        enzymeRootClasses.push({uri: response.primaryTopic.hasPart.rootNode["_about"], name: response.primaryTopic.hasPart.rootNode.prefLabel});
+    }
 	return enzymeRootClasses;
 }
 

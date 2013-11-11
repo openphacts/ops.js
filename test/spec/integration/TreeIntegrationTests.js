@@ -103,7 +103,7 @@ describe("Trees", function() {
       runs(function() {
         expect(this_success).toBe(true);
         expect(this_status).toBe(200);
-        expect(this_result.length).toBeGreaterThan(1);
+        expect(this_result.length).toBeGreaterThan(0);
       });
       searcher.getRootNodes('chembl', callback);
     });
