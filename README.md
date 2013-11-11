@@ -255,3 +255,11 @@ getReferences & parseGetReferencesResponse
 countPathways & parseCountPathwaysResponse
 list & parseListResponse
 organisms & parseOrganismsResponse
+
+### Map URL
+MapSearch - base class  
+mapURL && parseMapURLResponse
+
+### Data Sources
+DataSources - base class  
+getSources
