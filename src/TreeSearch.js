@@ -326,15 +326,34 @@ Openphacts.TreeSearch.prototype.parseTargetClassPharmacologyPaginated = function
             ro5Violations = match[constants.RO5_VIOLATIONS] ? match[constants.RO5_VIOLATIONS] : null;
 		}
       });
-//TODO not sure where/if the targets are in 1.3
-//      targetURI = item.target[constants.ABOUT];
-//      targetTitle = item.target.title;
-//      targetOrganism = item.target.organism;
-//      if (item.target.exactMatch) {
-//          $.each(item.target.exactMatch, function(j, match) {
-//            targets.push(match);
-//          });
-//      }
+      var targets = item.hasAssay.hasTarget;
+      var assayTargets = [];
+      if ($.isArray(targets)) {
+          $.each(targets, function(index, target) {
+            var targetURI = target[constants.ABOUT];
+            var targetTitle = target.title;    
+            assayTargets.push({"uri": targetURI, "title": targetTitle}); 
+          });
+      } else {
+          var targetURI = targets[constants.ABOUT];
+          var targetTitle = targets.title;
+          var targetComponents = targets.hasTargetComponent;
+          var assayTargetComponents = [];
+          if (targetComponents) {
+              if ($.isArray(targetComponents)) {
+                  $.each(targetComponents, function(j, targetComponent) {
+                    var targetComponentLabel = targetComponent[constants.EXACT_MATCH].prefLabel;
+                    var targetComponentURI = targetComponent[constants.EXACT_MATCH];
+                    assayTargetComponents.push({"label": targetComponentLabel, "uri": targetComponentURI});
+                  });
+              } else {
+                  var targetComponentLabel = targetComponents[constants.EXACT_MATCH].prefLabel;
+                  var targetComponentURI = targetComponents[constants.ABOUT];
+                  assayTargetComponents.push({"label": targetComponentLabel, "uri": targetComponentURI});
+              }
+          }
+          assayTargets.push({"uri": targetURI, "title": targetTitle, "targetComponents": assayTargetComponents});
+      }
       var onAssay = item[constants.ON_ASSAY];
       assayURI = onAssay["_about"] ? onAssay["_about"] : null;
       assayDescription = onAssay.description ? onAssay.description : null;
@@ -344,7 +363,7 @@ Openphacts.TreeSearch.prototype.parseTargetClassPharmacologyPaginated = function
       publishedValue = item.publishedValue ? item.publishedValue : null;
       standardUnits = item.standardUnits ? item.standardUnits : null;
       records.push({
-          //targets: targets,
+          'targets': assayTargets,
           'chemblActivityURI': chemblActivityURI,
           'pmid': pmid,
           'relation': relation,
