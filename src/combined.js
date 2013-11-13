@@ -1504,12 +1504,29 @@ Openphacts.TreeSearch.prototype.parseTargetClassPharmacologyPaginated = function
       if ($.isArray(targets)) {
           $.each(targets, function(index, target) {
             var targetURI = target[constants.ABOUT];
-            var targetTitle = target.title;    
-            assayTargets.push({"uri": targetURI, "title": targetTitle}); 
+            var targetTitle = target.title;
+            var targetOrganismNames = target.targetOrganismName;
+            var targetComponents = target.hasTargetComponent;
+            var assayTargetComponents = [];
+            if (targetComponents) {
+                if ($.isArray(targetComponents)) {
+                    $.each(targetComponents, function(j, targetComponent) {
+                      var targetComponentLabel = targetComponent[constants.EXACT_MATCH].prefLabel;
+                      var targetComponentURI = targetComponent[constants.EXACT_MATCH];
+                      assayTargetComponents.push({"label": targetComponentLabel, "uri": targetComponentURI});
+                    });
+                } else {
+                    var targetComponentLabel = targetComponents[constants.EXACT_MATCH].prefLabel;
+                    var targetComponentURI = targetComponents[constants.ABOUT];
+                    assayTargetComponents.push({"label": targetComponentLabel, "uri": targetComponentURI});
+                }
+            }   
+            assayTargets.push({"uri": targetURI, "title": targetTitle, "targetComponents": assayTargetComponents,"targetOrganismNames": targetOrganismNames});
           });
       } else {
           var targetURI = targets[constants.ABOUT];
           var targetTitle = targets.title;
+          var targetOrganismNames = targets.targetOrganismName;    
           var targetComponents = targets.hasTargetComponent;
           var assayTargetComponents = [];
           if (targetComponents) {
@@ -1525,7 +1542,7 @@ Openphacts.TreeSearch.prototype.parseTargetClassPharmacologyPaginated = function
                   assayTargetComponents.push({"label": targetComponentLabel, "uri": targetComponentURI});
               }
           }
-          assayTargets.push({"uri": targetURI, "title": targetTitle, "targetComponents": assayTargetComponents});
+          assayTargets.push({"uri": targetURI, "title": targetTitle, "targetComponents": assayTargetComponents,"targetOrganismNames": targetOrganismNames});
       }
       var onAssay = item[constants.ON_ASSAY];
       assayURI = onAssay["_about"] ? onAssay["_about"] : null;
