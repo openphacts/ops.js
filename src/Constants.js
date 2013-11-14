@@ -54,3 +54,4 @@ Openphacts.Constants.prototype.RO5_VIOLATIONS = 'ro5_violations';
 Openphacts.Constants.prototype.SMILES = 'smiles';
 Openphacts.Constants.prototype.RELEVANCE = 'relevance';
 Openphacts.Constants.prototype.PATHWAY_COUNT = 'pathway_count';
+Openphacts.Constants.prototype.MOLWT = 'molweight';

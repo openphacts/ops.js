@@ -57,6 +57,7 @@ Openphacts.Constants.prototype.RO5_VIOLATIONS = 'ro5_violations';
 Openphacts.Constants.prototype.SMILES = 'smiles';
 Openphacts.Constants.prototype.RELEVANCE = 'relevance';
 Openphacts.Constants.prototype.PATHWAY_COUNT = 'pathway_count';
+Openphacts.Constants.prototype.MOLWT = 'molweight';
 //This content is released under the MIT License, http://opensource.org/licenses/MIT. See licence.txt for more details.
 
 Openphacts.CompoundSearch = function CompoundSearch(baseURL, appID, appKey) {
@@ -1474,9 +1475,18 @@ Openphacts.TreeSearch.prototype.parseTargetClassPharmacologyPaginated = function
     var records = [];
     $.each(response.items, function(i, item) {
       var targets = [];
-      var chemblActivityURI = null, pmid = null, relation = null, standardUnits = null, standardValue = null, activityType = null, inDataset = null, fullMWT = null, chemblURI = null, cwURI = null, prefLabel = null, csURI = null, inchi = null, inchiKey = null, smiles = null, ro5Violations = null, targetURI = null, targetTitle = null, targetOrganism = null, assayURI = null, assayDescription = null, publishedRelation = null, publishedType = null, publishedUnits = null, publishedValue = null, standardUnits = null, standardValue = null, pChembl = null;
+      var chemblActivityURI = null, pmid = null, relation = null, standardUnits = null, standardValue = null, activityType = null, inDataset = null, fullMWT = null, chemblURI = null, cwURI = null, prefLabel = null, csURI = null, inchi = null, inchiKey = null, smiles = null, ro5Violations = null, targetURI = null, targetTitle = null, targetOrganism = null, assayURI = null, assayDescription = null, publishedRelation = null, publishedType = null, publishedUnits = null, publishedValue = null, standardUnits = null, standardValue = null, pChembl = null, activityType = null, activityRelation = null, activityValue = null, activityUnits = null;
       chemblActivityURI = item["_about"];
       pmid = item.pmid;
+
+      activityType = item.activity_type;
+      activityRelation = item.activity_relation;
+      activityValue = item.activity_value;
+      var units = item.activity_unit;
+      if (units) {
+          activityUnits = units.prefLabel;
+      }
+
       relation = item.relation ? item.relation : null;
       standardUnits = item.standardUnits;
       standardValue = item.standardValue ? item.standardValue : null;
@@ -1484,7 +1494,6 @@ Openphacts.TreeSearch.prototype.parseTargetClassPharmacologyPaginated = function
       inDataset = item[constants.IN_DATASET];
       forMolecule = item[constants.FOR_MOLECULE];
       chemblURI = forMolecule[constants.ABOUT] ? forMolecule[constants.ABOUT] : null;
-      fullMWT = forMolecule[constants.FULL_MWT] ? forMolecule[constants.FULL_MWT] : null;
       pChembl = item.pChembl ? item.pChembl : null;
       $.each(forMolecule[constants.EXACT_MATCH], function(j, match) {
         var src = match[constants.IN_DATASET];
@@ -1496,7 +1505,8 @@ Openphacts.TreeSearch.prototype.parseTargetClassPharmacologyPaginated = function
             inchi = match[constants.INCHI];
             inchiKey = match[constants.INCHIKEY];
             smiles = match[constants.SMILES];
-            ro5Violations = match[constants.RO5_VIOLATIONS] ? match[constants.RO5_VIOLATIONS] : null;
+            ro5Violations = match[constants.RO5_VIOLATIONS] !== null ? match[constants.RO5_VIOLATIONS] : null;
+            fullMWT = match[constants.MOLWT] ? match[constants.MOLWT] : null;
 		}
       });
       var targets = item.hasAssay.hasTarget;
@@ -1560,6 +1570,9 @@ Openphacts.TreeSearch.prototype.parseTargetClassPharmacologyPaginated = function
           'standardUnits': standardUnits,
           'standardValue': standardValue,
           'activityType': activityType,
+          'activityRelation': activityRelation,
+          'activityUnits': activityUnits,
+          'activityValue': activityValue,
           'inDataset': inDataset,
           'fullMWT': fullMWT,
           'chemblURI': chemblURI,
@@ -1579,7 +1592,6 @@ Openphacts.TreeSearch.prototype.parseTargetClassPharmacologyPaginated = function
           'publishedType': publishedType,
           'publishedUnits': publishedUnits,
           'publishedValue': publishedValue,
-          'standardUnits': standardUnits,
           'pChembl': pChembl
       });
     });
