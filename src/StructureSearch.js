@@ -145,16 +145,7 @@ Openphacts.StructureSearch.prototype.parseExactResponse = function(response) {
     } else {
         results.push(response.primaryTopic.result);
     }
-	return {
-                'type': response.primaryTopic.type,
-                'molecule': response.primaryTopic.Molecule,
-                'csURIs': results,
-                'matchType': response.primaryTopic.MatchType ? response.primaryTopic.MatchType : null,
-                'complexity': response.primaryTopic.Complexity ? response.primaryTopic.Complexity : null,
-                'isotopic': response.primaryTopic.Isotopic ? response.primaryTopic.Isotopic : null,
-                'hasSpectra': response.primaryTopic.HasSpectra ? response.primaryTopic.HasSpectra : null,
-                'hasPatents': response.primaryTopic.HasPatents ? response.primaryTopic.HasPatents : null
-        };
+	return results;
 }
 
 Openphacts.StructureSearch.prototype.parseSubstructureResponse = function(response) {

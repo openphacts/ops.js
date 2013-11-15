@@ -26,15 +26,8 @@ describe("Structure search", function() {
         expect(this_success).toEqual(true);
         expect(this_status).toEqual(200);
         // mandatory
-        expect(this_result.type).toEqual("http://www.openphacts.org/api/ExactStructureSearch");
-        expect(this_result.molecule).toEqual('CNC(=O)c1cc(ccn1)Oc2ccc(cc2)NC(=O)Nc3ccc(c(c3)C(F)(F)F)Cl');
-        expect(this_result.csURIs).not.toBeNull();
-        // optional
-        expect(this_result.matchType).toBeDefined();
-        expect(this_result.complexity).toBeDefined();
-        expect(this_result.isotopic).toBeDefined();
-        expect(this_result.hasSpectra).toBeDefined();
-        expect(this_result.hasPatents).toBeDefined();
+        expect(this_result).not.toBeNull();
+        expect(this_result.length).toBeGreaterThan(0);
       });
       searcher.exact('CNC(=O)c1cc(ccn1)Oc2ccc(cc2)NC(=O)Nc3ccc(c(c3)C(F)(F)F)Cl', 0, callback);
     });
