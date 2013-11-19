@@ -31,10 +31,11 @@ describe("Target search", function() {
         expect(this_result).toBeDefined();
 
         // mandatory
-        expect(this_result.id).not.toBeNull();
-        expect(this_result.cwURI).not.toBeNull();
-        expect(this_result.uniprotURI).not.toBeNull();
-        expect(this_result.existence).not.toBeNull();
+        //expect(this_result.id).not.toBeNull();
+        //expect(this_result.cwURI).not.toBeNull();
+        //expect(this_result.uniprotURI).not.toBeNull();
+        //expect(this_result.existence).not.toBeNull();
+        expect(this_result.URI).not.toBeNull();
 
         // optional
         expect(this_result.cellularLocation).toBeDefined();
@@ -51,6 +52,7 @@ describe("Target search", function() {
         expect(this_result.drugbankURI).toBeDefined();
         expect(this_result.prefLabel).toBeDefined();
         expect(this_result.chemblItems).toBeDefined();
+        expect(this_result.URI).toBeDefined();
       });
 
       searcher.fetchTarget('http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', null, callback);
