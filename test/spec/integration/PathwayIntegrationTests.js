@@ -25,6 +25,7 @@ describe("Pathways", function() {
       runs(function() {
 	    expect(this_success).toBe(true);
 	    expect(this_status).toBe(200);
+        expect(this_result.URI).toBeDefined();
         expect(this_result.title).toBeDefined();
         expect(this_result.description).toBeDefined();
         expect(this_result.identifier).toBeDefined();
@@ -32,6 +33,7 @@ describe("Pathways", function() {
         expect(this_result.pathwayOntologies).toBeDefined();
         expect(this_result.parts).toBeDefined();
         //mandatory
+        expect(this_result.URI).not.toBeNull();
         expect(this_result.title).not.toBeNull();
         expect(this_result.organism).not.toBeNull();
         expect(this_result.organismLabel).not.toBeNull();
