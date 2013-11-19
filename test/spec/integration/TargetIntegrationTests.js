@@ -31,7 +31,7 @@ describe("Target search", function() {
         expect(this_result).toBeDefined();
 
         // mandatory
-        //expect(this_result.id).not.toBeNull();
+        expect(this_result.id).not.toBeNull();
         //expect(this_result.cwURI).not.toBeNull();
         //expect(this_result.uniprotURI).not.toBeNull();
         //expect(this_result.existence).not.toBeNull();
@@ -79,9 +79,9 @@ describe("Target search", function() {
 
         // mandatory
         expect(this_result.id).not.toBeNull();
-        expect(this_result.cwURI).not.toBeNull();
-        expect(this_result.uniprotURI).not.toBeNull();
-        expect(this_result.existence).not.toBeNull();
+        //expect(this_result.cwURI).not.toBeNull();
+        //expect(this_result.uniprotURI).not.toBeNull();
+        //expect(this_result.existence).not.toBeNull();
 
         // optional
         expect(this_result.cellularLocation).toBeDefined();
