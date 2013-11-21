@@ -62,4 +62,22 @@ describe("Target search", function() {
       });
     });
   });
+  describe("compounds for target", function() {
+
+    it("can be executed", function() {
+      spyOn(searcher, 'compoundsForTarget');
+      searcher.compoundsForTarget('targetURI', 'callback');
+      expect(searcher.compoundsForTarget).toHaveBeenCalled();
+    });
+    it("executes asynchronously", function() {
+      var callback = jasmine.createSpy();
+      searcher.compoundsForTarget('http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', callback);
+      waitsFor(function() {
+          return callback.callCount > 0;
+      });
+      runs(function() {
+        expect(callback).toHaveBeenCalled();
+      });
+    });
+  });
 });

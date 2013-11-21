@@ -247,4 +247,27 @@ describe("Target search", function() {
       searcher.targetPharmacologyCount('http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', callback);
     });
   });
+  describe("compounds for a target", function() {
+
+    it("and return a response", function() {
+      var this_success = null;
+      var this_status = null;
+
+      var callback=function(success, status, response){
+        this_success = success;
+        this_status = status;
+      };
+
+      waitsFor(function() {
+        return this_status != null;
+      });
+
+      runs(function() {
+        expect(this_success).toEqual(true);
+        expect(this_status).toEqual(200);
+      });
+
+      searcher.compoundsForTarget('http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', callback);
+    });
+  });
 });

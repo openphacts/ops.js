@@ -16,7 +16,7 @@ describe("Compound search", function() {
       var this_result = null;
       var callback=function(success, status, response){
         this_success = success;
-	this_status = status;
+        this_status = status;
         this_result = searcher.parseCompoundResponse(response);
       };
       waitsFor(function() {
@@ -35,7 +35,7 @@ describe("Compound search", function() {
         expect(this_result.smiles).not.toBeNull();
         expect(this_result.chemblURI).not.toBeNull();
         expect(this_result.inchiKey).not.toBeNull();
-        expect(this_result.drugbankURI).not.toBeNull();
+        //expect(this_result.drugbankURI).not.toBeNull();
 
         // These values are not guaranteed to be in the response from the API but should present though may be null
         expect(this_result.fullMWT).toBeDefined();
@@ -51,6 +51,7 @@ describe("Compound search", function() {
         expect(this_result.biotransformationItem).toBeDefined();
         expect(this_result.toxicity).toBeDefined();
         expect(this_result.proteinBinding).toBeDefined();
+        expect(this_result.drugbankURI).toBeDefined();
       });
       searcher.fetchCompound('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', null, callback);
     });
@@ -79,7 +80,7 @@ describe("Compound search", function() {
         expect(this_result.smiles).not.toBeNull();
         expect(this_result.chemblURI).not.toBeNull();
         expect(this_result.inchiKey).not.toBeNull();
-        expect(this_result.drugbankURI).not.toBeNull();
+        //expect(this_result.drugbankURI).not.toBeNull();
 
         // These values are not guaranteed to be in the response from the API but should present though may be null
         expect(this_result.fullMWT).toBeDefined();
@@ -95,6 +96,7 @@ describe("Compound search", function() {
         expect(this_result.biotransformationItem).toBeDefined();
         expect(this_result.toxicity).toBeDefined();
         expect(this_result.proteinBinding).toBeDefined();
+        expect(this_result.drugbankURI).toBeDefined();
       });
       searcher.fetchCompound('http://ops.rsc.org/OPS2954', null, callback);
     });
@@ -123,7 +125,7 @@ describe("Compound search", function() {
         expect(this_result.smiles).not.toBeNull();
         expect(this_result.chemblURI).not.toBeNull();
         expect(this_result.inchiKey).not.toBeNull();
-        expect(this_result.drugbankURI).not.toBeNull();
+        //expect(this_result.drugbankURI).not.toBeNull();
 
         // These values are not guaranteed to be in the response from the API but should present though may be null
         expect(this_result.fullMWT).toBeDefined();
@@ -139,6 +141,7 @@ describe("Compound search", function() {
         expect(this_result.biotransformationItem).toBeDefined();
         expect(this_result.toxicity).toBeDefined();
         expect(this_result.proteinBinding).toBeDefined();
+        expect(this_result.drugbankURI).toBeDefined();
       });
       searcher.fetchCompound('http://identifiers.org/hmdb/HMDB00123', null, callback);
     });
