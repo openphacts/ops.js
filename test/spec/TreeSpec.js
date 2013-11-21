@@ -57,7 +57,7 @@ describe("Trees", function() {
 
     it("can be executed", function() {
       spyOn(searcher, 'getParentNodes');
-      searcher.getChildNodes('URI', 'callback');
+      searcher.getParentNodes('URI', 'callback');
       expect(searcher.getParentNodes).toHaveBeenCalled();
     });
     it("executes asynchronously", function() {
@@ -72,7 +72,7 @@ describe("Trees", function() {
     });
     it("can handle single responses", function() {
 	  var response = {'primaryTopic': {'prefLabel': 'hijk', 'parentNode': {'_about': 'abcd', 'prefLabel': 'defg'}}};
-	  var result = searcher.parseChildNodes(response);
+	  var result = searcher.parseParentNodes(response);
 	  expect(result.label).toEqual('hijk');
 	  expect(result.parents[0].uri).toEqual('abcd');
       expect(result.parents[0].names[0]).toEqual('defg');
@@ -83,12 +83,12 @@ describe("Trees", function() {
 
     it("can be executed", function() {
       spyOn(searcher, 'getTargetClassPharmacologyCount');
-      searcher.getTargetClassPharmacologyCount('URI', 'assayOrganism', 'targetOrganism', 'activityType', 'activityValue', 'activityUnit', 'relation', 'pChembl', 'min-pChembl', 'minEx-pChembl', 'max-pChembl', 'maxEx-pChembl', 'targetType', 'lens', 'callback');
+      searcher.getTargetClassPharmacologyCount('URI', 'assayOrganism', 'targetOrganism', 'activityType', 'activityValue', 'activityUnit', 'minActivityValue', 'minExActivityValue', 'maxActivityValue', 'maxExActivityValue', 'relation', 'pChembl', 'min-pChembl', 'minEx-pChembl', 'max-pChembl', 'maxEx-pChembl', 'targetType', 'lens', 'callback');
       expect(searcher.getTargetClassPharmacologyCount).toHaveBeenCalled();
     });
     it("executes asynchronously", function() {
       var callback = jasmine.createSpy();
-      searcher.getTargetClassPharmacologyCount('http://purl.uniprot.org/enzyme/1.1.1.-', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);
+      searcher.getTargetClassPharmacologyCount('http://purl.uniprot.org/enzyme/1.1.1.-', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);
       waitsFor(function() {
           return callback.callCount > 0;
       });
@@ -102,11 +102,11 @@ describe("Trees", function() {
 
     it("can be executed", function() {
       spyOn(searcher, 'getTargetClassPharmacologyPaginated');
-      searcher.getTargetClassPharmacologyPaginated('URI', 'assayOrganism', 'targetOrganism', 'activityType', 'activityValue', 'activityUnit', 'relation', 'pChembl', 'min-pChembl', 'minEx-pChembl', 'max-pChembl', 'maxEx-pChembl', 'targetType', 'lens', 'page', 'pageSize', 'orderBy', 'callback');
+      searcher.getTargetClassPharmacologyPaginated('URI', 'assayOrganism', 'targetOrganism', 'activityType', 'activityValue', 'activityUnit', 'minActivityValue', 'minExActivityValue', 'maxActivityValue', 'maxExActivityValue', 'relation', 'pChembl', 'min-pChembl', 'minEx-pChembl', 'max-pChembl', 'maxEx-pChembl', 'targetType', 'lens', 'page', 'pageSize', 'orderBy', 'callback');
     });
     it("executes asynchronously", function() {
       var callback = jasmine.createSpy();
-      searcher.getTargetClassPharmacologyPaginated('http://purl.uniprot.org/enzyme/1.1.1.-', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);
+      searcher.getTargetClassPharmacologyPaginated('http://purl.uniprot.org/enzyme/1.1.1.-', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);
       waitsFor(function() {
           return callback.callCount > 0;
       });

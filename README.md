@@ -219,14 +219,16 @@ searcher.similarity('CC(=O)Oc1ccccc1C(=O)O', 0, 0.99, null, null, null, callback
 ### Targets
 compoundsForTarget
 
-### Enzymes
+### Trees
 
-EnzymeSearch - base class  
-getClassificationRootClasses & parseClassificationRootClasses  
-getClassificationClass & parseClassificationClass  
-getClassificationClassMembers & parseClassificationClassMembers  
-getPharmacologyCount & parsePharmacologyCount  
-getPharmacologyPaginated & parsePharmacologyPaginated  
+TreeSearch - base class  
+getRootNodes & parseRootNodes  
+getChildNodes & parseChildNodes  
+getParentNodes & parseParentNodes  
+getTargetClassPharmacologyCount & parseTargetClassPharmacologyCount  
+getTargetClassPharmacologyPaginated & parseTargetClassPharmacologyPaginated  
+getCompoundClassPharmacologyCount  
+getCompoundClassPharmacologyPaginated
 
 ### Activities
 
@@ -241,7 +243,7 @@ getOntologyClassMembers & parseOntologyClassMembers
 getOntologyRootClassMembers & parseOntologyRootClassMembers  
 getOntologyClass & parseOntologyClass  
 getClassPharmacologyCount & parseClassPharmacologyCount  
-getClassPharmacologyPaginated & parseClassPharmacologyPaginated  
+getClassPharmacologyPaginated & parseClassPharmacologyPaginated
 
 ### Wiki Pathways
 PathwaySearch - base class  

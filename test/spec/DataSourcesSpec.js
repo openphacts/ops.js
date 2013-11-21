@@ -12,7 +12,7 @@ describe("Data Sources", function() {
 
     it("can be executed", function() {
       spyOn(searcher, 'getSources');
-      searcher.getInformation('callback');
+      searcher.getSources('callback');
       expect(searcher.getSources).toHaveBeenCalled();
     });
     it("executes asynchronously", function() {
