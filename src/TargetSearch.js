@@ -26,6 +26,26 @@ Openphacts.TargetSearch.prototype.fetchTarget = function(targetURI, callback) {
 	});
 }
 
+Openphacts.TargetSearch.prototype.compoundsForTarget = function(targetURI, callback) {
+	var targetQuery = $.ajax({
+		url: this.baseURL + '/target/classificationsForCompounds',
+                dataType: 'json',
+		cache: true,
+		data: {
+			_format: "json",
+			uri: targetURI,
+			app_id: this.appID,
+			app_key: this.appKey
+		},
+		success: function(response, status, request) {
+			callback.call(this, true, request.status, response.result);
+		},
+		error: function(request, status, error) {
+			callback.call(this, false, request.status);
+		}
+	});
+}
+
 Openphacts.TargetSearch.prototype.targetPharmacology = function(targetURI, page, pageSize, callback) {
 	var targetQuery = $.ajax({
 		url: this.baseURL + '/target/pharmacology/pages',
