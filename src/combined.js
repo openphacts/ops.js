@@ -87,19 +87,30 @@ Openphacts.CompoundSearch.prototype.fetchCompound = function(compoundURI, lens, 
 	});
 }
 
-Openphacts.CompoundSearch.prototype.compoundPharmacology = function(compoundURI, page, pageSize, callback) {
+Openphacts.CompoundSearch.prototype.compoundPharmacology = function(URI, assayOrganism, targetOrganism, activityType, activityValue, minActivityValue, minExActivityValue, maxActivityValue, maxExActivityValue, activityUnit, page, pageSize, orderBy, callback) {
+    params={};
+    params['_format'] = "json";
+    params['app_key'] = this.appKey;
+    params['app_id'] = this.appID;
+    params['uri'] = URI;
+    assayOrganism ? params['assay_organism'] = assayOrganism : '';
+    targetOrganism ? params['target_organism'] = targetOrganism : '';
+    activityType ? params['activity_type'] = activityType : '';
+    activityValue ? params['activity_value'] = activityValue : '';
+    minActivityValue ? params['min-activity_value'] = minActivityValue : '';
+    minExActivityValue ? params['minEx-activity_value'] = minExActivityValue : '';
+    maxActivityValue ? params['max-activity_value'] = maxActivityValue : '';
+    maxExActivityValue ? params['maxEx-activity_value'] = maxExActivityValue : '';
+    activityUnit ? params['activity_unit'] = activityUnit : '';
+    page ? params['_page'] = page : '';
+    pageSize ? params['_pageSize'] = pageSize : '';
+    orderBy ? params['_orderBy'] = orderBy : '';
+
 	var compoundQuery = $.ajax({
 		url: this.baseURL + '/compound/pharmacology/pages',
-                dataType: 'json',
+        dataType: 'json',
 		cache: true,
-		data: {
-			_format: "json",
-			_page: page,
-			_pageSize: pageSize,
-			uri: compoundURI,
-			app_id: this.appID,
-			app_key: this.appKey
-		},
+		data: params,
 		success: function(response, status, request) {
 			callback.call(this, true, request.status, response.result);
 		},
@@ -109,17 +120,26 @@ Openphacts.CompoundSearch.prototype.compoundPharmacology = function(compoundURI,
 	});
 }
 
-Openphacts.CompoundSearch.prototype.compoundPharmacologyCount = function(compoundURI, callback) {
+Openphacts.CompoundSearch.prototype.compoundPharmacologyCount = function(URI, assayOrganism, targetOrganism, activityType, activityValue, minActivityValue, minExActivityValue, maxActivityValue, maxExActivityValue, activityUnit, callback) {
+    params={};
+    params['_format'] = "json";
+    params['app_key'] = this.appKey;
+    params['app_id'] = this.appID;
+    params['uri'] = URI;
+    assayOrganism ? params['assay_organism'] = assayOrganism : '';
+    targetOrganism ? params['target_organism'] = targetOrganism : '';
+    activityType ? params['activity_type'] = activityType : '';
+    activityValue ? params['activity_value'] = activityValue : '';
+    minActivityValue ? params['min-activity_value'] = minActivityValue : '';
+    minExActivityValue ? params['minEx-activity_value'] = minExActivityValue : '';
+    maxActivityValue ? params['max-activity_value'] = maxActivityValue : '';
+    maxExActivityValue ? params['maxEx-activity_value'] = maxExActivityValue : '';
+    activityUnit ? params['activity_unit'] = activityUnit : '';
 	var compoundQuery = $.ajax({
 		url: this.baseURL + '/compound/pharmacology/count',
                 dataType: 'json',
 		cache: true,
-		data: {
-			_format: "json",
-			uri: compoundURI,
-			app_id: this.appID,
-			app_key: this.appKey
-		},
+		data: params,
 		success: function(response, status, request) {
 			callback.call(this, true, request.status, response.result);
 		},

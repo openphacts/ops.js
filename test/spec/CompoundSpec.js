@@ -30,12 +30,12 @@ describe("Compound search", function() {
 
     it("can be executed", function() {
       spyOn(searcher, 'compoundPharmacology');
-      searcher.compoundPharmacology('compoundURI', 'page', 'pageSize', 'callback');
+      searcher.compoundPharmacology('URI', 'assayOrganism', 'targetOrganism', 'activityType', 'activityValue', 'minActivityValue', 'minExActivityValue', 'maxActivityValue', 'maxExActivityValue', 'activityUnit', 'page', 'pageSize', 'orderBy', 'callback');
       expect(searcher.compoundPharmacology).toHaveBeenCalled();
     });
     it("executes asynchronously", function() {
       var callback = jasmine.createSpy();
-      searcher.compoundPharmacology('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', 1, 20, callback);
+      searcher.compoundPharmacology('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', null, null, null, null, null, null, null, null, null, 1, 20, null, callback);
       waitsFor(function() {
           return callback.callCount > 0;
       });
@@ -48,12 +48,12 @@ describe("Compound search", function() {
 
     it("can be executed", function() {
       spyOn(searcher, 'compoundPharmacologyCount');
-      searcher.compoundPharmacologyCount('compoundURI', 'callback');
+      searcher.compoundPharmacologyCount('URI', 'assayOrganism', 'targetOrganism', 'activityType', 'activityValue', 'minActivityValue', 'minExActivityValue', 'maxActivityValue', 'maxExActivityValue', 'activityUnit', 'callback');
       expect(searcher.compoundPharmacologyCount).toHaveBeenCalled();
     });
     it("executes asynchronously", function() {
       var callback = jasmine.createSpy();
-      searcher.compoundPharmacologyCount('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', callback);
+      searcher.compoundPharmacologyCount('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', null, null, null, null, null, null, null, null, null, callback);
       waitsFor(function() {
           return callback.callCount > 0;
       });
