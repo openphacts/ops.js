@@ -235,7 +235,7 @@ describe("Compound search", function() {
         expect(this_result[0].csid).not.toBeNull();
 
       });
-      searcher.compoundPharmacology('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', null, null, null, null, null, null, null, null, null, 1, 20, null, callback);
+      searcher.compoundPharmacology('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 1, 20, null, callback);
     });
     it("and handle errors", function() {
       var this_success = null;
@@ -251,7 +251,7 @@ describe("Compound search", function() {
           expect(this_success).toEqual(false);
           expect(this_status).toEqual(404);
       });
-      searcher.compoundPharmacology('http://www.conceptwiki.org/concept/876876876', null, null, null, null, null, null, null, null, null, 1, 20, null, callback);
+      searcher.compoundPharmacology('http://www.conceptwiki.org/concept/876876876', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 1, 20, null, callback);
     });
   });
   describe("compound pharmacology count", function() {
@@ -273,7 +273,7 @@ describe("Compound search", function() {
         expect(this_status).toEqual(200);
         expect(this_result).toBeDefined();
       });
-      searcher.compoundPharmacologyCount('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', null, null, null, null, null, null, null, null, null, callback);
+      searcher.compoundPharmacologyCount('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);
     });
   });
 });
