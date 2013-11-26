@@ -17,7 +17,7 @@ describe("Activities", function() {
     });
     it("executes asynchronously", function() {
       var callback = jasmine.createSpy();
-      searcher.getTypes(callback);
+      searcher.getTypes(null, null, null, null, null, callback);
       waitsFor(function() {
           return callback.callCount > 0;
       });
@@ -35,7 +35,7 @@ describe("Activities", function() {
     });
     it("executes asynchronously", function() {
       var callback = jasmine.createSpy();
-      searcher.getUnits('IC50', callback);
+      searcher.getUnits('IC50', null, callback);
       waitsFor(function() {
           return callback.callCount > 0;
       });
