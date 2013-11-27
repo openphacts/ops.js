@@ -44,4 +44,22 @@ describe("Activities", function() {
       });
     });
   });
+  describe("get all units", function() {
+
+    it("can be executed", function() {
+      spyOn(searcher, 'getAllUnits');
+      searcher.getAllUnits('page', 'pageSize', 'orderBy', 'lens', 'callback');
+      expect(searcher.getAllUnits).toHaveBeenCalled();
+    });
+    it("executes asynchronously", function() {
+      var callback = jasmine.createSpy();
+      searcher.getAllUnits(null, null, null, null, callback);
+      waitsFor(function() {
+          return callback.callCount > 0;
+      });
+      runs(function() {
+          expect(callback).toHaveBeenCalled();
+      });
+    });
+  });
 });
