@@ -197,7 +197,7 @@ describe("Target search", function() {
         expect(this_result[0].csid).not.toBeNull();
       });
 
-      searcher.targetPharmacology('http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 1, 20, null, null, callback);
+      searcher.targetPharmacology('http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 1, 20, null, null, callback);
     });
     it("and handle errors", function() {
       var this_success = null;
@@ -217,7 +217,7 @@ describe("Target search", function() {
         expect(this_status).toBe(404);
       });
 
-      searcher.targetPharmacology('http://www.conceptwiki.org/concept/876876876', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 1, 20, null, null, callback);
+      searcher.targetPharmacology('http://www.conceptwiki.org/concept/876876876', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 1, 20, null, null, callback);
     });
   });
 
@@ -244,7 +244,7 @@ describe("Target search", function() {
         expect(this_result).toBeDefined();
       });
 
-      searcher.targetPharmacologyCount('http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);
+      searcher.targetPharmacologyCount('http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);
     });
   });
   describe("compounds for a target", function() {
