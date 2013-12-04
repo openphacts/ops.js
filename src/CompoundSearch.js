@@ -172,7 +172,7 @@ Openphacts.CompoundSearch.prototype.parseCompoundResponse = function(response) {
 		ro5Violations =  chemspiderData.ro5_violations != null ? chemspiderData.ro5_violations : ro5Violations;
 		smiles =  chemspiderData.smiles != null ? chemspiderData.smiles : smiles;
         inchiKey = chemspiderData.inchikey != null ? chemspiderData.inchikey : inchikey;
-        rtb = chemspiderData.rtb != null ? chemspiderData.rtb : inchikey;
+        rtb = chemspiderData.rtb != null ? chemspiderData.rtb : rtb;
         fullMWT = chemspiderData.molweight != null ? chemspiderData.molweight : molweight;
         molform = chemspiderData.molformula != null ? chemspiderData.molformula : molformula;
 
