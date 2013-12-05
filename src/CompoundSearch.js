@@ -24,6 +24,27 @@ Openphacts.CompoundSearch.prototype.fetchCompound = function(compoundURI, callba
 	});
 }
 
+Openphacts.CompoundSearch.prototype.compoundClassification = function(compoundURI, branch, callback) {
+	var compoundQuery = $.ajax({
+		url: this.baseURL + '/compound/classifications',
+                dataType: 'json',
+		cache: true,
+		data: {
+			_format: "json",
+			uri: compoundURI,
+			app_id: this.appID,
+			app_key: this.appKey,
+			tree: branch
+		},
+		success: function(response, status, request) {
+			callback.call(this, true, request.status, response.result);
+		},
+		error: function(request, status, error) {
+			callback.call(this, false, request.status);
+		}
+	});
+}
+
 Openphacts.CompoundSearch.prototype.compoundPharmacology = function(compoundURI, page, pageSize, callback) {
 	var compoundQuery = $.ajax({
 		url: this.baseURL + '/compound/pharmacology/pages',
