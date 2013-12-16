@@ -276,4 +276,23 @@ describe("Compound search", function() {
       searcher.compoundPharmacologyCount('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);
     });
   });
+  describe("compound classifications", function() {
+
+    it("can return a response", function() {
+      var this_success = null;
+      var this_status = null;
+      var callback=function(success, status, response){
+          this_success = success;
+	      this_status = status;
+      };
+      waitsFor(function() {
+        return this_status != null;
+      });
+      runs(function() {
+        expect(this_success).toEqual(true);
+        expect(this_status).toEqual(200);
+      });
+      searcher.compoundClassifications('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', 'chebi', callback);
+    });
+  });
 });

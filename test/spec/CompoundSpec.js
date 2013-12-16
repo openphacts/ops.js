@@ -62,4 +62,22 @@ describe("Compound search", function() {
       });
     });
   });
+  describe("compound classifications", function() {
+
+    it("can be executed", function() {
+      spyOn(searcher, 'compoundClassifications');
+      searcher.compoundClassifications('URI', 'tree', 'callback');
+      expect(searcher.compoundClassifications).toHaveBeenCalled();
+    });
+    it("executes asynchronously", function() {
+      var callback = jasmine.createSpy();
+      searcher.compoundClassifications('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', 'chebi', callback);
+      waitsFor(function() {
+          return callback.callCount > 0;
+      });
+      runs(function() {
+          expect(callback).toHaveBeenCalled();
+      });
+    });
+  });
 });
