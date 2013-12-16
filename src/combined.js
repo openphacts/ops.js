@@ -154,9 +154,30 @@ Openphacts.CompoundSearch.prototype.compoundPharmacologyCount = function(URI, as
 
 	var compoundQuery = $.ajax({
 		url: this.baseURL + '/compound/pharmacology/count',
-                dataType: 'json',
+        dataType: 'json',
 		cache: true,
 		data: params,
+		success: function(response, status, request) {
+			callback.call(this, true, request.status, response.result);
+		},
+		error: function(request, status, error) {
+			callback.call(this, false, request.status);
+		}
+	});
+}
+
+Openphacts.CompoundSearch.prototype.compoundClassifications = function(URI, tree, callback) {
+	var compoundQuery = $.ajax({
+		url: this.baseURL + '/compound/classifications',
+        dataType: 'json',
+		cache: true,
+		data: {
+			_format: "json",
+			uri: URI,
+			app_id: this.appID,
+			app_key: this.appKey,
+			tree: tree
+		},
 		success: function(response, status, request) {
 			callback.call(this, true, request.status, response.result);
 		},
