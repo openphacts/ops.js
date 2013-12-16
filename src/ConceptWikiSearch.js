@@ -28,6 +28,28 @@ Openphacts.ConceptWikiSearch.prototype.byTag = function(query, limit, branch, ty
 	});
 }
 
+Openphacts.ConceptWikiSearch.prototype.freeText = function(query, limit, branch, callback) {
+	var conceptWikiSearcher = $.ajax({
+		url: this.baseURL + "/search/freetext",
+                dataType: 'json',
+		cache: true,
+		data: {
+			q: query,
+			limit: limit,
+			branch: branch,
+
+			app_id: this.appID,
+			app_key: this.appKey
+		},
+		success: function(response, status, request) {
+			callback.call(this, true, request.status, response.result);
+		},
+		error: function(request, status, error) {
+			callback.call(this, false, request.status);
+		}
+	});
+}
+
 Openphacts.ConceptWikiSearch.prototype.findCompounds = function(query, limit, branch, callback) {
 	var conceptWikiSearcher = $.ajax({
 		url: this.baseURL + "/search/byTag",
