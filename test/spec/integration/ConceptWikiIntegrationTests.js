@@ -243,4 +243,29 @@ describe("Concept Wiki", function() {
       searcher.findConcept('07a84994-e464-4b96fa3d197', callback);
     });
   });
+  describe("free text search", function() {
+
+    it("and return a response", function() {
+      var this_success = null;
+      var this_status = null;
+      var this_response = null;
+
+      var callback=function(success, status, response){
+        this_success = success;
+        this_status = status;
+        this_response = response;
+      };
+
+      waitsFor(function() {
+        return this_response != null;
+      });
+
+      runs(function() {
+        expect(this_success).toEqual(true);
+        expect(this_status).toEqual(200);
+        expect(this_response).not.toBeNull();
+      });
+      searcher.freeText('Aspirin', null, null, callback);
+    });
+  });
 });
