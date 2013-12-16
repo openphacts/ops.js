@@ -557,6 +557,29 @@ Openphacts.ConceptWikiSearch.prototype.byTag = function(query, limit, branch, ty
 	});
 }
 
+Openphacts.ConceptWikiSearch.prototype.freeText = function(query, limit, branch, callback) {
+    params={};
+    params['_format'] = "json";
+    params['app_key'] = this.appKey;
+    params['app_id'] = this.appID;
+    params['q'] = query;
+    limit ? params['limit'] = limit : '';
+    branch ? params['branch'] = branch : '';
+
+	var conceptWikiSearcher = $.ajax({
+		url: this.baseURL + "/search/freetext",
+        dataType: 'json',
+		cache: true,
+		data: params,
+		success: function(response, status, request) {
+			callback.call(this, true, request.status, response.result);
+		},
+		error: function(request, status, error) {
+			callback.call(this, false, request.status);
+		}
+	});
+}
+
 Openphacts.ConceptWikiSearch.prototype.findCompounds = function(query, limit, branch, callback) {
 	var conceptWikiSearcher = $.ajax({
 		url: this.baseURL + "/search/byTag",
