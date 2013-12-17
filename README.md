@@ -1,6 +1,7 @@
 # OPS.js
+## Coded against OPS Linked Data API Version 1.3
 
-OPS.js is a javascript based library for accessing the OpenPHACTS Linked Data API (LDA). It uses jquery to handle the asynchronous nature of the requests. OPS.js can also be used to parse responses from the LDA.
+OPS.js is a javascript based library for accessing the Open PHACTS Linked Data API (LDA). It uses jquery to handle the asynchronous nature of the requests. OPS.js can also be used to parse responses from the LDA.
 
 ## Dependencies
 JQuery 1.9.1  
@@ -8,6 +9,35 @@ Get your openphacts api appID and appKey by registering at https://dev.openphact
 
 ## Licence
 The OPS.js source code is released under the MIT License, http://opensource.org/licenses/MIT. See licence.txt for more details.
+
+## Contributing  
+We love receiving patches for bug fixes and new features. Please follow these simple steps to make our lives easier.  
+
+1. Fork the project.
+2. Checkout develop branch.
+3. Create a new branch based on develop and change the code.
+4. Write some tests.
+5. Submit patch.
+
+## Citations  
+To cite OPS.js in publications please use:  
+
+>Ian Dunlop. OPS.js. 2.0. Javascript library for accessing the Open PHACTS Linked Data API. University of Manchester. http://github.com/openphacts/ops.js
+
+Bibtex:
+
+>@Manual{,  
+>title = {OPS.js: Javascript library for accessing the Open PHACTS Linked Data API},  
+>author = {{Ian Dunlop}},  
+>organization = {School of Computer Science},  
+>address = {University of Manchester, United Kingdom},  
+>year = 2013,  
+>url = {http://github.com/openphacts/ops.js}  
+>} 
+
+Or load OPS.js in to a browser (or Node) and enter the following console command:
+
+`new Openphacts.Version().information()`
 
 ## Using the library
 JQuery must be loaded before the OPS.js library.  
@@ -20,7 +50,7 @@ Look at https://dev.openphacts.org for more information about the source methods
 [Jasmine](http://pivotal.github.io/jasmine/ "Jasmine javascript testing framework") is used to test the ops.js api. There are various test runners which can be used, they
 are contained within the 'test' directory with the specs for the tests in the 'test/spec' directory. FunctionalTests.html and IntegrationTests.html should be run within a browser.
 
-`file:///path_to_ops.js/test/FunctionalTests.html?app_id=sdfsdf&app_key=sdfsdfsdf&app_url=https://beta.openphacts.org`
+`file:///path_to_ops.js/test/FunctionalTests.html?app_id=sdfsdf&app_key=sdfsdfsdf&app_url=https://beta.openphacts.org/1.3`
 
 Use the appropriate values for `app_id`, `app_key` & `app_url`
 
@@ -216,6 +246,12 @@ searcher.similarity('CC(=O)Oc1ccccc1C(=O)O', 0, 0.99, null, null, null, callback
 ```
 ## Other API calls available:
 
+### Concept Wiki  
+freeText
+
+### Compounds  
+compoundClassifications
+
 ### Targets
 compoundsForTarget
 
@@ -268,3 +304,9 @@ mapURL && parseMapURLResponse
 ### Data Sources
 DataSources - base class  
 getSources
+
+## Core Developers
+[Ian Dunlop](https://github.com/ianwdunlop "Ian Dunlop - original developer")
+
+## Contributors
+[Elblood](https://github.com/Elblood "Elblood")

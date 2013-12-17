@@ -29,7 +29,7 @@
                         <argument>/home/ian/ops.js/test/PhantomFunctionalTests.html</argument>
 						<argument>1c22cbe7</argument>
 						<argument>167a3a3d8539b5d85280e7178f4e62ab</argument>
-						<argument>https://ops2.few.vu.nl</argument>
+						<argument>https://beta.openphacts.org/1.3</argument>
                         <argument>${project.build.directory}/surefire-reports</argument>
                     </arguments>
                 </configuration>
