@@ -2549,7 +2549,7 @@ Openphacts.Version = function Version() {
 
 Openphacts.Version.prototype.information = function() {
 	return {
-               "version": 2.0, 
+               "version": "2.0.1", 
                "author": "Ian Dunlop",
                "title": "OPS.js",
                "description": "Javascript library for accessing the Open PHACTS Linked Data API",
