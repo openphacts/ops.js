@@ -189,7 +189,7 @@ Openphacts.CompoundSearch.prototype.compoundClassifications = function(URI, tree
 
 Openphacts.CompoundSearch.prototype.parseCompoundResponse = function(response) {
     var constants = new Openphacts.Constants();
-    var id = null, prefLabel = null, cwURI = null, description = null, biotransformationItem = null, toxicity = null, proteinBinding = null, csURI = null, hba = null, hbd = null, inchi = null, logp = null, psa = null, ro5Violations = null, smiles = null, chemblURI = null, fullMWT = null, molform = null, mwFreebase = null,	rtb = null, inchiKey = null, drugbankURI = null;
+    var id = null, prefLabel = null, cwURI = null, description = null, biotransformationItem = null, toxicity = null, proteinBinding = null, csURI = null, hba = null, hbd = null, inchi = null, logp = null, psa = null, ro5Violations = null, smiles = null, chemblURI = null, fullMWT = null, molform = null, mwFreebase = null,	rtb = null, inchiKey = null, drugbankURI = null, molweight = null, molformula = null;
 	var drugbankData, chemspiderData, chemblData, conceptWikiData;
 	uri = response.primaryTopic[constants.ABOUT];
 
