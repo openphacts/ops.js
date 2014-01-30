@@ -219,9 +219,13 @@ Openphacts.TargetSearch.prototype.parseTargetResponse = function(response) {
 					});
 				}
 				if (uniprotData.seeAlso) {
-					$.each(uniprotData.seeAlso, function(j, see) {
-						seeAlso.push(see);
-					});
+                    if ($.isArray(uniprotData.seeAlso)) {
+					  $.each(uniprotData.seeAlso, function(j, see) {
+						  seeAlso.push(see);
+					  });
+                    } else {
+				      seeAlso.push(uniprotData.seeAlso);
+                    }
 				}
                 molecularWeight =  uniprotData.molecularWeight ? uniprotData.molecularWeight: null;
 	            functionAnnotation = uniprotData.Function_Annotation ? uniprotData.Function_Annotation : null;
