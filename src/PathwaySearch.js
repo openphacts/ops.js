@@ -336,6 +336,12 @@ Openphacts.PathwaySearch.prototype.parseInformationResponse = function(response)
 	$.each(partsComplete, function(i, part) {
             parts.push({about: part["_about"], type: part.type});
 	});
+	// provenance
+	var wikipathwaysProvenance = {};
+    wikipathwaysProvenance['source'] = 'wikipathways';
+    wikipathwaysProvenance['title'] = identifier;
+    wikipathwaysProvenance['description'] = identifier;
+    wikipathwaysProvenance['organismLabel'] = organism;
 	return {
                    'URI': URI,
                    'title': title, 
@@ -345,7 +351,8 @@ Openphacts.PathwaySearch.prototype.parseInformationResponse = function(response)
                    'pathwayOntologies': pathwayOntologies,
                    'organism': organism, 
                    'organismLabel': organismLabel, 
-                   'parts': parts
+                   'parts': parts,
+                   'wikipathwaysProvenance': wikipathwaysProvenance
                 };
 }
 
