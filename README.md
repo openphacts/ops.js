@@ -265,10 +265,8 @@ var searcher = new Openphacts.StructureSearch("https://beta.openphacts.org/1.3",
 var callback=function(success, status, response){  
     var result = searcher.parseSimilarityResponse(response);  
 };  
-// success is 'true' or 'false', status is the http status code, response is the raw result which the parser function accepts  
-// response is an array of chemspider URLs with the id of the compounds, response will be null in the case of errors  
-// SMILES is for Aspirin with similarity type 0 for tanimoto and threshold 0.99, no limit, start or length  
 searcher.getChildNodes("http://purl.org/obo/owl/GO#GO_0010980", callback);;
+```
 getParentNodes & parseParentNodes  
 getTargetClassPharmacologyCount & parseTargetClassPharmacologyCount  
 getTargetClassPharmacologyPaginated & parseTargetClassPharmacologyPaginated  
