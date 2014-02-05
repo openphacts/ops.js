@@ -66,7 +66,7 @@ substitute `app_id`, `app_key`, `app_url` and `test_results_output_dir` for the 
 ### Concept Wiki free text search
 
 ```javascript
-var searcher = new Openphacts.ConceptWikiSearch("https://beta.openphacts.org", appID, appKey);  
+var searcher = new Openphacts.ConceptWikiSearch("https://beta.openphacts.org/1.3", appID, appKey);  
 var callback=function(success, status, response){  
     searcher.parseResponse(response);
 };  
@@ -78,7 +78,7 @@ searcher.byTag('Aspirin', '20', '4', '07a84994-e464-4bbf-812a-a4b96fa3d197', cal
 ### Concept Wiki compound search
 
 ```javascript
-var searcher = new Openphacts.ConceptWikiSearch("https://beta.openphacts.org", appID, appKey);  
+var searcher = new Openphacts.ConceptWikiSearch("https://beta.openphacts.org/1.3", appID, appKey);  
 var callback=function(success, status, response){  
     searcher.parseResponse(response);
 };  
@@ -90,7 +90,7 @@ searcher.findCompounds('Aspirin', '20', '4', callback);
 ### Concept Wiki target search
 
 ```javascript
-var searcher = new Openphacts.ConceptWikiSearch("https://beta.openphacts.org", appID, appKey);  
+var searcher = new Openphacts.ConceptWikiSearch("https://beta.openphacts.org/1.3", appID, appKey);  
 var callback=function(success, status, response){  
     searcher.parseResponse(response);
 };  
@@ -102,7 +102,7 @@ searcher.findTargets('PDE5', '20', '3', callback);
 ### Concept Wiki find single concept
 
 ```javascript
-var searcher = new Openphacts.ConceptWikiSearch("https://beta.openphacts.org", appID, appKey);  
+var searcher = new Openphacts.ConceptWikiSearch("https://beta.openphacts.org/1.3", appID, appKey);  
 var callback=function(success, status, response){  
     searcher.parseFindConceptResponse(response);
 };  
@@ -114,7 +114,7 @@ searcher.findConcept('8e3a87ae-345d-4c25-bd7a-5b3221c6e3fa', callback);
 ### Compound information
 
 ```javascript
-var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org", appID, appKey);  
+var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.3", appID, appKey);  
 var callback=function(success, status, response){  
     var compoundResult = searcher.parseCompoundResponse(response);  
 };  
@@ -126,7 +126,7 @@ searcher.fetchCompound('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a4
 ### Compound Pharmacology
 
 ```javascript
-var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org", appID, appKey);  
+var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.3", appID, appKey);  
 var callback=function(success, status, response){  
     var compoundResult = searcher.parseCompoundPharmacologyResponse(response);  
 };  
@@ -138,7 +138,7 @@ searcher.compoundPharmacology('http://www.conceptwiki.org/concept/38932552-111f-
 ### Compound Pharmacology Count
 
 ```javascript
-var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org", appID, appKey);  
+var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.3", appID, appKey);  
 var callback=function(success, status, response){  
     var result = searcher.parseCompoundPharmacologyCountResponse(response);  
 };  
@@ -151,7 +151,7 @@ searcher.compoundPharmacologyCount('http://www.conceptwiki.org/concept/38932552-
 ### Target information
 
 ```javascript
-var searcher = new Openphacts.TargetSearch("https://beta.openphacts.org", appID, appKey);
+var searcher = new Openphacts.TargetSearch("https://beta.openphacts.org/1.3", appID, appKey);
 var callback=function(success, status, response){  
     var result = searcher.parseTargetResponse(response);  
 };
@@ -163,7 +163,7 @@ searcher.fetchTarget('http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a
 ### Target Pharmacology
 
 ```javascript
-var searcher = new Openphacts.TargetSearch("https://beta.openphacts.org", appID, appKey);  
+var searcher = new Openphacts.TargetSearch("https://beta.openphacts.org/1.3", appID, appKey);  
 var callback=function(success, status, response){  
     var result = searcher.parseTargetPharmacologyResponse(response);  
 };
@@ -175,7 +175,7 @@ searcher.targetPharmacology('http://www.conceptwiki.org/concept/b932a1ed-b6c3-42
 ### Target Pharmacology Count
 
 ```javascript
-var searcher = new Openphacts.TargetSearch("https://beta.openphacts.org", appID, appKey);  
+var searcher = new Openphacts.TargetSearch("https://beta.openphacts.org/1.3", appID, appKey);  
 var callback=function(success, status, response){  
     var result = searcher.parseTargetPharmacologyCountResponse(response);  
 };  
@@ -187,7 +187,7 @@ searcher.targetPharmacologyCount('http://www.conceptwiki.org/concept/b932a1ed-b6
 ### Exact Structure Search
 
 ```javascript
-var searcher = new Openphacts.StructureSearch("https://beta.openphacts.org", appID, appKey);  
+var searcher = new Openphacts.StructureSearch("https://beta.openphacts.org/1.3", appID, appKey);  
 var callback=function(success, status, response){  
     var result = searcher.parseExactResponse(response);  
 };  
@@ -199,7 +199,7 @@ searcher.exact('CNC(=O)c1cc(ccn1)Oc2ccc(cc2)NC(=O)Nc3ccc(c(c3)C(F)(F)F)Cl', 0, n
 ### Sub-structure Search
 
 ```javascript
-var searcher = new Openphacts.StructureSearch("https://beta.openphacts.org", appID, appKey);  
+var searcher = new Openphacts.StructureSearch("https://beta.openphacts.org/1.3", appID, appKey);  
 var callback=function(success, status, response){  
     var result = searcher.parseSubstructureResponse(response);  
 };  
@@ -211,7 +211,7 @@ searcher.substructure('CNC(=O)c1cc(ccn1)Oc2ccc(cc2)NC(=O)Nc3ccc(c(c3)C(F)(F)F)Cl
 ### InChI Key to URL structure Search
 
 ```javascript
-var searcher = new Openphacts.StructureSearch("https://beta.openphacts.org", appID, appKey);  
+var searcher = new Openphacts.StructureSearch("https://beta.openphacts.org/1.3", appID, appKey);  
 var callback=function(success, status, response){  
     var result = searcher.parseInchiKeyToURLResponse(response);  
 };  
@@ -223,7 +223,7 @@ searcher.inchiKeyToURL('BSYNRYMUTXBXSQ-UHFFFAOYSA-N', callback);
 ### InChI to URL structure Search
 
 ```javascript
-var searcher = new Openphacts.StructureSearch("https://beta.openphacts.org", appID, appKey);  
+var searcher = new Openphacts.StructureSearch("https://beta.openphacts.org/1.3", appID, appKey);  
 var callback=function(success, status, response){  
     var result = searcher.parseInchiToURLResponse(response);  
 };  
@@ -235,7 +235,7 @@ searcher.inchiToURL('InChI=1S/C9H8O4/c1-6(10)13-8-5-3-2-4-7(8)9(11)12/h2-5H,1H3,
 ### Similarity structure Search
 
 ```javascript
-var searcher = new Openphacts.StructureSearch("https://beta.openphacts.org", appID, appKey);  
+var searcher = new Openphacts.StructureSearch("https://beta.openphacts.org/1.3", appID, appKey);  
 var callback=function(success, status, response){  
     var result = searcher.parseSimilarityResponse(response);  
 };  
@@ -259,7 +259,14 @@ compoundsForTarget
 
 TreeSearch - base class  
 getRootNodes & parseRootNodes  
-getChildNodes & parseChildNodes  
+getChildNodes & parseChildNodes 
+```javascript
+var searcher = new Openphacts.StructureSearch("https://beta.openphacts.org/1.3", appID, appKey);  
+var callback=function(success, status, response){  
+    var result = searcher.parseSimilarityResponse(response);  
+};  
+searcher.getChildNodes("http://purl.org/obo/owl/GO#GO_0010980", callback);;
+```
 getParentNodes & parseParentNodes  
 getTargetClassPharmacologyCount & parseTargetClassPharmacologyCount  
 getTargetClassPharmacologyPaginated & parseTargetClassPharmacologyPaginated  
