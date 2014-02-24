@@ -316,4 +316,6 @@ getSources
 [Ian Dunlop](https://github.com/ianwdunlop "Ian Dunlop - original developer")
 
 ## Contributors
-[Elblood](https://github.com/Elblood "Elblood")
+[Rishi Ramgolam](https://github.com/rishiramgolam "rishiramgolam")  
+[Elblood](https://github.com/Elblood "Elblood")  
+[Andra Waagmeester](https://github.com/andrawaag "andraawag")
