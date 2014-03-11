@@ -455,6 +455,7 @@ describe("Trees", function() {
         //expect(this_result[0].targetOrganism).toBeDefined();
         expect(this_result[0].assayURI).toBeDefined();
         expect(this_result[0].assayDescription).toBeDefined();
+        expect(this_result[0].assayOrganismName).toBeDefined();
       });
       searcher.getTargetClassPharmacologyPaginated('http://purl.uniprot.org/enzyme/1.1.1.-', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);
     });
