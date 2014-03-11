@@ -156,7 +156,7 @@ Openphacts.CompoundSearch.prototype.parseCompoundResponse = function(response) {
 	uri = response.primaryTopic[constants.ABOUT];
 
     // check if we already have the CS URI
-    var possibleURI = 'http://' + new URI(uri).hostname();
+    var possibleURI = 'http://' + new URL(uri).hostname;
     csURI = constants.SRC_CLS_MAPPINGS[possibleURI] === 'chemspiderValue' ? uri : null;
 
 	var drugbankProvenance, chemspiderProvenance, chemblProvenance;
@@ -224,7 +224,7 @@ Openphacts.CompoundSearch.prototype.parseCompoundResponse = function(response) {
 		molform = chemspiderData.molformula != null ? chemspiderData.molformula : molformula;
 
 		// provenance 
-		chemspiderLinkOut = 'http://ops.rsc.org/' + csURI.split('/').pop();
+		chemspiderLinkOut = csURI;
 		chemspiderProvenance = {};
 		chemspiderProvenance['source'] = 'chemspider';
 		chemspiderProvenance['hba'] = chemspiderLinkOut;

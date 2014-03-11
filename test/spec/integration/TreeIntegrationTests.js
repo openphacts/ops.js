@@ -432,7 +432,7 @@ describe("Trees", function() {
         //TODO need the mandatory and optional values from the api docs
         expect(this_success).toBe(true);
         expect(this_status).toBe(200);
-        expect(this_result.length).toBeGreaterThan(1);
+        expect(this_result.length).toBeGreaterThan(0);
         expect(this_result[0].targets.length).toBeGreaterThan(0);
         expect(this_result[0].chemblActivityURI).toBeDefined();
         expect(this_result[0].pmid).toBeDefined();
@@ -456,6 +456,10 @@ describe("Trees", function() {
         expect(this_result[0].assayURI).toBeDefined();
         expect(this_result[0].assayDescription).toBeDefined();
         expect(this_result[0].assayOrganismName).toBeDefined();
+        expect(this_result[0].conceptWikiProvenance).toBeDefined();
+        expect(this_result[0].chemspiderProvenance).toBeDefined();
+        expect(this_result[0].assayTargetProvenance).toBeDefined();
+        expect(this_result[0].assayProvenance).toBeDefined();
       });
       searcher.getTargetClassPharmacologyPaginated('http://purl.uniprot.org/enzyme/1.1.1.-', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);
     });
