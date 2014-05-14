@@ -16,13 +16,11 @@ Openphacts.CompoundSearch.prototype.fetchCompound = function(compoundURI, lens, 
 		url: this.baseURL + '/compound',
 		dataType: 'json',
 		cache: true,
-		data: params,
-		success: function(response, status, request) {
-			callback.call(this, true, request.status, response.result);
-		},
-		error: function(request, status, error) {
-			callback.call(this, false, request.status);
-		}
+		data: params
+	}).done(function(response, status, request){
+	callback.call(this, true, request.status, response.result);
+	}).fail(function(response, status, statusText){
+	callback.call(this, false, response.status);
 	});
 }
 
@@ -57,13 +55,11 @@ Openphacts.CompoundSearch.prototype.compoundPharmacology = function(URI, assayOr
 		url: this.baseURL + '/compound/pharmacology/pages',
 		dataType: 'json',
 		cache: true,
-		data: params,
-		success: function(response, status, request) {
-			callback.call(this, true, request.status, response.result);
-		},
-		error: function(request, status, error) {
-			callback.call(this, false, request.status);
-		}
+		data: params
+	}).done(function(response, status, request){
+	callback.call(this, true, request.status, response.result);
+	}).fail(function(response, status, statusText){
+	callback.call(this, false, response.status);
 	});
 }
 
@@ -95,13 +91,11 @@ Openphacts.CompoundSearch.prototype.compoundPharmacologyCount = function(URI, as
 		url: this.baseURL + '/compound/pharmacology/count',
 		dataType: 'json',
 		cache: true,
-		data: params,
-		success: function(response, status, request) {
-			callback.call(this, true, request.status, response.result);
-		},
-		error: function(request, status, error) {
-			callback.call(this, false, request.status);
-		}
+		data: params
+	}).done(function(response, status, request){
+	callback.call(this, true, request.status, response.result);
+	}).fail(function(response, status, statusText){
+	callback.call(this, false, response.status);
 	});
 }
 
