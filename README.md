@@ -24,12 +24,12 @@ We love receiving patches for bug fixes and new features. Please follow these si
 ## Citations  
 To cite OPS.js in publications please use:  
 
->Ian Dunlop. OPS.js. 2.0.1. Javascript library for accessing the Open PHACTS Linked Data API. University of Manchester. http://github.com/openphacts/ops.js
+>Ian Dunlop. OPS.js. 2.0.2. Javascript library for accessing the Open PHACTS Linked Data API. University of Manchester. http://github.com/openphacts/ops.js
 
 Bibtex:
 
 >@Manual{,  
->title = {OPS.js 2.0.1: Javascript library for accessing the Open PHACTS Linked Data API},  
+>title = {OPS.js 2.0.2: Javascript library for accessing the Open PHACTS Linked Data API},  
 >author = {{Ian Dunlop}},  
 >organization = {School of Computer Science},  
 >address = {University of Manchester, United Kingdom},  
@@ -141,6 +141,7 @@ var callback=function(success, status, response){
 // response will be null in the case of errors  
 // only a SMILES and match type has been provided, no limit, start or length  
 searcher.exact('CNC(=O)c1cc(ccn1)Oc2ccc(cc2)NC(=O)Nc3ccc(c(c3)C(F)(F)F)Cl', 0, callback);
+```
 
 ## Core Developers
 [Ian Dunlop](https://github.com/ianwdunlop "Ian Dunlop - original developer")
