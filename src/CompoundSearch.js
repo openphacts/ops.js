@@ -1,10 +1,27 @@
 //This content is released under the MIT License, http://opensource.org/licenses/MIT. See licence.txt for more details.
+/**
+ * @constructor
+ * @param {string} baseURL - URL for the Open PHACTS API
+ * @param {string} appID - Application ID for the application being used. Created by https://dev.openphacts.org
+ * @param {string} appKey - Application Key for the application ID.
+ */
 Openphacts.CompoundSearch = function CompoundSearch(baseURL, appID, appKey) {
 	this.baseURL = baseURL;
 	this.appID = appID;
 	this.appKey = appKey;
 }
-
+/**
+ * Fetch the compound represented by the URI provided.
+ * @param {string} compoundURI - The URI for the compound of interest.
+ * @param {string} lens - An optional lens to apply to the result.
+ * @param {function} callback - Function that will be called with the result. 
+ * @example
+ * var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.3", "appID", "appKey");  
+ * var callback=function(success, status, response){  
+ *    var compoundResult = searcher.parseCompoundResponse(response);  
+ * };  
+ * searcher.fetchCompound('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', null, callback);
+ */
 Openphacts.CompoundSearch.prototype.fetchCompound = function(compoundURI, lens, callback) {
 	params = {};
 	params['_format'] = "json";
