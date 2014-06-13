@@ -5,4 +5,4 @@
  * @namespace
  * 
  */
-var Openphacts = function(){};
+var Openphacts = Openphacts || {};

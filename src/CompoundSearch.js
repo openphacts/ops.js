@@ -12,7 +12,7 @@ Openphacts.CompoundSearch = function CompoundSearch(baseURL, appID, appKey) {
 }
 /**
  * Fetch the compound represented by the URI provided.
- * @param {string} compoundURI - The URI for the compound of interest.
+ * @param {string} URI - The URI for the compound of interest.
  * @param {string} lens - An optional lens to apply to the result.
  * @param {function} callback - Function that will be called with the result. 
  * @example
@@ -22,7 +22,7 @@ Openphacts.CompoundSearch = function CompoundSearch(baseURL, appID, appKey) {
  * };  
  * searcher.fetchCompound('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', null, callback);
  */
-Openphacts.CompoundSearch.prototype.fetchCompound = function(compoundURI, lens, callback) {
+Openphacts.CompoundSearch.prototype.fetchCompound = function(URI, lens, callback) {
 	params = {};
 	params['_format'] = "json";
 	params['app_key'] = this.appKey;
@@ -42,7 +42,37 @@ Openphacts.CompoundSearch.prototype.fetchCompound = function(compoundURI, lens, 
 		}
 	});
 }
-
+/**
+ * Fetch pharmacology records for the compound represented by the URI provided.
+ * @param {string} URI - The URI for the compound of interest
+ * @param {string} assayOrganism - Filter by assay organism eg Homo Sapiens
+ * @param {string} targetOrganism - Filter by target organism eg Rattus Norvegicus
+ * @param {string} activityType - Filter by activity type eg IC50
+ * @param {string} activityValue - Return pharmacology records with activity values equal to this number
+ * @param {string} minActivityValue - Return pharmacology records with activity values greater than or equal to this number
+ * @param {string} minExActivityValue - Return pharmacology records with activity values greater than this number
+ * @param {string} maxActivityValue - Return pharmacology records with activity values less than or equal to this number
+ * @param {string} maxExActivityValue - Return pharmacology records with activity values less than this number
+ * @param {string} activityUnit - Return pharmacology records which have this activity unit eg nanomolar
+ * @param {string} activityRelation - Return pharmacology records which have this activity relation eg =
+ * @param {string} pChembl - Return pharmacology records with pChembl equal to this number
+ * @param {string} minpChembl - Return pharmacology records with pChembl values greater than or equal to this number
+ * @param {string} minExpChembl - Return pharmacology records with pChembl values greater than this number
+ * @param {string} maxpChembl - Return pharmacology records with pChembl values less than or equal to this number
+ * @param {string} maxExpChembl - Return pharmacology records with pChembl values less than this number
+ * @param {string} targetType - Filter by one of the available target types. e.g. single_protein
+ * @param {string} page - Which page of records to return.
+ * @param {string} pageSize - How many records to return. Set to 'all' to return all records in a single page
+ * @param {string} orderBy - Order the records by this field eg ?assay_type or DESC(?assay_type)
+ * @param {string} lens - Which chemistry lens to apply to the records
+ * @param {function} callback - Function that will be called with the result
+ * @example 
+ * var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.3", "appID", "appKey");  
+ * var callback=function(success, status, response){
+ *     var pharmacologyResult == searcher.parseCompoundPharmacologyResponse(response);
+ * };
+ * searcher.compoundPharmacology('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 1, 20, null, null, callback);     
+ */
 Openphacts.CompoundSearch.prototype.compoundPharmacology = function(URI, assayOrganism, targetOrganism, activityType, activityValue, minActivityValue, minExActivityValue, maxActivityValue, maxExActivityValue, activityUnit, activityRelation, pChembl, minpChembl, minExpChembl, maxpChembl, maxExpChembl, targetType, page, pageSize, orderBy, lens, callback) {
 	params = {};
 	params['_format'] = "json";
