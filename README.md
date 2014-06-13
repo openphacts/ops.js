@@ -42,6 +42,8 @@ Or load OPS.js in to a browser (or Node) and enter the following console command
 `new Openphacts.Version().information()`
 
 ## Using the library
+API documentation [here](http://openphacts.github.io/ops.js "OPS.js API documentation")  
+
 JQuery must be loaded before the OPS.js library.  
 
 Most API calls follow the pattern of request results with one asynchronous call with a callback and then parse the results with another.
