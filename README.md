@@ -24,12 +24,12 @@ We love receiving patches for bug fixes and new features. Please follow these si
 ## Citations  
 To cite OPS.js in publications please use:  
 
->Ian Dunlop. OPS.js. 2.0.2. Javascript library for accessing the Open PHACTS Linked Data API. University of Manchester. http://github.com/openphacts/ops.js
+>Ian Dunlop. OPS.js. 2.0.3. Javascript library for accessing the Open PHACTS Linked Data API. University of Manchester. http://github.com/openphacts/ops.js
 
 Bibtex:
 
 >@Manual{,  
->title = {OPS.js 2.0.2: Javascript library for accessing the Open PHACTS Linked Data API},  
+>title = {OPS.js 2.0.3: Javascript library for accessing the Open PHACTS Linked Data API},  
 >author = {{Ian Dunlop}},  
 >organization = {School of Computer Science},  
 >address = {University of Manchester, United Kingdom},  
