@@ -1,0 +1,2564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Class: CompoundSearch</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Class: CompoundSearch</h1>
+
+    
+
+
+
+<section>
+
+<header>
+    <h2>
+        <span class="ancestors"><a href="Openphacts.html">Openphacts</a>.</span>
+    
+    CompoundSearch
+    </h2>
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+
+    
+        
+<dt>
+    <h4 class="name" id="CompoundSearch"><span class="type-signature"></span>new CompoundSearch<span class="signature">(baseURL, appID, appKey)</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>baseURL</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">URL for the Open PHACTS API</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>appID</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Application ID for the application being used. Created by https://dev.openphacts.org</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>appKey</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Application Key for the application ID.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Ian Dunlop</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+    <dt class="tag-license">License:</dt>
+    <dd class="tag-license"><ul class="dummy"><li><a href="http://opensource.org/licenses/MIT">MIT</a></li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="CompoundSearch.js.html">CompoundSearch.js</a>, <a href="CompoundSearch.js.html#line10">line 10</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        <dl>
+            
+<dt>
+    <h4 class="name" id="compoundClassifications"><span class="type-signature"></span>compoundClassifications<span class="signature">(URI, tree, callback)</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        The classes the given compound URI has been classified with eg ChEBI
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>URI</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The URI for the compound of interest</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>tree</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Restrict results by hierarchy eg chebi</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#requestCallback">requestCallback</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Function that will be called with the result</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="CompoundSearch.js.html">CompoundSearch.js</a>, <a href="CompoundSearch.js.html#line188">line 188</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="compoundPharmacology"><span class="type-signature"></span>compoundPharmacology<span class="signature">(URI, assayOrganism<span class="signature-attributes">opt</span>, targetOrganism<span class="signature-attributes">opt</span>, activityType<span class="signature-attributes">opt</span>, activityValue<span class="signature-attributes">opt</span>, minActivityValue<span class="signature-attributes">opt</span>, minExActivityValue<span class="signature-attributes">opt</span>, maxActivityValue<span class="signature-attributes">opt</span>, maxExActivityValue<span class="signature-attributes">opt</span>, activityUnit<span class="signature-attributes">opt</span>, activityRelation<span class="signature-attributes">opt</span>, pChembl<span class="signature-attributes">opt</span>, minpChembl<span class="signature-attributes">opt</span>, minExpChembl<span class="signature-attributes">opt</span>, maxpChembl<span class="signature-attributes">opt</span>, maxExpChembl<span class="signature-attributes">opt</span>, targetType<span class="signature-attributes">opt</span>, page<span class="signature-attributes">opt</span>, pageSize<span class="signature-attributes">opt</span>, orderBy<span class="signature-attributes">opt</span>, lens<span class="signature-attributes">opt</span>, callback)</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Fetch pharmacology records for the compound represented by the URI provided.
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>URI</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The URI for the compound of interest</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>assayOrganism</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Filter by assay organism eg Homo Sapiens</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>targetOrganism</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Filter by target organism eg Rattus Norvegicus</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>activityType</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Filter by activity type eg IC50</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>activityValue</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Return pharmacology records with activity values equal to this number</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>minActivityValue</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Return pharmacology records with activity values greater than or equal to this number</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>minExActivityValue</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Return pharmacology records with activity values greater than this number</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>maxActivityValue</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Return pharmacology records with activity values less than or equal to this number</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>maxExActivityValue</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Return pharmacology records with activity values less than this number</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>activityUnit</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Return pharmacology records which have this activity unit eg nanomolar</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>activityRelation</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Return pharmacology records which have this activity relation eg =</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>pChembl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Return pharmacology records with pChembl equal to this number</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>minpChembl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Return pharmacology records with pChembl values greater than or equal to this number</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>minExpChembl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Return pharmacology records with pChembl values greater than this number</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>maxpChembl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Return pharmacology records with pChembl values less than or equal to this number</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>maxExpChembl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Return pharmacology records with pChembl values less than this number</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>targetType</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Filter by one of the available target types. e.g. single_protein</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>page</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    1
+                
+                </td>
+            
+
+            <td class="description last">Which page of records to return.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>pageSize</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    10
+                
+                </td>
+            
+
+            <td class="description last">How many records to return. Set to 'all' to return all records in a single page</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>orderBy</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Order the records by this field eg ?assay_type or DESC(?assay_type)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>lens</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Which chemistry lens to apply to the records</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#requestCallback">requestCallback</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Function that will be called with the result</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="CompoundSearch.js.html">CompoundSearch.js</a>, <a href="CompoundSearch.js.html#line78">line 78</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>
+var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.3", "appID", "appKey");  
+var callback=function(success, status, response){
+   var pharmacologyResult == searcher.parseCompoundPharmacologyResponse(response);
+};
+searcher.compoundPharmacology('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 1, 20, null, null, callback);     </code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="compoundPharmacologyCount"><span class="type-signature"></span>compoundPharmacologyCount<span class="signature">(URI, assayOrganism<span class="signature-attributes">opt</span>, targetOrganism<span class="signature-attributes">opt</span>, activityType<span class="signature-attributes">opt</span>, activityValue<span class="signature-attributes">opt</span>, minActivityValue<span class="signature-attributes">opt</span>, minExActivityValue<span class="signature-attributes">opt</span>, maxActivityValue<span class="signature-attributes">opt</span>, maxExActivityValue<span class="signature-attributes">opt</span>, activityUnit<span class="signature-attributes">opt</span>, activityRelation<span class="signature-attributes">opt</span>, pChembl<span class="signature-attributes">opt</span>, minpChembl<span class="signature-attributes">opt</span>, minExpChembl<span class="signature-attributes">opt</span>, maxpChembl<span class="signature-attributes">opt</span>, maxExpChembl<span class="signature-attributes">opt</span>, targetType<span class="signature-attributes">opt</span>, lens<span class="signature-attributes">opt</span>, callback)</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Fetch a count of the pharmacology records belonging to the compound represented by the URI provided.
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>URI</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The URI for the compound of interest</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>assayOrganism</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Filter by assay organism eg Homo Sapiens</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>targetOrganism</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Filter by target organism eg Rattus Norvegicus</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>activityType</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Filter by activity type eg IC50</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>activityValue</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Return pharmacology records with activity values equal to this number</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>minActivityValue</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Return pharmacology records with activity values greater than or equal to this number</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>minExActivityValue</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Return pharmacology records with activity values greater than this number</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>maxActivityValue</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Return pharmacology records with activity values less than or equal to this number</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>maxExActivityValue</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Return pharmacology records with activity values less than this number</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>activityUnit</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Return pharmacology records which have this activity unit eg nanomolar</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>activityRelation</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Return pharmacology records which have this activity relation eg =</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>pChembl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Return pharmacology records with pChembl equal to this number</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>minpChembl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Return pharmacology records with pChembl values greater than or equal to this number</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>minExpChembl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Return pharmacology records with pChembl values greater than this number</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>maxpChembl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Return pharmacology records with pChembl values less than or equal to this number</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>maxExpChembl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Return pharmacology records with pChembl values less than this number</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>targetType</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Filter by one of the available target types. e.g. single_protein</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>lens</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Which chemistry lens to apply to the records</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#requestCallback">requestCallback</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Function that will be called with the result</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="CompoundSearch.js.html">CompoundSearch.js</a>, <a href="CompoundSearch.js.html#line146">line 146</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>
+var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.3", "appID", "appKey");  
+var callback=function(success, status, response){
+   var pharmacologyResult == searcher.parseCompoundPharmacologyCountResponse(response);
+};
+searcher.compoundPharmacologyCount('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);     </code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="fetchCompound"><span class="type-signature"></span>fetchCompound<span class="signature">(URI, lens<span class="signature-attributes">opt</span>, callback)</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Fetch the compound represented by the URI provided.
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>URI</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The URI for the compound of interest.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>lens</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">An optional lens to apply to the result.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#requestCallback">requestCallback</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Function that will be called with the result.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="CompoundSearch.js.html">CompoundSearch.js</a>, <a href="CompoundSearch.js.html#line28">line 28</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.3", "appID", "appKey");  
+var callback=function(success, status, response){  
+   var compoundResult = searcher.parseCompoundResponse(response);  
+};  
+searcher.fetchCompound('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', null, callback);</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="parseCompoundPharmacologyResponse"><span class="type-signature"></span>parseCompoundPharmacologyResponse<span class="signature">(response)</span><span class="type-signature"> &rarr; {<a href="global.html#FetchCompoundPharmacologyResponse">FetchCompoundPharmacologyResponse</a>}</span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Parse the results from Openphacts.CompoundSearch#fetchCompoundPharmacology
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>response</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the JSON response from Openphacts.CompoundSearch#fetchCompoundPharmacology</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="CompoundSearch.js.html">CompoundSearch.js</a>, <a href="CompoundSearch.js.html#line380">line 380</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    Containing the flattened response
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#FetchCompoundPharmacologyResponse">FetchCompoundPharmacologyResponse</a></span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="parseCompoundResponse"><span class="type-signature"></span>parseCompoundResponse<span class="signature">(response)</span><span class="type-signature"> &rarr; {<a href="global.html#FetchCompoundResponse">FetchCompoundResponse</a>}</span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Parse the results from <a href="Openphacts.CompoundSearch.html#fetchCompound">Openphacts.CompoundSearch#fetchCompound</a>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>response</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the JSON response from <a href="Openphacts.CompoundSearch.html#fetchCompound">Openphacts.CompoundSearch#fetchCompound</a></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="CompoundSearch.js.html">CompoundSearch.js</a>, <a href="CompoundSearch.js.html#line214">line 214</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    Containing the flattened response
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#FetchCompoundResponse">FetchCompoundResponse</a></span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        </dl>
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Openphacts.CompoundSearch.html">CompoundSearch</a></li></ul><h3>Namespaces</h3><ul><li><a href="Openphacts.html">Openphacts</a></li></ul><h3><a href="global.html">Global</a></h3>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha8</a> on Fri Jun 13 2014 14:47:39 GMT+0100 (BST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
