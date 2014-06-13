@@ -18,13 +18,11 @@ Openphacts.ConceptWikiSearch.prototype.byTag = function(query, limit, branch, ty
 			uuid: type,
 			app_id: this.appID,
 			app_key: this.appKey
-		},
-		success: function(response, status, request) {
-			callback.call(this, true, request.status, response.result);
-		},
-		error: function(request, status, error) {
-			callback.call(this, false, request.status);
 		}
+	}).done(function(response, status, request){
+	callback.call(this, true, request.status, response.result);
+	}).fail(function(response, status, statusText){
+	callback.call(this, false, response.status);
 	});
 }
 
@@ -41,14 +39,13 @@ Openphacts.ConceptWikiSearch.prototype.freeText = function(query, limit, branch,
 		url: this.baseURL + "/search/freetext",
         dataType: 'json',
 		cache: true,
-		data: params,
-		success: function(response, status, request) {
-			callback.call(this, true, request.status, response.result);
-		},
-		error: function(request, status, error) {
-			callback.call(this, false, request.status);
-		}
+		data: params
+	}).done(function(response, status, request){
+	callback.call(this, true, request.status, response.result);
+	}).fail(function(response, status, statusText){
+	callback.call(this, false, response.status);
 	});
+
 }
 
 Openphacts.ConceptWikiSearch.prototype.findCompounds = function(query, limit, branch, callback) {
@@ -63,13 +60,11 @@ Openphacts.ConceptWikiSearch.prototype.findCompounds = function(query, limit, br
 			uuid: '07a84994-e464-4bbf-812a-a4b96fa3d197',
 			app_id: this.appID,
 			app_key: this.appKey
-		},
-		success: function(response, status, request) {
-			callback.call(this, true, request.status, response.result);
-		},
-		error: function(request, status, error) {
-			callback.call(this, false, request.status);
 		}
+	}).done(function(response, status, request){
+	callback.call(this, true, request.status, response.result);
+	}).fail(function(response, status, statusText){
+	callback.call(this, false, response.status);
 	});
 }
 
@@ -85,13 +80,11 @@ Openphacts.ConceptWikiSearch.prototype.findTargets = function(query, limit, bran
 			uuid: 'eeaec894-d856-4106-9fa1-662b1dc6c6f1',
 			app_id: this.appID,
 			app_key: this.appKey
-		},
-		success: function(response, status, request) {
-			callback.call(this, true, request.status, response.result);
-		},
-		error: function(request, status, error) {
-			callback.call(this, false, request.status);
 		}
+	}).done(function(response, status, request){
+	callback.call(this, true, request.status, response.result);
+	}).fail(function(response, status, statusText){
+	callback.call(this, false, response.status);
 	});
 }
 
@@ -104,13 +97,11 @@ Openphacts.ConceptWikiSearch.prototype.findConcept = function(uuid, callback) {
 			uuid: uuid,
 			app_id: this.appID,
 			app_key: this.appKey
-		},
-		success: function(response, status, request) {
-			callback.call(this, true, request.status, response.result);
-		},
-		error: function(request, status, error) {
-			callback.call(this, false, request.status);
 		}
+	}).done(function(response, status, request){
+	callback.call(this, true, request.status, response.result);
+	}).fail(function(response, status, statusText){
+	callback.call(this, false, response.status);
 	});
 }
 
