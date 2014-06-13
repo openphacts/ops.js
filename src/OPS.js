@@ -44,7 +44,7 @@ var Openphacts = Openphacts || {};
  * @property {string} chemblProvenance - chemblProvenance
  */
 /**
- * An array of pharmacology records for a compound fetched with {@link Openphacts.CompoundSearch#fetchCompoundPharmacology}
+ * An array of pharmacology records for a compound returned from {@link Openphacts.CompoundSearch#compoundPharmacology}
  * @typedef {Array.<Object>} FetchCompoundPharmacologyResponse
  * @property {string} compoundInchikey - compound_inchikey
  * @property {string} compoundDrugType - compound_drug_type
