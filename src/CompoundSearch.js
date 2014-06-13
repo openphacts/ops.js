@@ -30,7 +30,7 @@ Openphacts.CompoundSearch.prototype.fetchCompound = function(URI, lens, callback
 	params['_format'] = "json";
 	params['app_key'] = this.appKey;
 	params['app_id'] = this.appID;
-	params['uri'] = compoundURI;
+	params['uri'] = URI;
 	lens ? params['lens'] = lens : '';
 	var compoundQuery = $.ajax({
 		url: this.baseURL + '/compound',
