@@ -93,8 +93,6 @@ var callback=function(success, status, response){
 // limit to 20 results, species human (branch 4), no uri for the type is required  
 searcher.findCompounds('Aspirin', '20', '4', callback);
 ```
-
-```
 ### Compound information
 
 ```javascript
