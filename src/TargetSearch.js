@@ -498,7 +498,7 @@ Openphacts.TargetSearch.prototype.parseTargetPharmacologyResponse = function(res
 			targets.push(targets_inner);
 		}
 
-		var chemblActivityLink = 'https://www.ebi.ac.uk/ebisearch/crossrefsearch.ebi?id=' + chembl_activity_uri.split('/a').pop() + '&db=chembl-activity&ref=chembl-compound';
+		var chemblActivityLink = 'https://www.ebi.ac.uk/ebisearch/search.ebi?t=' + chembl_activity_uri.split('/').pop().split('_').pop() + '&db=chembl-activity';
 
 		var activity_activity_type_item, activity_standard_value_item, activity_standard_units_item, activity_relation_item;
 

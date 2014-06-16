@@ -44,7 +44,7 @@ var Openphacts = Openphacts || {};
  * @property {string} chemblProvenance - chemblProvenance
  */
 /**
- * An array of pharmacology records for a compound fetched with {@link Openphacts.CompoundSearch#fetchCompoundPharmacology}
+ * An array of pharmacology records for a compound returned from {@link Openphacts.CompoundSearch#compoundPharmacology}
  * @typedef {Array.<Object>} FetchCompoundPharmacologyResponse
  * @property {string} compoundInchikey - compound_inchikey
  * @property {string} compoundDrugType - compound_drug_type
@@ -98,6 +98,32 @@ var Openphacts = Openphacts || {};
  * @property {string} pChembl - pChembl
  * @property {string} chemblProvenance - chemblProvenance
  */
+/**
+ * Contains data for a target fetched with {@link Openphacts.TargetSearch#fetchTarget}
+ * @typedef {Object} FetchTargetResponse
+ * @property {string} cellularLocation - cellularLocation
+ * @property {string} molecularWeight - molecularWeight
+ * @property {string} numberOfResidues - numberOfResidues
+ * @property {string} theoreticalPi - theoreticalPi
+ * @property {string} drugbankURI - drugbankURI
+ * @property {Array} keywords- keywords
+ * @property {string} functionAnnotation - functionAnnotation
+ * @property {string} alternativeName - alternativeName
+ * @property {string} existence - existence
+ * @property {string} organism - organism
+ * @property {string} sequence - sequence
+ * @property {Array} classifiedWith - classifiedWith
+ * @property {Array} seeAlso - seeAlso
+ * @property {string} prefLabel - prefLabel
+ * @property {string} chemblItems - chemblItems
+ * @property {string} cwURI - cwURI
+ * @property {string} URI - URI
+ * @property {string} chemblProvenance - chemblProvenance
+ * @property {string} drugbankProvenance - drugbankProvenance
+ * @property {string} uniprotProvenance - uniprotProvenance
+ * @property {string} conceptwikiProvenance - conceptwikiProvenance
+ */
+
 //This content is released under the MIT License, http://opensource.org/licenses/MIT. See licence.txt for more details.
 
 Openphacts.Constants = function() {};
@@ -300,7 +326,6 @@ Openphacts.CompoundSearch.prototype.compoundPharmacology = function(URI, assayOr
  * };
  * searcher.compoundPharmacologyCount('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);     
  */
-
 Openphacts.CompoundSearch.prototype.compoundPharmacologyCount = function(URI, assayOrganism, targetOrganism, activityType, activityValue, minActivityValue, minExActivityValue, maxActivityValue, maxExActivityValue, activityUnit, activityRelation, pChembl, minpChembl, minExpChembl, maxpChembl, maxExpChembl, targetType, lens, callback) {
 	params = {};
 	params['_format'] = "json";
@@ -919,19 +944,38 @@ Openphacts.ConceptWikiSearch.prototype.parseFindConceptResponse = function(respo
 	};
 }
 //This content is released under the MIT License, http://opensource.org/licenses/MIT. See licence.txt for more details.
-
+/**
+ * @constructor
+ * @param {string} baseURL - URL for the Open PHACTS API
+ * @param {string} appID - Application ID for the application being used. Created by https://dev.openphacts.org
+ * @param {string} appKey - Application Key for the application ID.
+ * @license [MIT]{@link http://opensource.org/licenses/MIT}
+ * @author Ian Dunlop
+ */
 Openphacts.TargetSearch = function TargetSearch(baseURL, appID, appKey) {
 	this.baseURL = baseURL;
 	this.appID = appID;
 	this.appKey = appKey;
 }
-
-Openphacts.TargetSearch.prototype.fetchTarget = function(targetURI, lens, callback) {
+/**
+ * Fetch the target represented by the URI provided.
+ * @param {string} URI - The URI for the target of interest.
+ * @param {string} [lens] - An optional lens to apply to the result.
+ * @param {requestCallback} callback - Function that will be called with the result. 
+ * @method
+ * @example
+ * var searcher = new Openphacts.TargetSearch("https://beta.openphacts.org/1.3", "appID", "appKey");  
+ * var callback=function(success, status, response){  
+ *    var targetResult = searcher.parseTargetResponse(response);  
+ * };  
+ * searcher.fetchTarget('http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', null, callback);
+ */
+Openphacts.TargetSearch.prototype.fetchTarget = function(URI, lens, callback) {
     params={};
     params['_format'] = "json";
     params['app_key'] = this.appKey;
     params['app_id'] = this.appID;
-    params['uri'] = targetURI;
+    params['uri'] = URI;
     lens ? params['lens'] = lens : '';
 	var targetQuery = $.ajax({
 		url: this.baseURL + '/target',
@@ -946,15 +990,26 @@ Openphacts.TargetSearch.prototype.fetchTarget = function(targetURI, lens, callba
 		}
 	});
 }
-
-Openphacts.TargetSearch.prototype.compoundsForTarget = function(targetURI, callback) {
+/**
+ * The hierarchy classes for the different Compounds that interact with a given Target.
+ * @param {string} URI - The URI for the target of interest.
+ * @param {requestCallback} callback - Function that will be called with the result. 
+ * @method
+ * @example
+ * var searcher = new Openphacts.TargetSearch("https://beta.openphacts.org/1.3", "appID", "appKey");  
+ * var callback=function(success, status, response){  
+ *    var targetResult = searcher.parseTargetResponse(response);  
+ * };  
+ * searcher.compoundsForTarget('http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', callback);
+ */
+Openphacts.TargetSearch.prototype.compoundsForTarget = function(URI, callback) {
 	var targetQuery = $.ajax({
 		url: this.baseURL + '/target/classificationsForCompounds',
                 dataType: 'json',
 		cache: true,
 		data: {
 			_format: "json",
-			uri: targetURI,
+			uri: URI,
 			app_id: this.appID,
 			app_key: this.appKey
 		},
@@ -966,6 +1021,38 @@ Openphacts.TargetSearch.prototype.compoundsForTarget = function(targetURI, callb
 		}
 	});
 }
+/**
+ * Fetch pharmacology records for the target represented by the URI provided.
+ * @param {string} URI - The URI for the target of interest
+ * @param {string} [assayOrganism] - Filter by assay organism eg Homo Sapiens
+ * @param {string} [targetOrganism] - Filter by target organism eg Rattus Norvegicus
+ * @param {string} [activityType] - Filter by activity type eg IC50
+ * @param {string} [activityValue] - Return pharmacology records with activity values equal to this number
+ * @param {string} [minActivityValue] - Return pharmacology records with activity values greater than or equal to this number
+ * @param {string} [minExActivityValue] - Return pharmacology records with activity values greater than this number
+ * @param {string} [maxActivityValue] - Return pharmacology records with activity values less than or equal to this number
+ * @param {string} [maxExActivityValue] - Return pharmacology records with activity values less than this number
+ * @param {string} [activityUnit] - Return pharmacology records which have this activity unit eg nanomolar
+ * @param {string} [activityRelation] - Return pharmacology records which have this activity relation eg =
+ * @param {string} [pChembl] - Return pharmacology records with pChembl equal to this number
+ * @param {string} [minpChembl] - Return pharmacology records with pChembl values greater than or equal to this number
+ * @param {string} [minExpChembl] - Return pharmacology records with pChembl values greater than this number
+ * @param {string} [maxpChembl] - Return pharmacology records with pChembl values less than or equal to this number
+ * @param {string} [maxExpChembl] - Return pharmacology records with pChembl values less than this number
+ * @param {string} [targetType] - Filter by one of the available target types. e.g. single_protein
+ * @param {string} [page=1] - Which page of records to return.
+ * @param {string} [pageSize=10] - How many records to return. Set to 'all' to return all records in a single page
+ * @param {string} [orderBy] - Order the records by this field eg ?assay_type or DESC(?assay_type)
+ * @param {string} [lens] - Which chemistry lens to apply to the records
+ * @param {requestCallback} callback - Function that will be called with the result
+ * @method
+ * @example 
+ * var searcher = new Openphacts.TargetSearch("https://beta.openphacts.org/1.3", "appID", "appKey");  
+ * var callback=function(success, status, response){
+ *     var pharmacologyResult == searcher.parseTargetPharmacologyResponse(response);
+ * };
+ * searcher.targetPharmacology('http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 1, 20, null, null, callback);     
+ */
 
 Openphacts.TargetSearch.prototype.targetPharmacology = function(URI, assayOrganism, targetOrganism, activityType, activityValue, minActivityValue, minExActivityValue, maxActivityValue, maxExActivityValue, activityUnit, activityRelation, pChembl, minpChembl, minExpChembl, maxpChembl, maxExpChembl, targetType, page, pageSize, orderBy, lens, callback) {
     params={};
@@ -1007,6 +1094,35 @@ Openphacts.TargetSearch.prototype.targetPharmacology = function(URI, assayOrgani
 		}
 	});
 }
+/**
+ * Fetch a count of the pharmacology records belonging to the target represented by the URI provided.
+ * @param {string} URI - The URI for the target of interest
+ * @param {string} [assayOrganism] - Filter by assay organism eg Homo Sapiens
+ * @param {string} [targetOrganism] - Filter by target organism eg Rattus Norvegicus
+ * @param {string} [activityType] - Filter by activity type eg IC50
+ * @param {string} [activityValue] - Return pharmacology records with activity values equal to this number
+ * @param {string} [minActivityValue] - Return pharmacology records with activity values greater than or equal to this number
+ * @param {string} [minExActivityValue] - Return pharmacology records with activity values greater than this number
+ * @param {string} [maxActivityValue] - Return pharmacology records with activity values less than or equal to this number
+ * @param {string} [maxExActivityValue] - Return pharmacology records with activity values less than this number
+ * @param {string} [activityUnit] - Return pharmacology records which have this activity unit eg nanomolar
+ * @param {string} [activityRelation] - Return pharmacology records which have this activity relation eg =
+ * @param {string} [pChembl] - Return pharmacology records with pChembl equal to this number
+ * @param {string} [minpChembl] - Return pharmacology records with pChembl values greater than or equal to this number
+ * @param {string} [minExpChembl] - Return pharmacology records with pChembl values greater than this number
+ * @param {string} [maxpChembl] - Return pharmacology records with pChembl values less than or equal to this number
+ * @param {string} [maxExpChembl] - Return pharmacology records with pChembl values less than this number
+ * @param {string} [targetType] - Filter by one of the available target types. e.g. single_protein
+ * @param {string} [lens] - Which chemistry lens to apply to the records
+ * @param {requestCallback} callback - Function that will be called with the result
+ * @method
+ * @example 
+ * var searcher = new Openphacts.TargetSearch("https://beta.openphacts.org/1.3", "appID", "appKey");  
+ * var callback=function(success, status, response){
+ *     var pharmacologyResult == searcher.parseTargetPharmacologyCountResponse(response);
+ * };
+ * searcher.targetPharmacologyCount('http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);     
+ */
 
 Openphacts.TargetSearch.prototype.targetPharmacologyCount = function(URI, assayOrganism, targetOrganism, activityType, activityValue, minActivityValue, minExActivityValue, maxActivityValue, maxExActivityValue, activityUnit, activityRelation, pChembl, minpChembl, minExpChembl, maxpChembl, maxExpChembl, targetType, lens, callback) {
     params={};
@@ -1045,7 +1161,12 @@ Openphacts.TargetSearch.prototype.targetPharmacologyCount = function(URI, assayO
 		}
 	});
 }
-
+/**
+ * A list of target types
+ * @param {string} lens - Which chemistry lens to apply to the result
+ * @param {requestCallback} callback - Function that will be called with the result
+ * @method
+ */
 Openphacts.TargetSearch.prototype.targetTypes = function(lens, callback) {
 	var targetQuery = $.ajax({
 		url: this.baseURL + '/target/types',
@@ -1065,7 +1186,12 @@ Openphacts.TargetSearch.prototype.targetTypes = function(lens, callback) {
 		}
 	});
 }
-
+/**
+ * Parse the results from {@link Openphacts.TargetSearch#fetchTarget}
+ * @param {Object} response - the JSON response from {@link Openphacts.TargetSearch#fetchTarget}
+ * @returns {FetchTargetResponse} Containing the flattened response
+ * @method
+ */
 Openphacts.TargetSearch.prototype.parseTargetResponse = function(response) {
     var constants = new Openphacts.Constants();
 	var drugbankData = null, chemblData = null, uniprotData = null, cellularLocation = null, molecularWeight = null, numberOfResidues = null, theoreticalPi = null, drugbankURI = null, functionAnnotation  =null, alternativeName = null, existence = null, organism = null, sequence = null, uniprotURI = null, URI = null, cwUri = null;
@@ -1317,7 +1443,7 @@ Openphacts.TargetSearch.prototype.parseTargetPharmacologyResponse = function(res
 			targets.push(targets_inner);
 		}
 
-		var chemblActivityLink = 'https://www.ebi.ac.uk/ebisearch/crossrefsearch.ebi?id=' + chembl_activity_uri.split('/a').pop() + '&db=chembl-activity&ref=chembl-compound';
+		var chemblActivityLink = 'https://www.ebi.ac.uk/ebisearch/search.ebi?t=' + chembl_activity_uri.split('/').pop().split('_').pop() + '&db=chembl-activity';
 
 		var activity_activity_type_item, activity_standard_value_item, activity_standard_units_item, activity_relation_item;
 
