@@ -204,6 +204,7 @@ Openphacts.TreeSearch.prototype.getCompoundClassPharmacologyPaginated = function
 
 Openphacts.TreeSearch.prototype.parseRootNodes = function(response) {
     var enzymeRootClasses = [];
+    var prefLabel = response.primaryTopic.hasPart.prefLabel;
     if ($.isArray(response.primaryTopic.hasPart.rootNode)) {
         $.each(response.primaryTopic.hasPart.rootNode, function(i, member) {
             enzymeRootClasses.push({
@@ -217,7 +218,7 @@ Openphacts.TreeSearch.prototype.parseRootNodes = function(response) {
             name: response.primaryTopic.hasPart.rootNode.prefLabel
         });
     }
-    return enzymeRootClasses;
+    return {'label': prefLabel, 'rootClasses': enzymeRootClasses};
 }
 
 Openphacts.TreeSearch.prototype.parseChildNodes = function(response) {

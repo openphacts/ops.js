@@ -25,7 +25,7 @@ describe("Trees", function() {
       runs(function() {
         expect(this_success).toBe(true);
         expect(this_status).toBe(200);
-        expect(this_result.length).toBeGreaterThan(1);
+        expect(this_result.rootClasses.length).toBeGreaterThan(1);
       });
       searcher.getRootNodes('enzyme', callback);
     });
@@ -64,7 +64,7 @@ describe("Trees", function() {
       runs(function() {
         expect(this_success).toBe(true);
         expect(this_status).toBe(200);
-        expect(this_result.length).toBeGreaterThan(1);
+        expect(this_result.rootClasses.length).toBeGreaterThan(1);
       });
       searcher.getRootNodes('chebi', callback);
     });
@@ -103,7 +103,7 @@ describe("Trees", function() {
       runs(function() {
         expect(this_success).toBe(true);
         expect(this_status).toBe(200);
-        expect(this_result.length).toBeGreaterThan(0);
+        expect(this_result.rootClasses.length).toBeGreaterThan(0);
       });
       searcher.getRootNodes('chembl', callback);
     });
@@ -142,7 +142,7 @@ describe("Trees", function() {
       runs(function() {
         expect(this_success).toBe(true);
         expect(this_status).toBe(200);
-        expect(this_result.length).toBeGreaterThan(1);
+        expect(this_result.rootClasses.length).toBeGreaterThan(1);
       });
       searcher.getRootNodes('go', callback);
     });
