@@ -728,8 +728,7 @@ Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyResponse = function
 				target_organisms.push(organism_inner);
 			}
 		}
-
-		var chemblActivityLink = 'https://www.ebi.ac.uk/ebisearch/crossrefsearch.ebi?id=' + chembl_activity_uri.split('/a').pop() + '&db=chembl-activity&ref=chembl-compound';
+		var chemblActivityLink = 'https://www.ebi.ac.uk/ebisearch/search.ebi?t=' + chembl_activity_uri.split('/').pop().split('_').pop() + '&db=chembl-activity';
 
 		activity_activity_type_item = chemblActivityLink;
 		activity_standard_value_item = chemblActivityLink;
