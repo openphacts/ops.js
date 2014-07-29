@@ -57,7 +57,7 @@ if ( phantom.args.length !== 5 ) {
             }, function() { // or, once it timesout...
 	            console.log("TIMEOUT");
                 phantom.exit(1);
-            }, 20000); //20 second timeout just in case
+            }, 180000); //3 minute timeout just in case!
         } else {
             console.log("phantomjs> Could not load '" + htmlrunner + "'.");
             phantom.exit(1);
