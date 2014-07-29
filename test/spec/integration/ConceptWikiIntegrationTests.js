@@ -2,7 +2,6 @@ describe("Concept Wiki", function() {
   var searcher, appID, appKey, appUrl;
 
   beforeEach(function() {
-console.log('in the before');
       	  appID == null ? appID = $.url().param('app_id'): '';
     appKey == null ? appKey = $.url().param('app_key') : '';
     appUrl == null ? appUrl = $.url().param('app_url'): '';
@@ -12,7 +11,6 @@ console.log('in the before');
   describe("search by tag", function() {
 
     it("and return a response for compounds", function() {
-    console.log('doing a test');
 	    var this_success = null;
       var this_status = null;
       var this_result = null;
