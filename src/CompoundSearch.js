@@ -240,7 +240,9 @@ Openphacts.CompoundSearch.prototype.parseCompoundResponse = function(response) {
 	uri = response.primaryTopic[constants.ABOUT];
 
     // check if we already have the CS URI
-    var possibleURI = 'http://' + new URL(uri).hostname;
+    var uriLink = document.createElement('a');
+    uriLink.href = uri;
+    var possibleURI = 'http://' + uriLink.hostname;
     csURI = constants.SRC_CLS_MAPPINGS[possibleURI] === 'chemspiderValue' ? uri : null;
 
 	var drugbankProvenance, chemspiderProvenance, chemblProvenance;

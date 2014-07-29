@@ -1,5 +1,5 @@
 describe("Trees", function() {
-  var searcher, appID, appKey;
+  var searcher, appID, appKey, appUrl;
 
   beforeEach(function() {
       appID = $.url().param('app_id');

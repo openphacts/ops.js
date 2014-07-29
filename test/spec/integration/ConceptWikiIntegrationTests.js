@@ -1,17 +1,19 @@
 describe("Concept Wiki", function() {
-  var searcher, appID, appKey;
+  var searcher, appID, appKey, appUrl;
 
   beforeEach(function() {
-    appID = $.url().param('app_id');
-    appKey = $.url().param('app_key');
-    appUrl = $.url().param('app_url');
+console.log('in the before');
+      	  appID == null ? appID = $.url().param('app_id'): '';
+    appKey == null ? appKey = $.url().param('app_key') : '';
+    appUrl == null ? appUrl = $.url().param('app_url'): '';
     searcher = new Openphacts.ConceptWikiSearch(appUrl, appID, appKey);
   });
 
   describe("search by tag", function() {
 
     it("and return a response for compounds", function() {
-      var this_success = null;
+    console.log('doing a test');
+	    var this_success = null;
       var this_status = null;
       var this_result = null;
 
