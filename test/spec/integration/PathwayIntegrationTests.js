@@ -506,24 +506,26 @@ describe("Pathways", function() {
       });
       searcher.countPathways(null, null, callback);
     });
-    it("and handle errors", function() {
-      var this_success = null;
-      var this_status = null;
-      var callback=function(success, status){
-        this_success = success;
-        this_status = status;
-      };
-      waitsFor(function() {
-        return this_success != null;
-      });
-      runs(function() {
-        expect(this_success).toEqual(false);
-        // CORS not allowed due to auth failure since call will otherwise be OK and return 0 items
-        expect(this_status).toEqual(0);
-      });
-      var localSearcher = new Openphacts.PathwaySearch(appUrl, 'jhgjhg', 'jhgjhg');
-      localSearcher.countPathways(null, null, callback);
-    });
+// This test wasn't really checking anything except whether the server would reject an invalid appID/appKey. 
+// The count pathways api call will work with any input but return 0 for the number of results
+//    it("and handle errors", function() {
+//      var this_success = null;
+//      var this_status = null;
+//      var callback=function(success, status){
+//        this_success = success;
+//        this_status = status;
+//      };
+//      waitsFor(function() {
+//        return this_success != null;
+//      });
+//      runs(function() {
+//        expect(this_success).toEqual(false);
+//        // CORS not allowed due to auth failure since call will otherwise be OK and return 0 items
+//        expect(this_status).toEqual(0);
+//      });
+//      var localSearcher = new Openphacts.PathwaySearch(appUrl, 'jhgjhg', 'jhgjhg');
+//      localSearcher.countPathways(null, null, callback);
+//    });
   });
 
   describe("list pathways", function() {
