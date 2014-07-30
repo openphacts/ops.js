@@ -6,7 +6,7 @@ OPS.js is a javascript based library for accessing the Open PHACTS Linked Data A
 
 ## Dependencies
 JQuery 1.9.1  
-[Purl 2.2.1](https://github.com/allmarkedup/jQuery-URL-Parser "Purl URL library")  
+[Purl 2.2.1 (Used during testing only)](https://github.com/allmarkedup/jQuery-URL-Parser "Purl URL library")  
 Get your openphacts api appID and appKey by registering at https://dev.openphacts.org
 
 ## Licence
