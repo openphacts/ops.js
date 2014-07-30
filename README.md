@@ -1,5 +1,4 @@
-
-# OPS.js
+# OPS.js [![Build Status](https://travis-ci.org/openphacts/ops.js.svg?branch=develop)](https://travis-ci.org/openphacts/ops.js)
 ## Coded against OPS Linked Data API Version 1.3
 
 OPS.js is a javascript based library for accessing the Open PHACTS Linked Data API (LDA). It uses jquery to handle the asynchronous nature of the requests. OPS.js can also be used to parse responses from the LDA.
