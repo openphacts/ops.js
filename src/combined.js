@@ -215,7 +215,7 @@ Openphacts.CompoundSearch.prototype.fetchCompound = function(URI, lens, callback
 	params['app_key'] = this.appKey;
 	params['app_id'] = this.appID;
 	params['uri'] = URI;
-	lens ? params['lens'] = lens : '';
+	lens ? params['_lens'] = lens : '';
 	var compoundQuery = $.ajax({
 		url: this.baseURL + '/compound',
 		dataType: 'json',
