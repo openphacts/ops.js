@@ -977,7 +977,7 @@ Openphacts.TargetSearch.prototype.fetchTarget = function(URI, lens, callback) {
     params['app_key'] = this.appKey;
     params['app_id'] = this.appID;
     params['uri'] = URI;
-    lens ? params['lens'] = lens : '';
+    lens ? params['_lens'] = lens : '';
 	var targetQuery = $.ajax({
 		url: this.baseURL + '/target',
         dataType: 'json',
