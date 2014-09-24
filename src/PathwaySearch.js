@@ -12,7 +12,7 @@ Openphacts.PathwaySearch.prototype.information = function(URI, lens, callback) {
         params['app_key'] = this.appKey;
         params['app_id'] = this.appID;
         params['uri'] = URI;
-        lens ? params['lens'] = lens : '';
+        lens ? params['_lens'] = lens : '';
 	var pathwayQuery = $.ajax({
 		url: this.baseURL + '/pathway',
         dataType: 'json',
@@ -34,7 +34,7 @@ Openphacts.PathwaySearch.prototype.byCompound = function(URI, organism, lens, pa
         params['app_id'] = this.appID;
         params['uri'] = URI;
         organism ? params['organism'] = organism : '';
-        lens ? params['lens'] = lens : '';
+        lens ? params['_lens'] = lens : '';
         page ? params['_page'] = page : '';
         pageSize ? params['_pageSize'] = pageSize : '';
         //TODO order by neeeds an RDF like syntax to work eg ?cw_uri or DESC(?cw_uri), need to hide that
@@ -61,7 +61,7 @@ Openphacts.PathwaySearch.prototype.countPathwaysByCompound = function(URI, organ
         params['app_id'] = this.appID;
         params['uri'] = URI;
         organism ? params['pathway_organism'] = organism : '';
-        lens ? params['lens'] = lens : '';
+        lens ? params['_lens'] = lens : '';
 	var pathwayQuery = $.ajax({
 		url: this.baseURL + '/pathways/byCompound/count',
         dataType: 'json',
@@ -83,7 +83,7 @@ Openphacts.PathwaySearch.prototype.byTarget = function(URI, organism, lens, page
         params['app_id'] = this.appID;
         params['uri'] = URI;
         organism ? params['pathway_organism'] = organism : '';
-        lens ? params['lens'] = lens : '';
+        lens ? params['_lens'] = lens : '';
         page ? params['_page'] = page : '';
         pageSize ? params['_pageSize'] = pageSize : '';
         //TODO order by neeeds an RDF like syntax to work eg ?cw_uri or DESC(?cw_uri), need to hide that
@@ -110,7 +110,7 @@ Openphacts.PathwaySearch.prototype.countPathwaysByTarget = function(URI, organis
         params['app_id'] = this.appID;
         params['uri'] = URI;
         organism ? params['pathway_organism'] = organism : '';
-        lens ? params['lens'] = lens : '';
+        lens ? params['_lens'] = lens : '';
 	var pathwayQuery = $.ajax({
 		url: this.baseURL + '/pathways/byTarget/count',
         dataType: 'json',
@@ -131,7 +131,7 @@ Openphacts.PathwaySearch.prototype.getTargets = function(URI, lens, callback) {
         params['app_key'] = this.appKey;
         params['app_id'] = this.appID;
         params['uri'] = URI;
-        lens ? params['lens'] = lens : '';
+        lens ? params['_lens'] = lens : '';
 	var pathwayQuery = $.ajax({
 		url: this.baseURL + '/pathway/getTargets',
         dataType: 'json',
@@ -152,7 +152,7 @@ Openphacts.PathwaySearch.prototype.getCompounds = function(URI, lens, callback) 
         params['app_key'] = this.appKey;
         params['app_id'] = this.appID;
         params['uri'] = URI;
-        lens ? params['lens'] = lens : '';
+        lens ? params['_lens'] = lens : '';
 	var pathwayQuery = $.ajax({
 		url: this.baseURL + '/pathway/getCompounds',
         dataType: 'json',
@@ -174,7 +174,7 @@ Openphacts.PathwaySearch.prototype.byReference = function(URI, organism, lens, p
         params['app_id'] = this.appID;
         params['uri'] = URI;
         organism ? params['pathway_organism'] = organism : '';
-        lens ? params['lens'] = lens : '';
+        lens ? params['_lens'] = lens : '';
         page ? params['_page'] = page : '';
         pageSize ? params['_pageSize'] = pageSize : '';
         //TODO order by neeeds an RDF like syntax to work eg ?cw_uri or DESC(?cw_uri), need to hide that
@@ -201,7 +201,7 @@ Openphacts.PathwaySearch.prototype.countPathwaysByReference = function(URI, orga
         params['app_id'] = this.appID;
         params['uri'] = URI;
         organism ? params['pathway_organism'] = organism : '';
-        lens ? params['lens'] = lens : '';
+        lens ? params['_lens'] = lens : '';
 	var pathwayQuery = $.ajax({
 		url: this.baseURL + '/pathways/byReference/count',
         dataType: 'json',
@@ -222,7 +222,7 @@ Openphacts.PathwaySearch.prototype.getReferences = function(URI, lens, callback)
         params['app_key'] = this.appKey;
         params['app_id'] = this.appID;
         params['uri'] = URI;
-        lens ? params['lens'] = lens : '';
+        lens ? params['_lens'] = lens : '';
 	var pathwayQuery = $.ajax({
 		url: this.baseURL + '/pathway/getReferences',
         dataType: 'json',
@@ -243,7 +243,7 @@ Openphacts.PathwaySearch.prototype.countPathways = function(organism, lens, call
         params['app_key'] = this.appKey;
         params['app_id'] = this.appID;
         organism ? params['pathway_organism'] = organism : '';
-        lens ? params['lens'] = lens : '';
+        lens ? params['_lens'] = lens : '';
 	var pathwayQuery = $.ajax({
 		url: this.baseURL + '/pathways/count',
         dataType: 'json',
@@ -264,7 +264,7 @@ Openphacts.PathwaySearch.prototype.list = function(organism, lens, page, pageSiz
         params['app_key'] = this.appKey;
         params['app_id'] = this.appID;
         organism ? params['pathway_organism'] = organism : '';
-        lens ? params['lens'] = lens : '';
+        lens ? params['_lens'] = lens : '';
         page ? params['_page'] = page : '';
         pageSize ? params['_pageSize'] = pageSize : '';
         //TODO order by neeeds an RDF like syntax to work eg ?cw_uri or DESC(?cw_uri), need to hide that
@@ -289,7 +289,7 @@ Openphacts.PathwaySearch.prototype.organisms = function(lens, page, pageSize, or
         params['_format'] = "json";
         params['app_key'] = this.appKey;
         params['app_id'] = this.appID;
-        lens ? params['lens'] = lens : '';
+        lens ? params['_lens'] = lens : '';
         page ? params['_page'] = page : '';
         pageSize ? params['_pageSize'] = pageSize : '';
         //TODO order by neeeds an RDF like syntax to work eg ?cw_uri or DESC(?cw_uri), need to hide that
