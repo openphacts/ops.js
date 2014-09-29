@@ -26,6 +26,25 @@ describe("Target search", function() {
       });
     });
   });
+  describe("fetch multiple targets with batch call", function() {
+
+    it("can be executed", function() {
+      spyOn(searcher, 'fetchTargetBatch');
+      searcher.fetchTargetBatch(['target1', 'target2'], 'lens', 'callback');
+      expect(searcher.fetchTargetBatch).toHaveBeenCalled();
+    });
+    it("executes asynchronously", function() {
+      var callback = jasmine.createSpy();
+      searcher.fetchTargetBatch(['http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', 'http://www.conceptwiki.org/concept/7b21c06f-0343-4fcc-ab0f-a74ffe871ade'], null, callback);
+      waitsFor(function() {
+          return callback.callCount > 0;
+      });
+      runs(function() {
+          expect(callback).toHaveBeenCalled();
+      });
+    });
+  });
+
   describe("target pharmacology search", function() {
 
     it("can be executed", function() {
