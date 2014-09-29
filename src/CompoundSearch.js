@@ -269,7 +269,7 @@ Openphacts.CompoundSearch.prototype.parseCompoundResponse = function(response) {
 		molweight = null,
 		molformula = null;
 	var drugbankData, chemspiderData, chemblData, conceptWikiData;
-	uri = response.primaryTopic[constants.ABOUT];
+	var uri = response.primaryTopic[constants.ABOUT];
 
     // check if we already have the CS URI
     var uriLink = document.createElement('a');
