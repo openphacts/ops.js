@@ -26,6 +26,25 @@ describe("Compound search", function() {
       });
     });
   });
+  describe("fetch multiple compounds using batch call", function() {
+
+    it("can be executed", function() {
+      spyOn(searcher, 'fetchCompoundBatch');
+      searcher.fetchCompoundBatch(['compoundURI1', 'compoundURI2'], 'lens', 'callback');
+      expect(searcher.fetchCompoundBatch).toHaveBeenCalled();
+    });
+    it("executes asynchronously", function() {
+      var callback = jasmine.createSpy();
+      searcher.fetchCompoundBatch(['http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5','http://www.conceptwiki.org/concept/dd758846-1dac-4f0d-a329-06af9a7fa413'], null, callback);
+      waitsFor(function() {
+          return callback.callCount > 0;
+      });
+      runs(function() {
+          expect(callback).toHaveBeenCalled();
+      });
+    });
+  });
+
   describe("compound pharmacology search", function() {
 
     it("can be executed", function() {

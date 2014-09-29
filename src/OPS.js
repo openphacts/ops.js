@@ -44,6 +44,36 @@ var Openphacts = Openphacts || {};
  * @property {string} chemblProvenance - chemblProvenance
  */
 /**
+ * Contains data for compounds fetched with {@link Openphacts.CompoundSearch#fetchCompoundBatch}
+ * @typedef {Array.<Object>} FetchCompoundBatchResponse
+ * @property {string} cwURI - Concept Wiki URI which represents the compound
+ * @property {string} prefLabel - The preferred label for the compound
+ * @property {string} URI - The URI for the compound
+ * @property {string} description - A description of the compound
+ * @property {string} biotransformationItem - The biotransformation item for the compound
+ * @property {string} toxicity - The toxicity of the compound
+ * @property {string} proteinBinding - The protein binding for the compound
+ * @property {string} csURI - ChemSpider URI
+ * @property {string} hba - hba
+ * @property {string} hbd -hbd
+ * @property {string} inchi - inchi
+ * @property {string} logp - logp
+ * @property {string} psa - psa
+ * @property {string} ro5Violations - ro5Violations
+ * @property {string} smiles - smiles
+ * @property {string} chemblURI - chemblURI
+ * @property {string} fullMWT - fullMWT
+ * @property {string} molform - molform
+ * @property {string} mwFreebase - mwFreebase
+ * @property {string} rtb - rtb
+ * @property {string} inchiKey - inchiKey
+ * @property {string} drugbankURI - drugbankURI
+ * @property {string} drugbankProvenance - drugbankProvenance
+ * @property {string} chemspiderProvenance - chemspiderProvenance
+ * @property {string} chemblProvenance - chemblProvenance
+ */
+
+/**
  * An array of pharmacology records for a compound returned from {@link Openphacts.CompoundSearch#compoundPharmacology}
  * @typedef {Array.<Object>} FetchCompoundPharmacologyResponse
  * @property {string} compoundInchikey - compound_inchikey
