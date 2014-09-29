@@ -153,4 +153,28 @@ var Openphacts = Openphacts || {};
  * @property {string} uniprotProvenance - uniprotProvenance
  * @property {string} conceptwikiProvenance - conceptwikiProvenance
  */
-
+/**
+ * Contains data for targets fetched with {@link Openphacts.TargetSearch#fetchTargetBatch}
+ * @typedef {Array.<Object>} FetchTargetBatchResponse
+ * @property {string} cellularLocation - cellularLocation
+ * @property {string} molecularWeight - molecularWeight
+ * @property {string} numberOfResidues - numberOfResidues
+ * @property {string} theoreticalPi - theoreticalPi
+ * @property {string} drugbankURI - drugbankURI
+ * @property {Array} keywords- keywords
+ * @property {string} functionAnnotation - functionAnnotation
+ * @property {string} alternativeName - alternativeName
+ * @property {string} existence - existence
+ * @property {string} organism - organism
+ * @property {string} sequence - sequence
+ * @property {Array} classifiedWith - classifiedWith
+ * @property {Array} seeAlso - seeAlso
+ * @property {string} prefLabel - prefLabel
+ * @property {string} chemblItems - chemblItems
+ * @property {string} cwURI - cwURI
+ * @property {string} URI - URI
+ * @property {string} chemblProvenance - chemblProvenance
+ * @property {string} drugbankProvenance - drugbankProvenance
+ * @property {string} uniprotProvenance - uniprotProvenance
+ * @property {string} conceptwikiProvenance - conceptwikiProvenance
+ */
