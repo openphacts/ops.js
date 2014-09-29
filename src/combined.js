@@ -257,7 +257,7 @@ Openphacts.CompoundSearch = function CompoundSearch(baseURL, appID, appKey) {
  * @param {requestCallback} callback - Function that will be called with the result. 
  * @method
  * @example
- * var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.3", "appID", "appKey");  
+ * var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.4", "appID", "appKey");  
  * var callback=function(success, status, response){  
  *    var compoundResult = searcher.parseCompoundResponse(response);  
  * };  
@@ -288,7 +288,7 @@ Openphacts.CompoundSearch.prototype.fetchCompound = function(URI, lens, callback
  * @param {requestCallback} callback - Function that will be called with the result. 
  * @method
  * @example
- * var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.3", "appID", "appKey");  
+ * var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.4", "appID", "appKey");  
  * var callback=function(success, status, response){  
  *    var compoundResults = searcher.parseCompoundBatchResponse(response);  
  * };  
@@ -339,7 +339,7 @@ Openphacts.CompoundSearch.prototype.fetchCompoundBatch = function(URIList, lens,
  * @param {requestCallback} callback - Function that will be called with the result
  * @method
  * @example 
- * var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.3", "appID", "appKey");  
+ * var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.4", "appID", "appKey");  
  * var callback=function(success, status, response){
  *     var pharmacologyResult == searcher.parseCompoundPharmacologyResponse(response);
  * };
@@ -406,7 +406,7 @@ Openphacts.CompoundSearch.prototype.compoundPharmacology = function(URI, assayOr
  * @param {requestCallback} callback - Function that will be called with the result
  * @method
  * @example 
- * var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.3", "appID", "appKey");  
+ * var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.4", "appID", "appKey");  
  * var callback=function(success, status, response){
  *     var pharmacologyResult == searcher.parseCompoundPharmacologyCountResponse(response);
  * };
@@ -1222,7 +1222,7 @@ Openphacts.TargetSearch = function TargetSearch(baseURL, appID, appKey) {
  * @param {requestCallback} callback - Function that will be called with the result. 
  * @method
  * @example
- * var searcher = new Openphacts.TargetSearch("https://beta.openphacts.org/1.3", "appID", "appKey");  
+ * var searcher = new Openphacts.TargetSearch("https://beta.openphacts.org/1.4", "appID", "appKey");  
  * var callback=function(success, status, response){  
  *    var targetResult = searcher.parseTargetResponse(response);  
  * };  
@@ -1255,7 +1255,7 @@ Openphacts.TargetSearch.prototype.fetchTarget = function(URI, lens, callback) {
  * @param {requestCallback} callback - Function that will be called with the result. 
  * @method
  * @example
- * var searcher = new Openphacts.TargetSearch("https://beta.openphacts.org/1.3", "appID", "appKey");  
+ * var searcher = new Openphacts.TargetSearch("https://beta.openphacts.org/1.4", "appID", "appKey");  
  * var callback=function(success, status, response){  
  *    var targets = searcher.parseTargetBatchResponse(response);  
  * };  
@@ -1288,7 +1288,7 @@ Openphacts.TargetSearch.prototype.fetchTargetBatch = function(URIList, lens, cal
  * @param {requestCallback} callback - Function that will be called with the result. 
  * @method
  * @example
- * var searcher = new Openphacts.TargetSearch("https://beta.openphacts.org/1.3", "appID", "appKey");  
+ * var searcher = new Openphacts.TargetSearch("https://beta.openphacts.org/1.4", "appID", "appKey");  
  * var callback=function(success, status, response){  
  *    var targetResult = searcher.parseTargetResponse(response);  
  * };  
@@ -1339,7 +1339,7 @@ Openphacts.TargetSearch.prototype.compoundsForTarget = function(URI, callback) {
  * @param {requestCallback} callback - Function that will be called with the result
  * @method
  * @example 
- * var searcher = new Openphacts.TargetSearch("https://beta.openphacts.org/1.3", "appID", "appKey");  
+ * var searcher = new Openphacts.TargetSearch("https://beta.openphacts.org/1.4", "appID", "appKey");  
  * var callback=function(success, status, response){
  *     var pharmacologyResult == searcher.parseTargetPharmacologyResponse(response);
  * };
@@ -1409,7 +1409,7 @@ Openphacts.TargetSearch.prototype.targetPharmacology = function(URI, assayOrgani
  * @param {requestCallback} callback - Function that will be called with the result
  * @method
  * @example 
- * var searcher = new Openphacts.TargetSearch("https://beta.openphacts.org/1.3", "appID", "appKey");  
+ * var searcher = new Openphacts.TargetSearch("https://beta.openphacts.org/1.4", "appID", "appKey");  
  * var callback=function(success, status, response){
  *     var pharmacologyResult == searcher.parseTargetPharmacologyCountResponse(response);
  * };
