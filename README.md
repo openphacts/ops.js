@@ -1,5 +1,5 @@
 # OPS.js [![Build Status](https://travis-ci.org/openphacts/ops.js.svg?branch=develop)](https://travis-ci.org/openphacts/ops.js)
-## Coded against OPS Linked Data API Version 1.3
+## Coded against OPS Linked Data API Version 1.4
 
 OPS.js is a javascript based library for accessing the Open PHACTS Linked Data API (LDA). It uses jquery to handle the asynchronous nature of the requests. OPS.js can also be used to parse responses from the LDA.
 
@@ -53,7 +53,7 @@ Look at https://dev.openphacts.org for more information about the source methods
 [Jasmine](http://pivotal.github.io/jasmine/ "Jasmine javascript testing framework") is used to test the ops.js api. There are various test runners which can be used, they
 are contained within the 'test' directory with the specs for the tests in the 'test/spec' directory. FunctionalTests.html and IntegrationTests.html should be run within a browser.
 
-`file:///path_to_ops.js/test/FunctionalTests.html?app_id=sdfsdf&app_key=sdfsdfsdf&app_url=https://beta.openphacts.org/1.3`
+`file:///path_to_ops.js/test/FunctionalTests.html?app_id=sdfsdf&app_key=sdfsdfsdf&app_url=https://beta.openphacts.org/1.4`
 
 Use the appropriate values for `app_id`, `app_key` & `app_url`
 
@@ -71,7 +71,7 @@ More examples can be found in the integration tests.
 ### Concept Wiki free text search
 
 ```javascript
-var searcher = new Openphacts.ConceptWikiSearch("https://beta.openphacts.org/1.3", appID, appKey);  
+var searcher = new Openphacts.ConceptWikiSearch("https://beta.openphacts.org/1.4", appID, appKey);  
 var callback=function(success, status, response){  
     searcher.parseResponse(response);
 };  
@@ -83,7 +83,7 @@ searcher.byTag('Aspirin', '20', '4', '07a84994-e464-4bbf-812a-a4b96fa3d197', cal
 ### Concept Wiki compound search
 
 ```javascript
-var searcher = new Openphacts.ConceptWikiSearch("https://beta.openphacts.org/1.3", appID, appKey);  
+var searcher = new Openphacts.ConceptWikiSearch("https://beta.openphacts.org/1.4", appID, appKey);  
 var callback=function(success, status, response){  
     searcher.parseResponse(response);
 };  
@@ -95,7 +95,7 @@ searcher.findCompounds('Aspirin', '20', '4', callback);
 ### Compound information
 
 ```javascript
-var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.3", appID, appKey);  
+var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.4", appID, appKey);  
 var callback=function(success, status, response){  
     var compoundResult = searcher.parseCompoundResponse(response);  
 };  
@@ -107,7 +107,7 @@ searcher.fetchCompound('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a4
 ### Compound Pharmacology
 
 ```javascript
-var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.3", appID, appKey);  
+var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.4", appID, appKey);  
 var callback=function(success, status, response){  
     var compoundResult = searcher.parseCompoundPharmacologyResponse(response);  
 };  
@@ -119,7 +119,7 @@ searcher.compoundPharmacology('http://www.conceptwiki.org/concept/38932552-111f-
 ### Compound Pharmacology Count
 
 ```javascript
-var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.3", appID, appKey);  
+var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.4", appID, appKey);  
 var callback=function(success, status, response){  
     var result = searcher.parseCompoundPharmacologyCountResponse(response);  
 };  
@@ -132,7 +132,7 @@ searcher.compoundPharmacologyCount('http://www.conceptwiki.org/concept/38932552-
 ### Exact Structure Search
 
 ```javascript
-var searcher = new Openphacts.StructureSearch("https://beta.openphacts.org/1.3", appID, appKey);  
+var searcher = new Openphacts.StructureSearch("https://beta.openphacts.org/1.4", appID, appKey);  
 var callback=function(success, status, response){  
     var result = searcher.parseExactResponse(response);  
 };  
