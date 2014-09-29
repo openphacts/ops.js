@@ -178,3 +178,10 @@ var Openphacts = Openphacts || {};
  * @property {string} uniprotProvenance - uniprotProvenance
  * @property {string} conceptwikiProvenance - conceptwikiProvenance
  */
+/**
+ * Contains information about a single disease fetched with {@link Openphacts.DiseaseSearch#fetchDisease}
+ * @typedef {Object} FetchDiseaseResponse
+ * @property {string} URI - URI
+ * @property {string} name - name
+ * @property {Array} diseaseClass - diseaseClass
+ */ 
