@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: CompoundSearch</title>
+    <title>JSDoc: Class: TargetSearch</title>
     
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Class: CompoundSearch</h1>
+    <h1 class="page-title">Class: TargetSearch</h1>
     
     
 
@@ -29,7 +29,7 @@
     <h2>
         <span class="ancestors"><a href="Openphacts.html">Openphacts</a>.</span>
     
-    CompoundSearch
+    TargetSearch
     </h2>
     
 </header>  
@@ -41,7 +41,7 @@
     
         
 <dt>
-    <h4 class="name" id="CompoundSearch"><span class="type-signature"></span>new CompoundSearch<span class="signature">(baseURL, appID, appKey)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="TargetSearch"><span class="type-signature"></span>new TargetSearch<span class="signature">(baseURL, appID, appKey)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -182,7 +182,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line255">line 255</a>
+        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line1220">line 1220</a>
     </li></ul></dd>
     
     
@@ -228,7 +228,7 @@
         <dl>
             
 <dt>
-    <h4 class="name" id="compoundClassifications"><span class="type-signature"></span>compoundClassifications<span class="signature">(URI, tree, callback)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="compoundsForTarget"><span class="type-signature"></span>compoundsForTarget<span class="signature">(URI, callback)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -236,7 +236,7 @@
     
     
     <div class="description">
-        The classes the given compound URI has been classified with eg ChEBI
+        The hierarchy classes for the different Compounds that interact with a given Target.
     </div>
     
 
@@ -286,30 +286,7 @@
             
             
             
-            <td class="description last">The URI for the compound of interest</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>tree</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">Restrict results by hierarchy eg chebi</td>
+            <td class="description last">The URI for the target of interest.</td>
         </tr>
 	
 	
@@ -332,7 +309,7 @@
             
             
             
-            <td class="description last">Function that will be called with the result</td>
+            <td class="description last">Function that will be called with the result.</td>
         </tr>
 	
 	
@@ -363,7 +340,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line464">line 464</a>
+        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line1304">line 1304</a>
     </li></ul></dd>
     
     
@@ -386,12 +363,21 @@
     
     
     
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>var searcher = new Openphacts.TargetSearch("https://beta.openphacts.org/1.4", "appID", "appKey");  
+var callback=function(success, status, response){  
+   var targetResult = searcher.parseTargetResponse(response);  
+};  
+searcher.compoundsForTarget('http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', callback);</code></pre>
+
+    
 </dd>
 
         
             
 <dt>
-    <h4 class="name" id="compoundPharmacology"><span class="type-signature"></span>compoundPharmacology<span class="signature">(URI, <span class="optional">assayOrganism</span>, <span class="optional">targetOrganism</span>, <span class="optional">activityType</span>, <span class="optional">activityValue</span>, <span class="optional">minActivityValue</span>, <span class="optional">minExActivityValue</span>, <span class="optional">maxActivityValue</span>, <span class="optional">maxExActivityValue</span>, <span class="optional">activityUnit</span>, <span class="optional">activityRelation</span>, <span class="optional">pChembl</span>, <span class="optional">minpChembl</span>, <span class="optional">minExpChembl</span>, <span class="optional">maxpChembl</span>, <span class="optional">maxExpChembl</span>, <span class="optional">targetType</span>, <span class="optional">page</span>, <span class="optional">pageSize</span>, <span class="optional">orderBy</span>, <span class="optional">lens</span>, callback)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="fetchTarget"><span class="type-signature"></span>fetchTarget<span class="signature">(URI, <span class="optional">lens</span>, callback)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -399,7 +385,685 @@
     
     
     <div class="description">
-        Fetch pharmacology records for the compound represented by the URI provided.
+        Fetch the target represented by the URI provided.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		<th>Argument</th>
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>URI</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    
+                
+                    
+                
+                </td>
+            
+            
+            
+            
+            <td class="description last">The URI for the target of interest.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>lens</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+                    
+                
+                    
+                
+                </td>
+            
+            
+            
+            
+            <td class="description last">An optional lens to apply to the result.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#requestCallback">requestCallback</a></span>
+
+
+            
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    
+                
+                    
+                
+                </td>
+            
+            
+            
+            
+            <td class="description last">Function that will be called with the result.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line1238">line 1238</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>var searcher = new Openphacts.TargetSearch("https://beta.openphacts.org/1.4", "appID", "appKey");  
+var callback=function(success, status, response){  
+   var targetResult = searcher.parseTargetResponse(response);  
+};  
+searcher.fetchTarget('http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', null, callback);</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="fetchTargetBatch"><span class="type-signature"></span>fetchTargetBatch<span class="signature">(URIList, <span class="optional">lens</span>, callback)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Fetch the targets represented by the URIs provided.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		<th>Argument</th>
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>URIList</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    
+                
+                    
+                
+                </td>
+            
+            
+            
+            
+            <td class="description last">The URIs for the targets of interest.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>lens</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+                    
+                
+                    
+                
+                </td>
+            
+            
+            
+            
+            <td class="description last">An optional lens to apply to the result.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#requestCallback">requestCallback</a></span>
+
+
+            
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    
+                
+                    
+                
+                </td>
+            
+            
+            
+            
+            <td class="description last">Function that will be called with the result.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line1271">line 1271</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>var searcher = new Openphacts.TargetSearch("https://beta.openphacts.org/1.4", "appID", "appKey");  
+var callback=function(success, status, response){  
+   var targets = searcher.parseTargetBatchResponse(response);  
+};  
+searcher.fetchTargetBatch(['http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', 'http://www.conceptwiki.org/concept/7b21c06f-0343-4fcc-ab0f-a74ffe871ade'], null, callback);</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="parseTargetBatchResponse"><span class="type-signature"></span>parseTargetBatchResponse<span class="signature">(response)</span><span class="type-signature"> &rarr; {<a href="global.html#FetchTargetBatchResponse">FetchTargetBatchResponse</a>}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Parse the results from <a href="Openphacts.TargetSearch.html#fetchTargetBatch">Openphacts.TargetSearch#fetchTargetBatch</a>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>response</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">the JSON response from <a href="Openphacts.TargetSearch.html#fetchTargetBatch">Openphacts.TargetSearch#fetchTargetBatch</a></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line1638">line 1638</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    Containing the flattened response
+</div>
+
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type"><a href="global.html#FetchTargetBatchResponse">FetchTargetBatchResponse</a></span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="parseTargetResponse"><span class="type-signature"></span>parseTargetResponse<span class="signature">(response)</span><span class="type-signature"> &rarr; {<a href="global.html#FetchTargetResponse">FetchTargetResponse</a>}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Parse the results from <a href="Openphacts.TargetSearch.html#fetchTarget">Openphacts.TargetSearch#fetchTarget</a>
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>response</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">the JSON response from <a href="Openphacts.TargetSearch.html#fetchTarget">Openphacts.TargetSearch#fetchTarget</a></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line1494">line 1494</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    Containing the flattened response
+</div>
+
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type"><a href="global.html#FetchTargetResponse">FetchTargetResponse</a></span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="targetPharmacology"><span class="type-signature"></span>targetPharmacology<span class="signature">(URI, <span class="optional">assayOrganism</span>, <span class="optional">targetOrganism</span>, <span class="optional">activityType</span>, <span class="optional">activityValue</span>, <span class="optional">minActivityValue</span>, <span class="optional">minExActivityValue</span>, <span class="optional">maxActivityValue</span>, <span class="optional">maxExActivityValue</span>, <span class="optional">activityUnit</span>, <span class="optional">activityRelation</span>, <span class="optional">pChembl</span>, <span class="optional">minpChembl</span>, <span class="optional">minExpChembl</span>, <span class="optional">maxpChembl</span>, <span class="optional">maxExpChembl</span>, <span class="optional">targetType</span>, <span class="optional">page</span>, <span class="optional">pageSize</span>, <span class="optional">orderBy</span>, <span class="optional">lens</span>, callback)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Fetch pharmacology records for the target represented by the URI provided.
     </div>
     
 
@@ -465,7 +1129,7 @@
                 </td>
             
             
-            <td class="description last">The URI for the compound of interest</td>
+            <td class="description last">The URI for the target of interest</td>
         </tr>
 	
 	
@@ -1275,7 +1939,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line355">line 355</a>
+        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line1356">line 1356</a>
     </li></ul></dd>
     
     
@@ -1301,11 +1965,11 @@
         <h5>Example</h5>
         
     <pre class="prettyprint"><code> 
-var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.4", "appID", "appKey");  
+var searcher = new Openphacts.TargetSearch("https://beta.openphacts.org/1.4", "appID", "appKey");  
 var callback=function(success, status, response){
-    var pharmacologyResult == searcher.parseCompoundPharmacologyResponse(response);
+    var pharmacologyResult == searcher.parseTargetPharmacologyResponse(response);
 };
-searcher.compoundPharmacology('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 1, 20, null, null, callback);     </code></pre>
+searcher.targetPharmacology('http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 1, 20, null, null, callback);     </code></pre>
 
     
 </dd>
@@ -1313,7 +1977,7 @@ searcher.compoundPharmacology('http://www.conceptwiki.org/concept/38932552-111f-
         
             
 <dt>
-    <h4 class="name" id="compoundPharmacologyCount"><span class="type-signature"></span>compoundPharmacologyCount<span class="signature">(URI, <span class="optional">assayOrganism</span>, <span class="optional">targetOrganism</span>, <span class="optional">activityType</span>, <span class="optional">activityValue</span>, <span class="optional">minActivityValue</span>, <span class="optional">minExActivityValue</span>, <span class="optional">maxActivityValue</span>, <span class="optional">maxExActivityValue</span>, <span class="optional">activityUnit</span>, <span class="optional">activityRelation</span>, <span class="optional">pChembl</span>, <span class="optional">minpChembl</span>, <span class="optional">minExpChembl</span>, <span class="optional">maxpChembl</span>, <span class="optional">maxExpChembl</span>, <span class="optional">targetType</span>, <span class="optional">lens</span>, callback)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="targetPharmacologyCount"><span class="type-signature"></span>targetPharmacologyCount<span class="signature">(URI, <span class="optional">assayOrganism</span>, <span class="optional">targetOrganism</span>, <span class="optional">activityType</span>, <span class="optional">activityValue</span>, <span class="optional">minActivityValue</span>, <span class="optional">minExActivityValue</span>, <span class="optional">maxActivityValue</span>, <span class="optional">maxExActivityValue</span>, <span class="optional">activityUnit</span>, <span class="optional">activityRelation</span>, <span class="optional">pChembl</span>, <span class="optional">minpChembl</span>, <span class="optional">minExpChembl</span>, <span class="optional">maxpChembl</span>, <span class="optional">maxExpChembl</span>, <span class="optional">targetType</span>, <span class="optional">lens</span>, callback)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -1321,7 +1985,7 @@ searcher.compoundPharmacology('http://www.conceptwiki.org/concept/38932552-111f-
     
     
     <div class="description">
-        Fetch a count of the pharmacology records belonging to the compound represented by the URI provided.
+        Fetch a count of the pharmacology records belonging to the target represented by the URI provided.
     </div>
     
 
@@ -1381,7 +2045,7 @@ searcher.compoundPharmacology('http://www.conceptwiki.org/concept/38932552-111f-
             
             
             
-            <td class="description last">The URI for the compound of interest</td>
+            <td class="description last">The URI for the target of interest</td>
         </tr>
 	
 	
@@ -2004,7 +2668,7 @@ searcher.compoundPharmacology('http://www.conceptwiki.org/concept/38932552-111f-
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line422">line 422</a>
+        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line1426">line 1426</a>
     </li></ul></dd>
     
     
@@ -2030,11 +2694,11 @@ searcher.compoundPharmacology('http://www.conceptwiki.org/concept/38932552-111f-
         <h5>Example</h5>
         
     <pre class="prettyprint"><code> 
-var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.4", "appID", "appKey");  
+var searcher = new Openphacts.TargetSearch("https://beta.openphacts.org/1.4", "appID", "appKey");  
 var callback=function(success, status, response){
-    var pharmacologyResult == searcher.parseCompoundPharmacologyCountResponse(response);
+    var pharmacologyResult == searcher.parseTargetPharmacologyCountResponse(response);
 };
-searcher.compoundPharmacologyCount('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);     </code></pre>
+searcher.targetPharmacologyCount('http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);     </code></pre>
 
     
 </dd>
@@ -2042,7 +2706,7 @@ searcher.compoundPharmacologyCount('http://www.conceptwiki.org/concept/38932552-
         
             
 <dt>
-    <h4 class="name" id="fetchCompound"><span class="type-signature"></span>fetchCompound<span class="signature">(URI, <span class="optional">lens</span>, callback)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="targetTypes"><span class="type-signature"></span>targetTypes<span class="signature">(lens, callback)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -2050,7 +2714,7 @@ searcher.compoundPharmacologyCount('http://www.conceptwiki.org/concept/38932552-
     
     
     <div class="description">
-        Fetch the compound represented by the URI provided.
+        A list of target types
     </div>
     
 
@@ -2072,8 +2736,6 @@ searcher.compoundPharmacologyCount('http://www.conceptwiki.org/concept/38932552-
 		<th>Type</th>
 		
 		
-		<th>Argument</th>
-		
 		
 		
 		
@@ -2082,37 +2744,6 @@ searcher.compoundPharmacologyCount('http://www.conceptwiki.org/concept/38932552-
 	</thead>
 	
 	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>URI</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-            
-            
-                <td class="attributes">
-                
-                    
-                
-                    
-                
-                </td>
-            
-            
-            
-            
-            <td class="description last">The URI for the compound of interest.</td>
-        </tr>
-	
 	
 	
         <tr>
@@ -2130,20 +2761,10 @@ searcher.compoundPharmacologyCount('http://www.conceptwiki.org/concept/38932552-
             </td>
             
             
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-                    
-                
-                    
-                
-                </td>
             
             
             
-            
-            <td class="description last">An optional lens to apply to the result.</td>
+            <td class="description last">Which chemistry lens to apply to the result</td>
         </tr>
 	
 	
@@ -2163,18 +2784,10 @@ searcher.compoundPharmacologyCount('http://www.conceptwiki.org/concept/38932552-
             </td>
             
             
-                <td class="attributes">
-                
-                    
-                
-                    
-                
-                </td>
             
             
             
-            
-            <td class="description last">Function that will be called with the result.</td>
+            <td class="description last">Function that will be called with the result</td>
         </tr>
 	
 	
@@ -2205,7 +2818,7 @@ searcher.compoundPharmacologyCount('http://www.conceptwiki.org/concept/38932552-
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line273">line 273</a>
+        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line1469">line 1469</a>
     </li></ul></dd>
     
     
@@ -2226,632 +2839,6 @@ searcher.compoundPharmacologyCount('http://www.conceptwiki.org/concept/38932552-
     
     
     
-    
-    
-        <h5>Example</h5>
-        
-    <pre class="prettyprint"><code>var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.4", "appID", "appKey");  
-var callback=function(success, status, response){  
-   var compoundResult = searcher.parseCompoundResponse(response);  
-};  
-searcher.fetchCompound('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', null, callback);</code></pre>
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="fetchCompoundBatch"><span class="type-signature"></span>fetchCompoundBatch<span class="signature">(URIList, <span class="optional">lens</span>, callback)</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Fetch the compounds matching the list of URIs provided.
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		<th>Argument</th>
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>URIList</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-            
-            
-                <td class="attributes">
-                
-                    
-                
-                    
-                
-                </td>
-            
-            
-            
-            
-            <td class="description last">An array of URIs for the compounds of interest.</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>lens</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-            
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-                    
-                
-                    
-                
-                </td>
-            
-            
-            
-            
-            <td class="description last">An optional lens to apply to the result.</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>callback</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#requestCallback">requestCallback</a></span>
-
-
-            
-            </td>
-            
-            
-                <td class="attributes">
-                
-                    
-                
-                    
-                
-                </td>
-            
-            
-            
-            
-            <td class="description last">Function that will be called with the result.</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line304">line 304</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    
-    
-        <h5>Example</h5>
-        
-    <pre class="prettyprint"><code>var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.4", "appID", "appKey");  
-var callback=function(success, status, response){  
-   var compoundResults = searcher.parseCompoundBatchResponse(response);  
-};  
-searcher.fetchCompoundBatch(['http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', 'http://www.conceptwiki.org/concept/dd758846-1dac-4f0d-a329-06af9a7fa413'], null, callback);</code></pre>
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="parseCompoundBatchResponse"><span class="type-signature"></span>parseCompoundBatchResponse<span class="signature">(response)</span><span class="type-signature"> &rarr; {<a href="global.html#FetchCompoundBatchResponse">FetchCompoundBatchResponse</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Parse the results from <a href="Openphacts.CompoundSearch.html#fetchCompoundBatch">Openphacts.CompoundSearch#fetchCompoundBatch</a>
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>response</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">the JSON response from <a href="Openphacts.CompoundSearch.html#fetchCompoundBatch">Openphacts.CompoundSearch#fetchCompoundBatch</a></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line657">line 657</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Containing the flattened response
-</div>
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type"><a href="global.html#FetchCompoundBatchResponse">FetchCompoundBatchResponse</a></span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="parseCompoundPharmacologyResponse"><span class="type-signature"></span>parseCompoundPharmacologyResponse<span class="signature">(response)</span><span class="type-signature"> &rarr; {<a href="global.html#FetchCompoundPharmacologyResponse">FetchCompoundPharmacologyResponse</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Parse the results from Openphacts.CompoundSearch#fetchCompoundPharmacology
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>response</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">the JSON response from Openphacts.CompoundSearch#fetchCompoundPharmacology</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line829">line 829</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Containing the flattened response
-</div>
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type"><a href="global.html#FetchCompoundPharmacologyResponse">FetchCompoundPharmacologyResponse</a></span>
-
-
-	</dd>
-</dl>
-
-        
-    
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="parseCompoundResponse"><span class="type-signature"></span>parseCompoundResponse<span class="signature">(response)</span><span class="type-signature"> &rarr; {<a href="global.html#FetchCompoundResponse">FetchCompoundResponse</a>}</span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Parse the results from <a href="Openphacts.CompoundSearch.html#fetchCompound">Openphacts.CompoundSearch#fetchCompound</a>
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>response</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">the JSON response from <a href="Openphacts.CompoundSearch.html#fetchCompound">Openphacts.CompoundSearch#fetchCompound</a></td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line490">line 490</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Containing the flattened response
-</div>
-
-
-
-<dl>
-	<dt>
-		Type
-	</dt>
-	<dd>
-		
-<span class="param-type"><a href="global.html#FetchCompoundResponse">FetchCompoundResponse</a></span>
-
-
-	</dd>
-</dl>
-
-        
     
     
 </dd>
@@ -2878,7 +2865,7 @@ searcher.fetchCompoundBatch(['http://www.conceptwiki.org/concept/38932552-111f-4
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Mon Sep 29 2014 16:09:08 GMT+0100 (BST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Mon Sep 29 2014 16:09:09 GMT+0100 (BST)
 </footer>
 
 <script> prettyPrint(); </script>
