@@ -25,5 +25,41 @@ describe("Disease search", function() {
       });
     });
   });
+  describe("count diseases for a target", function() {
+
+    it("can be executed", function() {
+      spyOn(searcher, 'diseasesByTargetCount');
+      searcher.diseasesByTargetCount('targetURI', 'lens', 'callback');
+      expect(searcher.diseasesByTargetCount).toHaveBeenCalled();
+    });
+    it("executes asynchronously", function() {
+      var callback = jasmine.createSpy();
+      searcher.diseasesByTargetCount('http://purl.uniprot.org/uniprot/Q9Y5Y9', null, callback);
+      waitsFor(function() {
+          return callback.callCount > 0;
+      });
+      runs(function() {
+          expect(callback).toHaveBeenCalled();
+      });
+    });
+  });
+  describe("diseases for a target", function() {
+
+    it("can be executed", function() {
+      spyOn(searcher, 'diseasesByTarget');
+      searcher.diseasesByTarget('diseaseURI', 'lens', 'callback');
+      expect(searcher.diseasesByTarget).toHaveBeenCalled();
+    });
+    it("executes asynchronously", function() {
+      var callback = jasmine.createSpy();
+      searcher.diseasesByTarget('http://purl.uniprot.org/uniprot/Q9Y5Y9', null, null, null, null, callback);
+      waitsFor(function() {
+          return callback.callCount > 0;
+      });
+      runs(function() {
+          expect(callback).toHaveBeenCalled();
+      });
+    });
+  });
 
 });

@@ -185,3 +185,13 @@ var Openphacts = Openphacts || {};
  * @property {string} name - name
  * @property {Array} diseaseClass - diseaseClass
  */ 
+/**
+ * Contains list of diseases for a single target fetched with {@link Openphacts.DiseaseSearch#diseasesByTarget}
+ * @typedef {Array.<Object>} DiseasesByTargetResponse
+ * @property {string} URI - URI
+ * @property {string} name - name
+ * @property {string} gene - gene
+ * @property {string} encodes - encodes
+ * @property {string} encodeURI - encodeURI
+ * @property {string} encodeLabel - encodeLabel
+ */ 

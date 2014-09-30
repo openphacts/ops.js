@@ -574,13 +574,13 @@ Openphacts.CompoundSearch.prototype.parseCompoundBatchResponse = function(respon
 	});
 	return compounds;
 }
+
 /**
  * Parse the results from {@link Openphacts.CompoundSearch#fetchCompoundPharmacology}
  * @param {Object} response - the JSON response from {@link Openphacts.CompoundSearch#fetchCompoundPharmacology}
  * @returns {FetchCompoundPharmacologyResponse} Containing the flattened response
  * @method
  */
-
 Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyResponse = function(response) {
 	var drugbankProvenance, chemspiderProvenance, chemblProvenance, conceptwikiProvenance;
 	var constants = new Openphacts.Constants();
@@ -815,6 +815,12 @@ Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyResponse = function
 	return records;
 }
 
+/**
+ * Parse the results from {@link Openphacts.CompoundSearch#compoundPharmacologyCount}
+ * @param {Object} response - the JSON response from {@link Openphacts.CompoundSearch#compoundPharmacologyCount}
+ * @returns {Number} Count of the number of pharmacology entries for the compound
+ * @method
+ */
 Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyCountResponse = function(response) {
 	return response.primaryTopic.compoundPharmacologyTotalResults;
 }
