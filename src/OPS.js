@@ -195,3 +195,12 @@ var Openphacts = Openphacts || {};
  * @property {string} encodeURI - encodeURI
  * @property {string} encodeLabel - encodeLabel
  */ 
+/**
+ * Contains various types of data about the compounds matching a source compound when a lens is applied using {@Link Openphacts.CompoundSearch#fetchCompound}
+ * Note that the items in each list cannot be linked together but you can use the {@Link Openphacts.MapSearch#mapURL} call to discover which items are about the same compound.
+ * @typedef {Array.<Object>} FetchCompoundLensResponse
+ * @property {Array} lensChemspider - List of compounds from chemspider
+ * @property {Array} lensDrugbank - list of drugbank info items relating to the chemspider compounds
+ * @property {Array} lensCW - list of conceptwiki info about the compounds
+ * @property {Array} lensChembl - list of chembl info items about the compounds
+ */ 

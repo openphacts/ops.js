@@ -145,6 +145,31 @@ describe("Compound search", function() {
       });
       searcher.fetchCompound('http://identifiers.org/hmdb/HMDB00123', null, callback);
     });
+    it("can use a lens", function() {
+      var this_success = null;
+      var this_status = null;
+      var this_result = null;
+      var callback=function(success, status, response){
+        this_success = success;
+        this_status = status;
+        this_result = searcher.parseCompoundLensResponse(response);
+      };
+      waitsFor(function() {
+        return this_result != null;
+      });
+      runs(function() {
+        expect(this_success).toBe(true);
+        expect(this_status).toBe(200);
+
+        // API contract states that these will be present
+        expect(this_result.lensChemspider).toBeDefined();
+        expect(this_result.lensChembl).toBeDefined();
+        expect(this_result.lensCW).toBeDefined();
+        expect(this_result.lensDrugbank).toBeDefined();
+      });
+      searcher.fetchCompound('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', 'stereochemistry', callback);
+    });
+
     it("can handle errors", function() {
       var this_success = null;
       var this_status = null;
