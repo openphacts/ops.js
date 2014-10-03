@@ -412,6 +412,7 @@ Openphacts.CompoundSearch.prototype.parseCompoundResponse = function(response) {
  * @method
  */
 Openphacts.CompoundSearch.prototype.parseCompoundLensResponse = function(response) {
+    var constants = new Openphacts.Constants();
     var drugbankData, chemspiderData, chemblData, conceptWikiData;
 
     // There will be many different compounds due to the lens but at this stage there is no way of connecting
@@ -422,108 +423,127 @@ Openphacts.CompoundSearch.prototype.parseCompoundLensResponse = function(respons
     var lensChembl = [];
     $.each(response.primaryTopic.exactMatch, function(i, match) {
         var src = match[constants.IN_DATASET];
+        var prefLabel = null,
+            cwURI = null,
+            description = null,
+            biotransformationItem = null,
+            toxicity = null,
+            proteinBinding = null,
+            csURI = null,
+            hba = null,
+            hbd = null,
+            inchi = null,
+            logp = null,
+            psa = null,
+            ro5Violations = null,
+            smiles = null,
+            chemblURI = null,
+            fullMWT = null,
+            molform = null,
+            mwFreebase = null,
+            rtb = null,
+            inchiKey = null,
+            drugbankURI = null,
+            molweight = null,
+            molformula = null;
+
         if (constants.SRC_CLS_MAPPINGS[src] == 'drugbankValue') {
             drugbankData = match;
+            description = drugbankData.description != null ? drugbankData.description : description;
+            biotransformationItem = drugbankData.biotransformation != null ? drugbankData.biotransformation : biotransformationItem;
+            toxicity = drugbankData.toxicity != null ? drugbankData.toxicity : toxicity;
+            proteinBinding = drugbankData.proteinBinding != null ? drugbankData.proteinBinding : proteinBinding;
+            drugbankURI = drugbankData[constants.ABOUT] != null ? drugbankData[constants.ABOUT] : drugbankURI;
+
+            // provenance
+            drugbankLinkout = drugbankURI;
+            drugbankProvenance = {};
+            drugbankProvenance['source'] = 'drugbank';
+            drugbankProvenance['description'] = drugbankLinkout;
+            drugbankProvenance['biotransformation'] = drugbankLinkout;
+            drugbankProvenance['toxicity'] = drugbankLinkout;
+            drugbankProvenance['proteinBinding'] = drugbankLinkout;
+            lensDrugbank.push({
+                "description": description,
+                "biotransformationItem": biotransformationItem,
+                "toxicity": toxicity,
+                "proteinBinding": proteinBinding,
+                "drugbankURI": drugbankURI,
+                "drugbankProvenance": drugbankProvenance
+            });
+
         } else if (constants.SRC_CLS_MAPPINGS[src] == 'chemspiderValue') {
             chemspiderData = match;
+            csURI = chemspiderData["_about"] !== null ? chemspiderData["_about"] : csURI;
+            hba = chemspiderData.hba != null ? chemspiderData.hba : hba;
+            hbd = chemspiderData.hbd != null ? chemspiderData.hbd : hbd;
+            inchi = chemspiderData.inchi != null ? chemspiderData.inchi : inchi;
+            logp = chemspiderData.logp != null ? chemspiderData.logp : logp;
+            psa = chemspiderData.psa != null ? chemspiderData.psa : psa;
+            ro5Violations = chemspiderData.ro5_violations != null ? chemspiderData.ro5_violations : ro5Violations;
+            smiles = chemspiderData.smiles != null ? chemspiderData.smiles : smiles;
+            inchiKey = chemspiderData.inchikey != null ? chemspiderData.inchikey : inchikey;
+            rtb = chemspiderData.rtb != null ? chemspiderData.rtb : rtb;
+            fullMWT = chemspiderData.molweight != null ? chemspiderData.molweight : molweight;
+            molform = chemspiderData.molformula != null ? chemspiderData.molformula : molformula;
+
+            // provenance 
+            chemspiderLinkOut = csURI;
+            chemspiderProvenance = {};
+            chemspiderProvenance['source'] = 'chemspider';
+            chemspiderProvenance['hba'] = chemspiderLinkOut;
+            chemspiderProvenance['hbd'] = chemspiderLinkOut;
+            chemspiderProvenance['inchi'] = chemspiderLinkOut;
+            chemspiderProvenance['logp'] = chemspiderLinkOut;
+            chemspiderProvenance['psa'] = chemspiderLinkOut;
+            chemspiderProvenance['ro5violations'] = chemspiderLinkOut;
+            chemspiderProvenance['smiles'] = chemspiderLinkOut;
+            chemspiderProvenance['inchiKey'] = chemspiderLinkOut;
+            chemspiderProvenance['molform'] = chemspiderLinkOut;
+            lensChemspider.push({
+                "csURI": csURI,
+                "hba": hba,
+                "hbd": hbd,
+                "inchi": inchi,
+                "logp": logp,
+                "psa": psa,
+                "ro5Violations": ro5Violations,
+                "smiles": smiles,
+                "fullMWT": fullMWT,
+                "molform": molform,
+                "rtb": rtb,
+                "inchiKey": inchiKey,
+                "chemspiderProvenance": chemspiderProvenance
+            })
+
         } else if (constants.SRC_CLS_MAPPINGS[src] == 'chemblValue') {
             chemblData = match;
+            chemblURI = chemblData["_about"] != null ? chemblData["_about"] : chemblURI;
+            mwFreebase = chemblData.mw_freebase != null ? chemblData.mw_freebase : mwFreebase;
+
+            // provenance
+            chemblLinkOut = 'https://www.ebi.ac.uk/chembldb/compound/inspect/' + chemblURI.split("/").pop();
+            chemblProvenance = {};
+            chemblProvenance['source'] = 'chembl';
+            chemblProvenance['fullMWT'] = chemblLinkOut;
+            chemblProvenance['mwFreebase'] = chemblLinkOut;
+            chemblProvenance['rtb'] = chemblLinkOut;
+            lensChembl.push({
+                "chemblURI": chemblURI,
+                "chemblProvenance": chemblProvenance
+            });
+
         } else if (constants.SRC_CLS_MAPPINGS[src] == 'conceptWikiValue') {
             conceptWikiData = match;
+            prefLabel = conceptWikiData.prefLabel != null ? conceptWikiData.prefLabel : prefLabel;
+            cwURI = conceptWikiData["_about"] != null ? conceptWikiData["_about"] : cwURI;
+            lensCW.push({
+                "cwURI": cwURI,
+                "prefLabel": prefLabel
+            });
+
         }
     });
-    if (drugbankData) {
-        description = drugbankData.description != null ? drugbankData.description : description;
-        biotransformationItem = drugbankData.biotransformation != null ? drugbankData.biotransformation : biotransformationItem;
-        toxicity = drugbankData.toxicity != null ? drugbankData.toxicity : toxicity;
-        proteinBinding = drugbankData.proteinBinding != null ? drugbankData.proteinBinding : proteinBinding;
-        drugbankURI = drugbankData[constants.ABOUT] != null ? drugbankData[constants.ABOUT] : drugbankURI;
-
-        // provenance
-        drugbankLinkout = drugbankURI;
-        drugbankProvenance = {};
-        drugbankProvenance['source'] = 'drugbank';
-        drugbankProvenance['description'] = drugbankLinkout;
-        drugbankProvenance['biotransformation'] = drugbankLinkout;
-        drugbankProvenance['toxicity'] = drugbankLinkout;
-        drugbankProvenance['proteinBinding'] = drugbankLinkout;
-        lensDrugbank.push({
-            "description": description,
-            "biotransformationItem": biotransformationItem,
-            "toxicity": toxicity,
-            "proteinBinding": proteinBinding,
-            "drugbankURI": drugbankURI,
-            "drugbankProvenance": drugbankProvenance
-        });
-
-    }
-    if (chemspiderData) {
-        csURI = chemspiderData["_about"] !== null ? chemspiderData["_about"] : csURI;
-        hba = chemspiderData.hba != null ? chemspiderData.hba : hba;
-        hbd = chemspiderData.hbd != null ? chemspiderData.hbd : hbd;
-        inchi = chemspiderData.inchi != null ? chemspiderData.inchi : inchi;
-        logp = chemspiderData.logp != null ? chemspiderData.logp : logp;
-        psa = chemspiderData.psa != null ? chemspiderData.psa : psa;
-        ro5Violations = chemspiderData.ro5_violations != null ? chemspiderData.ro5_violations : ro5Violations;
-        smiles = chemspiderData.smiles != null ? chemspiderData.smiles : smiles;
-        inchiKey = chemspiderData.inchikey != null ? chemspiderData.inchikey : inchikey;
-        rtb = chemspiderData.rtb != null ? chemspiderData.rtb : rtb;
-        fullMWT = chemspiderData.molweight != null ? chemspiderData.molweight : molweight;
-        molform = chemspiderData.molformula != null ? chemspiderData.molformula : molformula;
-
-        // provenance 
-        chemspiderLinkOut = csURI;
-        chemspiderProvenance = {};
-        chemspiderProvenance['source'] = 'chemspider';
-        chemspiderProvenance['hba'] = chemspiderLinkOut;
-        chemspiderProvenance['hbd'] = chemspiderLinkOut;
-        chemspiderProvenance['inchi'] = chemspiderLinkOut;
-        chemspiderProvenance['logp'] = chemspiderLinkOut;
-        chemspiderProvenance['psa'] = chemspiderLinkOut;
-        chemspiderProvenance['ro5violations'] = chemspiderLinkOut;
-        chemspiderProvenance['smiles'] = chemspiderLinkOut;
-        chemspiderProvenance['inchiKey'] = chemspiderLinkOut;
-        chemspiderProvenance['molform'] = chemspiderLinkOut;
-        lensChemspider.push({
-            "csURI": csURI,
-            "hba": hba,
-            "hbd": hbd,
-            "inchi": inchi,
-            "logp": logp,
-            "psa": psa,
-            "ro5Violations": ro5Violations,
-            "smiles": smiles,
-            "fullMWT": fullMWT,
-            "molform": molform,
-            "rtb": rtb,
-            "inchiKey": inchiKey,
-            "chemspiderProvenance": chemspiderProvenance
-        })
-    }
-    if (chemblData) {
-        chemblURI = chemblData["_about"] != null ? chemblData["_about"] : chemblURI;
-        mwFreebase = chemblData.mw_freebase != null ? chemblData.mw_freebase : mwFreebase;
-
-        // provenance
-        chemblLinkOut = 'https://www.ebi.ac.uk/chembldb/compound/inspect/' + chemblURI.split("/").pop();
-        chemblProvenance = {};
-        chemblProvenance['source'] = 'chembl';
-        chemblProvenance['fullMWT'] = chemblLinkOut;
-        chemblProvenance['mwFreebase'] = chemblLinkOut;
-        chemblProvenance['rtb'] = chemblLinkOut;
-        lensChembl.push({
-            "chemblURI": chemblURI,
-            "chemblProvenance": chemblProvenance
-        });
-    }
-    if (conceptWikiData) {
-        prefLabel = conceptWikiData.prefLabel != null ? conceptWikiData.prefLabel : prefLabel;
-        cwURI = conceptWikiData["_about"] != null ? conceptWikiData["_about"] : cwURI;
-        lensCW.push({
-            "cwURI": cwURI,
-            "prefLabel": prefLabel
-        });
-    }
     return {
         "lensChemspider": lensChemspider,
         "lensDrugbank": lensDrugbank,

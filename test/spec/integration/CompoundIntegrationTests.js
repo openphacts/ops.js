@@ -167,7 +167,7 @@ describe("Compound search", function() {
         expect(this_result.lensCW).toBeDefined();
         expect(this_result.lensDrugbank).toBeDefined();
       });
-      searcher.fetchCompound('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', 'stereochemistry', callback);
+      searcher.fetchCompound('http://ops.rsc.org/OPS539735', 'stereochemistry', callback);
     });
 
     it("can handle errors", function() {
