@@ -14,7 +14,7 @@ Openphacts.MapSearch.prototype.mapURL = function(URI, targetUriPattern, graph, l
         params['Uri'] = URI;
         targetUriPattern ? params['targetUriPattern'] = targetUriPattern : '';
         graph ? params['graph'] = graph : '';
-        lens ? params['lens'] = lens : '';
+        lens ? params['lensUri'] = lens : '';
 	var pathwayQuery = $.ajax({
 		url: this.baseURL + '/mapUri',
         dataType: 'json',
