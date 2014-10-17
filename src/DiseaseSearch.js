@@ -116,6 +116,44 @@ Openphacts.DiseaseSearch.prototype.diseasesByTarget = function(URI, page, pageSi
 }
 
 /**
+ * Fetch the targets for a disease represented by the URI provided.
+ * @param {string} URI - The URI for the disease of interest.
+ * @param {string} [page=1] - Which page of records to return.
+ * @param {string} [pageSize=10] - How many records to return. Set to 'all' to return all records in a single page
+ * @param {string} [orderBy] - Order the records by this field eg ?assay_type or DESC(?assay_type)
+ * @param {string} [lens] - An optional lens to apply to the result.
+ * @param {requestCallback} callback - Function that will be called with the result.
+ * @method
+ * @example
+ * var searcher = new Openphacts.DiseaseSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
+ * var callback=function(success, status, response){
+ *    var targets = searcher.parseTargetsByDiseaseResponse(response);
+ * };
+ * searcher.targetsByDisease('http://linkedlifedata.com/resource/umls/id/C0004238', null, null, null, null, callback);
+ */
+Openphacts.DiseaseSearch.prototype.targetsByDisease = function(URI, page, pageSize, orderBy, lens, callback) {
+    params = {};
+    params['_format'] = "json";
+    params['app_key'] = this.appKey;
+    params['app_id'] = this.appID;
+    params['uri'] = URI;
+    page ? params['_page'] = page : '';
+    pageSize ? params['_pageSize'] = pageSize : '';
+    orderBy ? params['_orderBy'] = orderBy : '';
+    lens ? params['_lens'] = lens : '';
+    var diseaseQuery = $.ajax({
+        url: this.baseURL + '/disease/getTargets',
+        dataType: 'json',
+        cache: true,
+        data: params
+    }).done(function(response, status, request) {
+        callback.call(this, true, request.status, response.result);
+    }).fail(function(response, status, statusText) {
+        callback.call(this, false, response.status);
+    });
+}
+
+/**
  * Parse the results from {@link Openphacts.DiseaseSearch#fetchDisease}
  * @param {Object} response - the JSON response from {@link Openphacts.DiseaseSearch#fetchDisease}
  * @returns {FetchDiseaseResponse} Containing the flattened response
@@ -198,4 +236,38 @@ Openphacts.DiseaseSearch.prototype.parseDiseasesByTargetResponse = function(resp
         });
     });
     return diseases;
+}
+
+/**
+ * Parse the results from {@link Openphacts.DiseaseSearch#targetsByDisease}
+ * @param {Object} response - the JSON response from {@link Openphacts.DiseaseSearch#targetsByDisease}
+ * @returns {TargetsByDiseaseResponse} List of disease items
+ * @method
+ */
+Openphacts.DiseaseSearch.prototype.parseTargetsByDiseaseResponse = function(response) {
+    var constants = new Openphacts.Constants();
+    var targets = [];
+    if (Array.isArray(response.items)) {
+        response.items.forEach(function(item, index, array) {
+            var dataset = null,
+                URI = null;
+            URI = item[constants.ABOUT];
+            dataset = item[constants.IN_DATASET];
+            targets.push({
+                "dataset": dataset,
+                "URI": URI
+            });
+        });
+    } else {
+        var dataset = null,
+            URI = null;
+        URI = response.items[constants.ABOUT];
+        dataset = response.items[constants.IN_DATASET];
+        targets.push({
+            "dataset": dataset,
+            "URI": URI
+        });
+
+    }
+    return targets;
 }

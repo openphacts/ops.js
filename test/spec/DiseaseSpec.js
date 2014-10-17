@@ -47,12 +47,31 @@ describe("Disease search", function() {
 
     it("can be executed", function() {
       spyOn(searcher, 'diseasesByTarget');
-      searcher.diseasesByTarget('diseaseURI', 'lens', 'callback');
+      searcher.diseasesByTarget('targetURI', 'lens', 'callback');
       expect(searcher.diseasesByTarget).toHaveBeenCalled();
     });
     it("executes asynchronously", function() {
       var callback = jasmine.createSpy();
       searcher.diseasesByTarget('http://purl.uniprot.org/uniprot/Q9Y5Y9', null, null, null, null, callback);
+      waitsFor(function() {
+          return callback.callCount > 0;
+      });
+      runs(function() {
+          expect(callback).toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe("targets for a disease", function() {
+
+    it("can be executed", function() {
+      spyOn(searcher, 'targetsByDisease');
+      searcher.targetsByDisease('diseaseURI', 'lens', 'callback');
+      expect(searcher.targetsByDisease).toHaveBeenCalled();
+    });
+    it("executes asynchronously", function() {
+      var callback = jasmine.createSpy();
+      searcher.targetsByDisease('http://linkedlifedata.com/resource/umls/id/C0004238', null, null, null, null, callback);
       waitsFor(function() {
           return callback.callCount > 0;
       });

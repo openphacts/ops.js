@@ -147,6 +147,49 @@ describe("Disease search", function() {
       searcher.diseasesByTarget('http://www.conceptwiki.org/concept/876876876', null, null, null, null, callback);
     });
   });
+  describe("targets for disease", function() {
+
+    it("can return a response", function() {
+      var this_success = null;
+      var this_status = null;
+      var this_result = null;
+      var callback=function(success, status, response){
+        this_success = success;
+        this_status = status;
+        this_result = searcher.parseTargetsByDiseaseResponse(response);
+      };
+      waitsFor(function() {
+        return this_result != null;
+      });
+      runs(function() {
+        expect(this_success).toBe(true);
+        expect(this_status).toBe(200);
+
+        // API contract states that these will be present
+        expect(this_result).toBeDefined();
+	expect(this_result.length).toBeGreaterThan(0);
+	expect(this_result[0].dataset).not.toBeNull();
+        expect(this_result[0].URI).not.toBeNull();
+      });
+      searcher.targetsByDisease('http://linkedlifedata.com/resource/umls/id/C0004238', null, null, null, null, callback);
+    });
+    it("can handle errors", function() {
+      var this_success = null;
+      var this_status = null;
+      var callback=function(success, status){
+        this_success = success;
+	this_status = status;
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toEqual(false);
+        expect(this_status).toEqual(404);
+      });
+      searcher.targetsByDisease('http://www.conceptwiki.org/concept/876876876', null, null, null, null, callback);
+    });
+  });
 
 });
 
