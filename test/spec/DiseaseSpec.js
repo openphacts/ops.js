@@ -99,4 +99,23 @@ describe("Disease search", function() {
     });
   });
 
+  describe("count associations for a target", function() {
+
+    it("can be executed", function() {
+      spyOn(searcher, 'associationsByTargetCount');
+      searcher.associationsByTargetCount('targetURI', 'lens', 'callback');
+      expect(searcher.associationsByTargetCount).toHaveBeenCalled();
+    });
+    it("executes asynchronously", function() {
+      var callback = jasmine.createSpy();
+      searcher.associationsByTargetCount('http://purl.uniprot.org/uniprot/Q9Y5Y9', null, callback);
+      waitsFor(function() {
+          return callback.callCount > 0;
+      });
+      runs(function() {
+          expect(callback).toHaveBeenCalled();
+      });
+    });
+  });
+
 });

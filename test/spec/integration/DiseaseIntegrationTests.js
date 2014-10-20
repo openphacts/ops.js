@@ -233,6 +233,49 @@ describe("Disease search", function() {
       searcher.targetsByDisease('http://www.conceptwiki.org/concept/876876876', null, null, null, null, callback);
     });
   });
+  describe("associations for a target", function() {
+
+    it("can return a response", function() {
+      var this_success = null;
+      var this_status = null;
+      var this_result = null;
+      var callback=function(success, status, response){
+        this_success = success;
+        this_status = status;
+        this_result = searcher.parseAssociationsByTargetCountResponse(response);
+      };
+      waitsFor(function() {
+        return this_result != null;
+      });
+      runs(function() {
+        expect(this_success).toBe(true);
+        expect(this_status).toBe(200);
+
+        // API contract states that these will be present
+        expect(this_result).not.toBeNull();
+      });
+      searcher.associationsByTargetCount('http://purl.uniprot.org/uniprot/Q9Y5Y9', null, callback);
+    });
+    it("can handle random URI", function() {
+      var this_success = null;
+      var this_status = null;
+      var this_result = null
+      var callback=function(success, status, response){
+        this_success = success;
+	this_status = status;
+        this_result = searcher.parseAssociationsByTargetCountResponse(response);
+      };
+      waitsFor(function() {
+        return this_result != null;
+      });
+      runs(function() {
+        expect(this_success).toEqual(true);
+        expect(this_status).toEqual(200);
+	expect(this_result).toEqual(0);
+      });
+      searcher.associationsByTargetCount('http://www.conceptwiki.org/concept/876876876', null, callback);
+    });
+  });
 
 });
 

@@ -185,6 +185,38 @@ Openphacts.DiseaseSearch.prototype.targetsByDisease = function(URI, page, pageSi
 }
 
 /**
+ * Count the number of diseases associated with a target represented by the URI provided.
+ * @param {string} URI - The URI for the target of interest.
+ * @param {string} [lens] - An optional lens to apply to the result.
+ * @param {requestCallback} callback - Function that will be called with the result.
+ * @method
+ * @example
+ * var searcher = new Openphacts.DiseaseSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
+ * var callback=function(success, status, response){
+ *    var diseaseResult = searcher.parseAssociationsByTargetCountResponse(response);
+ * };
+ * searcher.associationsByTargetCount('http://purl.uniprot.org/uniprot/Q9Y5Y9', null, callback);
+ */
+Openphacts.DiseaseSearch.prototype.associationsByTargetCount = function(URI, lens, callback) {
+    params = {};
+    params['_format'] = "json";
+    params['app_key'] = this.appKey;
+    params['app_id'] = this.appID;
+    params['uri'] = URI;
+    lens ? params['_lens'] = lens : '';
+    var diseaseQuery = $.ajax({
+        url: this.baseURL + '/disease/assoc/byTarget/count',
+        dataType: 'json',
+        cache: true,
+        data: params
+    }).done(function(response, status, request) {
+        callback.call(this, true, request.status, response.result);
+    }).fail(function(response, status, statusText) {
+        callback.call(this, false, response.status);
+    });
+}
+
+/**
  * Parse the results from {@link Openphacts.DiseaseSearch#fetchDisease}
  * @param {Object} response - the JSON response from {@link Openphacts.DiseaseSearch#fetchDisease}
  * @returns {FetchDiseaseResponse} Containing the flattened response
@@ -308,4 +340,14 @@ Openphacts.DiseaseSearch.prototype.parseTargetsByDiseaseResponse = function(resp
 
     }
     return targets;
+}
+
+/**
+ * Parse the results from {@link Openphacts.DiseaseSearch#associationsByTargetCount}
+ * @param {Object} response - the JSON response from {@link Openphacts.DiseaseSearch#associationsByTargetCount}
+ * @returns {Number} Total count of disease-target associations which correspond to a target
+ * @method
+ */
+Openphacts.DiseaseSearch.prototype.parseAssociationsByTargetCountResponse = function(response) {
+    return response.primaryTopic.associationsCount;
 }
