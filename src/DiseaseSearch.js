@@ -129,39 +129,39 @@ Openphacts.DiseaseSearch.prototype.diseasesByTarget = function(URI, page, pageSi
  * searcher.targetsByDiseaseCount('http://linkedlifedata.com/resource/umls/id/C0004238', null, callback);
  */
 Openphacts.DiseaseSearch.prototype.targetsByDiseaseCount = function(URI, lens, callback) {
-    params = {};
-    params['_format'] = "json";
-    params['app_key'] = this.appKey;
-    params['app_id'] = this.appID;
-    params['uri'] = URI;
-    lens ? params['_lens'] = lens : '';
-    var diseaseQuery = $.ajax({
-        url: this.baseURL + '/disease/getTargets/count',
-        dataType: 'json',
-        cache: true,
-        data: params
-    }).done(function(response, status, request) {
-        callback.call(this, true, request.status, response.result);
-    }).fail(function(response, status, statusText) {
-        callback.call(this, false, response.status);
-    });
-}
-/**
- * Fetch the targets for a disease represented by the URI provided.
- * @param {string} URI - The URI for the disease of interest.
- * @param {string} [page=1] - Which page of records to return.
- * @param {string} [pageSize=10] - How many records to return. Set to 'all' to return all records in a single page
- * @param {string} [orderBy] - Order the records by this field eg ?assay_type or DESC(?assay_type)
- * @param {string} [lens] - An optional lens to apply to the result.
- * @param {requestCallback} callback - Function that will be called with the result.
- * @method
- * @example
- * var searcher = new Openphacts.DiseaseSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
- * var callback=function(success, status, response){
- *    var targets = searcher.parseTargetsByDiseaseResponse(response);
- * };
- * searcher.targetsByDisease('http://linkedlifedata.com/resource/umls/id/C0004238', null, null, null, null, callback);
- */
+        params = {};
+        params['_format'] = "json";
+        params['app_key'] = this.appKey;
+        params['app_id'] = this.appID;
+        params['uri'] = URI;
+        lens ? params['_lens'] = lens : '';
+        var diseaseQuery = $.ajax({
+            url: this.baseURL + '/disease/getTargets/count',
+            dataType: 'json',
+            cache: true,
+            data: params
+        }).done(function(response, status, request) {
+            callback.call(this, true, request.status, response.result);
+        }).fail(function(response, status, statusText) {
+            callback.call(this, false, response.status);
+        });
+    }
+    /**
+     * Fetch the targets for a disease represented by the URI provided.
+     * @param {string} URI - The URI for the disease of interest.
+     * @param {string} [page=1] - Which page of records to return.
+     * @param {string} [pageSize=10] - How many records to return. Set to 'all' to return all records in a single page
+     * @param {string} [orderBy] - Order the records by this field eg ?assay_type or DESC(?assay_type)
+     * @param {string} [lens] - An optional lens to apply to the result.
+     * @param {requestCallback} callback - Function that will be called with the result.
+     * @method
+     * @example
+     * var searcher = new Openphacts.DiseaseSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
+     * var callback=function(success, status, response){
+     *    var targets = searcher.parseTargetsByDiseaseResponse(response);
+     * };
+     * searcher.targetsByDisease('http://linkedlifedata.com/resource/umls/id/C0004238', null, null, null, null, callback);
+     */
 Openphacts.DiseaseSearch.prototype.targetsByDisease = function(URI, page, pageSize, orderBy, lens, callback) {
     params = {};
     params['_format'] = "json";
@@ -193,7 +193,7 @@ Openphacts.DiseaseSearch.prototype.targetsByDisease = function(URI, page, pageSi
  * @example
  * var searcher = new Openphacts.DiseaseSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
  * var callback=function(success, status, response){
- *    var diseaseResult = searcher.parseAssociationsByTargetCountResponse(response);
+ *    var associationsCount = searcher.parseAssociationsByTargetCountResponse(response);
  * };
  * searcher.associationsByTargetCount('http://purl.uniprot.org/uniprot/Q9Y5Y9', null, callback);
  */
@@ -206,6 +206,44 @@ Openphacts.DiseaseSearch.prototype.associationsByTargetCount = function(URI, len
     lens ? params['_lens'] = lens : '';
     var diseaseQuery = $.ajax({
         url: this.baseURL + '/disease/assoc/byTarget/count',
+        dataType: 'json',
+        cache: true,
+        data: params
+    }).done(function(response, status, request) {
+        callback.call(this, true, request.status, response.result);
+    }).fail(function(response, status, statusText) {
+        callback.call(this, false, response.status);
+    });
+}
+
+/**
+ * Fetch the disease-target associations for a particular target represented by the URI provided.
+ * @param {string} URI - The URI for the target of interest.
+ * @param {string} [page=1] - Which page of records to return.
+ * @param {string} [pageSize=10] - How many records to return. Set to 'all' to return all records in a single page
+ * @param {string} [orderBy] - Order the records by this field eg ?assay_type or DESC(?assay_type)
+ * @param {string} [lens] - An optional lens to apply to the result.
+ * @param {requestCallback} callback - Function that will be called with the result.
+ * @method
+ * @example
+ * var searcher = new Openphacts.DiseaseSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
+ * var callback=function(success, status, response){
+ *    var associations = searcher.parseAssociationsByTargetResponse(response);
+ * };
+ * searcher.associationsByTarget('http://purl.uniprot.org/uniprot/Q9Y5Y9', null, null, null, null, callback);
+ */
+Openphacts.DiseaseSearch.prototype.associationsByTarget = function(URI, page, pageSize, orderBy, lens, callback) {
+    params = {};
+    params['_format'] = "json";
+    params['app_key'] = this.appKey;
+    params['app_id'] = this.appID;
+    params['uri'] = URI;
+    page ? params['_page'] = page : '';
+    pageSize ? params['_pageSize'] = pageSize : '';
+    orderBy ? params['_orderBy'] = orderBy : '';
+    lens ? params['_lens'] = lens : '';
+    var diseaseQuery = $.ajax({
+        url: this.baseURL + '/disease/assoc/byTarget',
         dataType: 'json',
         cache: true,
         data: params
@@ -350,4 +388,47 @@ Openphacts.DiseaseSearch.prototype.parseTargetsByDiseaseResponse = function(resp
  */
 Openphacts.DiseaseSearch.prototype.parseAssociationsByTargetCountResponse = function(response) {
     return response.primaryTopic.associationsCount;
+}
+
+/**
+ * Parse the results from {@link Openphacts.DiseaseSearch#associationsByTarget}
+ * @param {Object} response - the JSON response from {@link Openphacts.DiseaseSearch#associationsByTarget}
+ * @returns {AssociationsByTargetResponse} List of disease items
+ * @method
+ */
+Openphacts.DiseaseSearch.prototype.parseAssociationsByTargetResponse = function(response) {
+    var constants = new Openphacts.Constants();
+    var diseaseTargetAssociations = [];
+    if (Array.isArray(response.items)) {
+        response.items.forEach(function(diseaseTargetAssociation, index, array) {
+            var dta = {};
+    		dta.disease = {};
+            dta.disease.diseaseClasses = [];
+            dta.disease.URI = diseaseTargetAssociation.disease[constants.ABOUT];
+            dta.dataset = diseaseTargetAssociation.disease[constants.IN_DATASET];;
+            if (Array.isArray(diseaseTargetAssociation.disease.diseaseClass)) {
+                diseaseTargetAssociation.disease.diseaseClass.forEach(function(diseaseClass, index, array) {
+                    var URI = diseaseClass[constants.ABOUT];
+                    var name = diseaseClass.name;
+                    var dataset = diseaseClass[constants.IN_DATASET];
+                    dta.disease.diseaseClasses.push({
+                        "URI": URI,
+                        "name": name,
+                        "dataset": dataset
+                    });
+                });
+            } else {
+                var URI = response.diseaseClass[constants.ABOUT];
+                var name = response.diseaseClass.name;
+                var dataset = response.diseaseClass[constants.IN_DATASET];
+                dta.disease.diseaseClasses.push({
+                    "URI": URI,
+                    "name": name,
+                    "dataset": dataset
+                });
+            }
+	    diseaseTargetAssociations.push(dta);
+        });
+    };
+    return diseaseTargetAssociations;
 }
