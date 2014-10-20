@@ -61,6 +61,24 @@ describe("Disease search", function() {
       });
     });
   });
+  describe("count targets for a disease", function() {
+
+    it("can be executed", function() {
+      spyOn(searcher, 'targetsByDiseaseCount');
+      searcher.targetsByDiseaseCount('diseaseURI', 'lens', 'callback');
+      expect(searcher.targetsByDiseaseCount).toHaveBeenCalled();
+    });
+    it("executes asynchronously", function() {
+      var callback = jasmine.createSpy();
+      searcher.targetsByDiseaseCount('http://linkedlifedata.com/resource/umls/id/C0004238', null, callback);
+      waitsFor(function() {
+          return callback.callCount > 0;
+      });
+      runs(function() {
+          expect(callback).toHaveBeenCalled();
+      });
+    });
+  });
 
   describe("targets for a disease", function() {
 

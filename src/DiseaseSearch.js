@@ -56,7 +56,7 @@ Openphacts.DiseaseSearch.prototype.fetchDisease = function(URI, lens, callback) 
  * var callback=function(success, status, response){
  *    var diseaseResult = searcher.parseDiseasesByTargetCountResponse(response);
  * };
- * searcher.diseasesByTargetCount('http://linkedlifedata.com/resource/umls/id/C0004238', null, callback);
+ * searcher.diseasesByTargetCount('http://purl.uniprot.org/uniprot/Q9Y5Y9', null, callback);
  */
 Openphacts.DiseaseSearch.prototype.diseasesByTargetCount = function(URI, lens, callback) {
     params = {};
@@ -115,6 +115,37 @@ Openphacts.DiseaseSearch.prototype.diseasesByTarget = function(URI, page, pageSi
     });
 }
 
+/**
+ * Count the number of targets for a disease represented by the URI provided.
+ * @param {string} URI - The URI for the disease of interest.
+ * @param {string} [lens] - An optional lens to apply to the result.
+ * @param {requestCallback} callback - Function that will be called with the result.
+ * @method
+ * @example
+ * var searcher = new Openphacts.DiseaseSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
+ * var callback=function(success, status, response){
+ *    var targetResult = searcher.parseTargetsByDiseaseCountResponse(response);
+ * };
+ * searcher.targetsByDiseaseCount('http://linkedlifedata.com/resource/umls/id/C0004238', null, callback);
+ */
+Openphacts.DiseaseSearch.prototype.targetsByDiseaseCount = function(URI, lens, callback) {
+    params = {};
+    params['_format'] = "json";
+    params['app_key'] = this.appKey;
+    params['app_id'] = this.appID;
+    params['uri'] = URI;
+    lens ? params['_lens'] = lens : '';
+    var diseaseQuery = $.ajax({
+        url: this.baseURL + '/disease/getTargets/count',
+        dataType: 'json',
+        cache: true,
+        data: params
+    }).done(function(response, status, request) {
+        callback.call(this, true, request.status, response.result);
+    }).fail(function(response, status, statusText) {
+        callback.call(this, false, response.status);
+    });
+}
 /**
  * Fetch the targets for a disease represented by the URI provided.
  * @param {string} URI - The URI for the disease of interest.
@@ -236,6 +267,16 @@ Openphacts.DiseaseSearch.prototype.parseDiseasesByTargetResponse = function(resp
         });
     });
     return diseases;
+}
+
+/**
+ * Parse the results from {@link Openphacts.DiseaseSearch#targetsByDiseaseCount}
+ * @param {Object} response - the JSON response from {@link Openphacts.DiseaseSearch#targetsByDiseaseCount}
+ * @returns {Number} Count of the number of diseases for the target
+ * @method
+ */
+Openphacts.DiseaseSearch.prototype.parseTargetsByDiseaseCountResponse = function(response) {
+    return response.primaryTopic.targetCount;
 }
 
 /**
