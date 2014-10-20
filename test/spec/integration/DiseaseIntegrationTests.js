@@ -27,7 +27,6 @@ describe("Disease search", function() {
         expect(this_status).toBe(200);
 
         // API contract states that these will be present
-        expect(this_result.id).not.toBeNull();
         expect(this_result.name).not.toBeNull();
         expect(this_result.URI).not.toBeNull();
 

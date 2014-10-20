@@ -192,12 +192,10 @@ Openphacts.DiseaseSearch.prototype.targetsByDisease = function(URI, page, pageSi
  */
 Openphacts.DiseaseSearch.prototype.parseDiseaseResponse = function(response) {
     var constants = new Openphacts.Constants();
-    var id = null,
-        URI = null,
+    var URI = null,
         name = null,
         diseaseClass = [];
     URI = response.primaryTopic[constants.ABOUT];
-    id = URI.split('/').pop();
     name = response.primaryTopic.name;
     if (response.primaryTopic.diseaseClass != null) {
         if ($.isArray(response.primaryTopic.diseaseClass)) {
@@ -215,7 +213,6 @@ Openphacts.DiseaseSearch.prototype.parseDiseaseResponse = function(response) {
         }
     }
     return {
-        "id": id,
         "URI": URI,
         "name": name,
         "diseaseClass": diseaseClass

@@ -195,3 +195,9 @@ var Openphacts = Openphacts || {};
  * @property {string} encodeURI - encodeURI
  * @property {string} encodeLabel - encodeLabel
  */ 
+/** 
+ * Contains list of targets for a particular disease fetched with {@link Openphacts.DiseaseSearch#targetsByDisease}
+ * @typedef {Array.<Object>} TargetsByDiseaseResponse
+ * @property {string} URI - URI
+ * @property {string} dataset - dataset
+ */
