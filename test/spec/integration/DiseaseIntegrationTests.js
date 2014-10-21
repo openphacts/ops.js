@@ -300,9 +300,15 @@ describe("Disease search", function() {
                 expect(this_result[0].dataset).not.toBeNull();
                 expect(this_result[0].primarySource).not.toBeNull();
                 expect(this_result[0].primarySource.length).toBeGreaterThan(0);
-                // pmid & description are optional
+                // pmid & description are optional but can be empty arrays
                 expect(this_result[0].pmid).not.toBeNull();
                 expect(this_result[0].description).not.toBeNull();
+                expect(this_result[0].gene).not.toBeNull();
+		expect(this_result[0].gene.about).not.toBeNull();
+		expect(this_result[0].gene.encodes).not.toBeNull();
+		// encodesProvenance & encodesLabel are optional
+		expect(this_result[0].gene.encodesProvenance).toBeDefined();
+		expect(this_result[0].gene.encodesLabel).toBeDefined();
                 expect(this_result[0].disease).not.toBeNull();
                 expect(this_result[0].disease.name).not.toBeNull();
                 expect(this_result[0].disease.dataset).not.toBeNull();
