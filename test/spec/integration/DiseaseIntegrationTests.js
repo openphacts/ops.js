@@ -300,6 +300,10 @@ describe("Disease search", function() {
                 expect(this_result[0].dataset).not.toBeNull();
                 expect(this_result[0].primarySource).not.toBeNull();
                 expect(this_result[0].primarySource.length).toBeGreaterThan(0);
+		expect(this_result[0].type).not.toBeNull();
+		expect(this_result[0].type.length).toBeGreaterThan(0);
+		expect(this_result[0].type[0].label).not.toBeNull();
+		expect(this_result[0].type[0].about).not.toBeNull();
                 // pmid & description are optional but can be empty arrays
                 expect(this_result[0].pmid).not.toBeNull();
                 expect(this_result[0].description).not.toBeNull();

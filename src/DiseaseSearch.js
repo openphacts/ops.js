@@ -404,12 +404,12 @@ Openphacts.DiseaseSearch.prototype.parseAssociationsByTargetResponse = function(
             var dta = {};
             dta.about = diseaseTargetAssociation[constants.ABOUT];
             dta.dataset = diseaseTargetAssociation[constants.IN_DATASET];
-	    dta.gene = {};
-	    dta.gene["about"] = diseaseTargetAssociation.gene[constants.ABOUT];
-	    dta.gene["encodes"] = diseaseTargetAssociation.gene.encodes[constants.ABOUT];
-            dta.gene["encodesProvenance"] = diseaseTargetAssociation.gene.encodes.exactMatch[constants.ABOUT] != null ? diseaseTargetAssociation.gene.encodes.exactMatch[constants.ABOUT] : null; 
+            dta.gene = {};
+            dta.gene["about"] = diseaseTargetAssociation.gene[constants.ABOUT];
+            dta.gene["encodes"] = diseaseTargetAssociation.gene.encodes[constants.ABOUT];
+            dta.gene["encodesProvenance"] = diseaseTargetAssociation.gene.encodes.exactMatch[constants.ABOUT] != null ? diseaseTargetAssociation.gene.encodes.exactMatch[constants.ABOUT] : null;
             dta.gene["encodesLabel"] = diseaseTargetAssociation.gene.encodes.exactMatch.prefLabel != null ? diseaseTargetAssociation.gene.encodes.exactMatch.prefLabel : null;
-	    dta.pmid = [];
+            dta.pmid = [];
             if (diseaseTargetAssociation.pmid != null && Array.isArray(diseaseTargetAssociation.pmid)) {
                 diseaseTargetAssociation.pmid.forEach(function(pmid, index, array) {
                     dta.pmid.push(pmid);
@@ -417,6 +417,21 @@ Openphacts.DiseaseSearch.prototype.parseAssociationsByTargetResponse = function(
             } else if (diseaseTargetAssociation.pmid != null) {
                 dta.pmid.push(diseaseTargetAssociation.pmid);
             }
+            dta.type = [];
+            if (Array.isArray(diseaseTargetAssociation.type)) {
+                diseaseTargetAssociation.type.forEach(function(type, index, array) {
+                    dta.type.push({
+                        "about": type[constants.ABOUT],
+                        "label": type.label
+                    });
+                });
+            } else {
+                dta.type.push({
+                    "about": diseaseTargetAssociation.type[constants.ABOUT],
+                    "label": diseaseTargetAssociation.type.label
+                });
+            }
+
             dta.description = [];
             if (diseaseTargetAssociation.description != null && Array.isArray(diseaseTargetAssociation.description)) {
                 diseaseTargetAssociation.description.forEach(function(description, index, array) {
