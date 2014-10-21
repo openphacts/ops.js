@@ -405,7 +405,7 @@ Openphacts.DiseaseSearch.prototype.parseAssociationsByTargetResponse = function(
             dta.about = diseaseTargetAssociation[constants.ABOUT];
             dta.dataset = diseaseTargetAssociation[constants.IN_DATASET];
             dta.gene = {};
-            dta.gene["about"] = diseaseTargetAssociation.gene[constants.ABOUT];
+            dta.gene["URI"] = diseaseTargetAssociation.gene[constants.ABOUT];
             dta.gene["encodes"] = diseaseTargetAssociation.gene.encodes[constants.ABOUT];
             dta.gene["encodesProvenance"] = diseaseTargetAssociation.gene.encodes.exactMatch[constants.ABOUT] != null ? diseaseTargetAssociation.gene.encodes.exactMatch[constants.ABOUT] : null;
             dta.gene["encodesLabel"] = diseaseTargetAssociation.gene.encodes.exactMatch.prefLabel != null ? diseaseTargetAssociation.gene.encodes.exactMatch.prefLabel : null;
@@ -427,7 +427,7 @@ Openphacts.DiseaseSearch.prototype.parseAssociationsByTargetResponse = function(
                 });
             } else {
                 dta.type.push({
-                    "about": diseaseTargetAssociation.type[constants.ABOUT],
+                    "URI": diseaseTargetAssociation.type[constants.ABOUT],
                     "label": diseaseTargetAssociation.type.label
                 });
             }

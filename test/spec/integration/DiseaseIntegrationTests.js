@@ -303,12 +303,12 @@ describe("Disease search", function() {
 		expect(this_result[0].type).not.toBeNull();
 		expect(this_result[0].type.length).toBeGreaterThan(0);
 		expect(this_result[0].type[0].label).not.toBeNull();
-		expect(this_result[0].type[0].about).not.toBeNull();
+		expect(this_result[0].type[0].URI).not.toBeNull();
                 // pmid & description are optional but can be empty arrays
                 expect(this_result[0].pmid).not.toBeNull();
                 expect(this_result[0].description).not.toBeNull();
                 expect(this_result[0].gene).not.toBeNull();
-		expect(this_result[0].gene.about).not.toBeNull();
+		expect(this_result[0].gene.URI).not.toBeNull();
 		expect(this_result[0].gene.encodes).not.toBeNull();
 		// encodesProvenance & encodesLabel are optional
 		expect(this_result[0].gene.encodesProvenance).toBeDefined();
