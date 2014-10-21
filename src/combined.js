@@ -201,6 +201,26 @@ var Openphacts = Openphacts || {};
  * @property {string} URI - URI
  * @property {string} dataset - dataset
  */
+/**
+ * Contains list of disease target associations for a single target fetched with {@link Openphacts.DiseaseSearch#associationsByTarget}
+ * @typedef {Array.<Object>} AssociationsByTargetResponse
+ * @property {string} about - link to source files describing the disease-target associations
+ * @property {string} dataset - link to the void dataset describing the links between the diseases and other datasets
+ * @property {Array.<string>} description - description
+ * @property {Array.<DiseaseResponse>} disease - disease
+ * @property {Array.<object>} gene - containing URI for the gene, link to the gene it encodes, encodesLabel and encodesProvenance link to where the label came from
+ * @property {Array.<string>} pmid - pubmed ID
+ * @property {Array.<string>} primarySource - primarySource
+ * @property {Array.<Object>} type - containing URI and label
+ */ 
+/**
+ * Contains list of diseases contained within a {@link AssociationsByTargetResponse}
+ * @typedef {Array.<Object>} DiseaseResponse
+ * @property {string} URI - link to the disease
+ * @property {string} dataset - source of the data
+ * @property {Array.<Object>} diseaseClasses - containing URI, source dataset and name
+ */ 
+
 //This content is released under the MIT License, http://opensource.org/licenses/MIT. See licence.txt for more details.
 
 Openphacts.Constants = function() {};
@@ -3688,7 +3708,7 @@ Openphacts.DiseaseSearch.prototype.targetsByDisease = function(URI, page, pageSi
  * @example
  * var searcher = new Openphacts.DiseaseSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
  * var callback=function(success, status, response){
- *    var diseaseResult = searcher.parseAssociationsByTargetCountResponse(response);
+ *    var associationsCount = searcher.parseAssociationsByTargetCountResponse(response);
  * };
  * searcher.associationsByTargetCount('http://purl.uniprot.org/uniprot/Q9Y5Y9', null, callback);
  */
@@ -3701,6 +3721,44 @@ Openphacts.DiseaseSearch.prototype.associationsByTargetCount = function(URI, len
     lens ? params['_lens'] = lens : '';
     var diseaseQuery = $.ajax({
         url: this.baseURL + '/disease/assoc/byTarget/count',
+        dataType: 'json',
+        cache: true,
+        data: params
+    }).done(function(response, status, request) {
+        callback.call(this, true, request.status, response.result);
+    }).fail(function(response, status, statusText) {
+        callback.call(this, false, response.status);
+    });
+}
+
+/**
+ * Fetch the disease-target associations for a particular target represented by the URI provided.
+ * @param {string} URI - The URI for the target of interest.
+ * @param {string} [page=1] - Which page of records to return.
+ * @param {string} [pageSize=10] - How many records to return. Set to 'all' to return all records in a single page
+ * @param {string} [orderBy] - Order the records by this field eg ?assay_type or DESC(?assay_type)
+ * @param {string} [lens] - An optional lens to apply to the result.
+ * @param {requestCallback} callback - Function that will be called with the result.
+ * @method
+ * @example
+ * var searcher = new Openphacts.DiseaseSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
+ * var callback=function(success, status, response){
+ *    var associations = searcher.parseAssociationsByTargetResponse(response);
+ * };
+ * searcher.associationsByTarget('http://purl.uniprot.org/uniprot/Q9Y5Y9', null, null, null, null, callback);
+ */
+Openphacts.DiseaseSearch.prototype.associationsByTarget = function(URI, page, pageSize, orderBy, lens, callback) {
+    params = {};
+    params['_format'] = "json";
+    params['app_key'] = this.appKey;
+    params['app_id'] = this.appID;
+    params['uri'] = URI;
+    page ? params['_page'] = page : '';
+    pageSize ? params['_pageSize'] = pageSize : '';
+    orderBy ? params['_orderBy'] = orderBy : '';
+    lens ? params['_lens'] = lens : '';
+    var diseaseQuery = $.ajax({
+        url: this.baseURL + '/disease/assoc/byTarget',
         dataType: 'json',
         cache: true,
         data: params
@@ -3845,6 +3903,95 @@ Openphacts.DiseaseSearch.prototype.parseTargetsByDiseaseResponse = function(resp
  */
 Openphacts.DiseaseSearch.prototype.parseAssociationsByTargetCountResponse = function(response) {
     return response.primaryTopic.associationsCount;
+}
+
+/**
+ * Parse the results from {@link Openphacts.DiseaseSearch#associationsByTarget}
+ * @param {Object} response - the JSON response from {@link Openphacts.DiseaseSearch#associationsByTarget}
+ * @returns {AssociationsByTargetResponse} List of disease-target associtions
+ * @method
+ */
+Openphacts.DiseaseSearch.prototype.parseAssociationsByTargetResponse = function(response) {
+    var constants = new Openphacts.Constants();
+    var diseaseTargetAssociations = [];
+    if (Array.isArray(response.items)) {
+        response.items.forEach(function(diseaseTargetAssociation, index, array) {
+            var dta = {};
+            dta.about = diseaseTargetAssociation[constants.ABOUT];
+            dta.dataset = diseaseTargetAssociation[constants.IN_DATASET];
+            dta.gene = {};
+            dta.gene["URI"] = diseaseTargetAssociation.gene[constants.ABOUT];
+            dta.gene["encodes"] = diseaseTargetAssociation.gene.encodes[constants.ABOUT];
+            dta.gene["encodesProvenance"] = diseaseTargetAssociation.gene.encodes.exactMatch[constants.ABOUT] != null ? diseaseTargetAssociation.gene.encodes.exactMatch[constants.ABOUT] : null;
+            dta.gene["encodesLabel"] = diseaseTargetAssociation.gene.encodes.exactMatch.prefLabel != null ? diseaseTargetAssociation.gene.encodes.exactMatch.prefLabel : null;
+            dta.pmid = [];
+            if (diseaseTargetAssociation.pmid != null && Array.isArray(diseaseTargetAssociation.pmid)) {
+                diseaseTargetAssociation.pmid.forEach(function(pmid, index, array) {
+                    dta.pmid.push(pmid);
+                });
+            } else if (diseaseTargetAssociation.pmid != null) {
+                dta.pmid.push(diseaseTargetAssociation.pmid);
+            }
+            dta.type = [];
+            if (Array.isArray(diseaseTargetAssociation.type)) {
+                diseaseTargetAssociation.type.forEach(function(type, index, array) {
+                    dta.type.push({
+                        "about": type[constants.ABOUT],
+                        "label": type.label
+                    });
+                });
+            } else {
+                dta.type.push({
+                    "URI": diseaseTargetAssociation.type[constants.ABOUT],
+                    "label": diseaseTargetAssociation.type.label
+                });
+            }
+
+            dta.description = [];
+            if (diseaseTargetAssociation.description != null && Array.isArray(diseaseTargetAssociation.description)) {
+                diseaseTargetAssociation.description.forEach(function(description, index, array) {
+                    dta.description.push(description);
+                });
+            } else if (diseaseTargetAssociation.description != null) {
+                dta.description.push(diseaseTargetAssociation.description);
+            }
+            dta.primarySource = [];
+            if (Array.isArray(diseaseTargetAssociation.primarySource)) {
+                diseaseTargetAssociation.primarySource.forEach(function(primarySource, index, array) {
+                    dta.primarySource.push(primarySource);
+                });
+            } else {
+                dta.primarySource.push(diseaseTargetAssociation.primarySource);
+            }
+            dta.disease = {};
+            dta.disease.diseaseClasses = [];
+            dta.disease.URI = diseaseTargetAssociation.disease[constants.ABOUT];
+            dta.disease.dataset = diseaseTargetAssociation.disease[constants.IN_DATASET];
+            if (Array.isArray(diseaseTargetAssociation.disease.diseaseClass)) {
+                diseaseTargetAssociation.disease.diseaseClass.forEach(function(diseaseClass, index, array) {
+                    var URI = diseaseClass[constants.ABOUT];
+                    var name = diseaseClass.name;
+                    var dataset = diseaseClass[constants.IN_DATASET];
+                    dta.disease.diseaseClasses.push({
+                        "URI": URI,
+                        "name": name,
+                        "dataset": dataset
+                    });
+                });
+            } else {
+                var URI = response.diseaseClass[constants.ABOUT];
+                var name = response.diseaseClass.name;
+                var dataset = response.diseaseClass[constants.IN_DATASET];
+                dta.disease.diseaseClasses.push({
+                    "URI": URI,
+                    "name": name,
+                    "dataset": dataset
+                });
+            }
+            diseaseTargetAssociations.push(dta);
+        });
+    };
+    return diseaseTargetAssociations;
 }
 Openphacts.Version = function Version() {
  
