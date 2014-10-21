@@ -294,14 +294,23 @@ describe("Disease search", function() {
                 expect(this_success).toBe(true);
                 expect(this_status).toBe(200);
 
-                // API contract states that these will be present
                 expect(this_result).toBeDefined();
                 expect(this_result.length).toBeGreaterThan(0);
+                expect(this_result[0].about).not.toBeNull();
+                expect(this_result[0].dataset).not.toBeNull();
+                expect(this_result[0].primarySource).not.toBeNull();
+                expect(this_result[0].primarySource.length).toBeGreaterThan(0);
+                // pmid & description are optional
+                expect(this_result[0].pmid).not.toBeNull();
+                expect(this_result[0].description).not.toBeNull();
                 expect(this_result[0].disease).not.toBeNull();
-                expect(this_reault[0].disease.name).not.toBeNull();
-                expect(this_result[0].disease.URI).not.toBeNull();
-                expect(this_result[0].disease.diseaseAssociations).not.toBeNull();
-                expect(this_result[0].disease.diseaseAssociations.length).toBeGreaterThan(0);
+                expect(this_result[0].disease.name).not.toBeNull();
+                expect(this_result[0].disease.dataset).not.toBeNull();
+                expect(this_result[0].disease.diseaseClasses).not.toBeNull();
+                expect(this_result[0].disease.diseaseClasses.length).toBeGreaterThan(0);
+                expect(this_result[0].disease.diseaseClasses[0].URI).not.toBeNull(0);
+                expect(this_result[0].disease.diseaseClasses[0].name).not.toBeNull(0);
+                expect(this_result[0].disease.diseaseClasses[0].dataset).not.toBeNull(0);
             });
             searcher.associationsByTarget('http://purl.uniprot.org/uniprot/Q9Y5Y9', null, null, null, null, callback);
         });
