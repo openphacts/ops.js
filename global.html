@@ -95,6 +95,447 @@
         <dl>
                 
 <dt>
+    <h4 class="name" id="AssociationsByTargetResponse">AssociationsByTargetResponse</h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        Contains list of disease target associations for a single target fetched with <a href="Openphacts.DiseaseSearch.html#associationsByTarget">Openphacts.DiseaseSearch#associationsByTarget</a>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Array.&lt;Object></span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+        <h5 class="subsection-title">Properties:</h5>
+
+        <dl>
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>about</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">link to source files describing the disease-target associations</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dataset</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">link to the void dataset describing the links between the diseases and other datasets</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>description</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">description</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>disease</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;<a href="global.html#DiseaseResponse">DiseaseResponse</a>></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">disease</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>gene</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;object></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">containing URI for the gene, link to the gene it encodes, encodesLabel and encodesProvenance link to where the label came from</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>pmid</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">pubmed ID</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>primarySource</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">primarySource</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;Object></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">containing URI and label</td>
+        </tr>
+
+    
+    </tbody>
+</table></dl>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line204">line 204</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+            
+                
+<dt>
+    <h4 class="name" id="DiseaseResponse">DiseaseResponse</h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        Contains list of diseases contained within a <a href="global.html#AssociationsByTargetResponse">AssociationsByTargetResponse</a>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Array.&lt;Object></span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+        <h5 class="subsection-title">Properties:</h5>
+
+        <dl>
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>URI</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">link to the disease</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dataset</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">source of the data</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>diseaseClasses</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;Object></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">containing URI, source dataset and name</td>
+        </tr>
+
+    
+    </tbody>
+</table></dl>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line216">line 216</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+            
+                
+<dt>
     <h4 class="name" id="DiseasesByTargetResponse">DiseasesByTargetResponse</h4>
 
     
@@ -4411,6 +4852,146 @@
     
 </dd>
 
+            
+                
+<dt>
+    <h4 class="name" id="TargetsByDiseaseResponse">TargetsByDiseaseResponse</h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        Contains list of targets for a particular disease fetched with <a href="Openphacts.DiseaseSearch.html#targetsByDisease">Openphacts.DiseaseSearch#targetsByDisease</a>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Array.&lt;Object></span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+        <h5 class="subsection-title">Properties:</h5>
+
+        <dl>
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>URI</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">URI</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dataset</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">dataset</td>
+        </tr>
+
+    
+    </tbody>
+</table></dl>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line198">line 198</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
             </dl>
     
 
@@ -4431,7 +5012,7 @@
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha9</a> on Tue Sep 30 2014 11:34:29 GMT+0100 (BST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha9</a> on Tue Oct 21 2014 11:32:36 GMT+0100 (BST)
 </footer>
 
 <script> prettyPrint(); </script>

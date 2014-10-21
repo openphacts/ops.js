@@ -182,7 +182,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line3499">line 3499</a>
+        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line3525">line 3525</a>
     </li></ul></dd>
     
 
@@ -230,6 +230,539 @@
         <h3 class="subsection-title">Methods</h3>
 
         <dl>
+            
+<dt>
+    <h4 class="name" id="associationsByTarget"><span class="type-signature"></span>associationsByTarget<span class="signature">(URI, page<span class="signature-attributes">opt</span>, pageSize<span class="signature-attributes">opt</span>, orderBy<span class="signature-attributes">opt</span>, lens<span class="signature-attributes">opt</span>, callback)</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Fetch the disease-target associations for a particular target represented by the URI provided.
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>URI</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The URI for the target of interest.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>page</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    1
+                
+                </td>
+            
+
+            <td class="description last">Which page of records to return.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>pageSize</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    10
+                
+                </td>
+            
+
+            <td class="description last">How many records to return. Set to 'all' to return all records in a single page</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>orderBy</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Order the records by this field eg ?assay_type or DESC(?assay_type)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>lens</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">An optional lens to apply to the result.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#requestCallback">requestCallback</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Function that will be called with the result.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line3750">line 3750</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>var searcher = new Openphacts.DiseaseSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
+var callback=function(success, status, response){
+   var associations = searcher.parseAssociationsByTargetResponse(response);
+};
+searcher.associationsByTarget('http://purl.uniprot.org/uniprot/Q9Y5Y9', null, null, null, null, callback);</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="associationsByTargetCount"><span class="type-signature"></span>associationsByTargetCount<span class="signature">(URI, lens<span class="signature-attributes">opt</span>, callback)</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Count the number of diseases associated with a target represented by the URI provided.
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>URI</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The URI for the target of interest.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>lens</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">An optional lens to apply to the result.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#requestCallback">requestCallback</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Function that will be called with the result.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line3715">line 3715</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>var searcher = new Openphacts.DiseaseSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
+var callback=function(success, status, response){
+   var associationsCount = searcher.parseAssociationsByTargetCountResponse(response);
+};
+searcher.associationsByTargetCount('http://purl.uniprot.org/uniprot/Q9Y5Y9', null, callback);</code></pre>
+
+    
+</dd>
+
+        
             
 <dt>
     <h4 class="name" id="diseasesByTarget"><span class="type-signature"></span>diseasesByTarget<span class="signature">(URI, page<span class="signature-attributes">opt</span>, pageSize<span class="signature-attributes">opt</span>, orderBy<span class="signature-attributes">opt</span>, lens<span class="signature-attributes">opt</span>, callback)</span><span class="type-signature"></span></h4>
@@ -524,7 +1057,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line3585">line 3585</a>
+        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line3611">line 3611</a>
     </li></ul></dd>
     
 
@@ -726,7 +1259,7 @@ searcher.diseasesByTarget('http://purl.uniprot.org/uniprot/Q9Y5Y9', null, null, 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line3550">line 3550</a>
+        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line3576">line 3576</a>
     </li></ul></dd>
     
 
@@ -757,7 +1290,7 @@ searcher.diseasesByTarget('http://purl.uniprot.org/uniprot/Q9Y5Y9', null, null, 
 var callback=function(success, status, response){
    var diseaseResult = searcher.parseDiseasesByTargetCountResponse(response);
 };
-searcher.diseasesByTargetCount('http://linkedlifedata.com/resource/umls/id/C0004238', null, callback);</code></pre>
+searcher.diseasesByTargetCount('http://purl.uniprot.org/uniprot/Q9Y5Y9', null, callback);</code></pre>
 
     
 </dd>
@@ -928,7 +1461,7 @@ searcher.diseasesByTargetCount('http://linkedlifedata.com/resource/umls/id/C0004
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line3518">line 3518</a>
+        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line3544">line 3544</a>
     </li></ul></dd>
     
 
@@ -960,6 +1493,288 @@ var callback=function(success, status, response){
    var diseaseResult = searcher.parseDiseaseResponse(response);
 };
 searcher.fetchDisease('http://linkedlifedata.com/resource/umls/id/C0004238', null, callback);</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="parseAssociationsByTargetCountResponse"><span class="type-signature"></span>parseAssociationsByTargetCountResponse<span class="signature">(response)</span><span class="type-signature"> &rarr; {Number}</span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Parse the results from <a href="Openphacts.DiseaseSearch.html#associationsByTargetCount">Openphacts.DiseaseSearch#associationsByTargetCount</a>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>response</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the JSON response from <a href="Openphacts.DiseaseSearch.html#associationsByTargetCount">Openphacts.DiseaseSearch#associationsByTargetCount</a></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line3904">line 3904</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    Total count of disease-target associations which correspond to a target
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Number</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="parseAssociationsByTargetResponse"><span class="type-signature"></span>parseAssociationsByTargetResponse<span class="signature">(response)</span><span class="type-signature"> &rarr; {<a href="global.html#AssociationsByTargetResponse">AssociationsByTargetResponse</a>}</span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Parse the results from <a href="Openphacts.DiseaseSearch.html#associationsByTarget">Openphacts.DiseaseSearch#associationsByTarget</a>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>response</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the JSON response from <a href="Openphacts.DiseaseSearch.html#associationsByTarget">Openphacts.DiseaseSearch#associationsByTarget</a></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line3914">line 3914</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    List of disease-target associtions
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#AssociationsByTargetResponse">AssociationsByTargetResponse</a></span>
+
+
+    </dd>
+</dl>
+
+        
 
     
 </dd>
@@ -1056,7 +1871,7 @@ searcher.fetchDisease('http://linkedlifedata.com/resource/umls/id/C0004238', nul
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line3613">line 3613</a>
+        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line3778">line 3778</a>
     </li></ul></dd>
     
 
@@ -1197,7 +2012,7 @@ searcher.fetchDisease('http://linkedlifedata.com/resource/umls/id/C0004238', nul
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line3651">line 3651</a>
+        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line3813">line 3813</a>
     </li></ul></dd>
     
 
@@ -1338,7 +2153,7 @@ searcher.fetchDisease('http://linkedlifedata.com/resource/umls/id/C0004238', nul
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line3661">line 3661</a>
+        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line3823">line 3823</a>
     </li></ul></dd>
     
 
@@ -1387,6 +2202,821 @@ searcher.fetchDisease('http://linkedlifedata.com/resource/umls/id/C0004238', nul
     
 </dd>
 
+        
+            
+<dt>
+    <h4 class="name" id="parseTargetsByDiseaseCountResponse"><span class="type-signature"></span>parseTargetsByDiseaseCountResponse<span class="signature">(response)</span><span class="type-signature"> &rarr; {Number}</span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Parse the results from <a href="Openphacts.DiseaseSearch.html#targetsByDiseaseCount">Openphacts.DiseaseSearch#targetsByDiseaseCount</a>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>response</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the JSON response from <a href="Openphacts.DiseaseSearch.html#targetsByDiseaseCount">Openphacts.DiseaseSearch#targetsByDiseaseCount</a></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line3860">line 3860</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    Count of the number of diseases for the target
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Number</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="parseTargetsByDiseaseResponse"><span class="type-signature"></span>parseTargetsByDiseaseResponse<span class="signature">(response)</span><span class="type-signature"> &rarr; {<a href="global.html#TargetsByDiseaseResponse">TargetsByDiseaseResponse</a>}</span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Parse the results from <a href="Openphacts.DiseaseSearch.html#targetsByDisease">Openphacts.DiseaseSearch#targetsByDisease</a>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>response</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the JSON response from <a href="Openphacts.DiseaseSearch.html#targetsByDisease">Openphacts.DiseaseSearch#targetsByDisease</a></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line3870">line 3870</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    List of disease items
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="global.html#TargetsByDiseaseResponse">TargetsByDiseaseResponse</a></span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="targetsByDisease"><span class="type-signature"></span>targetsByDisease<span class="signature">(URI, page<span class="signature-attributes">opt</span>, pageSize<span class="signature-attributes">opt</span>, orderBy<span class="signature-attributes">opt</span>, lens<span class="signature-attributes">opt</span>, callback)</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Fetch the targets for a disease represented by the URI provided.
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>URI</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The URI for the disease of interest.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>page</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    1
+                
+                </td>
+            
+
+            <td class="description last">Which page of records to return.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>pageSize</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    10
+                
+                </td>
+            
+
+            <td class="description last">How many records to return. Set to 'all' to return all records in a single page</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>orderBy</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Order the records by this field eg ?assay_type or DESC(?assay_type)</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>lens</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">An optional lens to apply to the result.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#requestCallback">requestCallback</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">Function that will be called with the result.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line3680">line 3680</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>var searcher = new Openphacts.DiseaseSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
+var callback=function(success, status, response){
+   var targets = searcher.parseTargetsByDiseaseResponse(response);
+};
+searcher.targetsByDisease('http://linkedlifedata.com/resource/umls/id/C0004238', null, null, null, null, callback);</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="targetsByDiseaseCount"><span class="type-signature"></span>targetsByDiseaseCount<span class="signature">(URI, lens<span class="signature-attributes">opt</span>, callback)</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Count the number of targets for a disease represented by the URI provided.
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>URI</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">The URI for the disease of interest.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>lens</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">An optional lens to apply to the result.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#requestCallback">requestCallback</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Function that will be called with the result.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line3646">line 3646</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>var searcher = new Openphacts.DiseaseSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
+var callback=function(success, status, response){
+   var targetResult = searcher.parseTargetsByDiseaseCountResponse(response);
+};
+searcher.targetsByDiseaseCount('http://linkedlifedata.com/resource/umls/id/C0004238', null, callback);</code></pre>
+
+    
+</dd>
+
         </dl>
     
 
@@ -1409,7 +3039,7 @@ searcher.fetchDisease('http://linkedlifedata.com/resource/umls/id/C0004238', nul
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha9</a> on Tue Sep 30 2014 11:34:29 GMT+0100 (BST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha9</a> on Tue Oct 21 2014 11:32:36 GMT+0100 (BST)
 </footer>
 
 <script> prettyPrint(); </script>
