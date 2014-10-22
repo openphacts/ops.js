@@ -217,4 +217,3 @@ var Openphacts = Openphacts || {};
  * @property {string} dataset - source of the data
  * @property {Array.<Object>} diseaseClasses - containing URI, source dataset and name
  */ 
-
