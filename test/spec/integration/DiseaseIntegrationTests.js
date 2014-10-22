@@ -122,10 +122,11 @@ describe("Disease search", function() {
                 expect(this_result[0].name).not.toBeNull();
                 expect(this_result[0].URI).not.toBeNull();
                 expect(this_result[0].gene).not.toBeNull();
-                expect(this_result[0].encodes).not.toBeNull();
-                // May not be present but should be defined
-                expect(this_result[0].encodeURI).toBeDefined();
-                expect(this_result[0].encodeLabel).toBeDefined();
+		expect(this_result[0].gene.URI).not.toBeNull();
+		expect(this_result[0].gene.encodes).not.toBeNull();
+		// encodesProvenance & encodesLabel are optional
+		expect(this_result[0].gene.encodesProvenance).toBeDefined();
+		expect(this_result[0].gene.encodesLabel).toBeDefined();
             });
             searcher.diseasesByTarget('http://purl.uniprot.org/uniprot/Q9Y5Y9', null, null, null, null, callback);
         });
