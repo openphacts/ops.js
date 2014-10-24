@@ -135,5 +135,23 @@ describe("Disease search", function() {
       });
     });
   });
+  describe("count associations for a disease", function() {
+
+    it("can be executed", function() {
+      spyOn(searcher, 'associationsByDiseaseCount');
+      searcher.associationsByDiseaseCount('diseaseURI', 'lens', 'callback');
+      expect(searcher.associationsByDiseaseCount).toHaveBeenCalled();
+    });
+    it("executes asynchronously", function() {
+      var callback = jasmine.createSpy();
+      searcher.associationsByDiseaseCount('http://linkedlifedata.com/resource/umls/id/C0004238', null, callback);
+      waitsFor(function() {
+          return callback.callCount > 0;
+      });
+      runs(function() {
+          expect(callback).toHaveBeenCalled();
+      });
+    });
+  });
 
 });

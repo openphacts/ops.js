@@ -342,4 +342,48 @@ describe("Disease search", function() {
             searcher.associationsByTarget('http://www.conceptwiki.org/concept/876876876', null, null, null, null, callback);
         });
     });
+    describe("count associations for a disease", function() {
+
+        it("can return a response", function() {
+            var this_success = null;
+            var this_status = null;
+            var this_result = null;
+            var callback = function(success, status, response) {
+                this_success = success;
+                this_status = status;
+                this_result = searcher.parseAssociationsByDiseaseCountResponse(response);
+            };
+            waitsFor(function() {
+                return this_result != null;
+            });
+            runs(function() {
+                expect(this_success).toBe(true);
+                expect(this_status).toBe(200);
+
+                // API contract states that these will be present
+                expect(this_result).not.toBeNull();
+            });
+            searcher.associationsByDiseaseCount('http://linkedlifedata.com/resource/umls/id/C0004238', null, callback);
+        });
+        it("can handle random URI", function() {
+            var this_success = null;
+            var this_status = null;
+            var this_result = null
+            var callback = function(success, status, response) {
+                this_success = success;
+                this_status = status;
+                this_result = searcher.parseAssociationsByDiseaseCountResponse(response);
+            };
+            waitsFor(function() {
+                return this_result != null;
+            });
+            runs(function() {
+                expect(this_success).toEqual(true);
+                expect(this_status).toEqual(200);
+                expect(this_result).toEqual(0);
+            });
+            searcher.associationsByDiseaseCount('http://www.conceptwiki.org/concept/876876876', null, callback);
+        });
+    });
+
 });
