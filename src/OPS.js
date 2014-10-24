@@ -199,8 +199,8 @@ var Openphacts = Openphacts || {};
  * @property {string} dataset - dataset
  */
 /**
- * Contains list of disease target associations for a single target fetched with {@link Openphacts.DiseaseSearch#associationsByTarget}
- * @typedef {Array.<Object>} AssociationsByTargetResponse
+ * Contains list of disease target associations for a target fetched with {@link Openphacts.DiseaseSearch#associationsByTarget} or disease fetched with {@link Openphacts.DiseaseSearch#associationsByDisease}
+ * @typedef {Array.<Object>} AssociationsResponse
  * @property {string} about - link to source files describing the disease-target associations
  * @property {string} dataset - link to the void dataset describing the links between the diseases and other datasets
  * @property {Array.<string>} description - description
@@ -211,7 +211,7 @@ var Openphacts = Openphacts || {};
  * @property {Array.<Object>} type - containing URI and label
  */ 
 /**
- * Contains list of diseases contained within a {@link AssociationsByTargetResponse}
+ * Contains list of diseases contained within a {@link AssociationsResponse}
  * @typedef {Array.<Object>} DiseaseResponse
  * @property {string} URI - link to the disease
  * @property {string} dataset - source of the data

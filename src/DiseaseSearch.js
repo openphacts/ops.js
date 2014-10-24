@@ -461,7 +461,7 @@ Openphacts.DiseaseSearch.prototype.parseAssociationsByTargetCountResponse = func
 /**
  * Parse the results from {@link Openphacts.DiseaseSearch#associationsByTarget}
  * @param {Object} response - the JSON response from {@link Openphacts.DiseaseSearch#associationsByTarget}
- * @returns {AssociationsByTargetResponse} List of disease-target associtions
+ * @returns {AssociationsResponse} List of disease-target associations
  * @method
  */
 Openphacts.DiseaseSearch.prototype.parseAssociationsByTargetResponse = function(response) {
@@ -560,7 +560,7 @@ Openphacts.DiseaseSearch.prototype.parseAssociationsByDiseaseCountResponse = fun
 /**
  * Parse the results from {@link Openphacts.DiseaseSearch#associationsByDisease}
  * @param {Object} response - the JSON response from {@link Openphacts.DiseaseSearch#associationsByDisease}
- * @returns {AssociationsByDiseaseResponse} List of disease-target associations
+ * @returns {AssociationsResponse} List of disease-target associations
  * @method
  */
 Openphacts.DiseaseSearch.prototype.parseAssociationsByDiseaseResponse = function(response) {
