@@ -385,5 +385,71 @@ describe("Disease search", function() {
             searcher.associationsByDiseaseCount('http://www.conceptwiki.org/concept/876876876', null, callback);
         });
     });
+    describe("associations for disease", function() {
+
+        it("can return a response", function() {
+            var this_success = null;
+            var this_status = null;
+            var this_result = null;
+            var callback = function(success, status, response) {
+                this_success = success;
+                this_status = status;
+                this_result = searcher.parseAssociationsByDiseaseResponse(response);
+            };
+            waitsFor(function() {
+                return this_result != null;
+            });
+            runs(function() {
+                expect(this_success).toBe(true);
+                expect(this_status).toBe(200);
+
+                expect(this_result).toBeDefined();
+                expect(this_result.length).toBeGreaterThan(0);
+                expect(this_result[0].about).not.toBeNull();
+                expect(this_result[0].dataset).not.toBeNull();
+                expect(this_result[0].primarySource).not.toBeNull();
+                expect(this_result[0].primarySource.length).toBeGreaterThan(0);
+		expect(this_result[0].type).not.toBeNull();
+		expect(this_result[0].type.length).toBeGreaterThan(0);
+		expect(this_result[0].type[0].label).not.toBeNull();
+		expect(this_result[0].type[0].URI).not.toBeNull();
+                // pmid & description are optional but can be empty arrays
+                expect(this_result[0].pmid).not.toBeNull();
+                expect(this_result[0].description).not.toBeNull();
+                expect(this_result[0].gene).not.toBeNull();
+		expect(this_result[0].gene.URI).not.toBeNull();
+		// API contract not being fulfilled for gene encodes so can be null for disease associations
+		expect(this_result[0].gene.encodes).toBeDefined();
+		// encodesProvenance & encodesLabel are optional
+		expect(this_result[0].gene.encodesProvenance).toBeDefined();
+		expect(this_result[0].gene.encodesLabel).toBeDefined();
+                expect(this_result[0].disease).not.toBeNull();
+                expect(this_result[0].disease.name).not.toBeNull();
+                expect(this_result[0].disease.dataset).not.toBeNull();
+                expect(this_result[0].disease.diseaseClasses).not.toBeNull();
+                expect(this_result[0].disease.diseaseClasses.length).toBeGreaterThan(0);
+                expect(this_result[0].disease.diseaseClasses[0].URI).not.toBeNull(0);
+                expect(this_result[0].disease.diseaseClasses[0].name).not.toBeNull(0);
+                expect(this_result[0].disease.diseaseClasses[0].dataset).not.toBeNull(0);
+            });
+            searcher.associationsByDisease('http://linkedlifedata.com/resource/umls/id/C0004238', null, null, null, null, callback);
+        });
+        it("can handle errors", function() {
+            var this_success = null;
+            var this_status = null;
+            var callback = function(success, status) {
+                this_success = success;
+                this_status = status;
+            };
+            waitsFor(function() {
+                return this_success != null;
+            });
+            runs(function() {
+                expect(this_success).toEqual(false);
+                expect(this_status).toEqual(404);
+            });
+            searcher.associationsByDisease('http://www.conceptwiki.org/concept/876876876', null, null, null, null, callback);
+        });
+    });
 
 });

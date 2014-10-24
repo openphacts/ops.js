@@ -120,7 +120,7 @@ describe("Disease search", function() {
   describe("associations for a target", function() {
 
     it("can be executed", function() {
-      spyOn(searcher, 'targetsByDisease');
+      spyOn(searcher, 'associationsByTarget');
       searcher.associationsByTarget('targetURI', 'lens', 'callback');
       expect(searcher.assocationsByTarget).toHaveBeenCalled();
     });
@@ -145,6 +145,24 @@ describe("Disease search", function() {
     it("executes asynchronously", function() {
       var callback = jasmine.createSpy();
       searcher.associationsByDiseaseCount('http://linkedlifedata.com/resource/umls/id/C0004238', null, callback);
+      waitsFor(function() {
+          return callback.callCount > 0;
+      });
+      runs(function() {
+          expect(callback).toHaveBeenCalled();
+      });
+    });
+  });
+  describe("associations for a disease", function() {
+
+    it("can be executed", function() {
+      spyOn(searcher, 'associationsByDisease');
+      searcher.associationsByDisease('diseaseURI', 'lens', 'callback');
+      expect(searcher.associationsByDisease).toHaveBeenCalled();
+    });
+    it("executes asynchronously", function() {
+      var callback = jasmine.createSpy();
+      searcher.associationsByDisease('http://linkedlifedata.com/resource/umls/id/C0004238', null, null, null, null, callback);
       waitsFor(function() {
           return callback.callCount > 0;
       });
