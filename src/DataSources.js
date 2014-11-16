@@ -22,13 +22,11 @@ Openphacts.DataSources.prototype.getSources = function(callback) {
                         _format: "json",
                         app_id: this.appID,
                         app_key: this.appKey
-                },
-                success: function(response, status, request) {
-                        callback.call(this, true, request.status, response.result.primaryTopic);
-                },
-                error: function(request, status, error) {
-                        callback.call(this, false, request.status);
                 }
+        }).done(function(response, status, request){
+                callback.call(this, true, request.status, response.result);
+        }).fail(function(response, status, statusText){
+                callback.call(this, false, response.status);
         });
 }
 
