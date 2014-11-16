@@ -5,6 +5,7 @@
  * @param {string} appKey - Application Key for the application ID.
  * @license [MIT]{@link http://opensource.org/licenses/MIT}
  * @author Ian Dunlop
+ * @author Egon Willighagen
  */
 Openphacts.DataSources = function DataSources(baseURL, appID, appKey) {
         this.baseURL = baseURL;
