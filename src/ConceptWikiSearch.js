@@ -29,18 +29,19 @@ Openphacts.ConceptWikiSearch = function(baseURL, appID, appKey) {
  * @method
  */
 Openphacts.ConceptWikiSearch.prototype.byTag = function(query, limit, branch, type, callback) {
+	params={};
+	params['_format'] = "json";
+	params['app_key'] = this.appKey;
+	params['app_id'] = this.appID;
+	params['q'] = query;
+	limit ? params['limit'] = limit : '';
+	branch ? params['branch'] = branch : '';
+	params['uuid'] = type;
 	var conceptWikiSearcher = $.ajax({
 		url: this.baseURL + "/search/byTag",
                 dataType: 'json',
 		cache: true,
-		data: {
-			q: query,
-			limit: limit,
-			branch: branch,
-			uuid: type,
-			app_id: this.appID,
-			app_key: this.appKey
-		}
+		data: params
 	}).done(function(response, status, request){
 	callback.call(this, true, request.status, response.result);
 	}).fail(function(response, status, statusText){
