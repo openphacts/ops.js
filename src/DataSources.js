@@ -1,3 +1,11 @@
+/**
+ * @constructor
+ * @param {string} baseURL - URL for the Open PHACTS API
+ * @param {string} appID - Application ID for the application being used. Created by https://dev.openphacts.org
+ * @param {string} appKey - Application Key for the application ID.
+ * @license [MIT]{@link http://opensource.org/licenses/MIT}
+ * @author Ian Dunlop
+ */
 Openphacts.DataSources = function DataSources(baseURL, appID, appKey) {
         this.baseURL = baseURL;
         this.appID = appID;
