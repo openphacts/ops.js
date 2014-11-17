@@ -449,7 +449,7 @@ Openphacts.CompoundSearch.prototype.compoundPharmacology = function(URI, assayOr
  * var callback=function(success, status, response){
  *     var pharmacologyResult == searcher.parseCompoundPharmacologyCountResponse(response);
  * };
- * searcher.compoundPharmacologyCount('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);     
+ * searcher.compoundPharmacologyCount('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);
  */
 Openphacts.CompoundSearch.prototype.compoundPharmacologyCount = function(URI, assayOrganism, targetOrganism, activityType, activityValue, minActivityValue, minExActivityValue, maxActivityValue, maxExActivityValue, activityUnit, activityRelation, pChembl, minpChembl, minExpChembl, maxpChembl, maxExpChembl, targetType, lens, callback) {
 	params = {};
@@ -1103,25 +1103,48 @@ Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyCountResponse = fun
 }
 //This content is released under the MIT License, http://opensource.org/licenses/MIT. See licence.txt for more details.
 
+/**
+ * @constructor
+ * @param {string} baseURL - URL for the Open PHACTS API
+ * @param {string} appID - Application ID for the application being used. Created by https://dev.openphacts.org
+ * @param {string} appKey - Application Key for the application ID.
+ * @license [MIT]{@link http://opensource.org/licenses/MIT}
+ * @author Ian Dunlop
+ */
 Openphacts.ConceptWikiSearch = function(baseURL, appID, appKey) {
 	this.baseURL = baseURL;
 	this.appID = appID;
 	this.appKey = appKey;
 }
 
+/**
+ * Performs a free text search to resolve the identity of an entity as specified by the given type
+ * in a certain branch.
+ * @param {string} query - Query of at least three characters.
+ * @param {string} limit - The maximum number of search results.
+ * @param {string} branch - The branch of ConceptWiki to search in: 1 = Community, 2 = UMLS, 3 = SwissProt,
+ *                          4 = ChemSpider, 5 = Computer Inferred, 6 = Pathway Ontology, 7 = WikiPathways.
+ * @param {string} type - The type of entity for which is search: 07a84994-e464-4bbf-812a-a4b96fa3d197 for
+ *                        'Chemical Viewed Structurally', eda73945-b112-407e-811a-88448966834f for
+ *                        'Disease or Syndrome', or eeaec894-d856-4106-9fa1-662b1dc6c6f1 for
+ *                        'Amino Acid, Peptide, or Protein'
+ * @param {requestCallback} callback - Function that will be called with the result.
+ * @method
+ */
 Openphacts.ConceptWikiSearch.prototype.byTag = function(query, limit, branch, type, callback) {
+	params={};
+	params['_format'] = "json";
+	params['app_key'] = this.appKey;
+	params['app_id'] = this.appID;
+	params['q'] = query;
+	limit ? params['limit'] = limit : '';
+	branch ? params['branch'] = branch : '';
+	params['uuid'] = type;
 	var conceptWikiSearcher = $.ajax({
 		url: this.baseURL + "/search/byTag",
                 dataType: 'json',
 		cache: true,
-		data: {
-			q: query,
-			limit: limit,
-			branch: branch,
-			uuid: type,
-			app_id: this.appID,
-			app_key: this.appKey
-		}
+		data: params
 	}).done(function(response, status, request){
 	callback.call(this, true, request.status, response.result);
 	}).fail(function(response, status, statusText){
@@ -1129,6 +1152,15 @@ Openphacts.ConceptWikiSearch.prototype.byTag = function(query, limit, branch, ty
 	});
 }
 
+/**
+ * Performs a free text search to resolve the identity of an entity in a certain branch.
+ * @param {string} query - Query of at least three characters.
+ * @param {string} limit - The maximum number of search results.
+ * @param {string} branch - The branch of ConceptWiki to search in: 1 = Community, 2 = UMLS, 3 = SwissProt,
+ *                          4 = ChemSpider, 5 = Computer Inferred, 6 = Pathway Ontology, 7 = WikiPathways.
+ * @param {requestCallback} callback - Function that will be called with the result.
+ * @method
+ */
 Openphacts.ConceptWikiSearch.prototype.freeText = function(query, limit, branch, callback) {
     params={};
     params['_format'] = "json";
@@ -2020,6 +2052,14 @@ Openphacts.TargetSearch.prototype.parseTargetPharmacologyCountResponse = functio
 }
 //This content is released under the MIT License, http://opensource.org/licenses/MIT. See licence.txt for more details.
 
+/**
+ * @constructor
+ * @param {string} baseURL - URL for the Open PHACTS API
+ * @param {string} appID - Application ID for the application being used. Created by https://dev.openphacts.org
+ * @param {string} appKey - Application Key for the application ID.
+ * @license [MIT]{@link http://opensource.org/licenses/MIT}
+ * @author Ian Dunlop
+ */
 Openphacts.StructureSearch = function StructureSearch(baseURL, appID, appKey) {
 	this.baseURL = baseURL;
 	this.appID = appID;
@@ -2207,6 +2247,14 @@ Openphacts.StructureSearch.prototype.parseSmilesToURLResponse = function(respons
 }
 //This content is released under the MIT License, http://opensource.org/licenses/MIT. See licence.txt for more details.
 
+/**
+ * @constructor
+ * @param {string} baseURL - URL for the Open PHACTS API
+ * @param {string} appID - Application ID for the application being used. Created by https://dev.openphacts.org
+ * @param {string} appKey - Application Key for the application ID.
+ * @license [MIT]{@link http://opensource.org/licenses/MIT}
+ * @author Ian Dunlop
+ */
 Openphacts.ActivitySearch = function ActivitySearch(baseURL, appID, appKey) {
 	this.baseURL = baseURL;
 	this.appID = appID;
@@ -2313,6 +2361,14 @@ Openphacts.ActivitySearch.prototype.parseAllUnits = function(response) {
 }
 //This content is released under the MIT License, http://opensource.org/licenses/MIT. See licence.txt for more details.
 
+/**
+ * @constructor
+ * @param {string} baseURL - URL for the Open PHACTS API
+ * @param {string} appID - Application ID for the application being used. Created by https://dev.openphacts.org
+ * @param {string} appKey - Application Key for the application ID.
+ * @license [MIT]{@link http://opensource.org/licenses/MIT}
+ * @author Ian Dunlop
+ */
 Openphacts.TreeSearch = function TreeSearch(baseURL, appID, appKey) {
     this.baseURL = baseURL;
     this.appID = appID;
@@ -2854,6 +2910,14 @@ Openphacts.TreeSearch.prototype.parseTargetClassPharmacologyPaginated = function
 }
 //This content is released under the MIT License, http://opensource.org/licenses/MIT. See licence.txt for more details.
 
+/**
+ * @constructor
+ * @param {string} baseURL - URL for the Open PHACTS API
+ * @param {string} appID - Application ID for the application being used. Created by https://dev.openphacts.org
+ * @param {string} appKey - Application Key for the application ID.
+ * @license [MIT]{@link http://opensource.org/licenses/MIT}
+ * @author Ian Dunlop
+ */
 Openphacts.PathwaySearch = function PathwaySearch(baseURL, appID, appKey) {
 	this.baseURL = baseURL;
 	this.appID = appID;
@@ -3442,6 +3506,14 @@ Openphacts.PathwaySearch.prototype.parseOrganismsResponse = function(response) {
 }
 //This content is released under the MIT License, http://opensource.org/licenses/MIT. See licence.txt for more details.
 
+/**
+ * @constructor
+ * @param {string} baseURL - URL for the Open PHACTS API
+ * @param {string} appID - Application ID for the application being used. Created by https://dev.openphacts.org
+ * @param {string} appKey - Application Key for the application ID.
+ * @license [MIT]{@link http://opensource.org/licenses/MIT}
+ * @author Ian Dunlop
+ */
 Openphacts.MapSearch = function MapSearch(baseURL, appID, appKey) {
 	this.baseURL = baseURL;
 	this.appID = appID;
@@ -3484,12 +3556,37 @@ Openphacts.MapSearch.prototype.parseMapURLResponse = function(response) {
         }
 	return urls;
 }
+//This content is released under the MIT License, http://opensource.org/licenses/MIT. See licence.txt for more details.
+/**
+ * @constructor
+ * @param {string} baseURL - URL for the Open PHACTS API
+ * @param {string} appID - Application ID for the application being used. Created by https://dev.openphacts.org
+ * @param {string} appKey - Application Key for the application ID.
+ * @license [MIT]{@link http://opensource.org/licenses/MIT}
+ * @author Ian Dunlop
+ * @author Egon Willighagen
+ */
 Openphacts.DataSources = function DataSources(baseURL, appID, appKey) {
         this.baseURL = baseURL;
         this.appID = appID;
         this.appKey = appKey;
 }
 
+/**
+ * Fetch a list of data sources used in the Open PHACTS linked data cache.
+ *
+ * @param {requestCallback} callback - Function that will be called with success, status, and JSON response values.
+ * @method
+ * @example
+ * var datasources = new Openphacts.DataSources("https://beta.openphacts.org/1.4", appID, appKey);
+ * var callback = function(success, status, response) {
+ *    var subsets = response.primaryTopic.subset;
+ *    for (i=0; subsets.length; i++) {
+ *      console.log("Subset: " + subsets[i].title);
+ *    }
+ * };
+ * datasources.getSources(callback);
+ */
 Openphacts.DataSources.prototype.getSources = function(callback) {
         var sourcesQuery = $.ajax({
                 url: this.baseURL + '/sources',
@@ -3499,13 +3596,11 @@ Openphacts.DataSources.prototype.getSources = function(callback) {
                         _format: "json",
                         app_id: this.appID,
                         app_key: this.appKey
-                },
-                success: function(response, status, request) {
-                        callback.call(this, true, request.status, response.result.primaryTopic);
-                },
-                error: function(request, status, error) {
-                        callback.call(this, false, request.status);
                 }
+        }).done(function(response, status, request){
+                callback.call(this, true, request.status, response.result);
+        }).fail(function(response, status, statusText){
+                callback.call(this, false, response.status);
         });
 }
 
@@ -4169,15 +4264,16 @@ Openphacts.Version = function Version() {
 
 Openphacts.Version.prototype.information = function() {
 	return {
-               "version": "3.0", 
+               "version": "3.0.0", 
                "author": "Ian Dunlop",
+	       "ORCID": "http://orcid.org/0000-0001-7066-3350",
                "title": "OPS.js",
                "description": "Javascript library for accessing the Open PHACTS Linked Data API",
                "project": "Open PHACTS",
                "organization": "School of Computer Science",
                "address": "University of Manchester, UK",
                "year": "2014",
-               "month": "September",
+               "month": "November",
                "url": "http://github.com/openphacts/ops.js",
                "LDA-version": "1.4"
            }; 
