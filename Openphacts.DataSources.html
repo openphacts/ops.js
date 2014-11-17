@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Class: DataSources</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Class: DataSources</h1>
+
+    
+
+
+
+<section>
+
+<header>
+    <h2>
+        <span class="ancestors"><a href="Openphacts.html">Openphacts</a>.</span>
+    
+    DataSources
+    </h2>
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+
+    
+        
+<dt>
+    <h4 class="name" id="DataSources"><span class="type-signature"></span>new DataSources<span class="signature">(baseURL, appID, appKey)</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>baseURL</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">URL for the Open PHACTS API</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>appID</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Application ID for the application being used. Created by https://dev.openphacts.org</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>appKey</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Application Key for the application ID.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Ian Dunlop</li>
+        
+            <li>Egon Willighagen</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+    <dt class="tag-license">License:</dt>
+    <dd class="tag-license"><ul class="dummy"><li><a href="http://opensource.org/licenses/MIT">MIT</a></li></ul></dd>
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line3569">line 3569</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        <dl>
+            
+<dt>
+    <h4 class="name" id="getSources"><span class="type-signature"></span>getSources<span class="signature">(callback)</span><span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Fetch a list of data sources used in the Open PHACTS linked data cache.
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#requestCallback">requestCallback</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Function that will be called with success, status, and JSON response values.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="combined.js.html">combined.js</a>, <a href="combined.js.html#line3590">line 3590</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>var datasources = new Openphacts.DataSources("https://beta.openphacts.org/1.4", appID, appKey);
+var callback = function(success, status, response) {
+   var subsets = response.primaryTopic.subset;
+   for (i=0; subsets.length; i++) {
+     console.log("Subset: " + subsets[i].title);
+   }
+};
+datasources.getSources(callback);</code></pre>
+
+    
+</dd>
+
+        </dl>
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Openphacts.ActivitySearch.html">ActivitySearch</a></li><li><a href="Openphacts.CompoundSearch.html">CompoundSearch</a></li><li><a href="Openphacts.ConceptWikiSearch.html">ConceptWikiSearch</a></li><li><a href="Openphacts.DataSources.html">DataSources</a></li><li><a href="Openphacts.DiseaseSearch.html">DiseaseSearch</a></li><li><a href="Openphacts.MapSearch.html">MapSearch</a></li><li><a href="Openphacts.PathwaySearch.html">PathwaySearch</a></li><li><a href="Openphacts.StructureSearch.html">StructureSearch</a></li><li><a href="Openphacts.TargetSearch.html">TargetSearch</a></li><li><a href="Openphacts.TreeSearch.html">TreeSearch</a></li></ul><h3>Namespaces</h3><ul><li><a href="Openphacts.html">Openphacts</a></li></ul><h3><a href="global.html">Global</a></h3>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha9</a> on Mon Nov 17 2014 09:52:46 GMT+0000 (GMT)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
