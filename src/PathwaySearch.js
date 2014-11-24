@@ -133,6 +133,13 @@ Openphacts.PathwaySearch.prototype.countPathwaysByTarget = function(URI, organis
 	});
 }
 
+/**
+ * Get a list of targets that are part of the pathway specified
+ * @param {string} URI - URI of the pathway (e.g.: "http://identifiers.org/wikipathways/WP1008")
+ * @param {string} lens - The Lens name
+ * @param {requestCallback} callback - Function that will be called with the result. 
+ * @method
+ */
 Openphacts.PathwaySearch.prototype.getTargets = function(URI, lens, callback) {
         params={};
         params['_format'] = "json";
