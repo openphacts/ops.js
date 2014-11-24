@@ -139,6 +139,12 @@ Openphacts.PathwaySearch.prototype.countPathwaysByTarget = function(URI, organis
  * @param {string} [lens] - The Lens name
  * @param {requestCallback} callback - Function that will be called with the result. 
  * @method
+ * @example
+ * var searcher = new Openphacts.PathwaySearch("https://beta.openphacts.org/1.4", "appID", "appKey");  
+ * var callback=function(success, status, response){  
+ *    var targets = searcher.parseGetTargetsResponse(response);  
+ * };  
+ * searcher.getTargets('http://identifiers.org/wikipathways/WP1008', null, callback);
  */
 Openphacts.PathwaySearch.prototype.getTargets = function(URI, lens, callback) {
         params={};
