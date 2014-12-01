@@ -179,20 +179,59 @@ describe("Pathways", function() {
         expect(pathway_result.description).toBeDefined();
         expect(pathway_result.pathwayOntology).toBeDefined();
         expect(pathway_result.identifier).toBeDefined();
-        expect(pathway_result.geneProductLabel).toBeDefined();
-        expect(pathway_result.geneProductURI).toBeDefined();
-        expect(pathway_result.geneProductCWURI).toBeDefined();
         //mandatory
         expect(pathway_result.title).not.toBeNull();
         expect(pathway_result.organism).not.toBeNull();
         expect(pathway_result.organismLabel).not.toBeNull();
         expect(pathway_result.identifier).not.toBeNull();
-        expect(pathway_result.geneProductLabel).not.toBeNull();
-        expect(pathway_result.geneProductURI).not.toBeNull();
-        expect(pathway_result.geneProductCWURI).not.toBeNull();
+        expect(pathway_result.geneProducts).toBeDefined();
+	expect(pathway_result.geneProducts.length).toBeGreaterThan(0);
+	expect(pathway_result.geneProducts[0].URI).toBeDefined();
+        expect(pathway_result.geneProducts[0].exactMatch).toBeDefined();
+        expect(pathway_result.geneProducts[0].exactMatch.length).toBeGreaterThan(0);
+	expect(pathway_result.geneProducts[0].exactMatch[0].URI).toBeDefined();
+        expect(pathway_result.geneProducts[0].exactMatch[0].label).toBeDefined();
       });
       searcher.byTarget('http://identifiers.org/ncbigene/282478', null, null, null, null, null, callback);
     });
+    it("for CHEMBL2096668 (multiple gene parts)", function() {
+      var this_success = null;
+      var this_status = null;
+      var this_result = null;
+      var callback=function(success, status, response){
+        this_success = success;
+	    this_status = status;
+        this_result = searcher.parseByTargetResponse(response);
+      };
+      waitsFor(function() {
+        return this_result != null;
+      });
+      runs(function() {
+	    expect(this_success).toBe(true);
+	    expect(this_status).toBe(200);
+        expect(this_result.length).toBeGreaterThan(0);
+        var pathway_result = this_result[0];
+        expect(pathway_result).not.toBeNull;
+        expect(pathway_result.title).toBeDefined();
+        expect(pathway_result.description).toBeDefined();
+        expect(pathway_result.pathwayOntology).toBeDefined();
+        expect(pathway_result.identifier).toBeDefined();
+        //mandatory
+        expect(pathway_result.title).not.toBeNull();
+        expect(pathway_result.organism).not.toBeNull();
+        expect(pathway_result.organismLabel).not.toBeNull();
+        expect(pathway_result.identifier).not.toBeNull();
+        expect(pathway_result.geneProducts).toBeDefined();
+	expect(pathway_result.geneProducts.length).toBeGreaterThan(0);
+	expect(pathway_result.geneProducts[0].URI).toBeDefined();
+        expect(pathway_result.geneProducts[0].exactMatch).toBeDefined();
+        expect(pathway_result.geneProducts[0].exactMatch.length).toBeGreaterThan(0);
+	expect(pathway_result.geneProducts[0].exactMatch[0].URI).toBeDefined();
+        expect(pathway_result.geneProducts[0].exactMatch[0].label).toBeDefined();
+      });
+      searcher.byTarget('http://rdf.ebi.ac.uk/resource/chembl/target/CHEMBL2096668', null, null, null, null, null, callback);
+    });
+
     it("and handle errors", function() {
       var this_success = null;
       var this_status = null;
