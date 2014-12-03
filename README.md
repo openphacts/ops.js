@@ -1,4 +1,4 @@
-# OPS.js [![Build Status](https://travis-ci.org/openphacts/ops.js.svg?branch=develop)](https://travis-ci.org/openphacts/ops.js) ![Zenodo release](https://zenodo.org/badge/7176/openphacts/ops.js.png)
+# OPS.js [![Build Status](https://travis-ci.org/openphacts/ops.js.svg?branch=develop)](https://travis-ci.org/openphacts/ops.js) ![Zenodo release](https://zenodo.org/badge/doi/10.5281/zenodo.13044.svg)
 
 ## Open PHACTS API Version
 
