@@ -76,6 +76,37 @@ Openphacts.CompoundSearch.prototype.fetchCompoundBatch = function(URIList, lens,
 	});
 }
 /**
+ * Count the number of compounds classified with the class represented by the URI provided.
+ * @param {string} URI - The URI for the class of interest.
+ * @param {string} [lens] - An optional lens to apply to the result.
+ * @param {requestCallback} callback - Function that will be called with the result. 
+ * @method
+ * @example
+ * var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.4", "appID", "appKey");  
+ * var callback=function(success, status, response){  
+ *    var result = searcher.parseCompoundClassMembersCountResponse(response);  
+ * };  
+ * searcher.compoundClassMembersCount('http://purl.obolibrary.org/obo/CHEBI_24431', null, callback);
+ */
+Openphacts.CompoundSearch.prototype.compoundClassMembersCount = function(URI, lens, callback) {
+	params = {};
+	params['_format'] = "json";
+	params['app_key'] = this.appKey;
+	params['app_id'] = this.appID;
+	params['uri'] = URI;
+	lens ? params['_lens'] = lens : '';
+	var compoundQuery = $.ajax({
+		url: this.baseURL + '/compound/members/count',
+		dataType: 'json',
+		cache: true,
+		data: params
+	}).done(function(response, status, request){
+	callback.call(this, true, request.status, response.result);
+	}).fail(function(response, status, statusText){
+	callback.call(this, false, response.status);
+	});
+}
+/**
  * Fetch pharmacology records for the compound represented by the URI provided.
  * @param {string} URI - The URI for the compound of interest
  * @param {string} [assayOrganism] - Filter by assay organism eg Homo Sapiens
@@ -823,4 +854,14 @@ Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyResponse = function
  */
 Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyCountResponse = function(response) {
 	return response.primaryTopic.compoundPharmacologyTotalResults;
+}
+
+/**
+ * Parse the results from {@link Openphacts.CompoundSearch#compoundClassMembersCount}
+ * @param {Object} response - the JSON response from {@link Openphacts.CompoundSearch#compoundClassMembersCount}
+ * @returns {Number} Count of the number of compounds classified for the hierarchy
+ * @method
+ */
+Openphacts.CompoundSearch.prototype.parseCompoundClassMembersCountResponse = function(response) {
+	return response.primaryTopic.memberCount;
 }
