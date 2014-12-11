@@ -472,4 +472,26 @@ describe("Compound search", function() {
             searcher.compoundClassMembersCount('http://purl.obolibrary.org/obo/CHEBI_24431', null, callback);
         });
     });
+    describe("compound class members fetch", function() {
+        it("can return a response", function() {
+            var this_success = null;
+            var this_status = null;
+            var this_result = null
+            var callback = function(success, status, response) {
+                this_success = success;
+                this_status = status;
+                this_result = searcher.parseCompoundClassMembersResponse(response);
+            };
+            waitsFor(function() {
+                return this_result !== null;
+            });
+            runs(function() {
+                expect(this_success).toEqual(true);
+                expect(this_status).toEqual(200);
+                expect(this_result).not.toBeNull();
+            });
+            searcher.compoundClassMembers('http://purl.obolibrary.org/obo/CHEBI_24431', null, null, null, null, callback);
+        });
+    });
+
 });
