@@ -226,7 +226,10 @@ Openphacts.TreeSearch.prototype.parseRootNodes = function(response) {
             name: response.primaryTopic.hasPart.rootNode.prefLabel
         });
     }
-    return {'label': prefLabel, 'rootClasses': enzymeRootClasses};
+    return {
+        'label': prefLabel,
+        'rootClasses': enzymeRootClasses
+    };
 }
 
 Openphacts.TreeSearch.prototype.parseChildNodes = function(response) {
@@ -559,6 +562,7 @@ Openphacts.TreeSearch.prototype.parseCompoundClassPharmacologyPaginated = functi
     $.each(response.items, function(i, item) {
         var targets = [];
         var chemblActivityURI = null,
+            qudtURI = null,
             pmid = null,
             relation = null,
             standardUnits = null,
@@ -602,7 +606,7 @@ Openphacts.TreeSearch.prototype.parseCompoundClassPharmacologyPaginated = functi
         if (units) {
             activityUnits = units.prefLabel;
         }
-
+        qudtURI = item.qudt_uri ? item.qudt_uri : null;
         relation = item.relation ? item.relation : null;
         standardUnits = item.standardUnits;
         standardValue = item.standardValue ? item.standardValue : null;
@@ -731,6 +735,7 @@ Openphacts.TreeSearch.prototype.parseCompoundClassPharmacologyPaginated = functi
         publishedValue = item.publishedValue ? item.publishedValue : null;
         standardUnits = item.standardUnits ? item.standardUnits : null;
         records.push({
+            'qudtURI': qudtURI,
             'targets': assayTargets,
             'chemblActivityURI': chemblActivityURI,
             'pmid': pmid,
