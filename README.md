@@ -34,7 +34,6 @@ Bibtex:
 
 >@Manual{,  
 >title = {OPS.js 4.1.0: Javascript library for accessing the Open PHACTS Linked Data API},  
->title = {OPS.js 3.1.0: Javascript library for accessing the Open PHACTS Linked Data API},  
 >author = {{Ian Dunlop}},  
 >organization = {School of Computer Science},  
 >address = {University of Manchester, United Kingdom},  
