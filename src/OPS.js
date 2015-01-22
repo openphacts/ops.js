@@ -190,10 +190,32 @@ var Openphacts = Openphacts || {};
  * @typedef {Array.<Object>} DiseasesByTargetResponse
  * @property {string} URI - URI
  * @property {string} name - name
- * @property {string} gene - gene
- * @property {string} encodes - encodes
- * @property {string} encodeURI - encodeURI
- * @property {string} encodeLabel - encodeLabel
+ * @property {Array.<object>} gene - containing URI for the gene, link to the gene it encodes, encodesLabel and encodesProvenance link to where the label came from
+ */ 
+/** 
+ * Contains list of targets for a particular disease fetched with {@link Openphacts.DiseaseSearch#targetsByDisease}
+ * @typedef {Array.<Object>} TargetsByDiseaseResponse
+ * @property {string} URI - URI
+ * @property {string} dataset - dataset
+ */
+/**
+ * Contains list of disease target associations for a target fetched with {@link Openphacts.DiseaseSearch#associationsByTarget} or disease fetched with {@link Openphacts.DiseaseSearch#associationsByDisease}
+ * @typedef {Array.<Object>} AssociationsResponse
+ * @property {string} about - link to source files describing the disease-target associations
+ * @property {string} dataset - link to the void dataset describing the links between the diseases and other datasets
+ * @property {Array.<string>} description - description
+ * @property {Array.<DiseaseResponse>} disease - disease
+ * @property {Array.<object>} gene - containing URI for the gene, link to the gene it encodes, encodesLabel and encodesProvenance link to where the label came from
+ * @property {Array.<string>} pmid - pubmed ID
+ * @property {Array.<string>} primarySource - primarySource
+ * @property {Array.<Object>} type - containing URI and label
+ */ 
+/**
+ * Contains list of diseases contained within a {@link AssociationsResponse}
+ * @typedef {Array.<Object>} DiseaseResponse
+ * @property {string} URI - link to the disease
+ * @property {string} dataset - source of the data
+ * @property {Array.<Object>} diseaseClasses - containing URI, source dataset and name
  */ 
 /**
  * Contains various types of data about the compounds matching a source compound when a lens is applied using {@Link Openphacts.CompoundSearch#fetchCompound}

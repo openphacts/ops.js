@@ -8,23 +8,23 @@
  * @author Ian Dunlop
  */
 Openphacts.CompoundSearch = function CompoundSearch(baseURL, appID, appKey) {
-        this.baseURL = baseURL;
-        this.appID = appID;
-        this.appKey = appKey;
-    }
-    /**
-     * Fetch the compound represented by the URI provided.
-     * @param {string} URI - The URI for the compound of interest.
-     * @param {string} [lens] - An optional lens to apply to the result.
-     * @param {requestCallback} callback - Function that will be called with the result.
-     * @method
-     * @example
-     * var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
-     * var callback=function(success, status, response){
-     *    var compoundResult = searcher.parseCompoundResponse(response);
-     * };
-     * searcher.fetchCompound('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', null, callback);
-     */
+    this.baseURL = baseURL;
+    this.appID = appID;
+    this.appKey = appKey;
+}
+/**
+ * Fetch the compound represented by the URI provided.
+ * @param {string} URI - The URI for the compound of interest.
+ * @param {string} [lens] - An optional lens to apply to the result.
+ * @param {requestCallback} callback - Function that will be called with the result.
+ * @method
+ * @example
+ * var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
+ * var callback=function(success, status, response){
+ *    var compoundResult = searcher.parseCompoundResponse(response);
+ * };
+ * searcher.fetchCompound('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', null, callback);
+ */
 Openphacts.CompoundSearch.prototype.fetchCompound = function(URI, lens, callback) {
     params = {};
     params['_format'] = "json";
@@ -58,24 +58,94 @@ Openphacts.CompoundSearch.prototype.fetchCompound = function(URI, lens, callback
  * searcher.fetchCompoundBatch(['http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', 'http://www.conceptwiki.org/concept/dd758846-1dac-4f0d-a329-06af9a7fa413'], null, callback);
  */
 Openphacts.CompoundSearch.prototype.fetchCompoundBatch = function(URIList, lens, callback) {
-        params = {};
-        params['_format'] = "json";
-        params['app_key'] = this.appKey;
-        params['app_id'] = this.appID;
-        var URIs = URIList.join('|');
-        params['uri_list'] = URIs;
-        lens ? params['_lens'] = lens : '';
-        var compoundQuery = $.ajax({
-            url: this.baseURL + '/compound/batch',
-            dataType: 'json',
-            cache: true,
-            data: params
-        }).done(function(response, status, request) {
-            callback.call(this, true, request.status, response.result);
-        }).fail(function(response, status, statusText) {
-            callback.call(this, false, response.status);
-        });
-    }
+    params = {};
+    params['_format'] = "json";
+    params['app_key'] = this.appKey;
+    params['app_id'] = this.appID;
+    var URIs = URIList.join('|');
+    params['uri_list'] = URIs;
+    lens ? params['_lens'] = lens : '';
+    var compoundQuery = $.ajax({
+        url: this.baseURL + '/compound/batch',
+        dataType: 'json',
+        cache: true,
+        data: params
+    }).done(function(response, status, request) {
+        callback.call(this, true, request.status, response.result);
+    }).fail(function(response, status, statusText) {
+        callback.call(this, false, response.status);
+    });
+}
+/**
+ * Count the number of compounds classified with the class represented by the URI provided.
+ * @param {string} URI - The URI for the class of interest.
+ * @param {string} [lens] - An optional lens to apply to the result.
+ * @param {requestCallback} callback - Function that will be called with the result.
+ * @method
+ * @example
+ * var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
+ * var callback=function(success, status, response){
+ *    var result = searcher.parseCompoundClassMembersCountResponse(response);
+ * };
+ * searcher.compoundClassMembersCount('http://purl.obolibrary.org/obo/CHEBI_24431', null, callback);
+ */
+Openphacts.CompoundSearch.prototype.compoundClassMembersCount = function(URI, lens, callback) {
+    params = {};
+    params['_format'] = "json";
+    params['app_key'] = this.appKey;
+    params['app_id'] = this.appID;
+    params['uri'] = URI;
+    lens ? params['_lens'] = lens : '';
+    var compoundQuery = $.ajax({
+        url: this.baseURL + '/compound/members/count',
+        dataType: 'json',
+        cache: true,
+        data: params
+    }).done(function(response, status, request) {
+        callback.call(this, true, request.status, response.result);
+    }).fail(function(response, status, statusText) {
+        callback.call(this, false, response.status);
+    });
+}
+
+/**
+ * Fetch compounds for the class represented by the URI provided.
+ * @param {string} URI - The URI for the compound class of interest
+ * @param {string} [page=1] - Which page of records to return.
+ * @param {string} [pageSize=10] - How many records to return. Set to 'all' to return all records in a single page
+ * @param {string} [orderBy] - Order the records by this field eg ?assay_type or DESC(?assay_type)
+ * @param {string} [lens] - Which chemistry lens to apply to the records
+ * @param {requestCallback} callback - Function that will be called with the result
+ * @method
+ * @example
+ * var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
+ * var callback=function(success, status, response){
+ *     var classMembersResult == searcher.parseCompoundClassMembersResponse(response);
+ * };
+ * searcher.compoundClassMembers('http://purl.obolibrary.org/obo/CHEBI_24431', 1, 20, null, null, callback);
+ */
+Openphacts.CompoundSearch.prototype.compoundClassMembers = function(URI, page, pageSize, orderBy, lens, callback) {
+    params = {};
+    params['_format'] = "json";
+    params['app_key'] = this.appKey;
+    params['app_id'] = this.appID;
+    params['uri'] = URI;
+    page ? params['_page'] = page : '';
+    pageSize ? params['_pageSize'] = pageSize : '';
+    orderBy ? params['_orderBy'] = orderBy : '';
+    lens ? params['_lens'] = lens : '';
+
+    var compoundQuery = $.ajax({
+        url: this.baseURL + '/compound/members/pages',
+        dataType: 'json',
+        cache: true,
+        data: params
+    }).done(function(response, status, request) {
+        callback.call(this, true, request.status, response.result);
+    }).fail(function(response, status, statusText) {
+        callback.call(this, false, response.status);
+    });
+}
     /**
      * Fetch pharmacology records for the compound represented by the URI provided.
      * @param {string} URI - The URI for the compound of interest
@@ -109,140 +179,140 @@ Openphacts.CompoundSearch.prototype.fetchCompoundBatch = function(URIList, lens,
      * searcher.compoundPharmacology('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 1, 20, null, null, callback);
      */
 Openphacts.CompoundSearch.prototype.compoundPharmacology = function(URI, assayOrganism, targetOrganism, activityType, activityValue, minActivityValue, minExActivityValue, maxActivityValue, maxExActivityValue, activityUnit, activityRelation, pChembl, minpChembl, minExpChembl, maxpChembl, maxExpChembl, targetType, page, pageSize, orderBy, lens, callback) {
-        params = {};
-        params['_format'] = "json";
-        params['app_key'] = this.appKey;
-        params['app_id'] = this.appID;
-        params['uri'] = URI;
-        assayOrganism ? params['assay_organism'] = assayOrganism : '';
-        targetOrganism ? params['target_organism'] = targetOrganism : '';
-        activityType ? params['activity_type'] = activityType : '';
-        activityValue ? params['activity_value'] = activityValue : '';
-        minActivityValue ? params['min-activity_value'] = minActivityValue : '';
-        minExActivityValue ? params['minEx-activity_value'] = minExActivityValue : '';
-        maxActivityValue ? params['max-activity_value'] = maxActivityValue : '';
-        maxExActivityValue ? params['maxEx-activity_value'] = maxExActivityValue : '';
-        activityUnit ? params['activity_unit'] = activityUnit : '';
-        activityRelation ? params['activity_relation'] = activityRelation : '';
-        pChembl ? params['pChembl'] = pChembl : '';
-        minpChembl ? params['min-pChembl'] = minpChembl : '';
-        minExpChembl ? params['minEx-pChembl'] = minExpChembl : '';
-        maxpChembl ? params['max-pChembl'] = maxpChembl : '';
-        maxExpChembl ? params['maxEx-pChembl'] = maxExpChembl : '';
-        targetType ? params['target_type'] = targetType : '';
-        page ? params['_page'] = page : '';
-        pageSize ? params['_pageSize'] = pageSize : '';
-        orderBy ? params['_orderBy'] = orderBy : '';
-        lens ? params['_lens'] = lens : '';
+    params = {};
+    params['_format'] = "json";
+    params['app_key'] = this.appKey;
+    params['app_id'] = this.appID;
+    params['uri'] = URI;
+    assayOrganism ? params['assay_organism'] = assayOrganism : '';
+    targetOrganism ? params['target_organism'] = targetOrganism : '';
+    activityType ? params['activity_type'] = activityType : '';
+    activityValue ? params['activity_value'] = activityValue : '';
+    minActivityValue ? params['min-activity_value'] = minActivityValue : '';
+    minExActivityValue ? params['minEx-activity_value'] = minExActivityValue : '';
+    maxActivityValue ? params['max-activity_value'] = maxActivityValue : '';
+    maxExActivityValue ? params['maxEx-activity_value'] = maxExActivityValue : '';
+    activityUnit ? params['activity_unit'] = activityUnit : '';
+    activityRelation ? params['activity_relation'] = activityRelation : '';
+    pChembl ? params['pChembl'] = pChembl : '';
+    minpChembl ? params['min-pChembl'] = minpChembl : '';
+    minExpChembl ? params['minEx-pChembl'] = minExpChembl : '';
+    maxpChembl ? params['max-pChembl'] = maxpChembl : '';
+    maxExpChembl ? params['maxEx-pChembl'] = maxExpChembl : '';
+    targetType ? params['target_type'] = targetType : '';
+    page ? params['_page'] = page : '';
+    pageSize ? params['_pageSize'] = pageSize : '';
+    orderBy ? params['_orderBy'] = orderBy : '';
+    lens ? params['_lens'] = lens : '';
 
-        var compoundQuery = $.ajax({
-            url: this.baseURL + '/compound/pharmacology/pages',
-            dataType: 'json',
-            cache: true,
-            data: params
-        }).done(function(response, status, request) {
-            callback.call(this, true, request.status, response.result);
-        }).fail(function(response, status, statusText) {
-            callback.call(this, false, response.status);
-        });
-    }
-    /**
-     * Fetch a count of the pharmacology records belonging to the compound represented by the URI provided.
-     * @param {string} URI - The URI for the compound of interest
-     * @param {string} [assayOrganism] - Filter by assay organism eg Homo Sapiens
-     * @param {string} [targetOrganism] - Filter by target organism eg Rattus Norvegicus
-     * @param {string} [activityType] - Filter by activity type eg IC50
-     * @param {string} [activityValue] - Return pharmacology records with activity values equal to this number
-     * @param {string} [minActivityValue] - Return pharmacology records with activity values greater than or equal to this number
-     * @param {string} [minExActivityValue] - Return pharmacology records with activity values greater than this number
-     * @param {string} [maxActivityValue] - Return pharmacology records with activity values less than or equal to this number
-     * @param {string} [maxExActivityValue] - Return pharmacology records with activity values less than this number
-     * @param {string} [activityUnit] - Return pharmacology records which have this activity unit eg nanomolar
-     * @param {string} [activityRelation] - Return pharmacology records which have this activity relation eg =
-     * @param {string} [pChembl] - Return pharmacology records with pChembl equal to this number
-     * @param {string} [minpChembl] - Return pharmacology records with pChembl values greater than or equal to this number
-     * @param {string} [minExpChembl] - Return pharmacology records with pChembl values greater than this number
-     * @param {string} [maxpChembl] - Return pharmacology records with pChembl values less than or equal to this number
-     * @param {string} [maxExpChembl] - Return pharmacology records with pChembl values less than this number
-     * @param {string} [targetType] - Filter by one of the available target types. e.g. single_protein
-     * @param {string} [lens] - Which chemistry lens to apply to the records
-     * @param {requestCallback} callback - Function that will be called with the result
-     * @method
-     * @example
-     * var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
-     * var callback=function(success, status, response){
-     *     var pharmacologyResult == searcher.parseCompoundPharmacologyCountResponse(response);
-     * };
-     * searcher.compoundPharmacologyCount('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);
-     */
+    var compoundQuery = $.ajax({
+        url: this.baseURL + '/compound/pharmacology/pages',
+        dataType: 'json',
+        cache: true,
+        data: params
+    }).done(function(response, status, request) {
+        callback.call(this, true, request.status, response.result);
+    }).fail(function(response, status, statusText) {
+        callback.call(this, false, response.status);
+    });
+}
+/**
+ * Fetch a count of the pharmacology records belonging to the compound represented by the URI provided.
+ * @param {string} URI - The URI for the compound of interest
+ * @param {string} [assayOrganism] - Filter by assay organism eg Homo Sapiens
+ * @param {string} [targetOrganism] - Filter by target organism eg Rattus Norvegicus
+ * @param {string} [activityType] - Filter by activity type eg IC50
+ * @param {string} [activityValue] - Return pharmacology records with activity values equal to this number
+ * @param {string} [minActivityValue] - Return pharmacology records with activity values greater than or equal to this number
+ * @param {string} [minExActivityValue] - Return pharmacology records with activity values greater than this number
+ * @param {string} [maxActivityValue] - Return pharmacology records with activity values less than or equal to this number
+ * @param {string} [maxExActivityValue] - Return pharmacology records with activity values less than this number
+ * @param {string} [activityUnit] - Return pharmacology records which have this activity unit eg nanomolar
+ * @param {string} [activityRelation] - Return pharmacology records which have this activity relation eg =
+ * @param {string} [pChembl] - Return pharmacology records with pChembl equal to this number
+ * @param {string} [minpChembl] - Return pharmacology records with pChembl values greater than or equal to this number
+ * @param {string} [minExpChembl] - Return pharmacology records with pChembl values greater than this number
+ * @param {string} [maxpChembl] - Return pharmacology records with pChembl values less than or equal to this number
+ * @param {string} [maxExpChembl] - Return pharmacology records with pChembl values less than this number
+ * @param {string} [targetType] - Filter by one of the available target types. e.g. single_protein
+ * @param {string} [lens] - Which chemistry lens to apply to the records
+ * @param {requestCallback} callback - Function that will be called with the result
+ * @method
+ * @example
+ * var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
+ * var callback=function(success, status, response){
+ *     var pharmacologyResult == searcher.parseCompoundPharmacologyCountResponse(response);
+ * };
+ * searcher.compoundPharmacologyCount('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);
+ */
 Openphacts.CompoundSearch.prototype.compoundPharmacologyCount = function(URI, assayOrganism, targetOrganism, activityType, activityValue, minActivityValue, minExActivityValue, maxActivityValue, maxExActivityValue, activityUnit, activityRelation, pChembl, minpChembl, minExpChembl, maxpChembl, maxExpChembl, targetType, lens, callback) {
-        params = {};
-        params['_format'] = "json";
-        params['app_key'] = this.appKey;
-        params['app_id'] = this.appID;
-        params['uri'] = URI;
-        assayOrganism ? params['assay_organism'] = assayOrganism : '';
-        targetOrganism ? params['target_organism'] = targetOrganism : '';
-        activityType ? params['activity_type'] = activityType : '';
-        activityValue ? params['activity_value'] = activityValue : '';
-        minActivityValue ? params['min-activity_value'] = minActivityValue : '';
-        minExActivityValue ? params['minEx-activity_value'] = minExActivityValue : '';
-        maxActivityValue ? params['max-activity_value'] = maxActivityValue : '';
-        maxExActivityValue ? params['maxEx-activity_value'] = maxExActivityValue : '';
-        activityUnit ? params['activity_unit'] = activityUnit : '';
-        activityRelation ? params['activity_relation'] = activityRelation : '';
-        pChembl ? params['pChembl'] = pChembl : '';
-        minpChembl ? params['min-pChembl'] = minpChembl : '';
-        minExpChembl ? params['minEx-pChembl'] = minExpChembl : '';
-        maxpChembl ? params['max-pChembl'] = maxpChembl : '';
-        maxExpChembl ? params['maxEx-pChembl'] = maxExpChembl : '';
-        targetType ? params['target_type'] = targetType : '';
-        lens ? params['_lens'] = lens : '';
+    params = {};
+    params['_format'] = "json";
+    params['app_key'] = this.appKey;
+    params['app_id'] = this.appID;
+    params['uri'] = URI;
+    assayOrganism ? params['assay_organism'] = assayOrganism : '';
+    targetOrganism ? params['target_organism'] = targetOrganism : '';
+    activityType ? params['activity_type'] = activityType : '';
+    activityValue ? params['activity_value'] = activityValue : '';
+    minActivityValue ? params['min-activity_value'] = minActivityValue : '';
+    minExActivityValue ? params['minEx-activity_value'] = minExActivityValue : '';
+    maxActivityValue ? params['max-activity_value'] = maxActivityValue : '';
+    maxExActivityValue ? params['maxEx-activity_value'] = maxExActivityValue : '';
+    activityUnit ? params['activity_unit'] = activityUnit : '';
+    activityRelation ? params['activity_relation'] = activityRelation : '';
+    pChembl ? params['pChembl'] = pChembl : '';
+    minpChembl ? params['min-pChembl'] = minpChembl : '';
+    minExpChembl ? params['minEx-pChembl'] = minExpChembl : '';
+    maxpChembl ? params['max-pChembl'] = maxpChembl : '';
+    maxExpChembl ? params['maxEx-pChembl'] = maxExpChembl : '';
+    targetType ? params['target_type'] = targetType : '';
+    lens ? params['_lens'] = lens : '';
 
-        var compoundQuery = $.ajax({
-            url: this.baseURL + '/compound/pharmacology/count',
-            dataType: 'json',
-            cache: true,
-            data: params
-        }).done(function(response, status, request) {
-            callback.call(this, true, request.status, response.result);
-        }).fail(function(response, status, statusText) {
-            callback.call(this, false, response.status);
-        });
-    }
-    /**
-     * The classes the given compound URI has been classified with eg ChEBI
-     * @param {string} URI - The URI for the compound of interest
-     * @param {string} tree - Restrict results by hierarchy eg chebi
-     * @param {requestCallback} callback - Function that will be called with the result
-     * @method
-     */
+    var compoundQuery = $.ajax({
+        url: this.baseURL + '/compound/pharmacology/count',
+        dataType: 'json',
+        cache: true,
+        data: params
+    }).done(function(response, status, request) {
+        callback.call(this, true, request.status, response.result);
+    }).fail(function(response, status, statusText) {
+        callback.call(this, false, response.status);
+    });
+}
+/**
+ * The classes the given compound URI has been classified with eg ChEBI
+ * @param {string} URI - The URI for the compound of interest
+ * @param {string} tree - Restrict results by hierarchy eg chebi
+ * @param {requestCallback} callback - Function that will be called with the result
+ * @method
+ */
 Openphacts.CompoundSearch.prototype.compoundClassifications = function(URI, tree, callback) {
-        var compoundQuery = $.ajax({
-            url: this.baseURL + '/compound/classifications',
-            dataType: 'json',
-            cache: true,
-            data: {
-                _format: "json",
-                uri: URI,
-                app_id: this.appID,
-                app_key: this.appKey,
-                tree: tree
-            },
-            success: function(response, status, request) {
-                callback.call(this, true, request.status, response.result);
-            },
-            error: function(request, status, error) {
-                callback.call(this, false, request.status);
-            }
-        });
-    }
-    /**
-     * Parse the results from {@link Openphacts.CompoundSearch#fetchCompound}
-     * @param {Object} response - the JSON response from {@link Openphacts.CompoundSearch#fetchCompound}
-     * @returns {FetchCompoundResponse} Containing the flattened response
-     * @method
-     */
+    var compoundQuery = $.ajax({
+        url: this.baseURL + '/compound/classifications',
+        dataType: 'json',
+        cache: true,
+        data: {
+            _format: "json",
+            uri: URI,
+            app_id: this.appID,
+            app_key: this.appKey,
+            tree: tree
+        },
+        success: function(response, status, request) {
+            callback.call(this, true, request.status, response.result);
+        },
+        error: function(request, status, error) {
+            callback.call(this, false, request.status);
+        }
+    });
+}
+/**
+ * Parse the results from {@link Openphacts.CompoundSearch#fetchCompound}
+ * @param {Object} response - the JSON response from {@link Openphacts.CompoundSearch#fetchCompound}
+ * @returns {FetchCompoundResponse} Containing the flattened response
+ * @method
+ */
 Openphacts.CompoundSearch.prototype.parseCompoundResponse = function(response) {
     var constants = new Openphacts.Constants();
     var id = null,
@@ -1041,4 +1111,32 @@ Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyResponse = function
  */
 Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyCountResponse = function(response) {
     return response.primaryTopic.compoundPharmacologyTotalResults;
+}
+
+/**
+ * Parse the results from {@link Openphacts.CompoundSearch#compoundClassMembersCount}
+ * @param {Object} response - the JSON response from {@link Openphacts.CompoundSearch#compoundClassMembersCount}
+ * @returns {Number} Count of the number of compounds classified for a particular class
+ * @method
+ */
+Openphacts.CompoundSearch.prototype.parseCompoundClassMembersCountResponse = function(response) {
+    return response.primaryTopic.memberCount;
+}
+
+/**
+ * Parse the results from {@link Openphacts.CompoundSearch#compoundClassMembers}
+ * @param {Object} response - the JSON response from {@link Openphacts.CompoundSearch#compoundClassMembers}
+ * @returns {Number} Compounds classified for a particular class
+ * @method
+ */
+Openphacts.CompoundSearch.prototype.parseCompoundClassMembersResponse = function(response) {
+    var constants = new Openphacts.Constants();
+    var compounds = [];
+    response.items.forEach(function(item, index, array) {
+        compounds.push({
+            "label": item.exactMatch.prefLabel,
+            "URI": item[constants.ABOUT]
+        });
+    });
+    return compounds;
 }

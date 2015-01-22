@@ -480,4 +480,110 @@ describe("Trees", function() {
       searcher.getTargetClassPharmacologyPaginated('http://90879879879879797', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);
     });
   });
+
+  describe("get pharmacology count for chebi", function() {
+
+    it("and return a response", function() {
+      var this_success = null;
+      var this_status = null;
+      var this_result = null;
+      var callback=function(success, status, response){
+        this_success = success;
+        this_status = status;
+        this_result = searcher.parseCompoundClassPharmacologyCount(response);
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toBe(true);
+        expect(this_status).toBe(200);
+        expect(this_result).toBeGreaterThan(1);
+      });
+      searcher.getCompoundClassPharmacologyCount('http://purl.obolibrary.org/obo/CHEBI_100', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);
+    });
+    it("and handle errors", function() {
+      var this_success = null;
+      var this_status = null;
+      var callback=function(success, status){
+        this_success = success;
+        this_status = status;
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toEqual(false);
+        expect(this_status).toEqual(400);
+      });
+      searcher.getCompoundClassPharmacologyCount('90879879879879797', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);
+    });
+  });
+
+  describe("get pharmacology paginated for chebi", function() {
+
+    it("and return a response", function() {
+      var this_success = null;
+      var this_status = null;
+      var this_result = null;
+      var callback=function(success, status, response){
+        this_success = success;
+	this_status = status;
+        this_result = searcher.parseCompoundClassPharmacologyPaginated(response);
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        //TODO need the mandatory and optional values from the api docs
+        expect(this_success).toBe(true);
+        expect(this_status).toBe(200);
+        expect(this_result.length).toBeGreaterThan(0);
+        expect(this_result[0].targets.length).toBeGreaterThan(0);
+        expect(this_result[0].chemblActivityURI).toBeDefined();
+        expect(this_result[0].pmid).toBeDefined();
+        expect(this_result[0].relation).toBeDefined();
+        expect(this_result[0].standardUnits).toBeDefined();
+        expect(this_result[0].standardValue).toBeDefined();
+        expect(this_result[0].activityType).toBeDefined();
+        expect(this_result[0].inDataset).toBeDefined();
+        expect(this_result[0].fullMWT).toBeDefined();
+        expect(this_result[0].chemblURI).toBeDefined();
+        expect(this_result[0].cwURI).toBeDefined();
+        expect(this_result[0].prefLabel).toBeDefined();
+        expect(this_result[0].csURI).toBeDefined();
+        expect(this_result[0].inchi).toBeDefined();
+        expect(this_result[0].inchiKey).toBeDefined();
+        expect(this_result[0].smiles).toBeDefined();
+        expect(this_result[0].ro5Violations).toBeDefined();
+        expect(this_result[0].pChembl).toBeDefined();
+        expect(this_result[0].targets).toBeDefined();
+        //expect(this_result[0].targetOrganism).toBeDefined();
+        expect(this_result[0].assayURI).toBeDefined();
+        expect(this_result[0].assayDescription).toBeDefined();
+        expect(this_result[0].assayOrganismName).toBeDefined();
+        expect(this_result[0].conceptWikiProvenance).toBeDefined();
+        expect(this_result[0].chemspiderProvenance).toBeDefined();
+        expect(this_result[0].assayTargetProvenance).toBeDefined();
+        expect(this_result[0].assayProvenance).toBeDefined();
+      });
+      searcher.getCompoundClassPharmacologyPaginated('http://purl.obolibrary.org/obo/CHEBI_100', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);
+    });
+    it("and handle errors", function() {
+      var this_success = null;
+      var this_status = null;
+      var callback=function(success, status){
+        this_success = success;
+        this_status = status;
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toEqual(false);
+        expect(this_status).toEqual(404);
+      });
+      searcher.getCompoundClassPharmacologyPaginated('http://90879879879879797', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);
+    });
+  });
 });

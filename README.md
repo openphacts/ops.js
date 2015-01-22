@@ -1,8 +1,13 @@
-# OPS.js [![Build Status](https://travis-ci.org/openphacts/ops.js.svg?branch=develop)](https://travis-ci.org/openphacts/ops.js)
-## Coded against OPS Linked Data API Version 1.4
+# OPS.js [![Build Status](https://travis-ci.org/openphacts/ops.js.svg?branch=develop)](https://travis-ci.org/openphacts/ops.js) [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.13044.svg)](http://dx.doi.org/10.5281/zenodo.13044)
 
+## Open PHACTS API Version
+
+1.4
+
+## About
 OPS.js is a javascript based library for accessing the Open PHACTS Linked Data API (LDA). It uses jquery to handle the asynchronous nature of the requests. OPS.js can also be used to parse responses from the LDA.
-
+Please read the [API documentation](http://openphacts.github.io/ops.js "OPS.js API documentation").
+ 
 ## Dependencies
 JQuery 1.9.1  
 [Purl 2.2.1 (Used during testing only)](https://github.com/allmarkedup/jQuery-URL-Parser "Purl URL library")  
@@ -23,16 +28,16 @@ We love receiving patches for bug fixes and new features. Please follow these si
 ## Citations  
 To cite OPS.js in publications please use:  
 
->Ian Dunlop. OPS.js. 2.0.3. Javascript library for accessing the Open PHACTS Linked Data API. University of Manchester. http://github.com/openphacts/ops.js
+>Ian Dunlop. OPS.js. 4.1.0. Javascript library for accessing the Open PHACTS Linked Data API. University of Manchester. http://github.com/openphacts/ops.js
 
 Bibtex:
 
 >@Manual{,  
->title = {OPS.js 2.0.3: Javascript library for accessing the Open PHACTS Linked Data API},  
+>title = {OPS.js 4.1.0: Javascript library for accessing the Open PHACTS Linked Data API},  
 >author = {{Ian Dunlop}},  
 >organization = {School of Computer Science},  
 >address = {University of Manchester, United Kingdom},  
->year = 2013,  
+>year = 2014,  
 >url = {http://github.com/openphacts/ops.js}  
 >} 
 
@@ -41,7 +46,7 @@ Or load OPS.js in to a browser (or Node) and enter the following console command
 `new Openphacts.Version().information()`
 
 ## Using the library
-API documentation [here](http://openphacts.github.io/ops.js "OPS.js API documentation")  
+See the [API documentation](http://openphacts.github.io/ops.js "OPS.js API documentation")  
 
 JQuery must be loaded before the OPS.js library.  
 
