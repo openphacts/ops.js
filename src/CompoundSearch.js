@@ -12,6 +12,7 @@ Openphacts.CompoundSearch = function CompoundSearch(baseURL, appID, appKey) {
     this.appID = appID;
     this.appKey = appKey;
 }
+
 /**
  * Fetch the compound represented by the URI provided.
  * @param {string} URI - The URI for the compound of interest.
@@ -76,6 +77,7 @@ Openphacts.CompoundSearch.prototype.fetchCompoundBatch = function(URIList, lens,
         callback.call(this, false, response.status);
     });
 }
+
 /**
  * Count the number of compounds classified with the class represented by the URI provided.
  * @param {string} URI - The URI for the class of interest.
@@ -146,38 +148,39 @@ Openphacts.CompoundSearch.prototype.compoundClassMembers = function(URI, page, p
         callback.call(this, false, response.status);
     });
 }
-    /**
-     * Fetch pharmacology records for the compound represented by the URI provided.
-     * @param {string} URI - The URI for the compound of interest
-     * @param {string} [assayOrganism] - Filter by assay organism eg Homo Sapiens
-     * @param {string} [targetOrganism] - Filter by target organism eg Rattus Norvegicus
-     * @param {string} [activityType] - Filter by activity type eg IC50
-     * @param {string} [activityValue] - Return pharmacology records with activity values equal to this number
-     * @param {string} [minActivityValue] - Return pharmacology records with activity values greater than or equal to this number
-     * @param {string} [minExActivityValue] - Return pharmacology records with activity values greater than this number
-     * @param {string} [maxActivityValue] - Return pharmacology records with activity values less than or equal to this number
-     * @param {string} [maxExActivityValue] - Return pharmacology records with activity values less than this number
-     * @param {string} [activityUnit] - Return pharmacology records which have this activity unit eg nanomolar
-     * @param {string} [activityRelation] - Return pharmacology records which have this activity relation eg =
-     * @param {string} [pChembl] - Return pharmacology records with pChembl equal to this number
-     * @param {string} [minpChembl] - Return pharmacology records with pChembl values greater than or equal to this number
-     * @param {string} [minExpChembl] - Return pharmacology records with pChembl values greater than this number
-     * @param {string} [maxpChembl] - Return pharmacology records with pChembl values less than or equal to this number
-     * @param {string} [maxExpChembl] - Return pharmacology records with pChembl values less than this number
-     * @param {string} [targetType] - Filter by one of the available target types. e.g. single_protein
-     * @param {string} [page=1] - Which page of records to return.
-     * @param {string} [pageSize=10] - How many records to return. Set to 'all' to return all records in a single page
-     * @param {string} [orderBy] - Order the records by this field eg ?assay_type or DESC(?assay_type)
-     * @param {string} [lens] - Which chemistry lens to apply to the records
-     * @param {requestCallback} callback - Function that will be called with the result
-     * @method
-     * @example
-     * var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
-     * var callback=function(success, status, response){
-     *     var pharmacologyResult == searcher.parseCompoundPharmacologyResponse(response);
-     * };
-     * searcher.compoundPharmacology('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 1, 20, null, null, callback);
-     */
+
+/**
+ * Fetch pharmacology records for the compound represented by the URI provided.
+ * @param {string} URI - The URI for the compound of interest
+ * @param {string} [assayOrganism] - Filter by assay organism eg Homo Sapiens
+ * @param {string} [targetOrganism] - Filter by target organism eg Rattus Norvegicus
+ * @param {string} [activityType] - Filter by activity type eg IC50
+ * @param {string} [activityValue] - Return pharmacology records with activity values equal to this number
+ * @param {string} [minActivityValue] - Return pharmacology records with activity values greater than or equal to this number
+ * @param {string} [minExActivityValue] - Return pharmacology records with activity values greater than this number
+ * @param {string} [maxActivityValue] - Return pharmacology records with activity values less than or equal to this number
+ * @param {string} [maxExActivityValue] - Return pharmacology records with activity values less than this number
+ * @param {string} [activityUnit] - Return pharmacology records which have this activity unit eg nanomolar
+ * @param {string} [activityRelation] - Return pharmacology records which have this activity relation eg =
+ * @param {string} [pChembl] - Return pharmacology records with pChembl equal to this number
+ * @param {string} [minpChembl] - Return pharmacology records with pChembl values greater than or equal to this number
+ * @param {string} [minExpChembl] - Return pharmacology records with pChembl values greater than this number
+ * @param {string} [maxpChembl] - Return pharmacology records with pChembl values less than or equal to this number
+ * @param {string} [maxExpChembl] - Return pharmacology records with pChembl values less than this number
+ * @param {string} [targetType] - Filter by one of the available target types. e.g. single_protein
+ * @param {string} [page=1] - Which page of records to return.
+ * @param {string} [pageSize=10] - How many records to return. Set to 'all' to return all records in a single page
+ * @param {string} [orderBy] - Order the records by this field eg ?assay_type or DESC(?assay_type)
+ * @param {string} [lens] - Which chemistry lens to apply to the records
+ * @param {requestCallback} callback - Function that will be called with the result
+ * @method
+ * @example
+ * var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
+ * var callback=function(success, status, response){
+ *     var pharmacologyResult == searcher.parseCompoundPharmacologyResponse(response);
+ * };
+ * searcher.compoundPharmacology('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 1, 20, null, null, callback);
+ */
 Openphacts.CompoundSearch.prototype.compoundPharmacology = function(URI, assayOrganism, targetOrganism, activityType, activityValue, minActivityValue, minExActivityValue, maxActivityValue, maxExActivityValue, activityUnit, activityRelation, pChembl, minpChembl, minExpChembl, maxpChembl, maxExpChembl, targetType, page, pageSize, orderBy, lens, callback) {
     params = {};
     params['_format'] = "json";
@@ -216,6 +219,7 @@ Openphacts.CompoundSearch.prototype.compoundPharmacology = function(URI, assayOr
         callback.call(this, false, response.status);
     });
 }
+
 /**
  * Fetch a count of the pharmacology records belonging to the compound represented by the URI provided.
  * @param {string} URI - The URI for the compound of interest
@@ -280,6 +284,7 @@ Openphacts.CompoundSearch.prototype.compoundPharmacologyCount = function(URI, as
         callback.call(this, false, response.status);
     });
 }
+
 /**
  * The classes the given compound URI has been classified with eg ChEBI
  * @param {string} URI - The URI for the compound of interest
@@ -307,6 +312,7 @@ Openphacts.CompoundSearch.prototype.compoundClassifications = function(URI, tree
         }
     });
 }
+
 /**
  * Parse the results from {@link Openphacts.CompoundSearch#fetchCompound}
  * @param {Object} response - the JSON response from {@link Openphacts.CompoundSearch#fetchCompound}

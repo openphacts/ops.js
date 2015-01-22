@@ -145,30 +145,30 @@ describe("Compound search", function() {
             });
             searcher.fetchCompound('http://identifiers.org/hmdb/HMDB00123', null, callback);
         });
-    it("can use a lens", function() {
-      var this_success = null;
-      var this_status = null;
-      var this_result = null;
-      var callback=function(success, status, response){
-        this_success = success;
-        this_status = status;
-        this_result = searcher.parseCompoundLensResponse(response);
-      };
-      waitsFor(function() {
-        return this_result != null;
-      });
-      runs(function() {
-        expect(this_success).toBe(true);
-        expect(this_status).toBe(200);
+        it("can use a lens", function() {
+            var this_success = null;
+            var this_status = null;
+            var this_result = null;
+            var callback = function(success, status, response) {
+                this_success = success;
+                this_status = status;
+                this_result = searcher.parseCompoundLensResponse(response);
+            };
+            waitsFor(function() {
+                return this_result != null;
+            });
+            runs(function() {
+                expect(this_success).toBe(true);
+                expect(this_status).toBe(200);
 
-        // API contract states that these will be present
-        expect(this_result.lensChemspider).toBeDefined();
-        expect(this_result.lensChembl).toBeDefined();
-        expect(this_result.lensCW).toBeDefined();
-        expect(this_result.lensDrugbank).toBeDefined();
-      });
-      searcher.fetchCompound('http://ops.rsc.org/OPS539735', 'stereochemistry', callback);
-    });
+                // API contract states that these will be present
+                expect(this_result.lensChemspider).toBeDefined();
+                expect(this_result.lensChembl).toBeDefined();
+                expect(this_result.lensCW).toBeDefined();
+                expect(this_result.lensDrugbank).toBeDefined();
+            });
+            searcher.fetchCompound('http://ops.rsc.org/OPS539735', 'stereochemistry', callback);
+        });
         it("can handle errors", function() {
             var this_success = null;
             var this_status = null;
@@ -186,7 +186,7 @@ describe("Compound search", function() {
             searcher.fetchCompound('http://www.conceptwiki.org/concept/876876876', null, callback);
         });
     });
-  describe("fetch multiple compounds using batch call", function() {
+    describe("fetch multiple compounds using batch call", function() {
         it("can return a response", function() {
             var this_success = null;
             var this_status = null;
@@ -410,5 +410,4 @@ describe("Compound search", function() {
             searcher.compoundClassMembers('http://purl.obolibrary.org/obo/CHEBI_24431', null, null, null, null, callback);
         });
     });
-
 });
