@@ -368,8 +368,9 @@ Openphacts.CompoundSearch.prototype.parseCompoundResponse = function(response) {
     ro5Violations = response.primaryTopic.ro5_violations != null ? response.primaryTopic.ro5_violations : null;
     rtb = response.primaryTopic.rtb !== null ? response.primaryTopic.rtb : null;
     smiles = response.primaryTopic.smiles != null ? response.primaryTopic.smiles : null;
-
-    $.each(response.primaryTopic.exactMatch, function(i, match) {
+    
+    if (Array.isArray(response.primaryTopic.exactMatch)) {
+    response.primaryTopic.exactMatch.forEach(function(match, i, allValues) {
         var src = match[constants.IN_DATASET];
         if (constants.SRC_CLS_MAPPINGS[src] == 'drugbankValue') {
             drugbankData = match;
@@ -381,6 +382,7 @@ Openphacts.CompoundSearch.prototype.parseCompoundResponse = function(response) {
             conceptWikiData = match;
         }
     });
+    }
     if (drugbankData) {
         description = drugbankData.description != null ? drugbankData.description : description;
         biotransformationItem = drugbankData.biotransformation != null ? drugbankData.biotransformation : biotransformationItem;
@@ -538,8 +540,8 @@ Openphacts.CompoundSearch.prototype.parseCompoundBatchResponse = function(respon
         ro5Violations = item.ro5_violations != null ? item.ro5_violations : null;
         rtb = item.rtb !== null ? item.rtb : null;
         smiles = item.smiles != null ? item.smiles : null;
-
-        $.each(item.exactMatch, function(i, match) {
+if (Array.isArray(item.exactMatch)) {
+        item.exactMatch.forEach(function(match, i, allValues) {
             var src = match[constants.IN_DATASET];
             if (constants.SRC_CLS_MAPPINGS[src] == 'drugbankValue') {
                 drugbankData = match;
@@ -551,6 +553,7 @@ Openphacts.CompoundSearch.prototype.parseCompoundBatchResponse = function(respon
                 conceptWikiData = match;
             }
         });
+}
         if (drugbankData) {
             description = drugbankData.description != null ? drugbankData.description : description;
             biotransformationItem = drugbankData.biotransformation != null ? drugbankData.biotransformation : biotransformationItem;

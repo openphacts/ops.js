@@ -28,17 +28,19 @@ describe("Compound search", function() {
 
                 // API contract states that these will be present
                 expect(this_result.id).not.toBeNull();
-                expect(this_result.prefLabel).not.toBeNull();
+                //expect(this_result.prefLabel).not.toBeNull();
                 expect(this_result.URI).not.toBeNull();
                 //expect(this_result.csURI).not.toBeNull();
                 expect(this_result.inchi).not.toBeNull();
                 expect(this_result.smiles).not.toBeNull();
-                expect(this_result.chemblURI).not.toBeNull();
+                //expect(this_result.chemblURI).not.toBeNull();
                 expect(this_result.inchiKey).not.toBeNull();
                 //expect(this_result.drugbankURI).not.toBeNull();
 
-                // These values are not guaranteed to be in the response from the API but should present though may be null
-                expect(this_result.fullMWT).toBeDefined();
+		// API contract implies that prefLabel, chemblURI & drugbankURI  should be present but this is not the case in 1.4 API
+		expect(this_result.chemblURI).toBeDefined();
+                expect(this_result.prefLabel).toBeDefined();
+		expect(this_result.fullMWT).toBeDefined();
                 expect(this_result.molform).toBeDefined();
                 expect(this_result.mwFreebase).toBeDefined();
                 expect(this_result.rtb).toBeDefined();
@@ -73,17 +75,19 @@ describe("Compound search", function() {
 
                 // API contract states that these will be present
                 expect(this_result.id).not.toBeNull();
-                expect(this_result.prefLabel).not.toBeNull();
+                //expect(this_result.prefLabel).not.toBeNull();
                 expect(this_result.URI).not.toBeNull();
                 //expect(this_result.csURI).not.toBeNull();
                 expect(this_result.inchi).not.toBeNull();
                 expect(this_result.smiles).not.toBeNull();
-                expect(this_result.chemblURI).not.toBeNull();
+                //expect(this_result.chemblURI).not.toBeNull();
                 expect(this_result.inchiKey).not.toBeNull();
                 //expect(this_result.drugbankURI).not.toBeNull();
 
-                // These values are not guaranteed to be in the response from the API but should present though may be null
-                expect(this_result.fullMWT).toBeDefined();
+		// API contract implies that prefLabel, chemblURI & drugbankURI  should be present but this is not the case in 1.4 API
+		expect(this_result.chemblURI).toBeDefined();
+                expect(this_result.prefLabel).toBeDefined();
+		expect(this_result.fullMWT).toBeDefined();
                 expect(this_result.molform).toBeDefined();
                 expect(this_result.mwFreebase).toBeDefined();
                 expect(this_result.rtb).toBeDefined();
@@ -100,7 +104,7 @@ describe("Compound search", function() {
             });
             searcher.fetchCompound('http://ops.rsc.org/OPS2954', null, callback);
         });
-        it("use identifiers.org uri in request", function() {
+        it("possible singleton in exactMatch", function() {
             var this_success = null;
             var this_status = null;
             var this_result = null;
@@ -118,17 +122,65 @@ describe("Compound search", function() {
 
                 // API contract states that these will be present
                 expect(this_result.id).not.toBeNull();
-                expect(this_result.prefLabel).not.toBeNull();
                 expect(this_result.URI).not.toBeNull();
                 //expect(this_result.csURI).not.toBeNull();
                 expect(this_result.inchi).not.toBeNull();
                 expect(this_result.smiles).not.toBeNull();
-                expect(this_result.chemblURI).not.toBeNull();
                 expect(this_result.inchiKey).not.toBeNull();
                 //expect(this_result.drugbankURI).not.toBeNull();
 
                 // These values are not guaranteed to be in the response from the API but should present though may be null
-                expect(this_result.fullMWT).toBeDefined();
+                // API contract implies that prefLabel, chemblURI & drugbankURI  should be present but this is not the case in 1.4 API
+		expect(this_result.chemblURI).toBeDefined();
+                expect(this_result.prefLabel).toBeDefined();
+		expect(this_result.fullMWT).toBeDefined();
+                expect(this_result.molform).toBeDefined();
+                expect(this_result.mwFreebase).toBeDefined();
+                expect(this_result.rtb).toBeDefined();
+                expect(this_result.logp).toBeDefined();
+                expect(this_result.psa).toBeDefined();
+                expect(this_result.ro5Violations).toBeDefined();
+                expect(this_result.hba).toBeDefined();
+                expect(this_result.hbd).toBeDefined();
+                expect(this_result.description).toBeDefined();
+                expect(this_result.biotransformationItem).toBeDefined();
+                expect(this_result.toxicity).toBeDefined();
+                expect(this_result.proteinBinding).toBeDefined();
+                expect(this_result.drugbankURI).toBeDefined();
+            });
+            searcher.fetchCompound('http://ops.rsc.org/OPS1891233', null, callback);
+        });
+	it("use identifiers.org uri in request", function() {
+            var this_success = null;
+            var this_status = null;
+            var this_result = null;
+            var callback = function(success, status, response) {
+                this_success = success;
+                this_status = status;
+                this_result = searcher.parseCompoundResponse(response);
+            };
+            waitsFor(function() {
+                return this_result != null;
+            });
+            runs(function() {
+                expect(this_success).toBe(true);
+                expect(this_status).toBe(200);
+
+                // API contract states that these will be present
+                expect(this_result.id).not.toBeNull();
+                //expect(this_result.prefLabel).not.toBeNull();
+                expect(this_result.URI).not.toBeNull();
+                //expect(this_result.csURI).not.toBeNull();
+                expect(this_result.inchi).not.toBeNull();
+                expect(this_result.smiles).not.toBeNull();
+                //expect(this_result.chemblURI).not.toBeNull();
+                expect(this_result.inchiKey).not.toBeNull();
+                //expect(this_result.drugbankURI).not.toBeNull();
+
+		// API contract implies that prefLabel, chemblURI & drugbankURI  should be present but this is not the case in 1.4 API
+		expect(this_result.chemblURI).toBeDefined();
+                expect(this_result.prefLabel).toBeDefined();
+		expect(this_result.fullMWT).toBeDefined();
                 expect(this_result.molform).toBeDefined();
                 expect(this_result.mwFreebase).toBeDefined();
                 expect(this_result.rtb).toBeDefined();
@@ -183,14 +235,18 @@ describe("Compound search", function() {
                 expect(this_result.length).toEqual(2);
                 // API contract states that these will be present
                 expect(this_result[0].id).not.toBeNull();
-                expect(this_result[0].prefLabel).not.toBeNull();
+                //expect(this_result[0].prefLabel).not.toBeNull();
                 expect(this_result[0].URI).not.toBeNull();
                 //expect(this_result.csURI).not.toBeNull();
                 expect(this_result[0].inchi).not.toBeNull();
                 expect(this_result[0].smiles).not.toBeNull();
-                expect(this_result[0].chemblURI).not.toBeNull();
+                //expect(this_result[0].chemblURI).not.toBeNull();
                 expect(this_result[0].inchiKey).not.toBeNull();
                 //expect(this_result.drugbankURI).not.toBeNull();
+
+		// API contract implies that prefLabel, chemblURI & drugbankURI  should be present but this is not the case in 1.4 API
+		expect(this_result[0].chemblURI).toBeDefined();
+                expect(this_result[0].prefLabel).toBeDefined();
 
                 // These values are not guaranteed to be in the response from the API but should present though may be null
                 expect(this_result[0].fullMWT).toBeDefined();
@@ -228,14 +284,17 @@ describe("Compound search", function() {
 
                 // API contract states that these will be present
                 expect(this_result.id).not.toBeNull();
-                expect(this_result.prefLabel).not.toBeNull();
                 expect(this_result.URI).not.toBeNull();
                 //expect(this_result.csURI).not.toBeNull();
                 expect(this_result.inchi).not.toBeNull();
                 expect(this_result.smiles).not.toBeNull();
-                expect(this_result.chemblURI).not.toBeNull();
                 expect(this_result.inchiKey).not.toBeNull();
                 //expect(this_result.drugbankURI).not.toBeNull();
+
+		// API contract implies that prefLabel, chemblURI & drugbankURI  should be present but this is not the case in 1.4 API
+		expect(this_result.chemblURI).toBeDefined();
+                expect(this_result.prefLabel).toBeDefined();
+
 
                 // These values are not guaranteed to be in the response from the API but should present though may be null
                 expect(this_result.fullMWT).toBeDefined();
@@ -273,14 +332,17 @@ describe("Compound search", function() {
 
                 // API contract states that these will be present
                 expect(this_result.id).not.toBeNull();
-                expect(this_result.prefLabel).not.toBeNull();
                 expect(this_result.URI).not.toBeNull();
                 //expect(this_result.csURI).not.toBeNull();
                 expect(this_result.inchi).not.toBeNull();
                 expect(this_result.smiles).not.toBeNull();
-                expect(this_result.chemblURI).not.toBeNull();
                 expect(this_result.inchiKey).not.toBeNull();
                 //expect(this_result.drugbankURI).not.toBeNull();
+
+		// API contract implies that prefLabel, chemblURI & drugbankURI  should be present but this is not the case in 1.4 API
+		expect(this_result.chemblURI).toBeDefined();
+                expect(this_result.prefLabel).toBeDefined();
+
 
                 // These values are not guaranteed to be in the response from the API but should present though may be null
                 expect(this_result.fullMWT).toBeDefined();
