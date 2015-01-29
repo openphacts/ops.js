@@ -12,6 +12,7 @@ Openphacts.CompoundSearch = function CompoundSearch(baseURL, appID, appKey) {
     this.appID = appID;
     this.appKey = appKey;
 }
+
 /**
  * Fetch the compound represented by the URI provided.
  * @param {string} URI - The URI for the compound of interest.
@@ -43,6 +44,7 @@ Openphacts.CompoundSearch.prototype.fetchCompound = function(URI, lens, callback
         callback.call(this, false, response.status);
     });
 }
+
 /**
  * Fetch the compounds matching the list of URIs provided.
  * @param {string} URIList - An array of URIs for the compounds of interest.
@@ -75,6 +77,7 @@ Openphacts.CompoundSearch.prototype.fetchCompoundBatch = function(URIList, lens,
         callback.call(this, false, response.status);
     });
 }
+
 /**
  * Count the number of compounds classified with the class represented by the URI provided.
  * @param {string} URI - The URI for the class of interest.
@@ -145,6 +148,7 @@ Openphacts.CompoundSearch.prototype.compoundClassMembers = function(URI, page, p
         callback.call(this, false, response.status);
     });
 }
+
 /**
  * Fetch pharmacology records for the compound represented by the URI provided.
  * @param {string} URI - The URI for the compound of interest
@@ -215,6 +219,7 @@ Openphacts.CompoundSearch.prototype.compoundPharmacology = function(URI, assayOr
         callback.call(this, false, response.status);
     });
 }
+
 /**
  * Fetch a count of the pharmacology records belonging to the compound represented by the URI provided.
  * @param {string} URI - The URI for the compound of interest
@@ -279,6 +284,7 @@ Openphacts.CompoundSearch.prototype.compoundPharmacologyCount = function(URI, as
         callback.call(this, false, response.status);
     });
 }
+
 /**
  * The classes the given compound URI has been classified with eg ChEBI
  * @param {string} URI - The URI for the compound of interest
@@ -306,6 +312,7 @@ Openphacts.CompoundSearch.prototype.compoundClassifications = function(URI, tree
         }
     });
 }
+
 /**
  * Parse the results from {@link Openphacts.CompoundSearch#fetchCompound}
  * @param {Object} response - the JSON response from {@link Openphacts.CompoundSearch#fetchCompound}
@@ -368,20 +375,20 @@ Openphacts.CompoundSearch.prototype.parseCompoundResponse = function(response) {
     ro5Violations = response.primaryTopic.ro5_violations != null ? response.primaryTopic.ro5_violations : null;
     rtb = response.primaryTopic.rtb !== null ? response.primaryTopic.rtb : null;
     smiles = response.primaryTopic.smiles != null ? response.primaryTopic.smiles : null;
-    
+
     if (Array.isArray(response.primaryTopic.exactMatch)) {
-    response.primaryTopic.exactMatch.forEach(function(match, i, allValues) {
-        var src = match[constants.IN_DATASET];
-        if (constants.SRC_CLS_MAPPINGS[src] == 'drugbankValue') {
-            drugbankData = match;
-        } else if (constants.SRC_CLS_MAPPINGS[src] == 'chemspiderValue') {
-            chemspiderData = match;
-        } else if (constants.SRC_CLS_MAPPINGS[src] == 'chemblValue') {
-            chemblData = match;
-        } else if (constants.SRC_CLS_MAPPINGS[src] == 'conceptWikiValue') {
-            conceptWikiData = match;
-        }
-    });
+        response.primaryTopic.exactMatch.forEach(function(match, i, allValues) {
+            var src = match[constants.IN_DATASET];
+            if (constants.SRC_CLS_MAPPINGS[src] == 'drugbankValue') {
+                drugbankData = match;
+            } else if (constants.SRC_CLS_MAPPINGS[src] == 'chemspiderValue') {
+                chemspiderData = match;
+            } else if (constants.SRC_CLS_MAPPINGS[src] == 'chemblValue') {
+                chemblData = match;
+            } else if (constants.SRC_CLS_MAPPINGS[src] == 'conceptWikiValue') {
+                conceptWikiData = match;
+            }
+        });
     }
     if (drugbankData) {
         description = drugbankData.description != null ? drugbankData.description : description;
@@ -476,6 +483,7 @@ Openphacts.CompoundSearch.prototype.parseCompoundResponse = function(response) {
 
     };
 }
+
 /**
  * Parse the results from {@link Openphacts.CompoundSearch#fetchCompoundBatch}
  * @param {Object} response - the JSON response from {@link Openphacts.CompoundSearch#fetchCompoundBatch}
@@ -515,7 +523,7 @@ Openphacts.CompoundSearch.prototype.parseCompoundBatchResponse = function(respon
 
         // check if we already have the CS URI
         var possibleURI = 'http://' + uri.split('/')[2];
-	//var uriLink = document.createElement('a');
+        //var uriLink = document.createElement('a');
         //uriLink.href = uri;
         //var possibleURI = 'http://' + uriLink.hostname;
         csURI = constants.SRC_CLS_MAPPINGS[possibleURI] === 'chemspiderValue' ? uri : null;
@@ -540,20 +548,20 @@ Openphacts.CompoundSearch.prototype.parseCompoundBatchResponse = function(respon
         ro5Violations = item.ro5_violations != null ? item.ro5_violations : null;
         rtb = item.rtb !== null ? item.rtb : null;
         smiles = item.smiles != null ? item.smiles : null;
-if (Array.isArray(item.exactMatch)) {
-        item.exactMatch.forEach(function(match, i, allValues) {
-            var src = match[constants.IN_DATASET];
-            if (constants.SRC_CLS_MAPPINGS[src] == 'drugbankValue') {
-                drugbankData = match;
-            } else if (constants.SRC_CLS_MAPPINGS[src] == 'chemspiderValue') {
-                chemspiderData = match;
-            } else if (constants.SRC_CLS_MAPPINGS[src] == 'chemblValue') {
-                chemblData = match;
-            } else if (constants.SRC_CLS_MAPPINGS[src] == 'conceptWikiValue') {
-                conceptWikiData = match;
-            }
-        });
-}
+        if (Array.isArray(item.exactMatch)) {
+            item.exactMatch.forEach(function(match, i, allValues) {
+                var src = match[constants.IN_DATASET];
+                if (constants.SRC_CLS_MAPPINGS[src] == 'drugbankValue') {
+                    drugbankData = match;
+                } else if (constants.SRC_CLS_MAPPINGS[src] == 'chemspiderValue') {
+                    chemspiderData = match;
+                } else if (constants.SRC_CLS_MAPPINGS[src] == 'chemblValue') {
+                    chemblData = match;
+                } else if (constants.SRC_CLS_MAPPINGS[src] == 'conceptWikiValue') {
+                    conceptWikiData = match;
+                }
+            });
+        }
         if (drugbankData) {
             description = drugbankData.description != null ? drugbankData.description : description;
             biotransformationItem = drugbankData.biotransformation != null ? drugbankData.biotransformation : biotransformationItem;
