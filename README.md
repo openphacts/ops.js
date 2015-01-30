@@ -1,4 +1,4 @@
-# OPS.js [![Build Status](https://travis-ci.org/openphacts/ops.js.svg?branch=develop)](https://travis-ci.org/openphacts/ops.js) [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.13044.svg)](http://dx.doi.org/10.5281/zenodo.13044)
+# OPS.js [![Build Status](https://travis-ci.org/openphacts/ops.js.svg?branch=develop)](https://travis-ci.org/openphacts/ops.js) [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.14723.svg)](http://dx.doi.org/10.5281/zenodo.14723)
 
 ## Open PHACTS API Version
 
@@ -37,7 +37,7 @@ Bibtex:
 >author = {{Ian Dunlop}},  
 >organization = {School of Computer Science},  
 >address = {University of Manchester, United Kingdom},  
->year = 2014,  
+>year = 2015,  
 >url = {http://github.com/openphacts/ops.js}  
 >} 
 
