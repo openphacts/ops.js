@@ -12,8 +12,8 @@ Openphacts.Version.prototype.information = function() {
                "project": "Open PHACTS",
                "organization": "School of Computer Science",
                "address": "University of Manchester, UK",
-               "year": "2014",
-               "month": "December",
+               "year": "2015",
+               "month": "January",
                "url": "http://github.com/openphacts/ops.js",
                "LDA-version": "1.4"
            }; 

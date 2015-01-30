@@ -3,6 +3,6 @@ title = {OPS.js 5.0.0: Javascript library for accessing the Open PHACTS Linked D
 author = {{Ian Dunlop}},
 organization = {School of Computer Science},
 address = {University of Manchester, United Kingdom},
-year = 2014,
+year = 2015,
 url = {http://github.com/openphacts/ops.js}
 }
