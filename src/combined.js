@@ -991,9 +991,9 @@ Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyResponse = function
 
 	if (forMolecule != null) {
             chembl_compound_uri = forMolecule[constants.ABOUT];
-            compound_full_mwt = forMolecule['full_mwt'] ? forMolecule['full_mwt'] : null;
+            //compound_full_mwt = forMolecule['full_mwt'] ? forMolecule['full_mwt'] : null;
             chembleMoleculeLink += chembl_compound_uri.split('/').pop();
-            compound_full_mwt_item = chembleMoleculeLink;
+            //compound_full_mwt_item = chembleMoleculeLink;
             em = forMolecule["exactMatch"];
         }
         //during testing there have been cases where em is null
@@ -1017,6 +1017,7 @@ Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyResponse = function
                     compound_smiles_item = chemSpiderLink;
                     compound_inchi_item = chemSpiderLink;
                     compound_inchikey_item = chemSpiderLink;
+		    compound_full_mwt_item = chemSpiderLink;
                     cs_src = match["inDataset"];
                 } else if (constants.SRC_CLS_MAPPINGS[src] == 'drugbankValue') {
                     drugbank_compound_uri = match[constants.ABOUT];
