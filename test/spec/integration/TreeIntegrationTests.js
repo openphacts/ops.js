@@ -436,9 +436,9 @@ describe("Trees", function() {
         expect(this_result[0].targets.length).toBeGreaterThan(0);
         expect(this_result[0].chemblActivityURI).toBeDefined();
         expect(this_result[0].pmid).toBeDefined();
-        expect(this_result[0].relation).toBeDefined();
-        expect(this_result[0].standardUnits).toBeDefined();
-        expect(this_result[0].standardValue).toBeDefined();
+        //expect(this_result[0].relation).toBeDefined();
+        //expect(this_result[0].standardUnits).toBeDefined();
+        //expect(this_result[0].standardValue).toBeDefined();
         expect(this_result[0].activityType).toBeDefined();
         expect(this_result[0].inDataset).toBeDefined();
         expect(this_result[0].fullMWT).toBeDefined();
@@ -542,9 +542,9 @@ describe("Trees", function() {
         expect(this_result[0].targets.length).toBeGreaterThan(0);
         expect(this_result[0].chemblActivityURI).toBeDefined();
         expect(this_result[0].pmid).toBeDefined();
-        expect(this_result[0].relation).toBeDefined();
-        expect(this_result[0].standardUnits).toBeDefined();
-        expect(this_result[0].standardValue).toBeDefined();
+        //expect(this_result[0].relation).toBeDefined();
+        //expect(this_result[0].standardUnits).toBeDefined();
+        //expect(this_result[0].standardValue).toBeDefined();
         expect(this_result[0].activityType).toBeDefined();
         expect(this_result[0].inDataset).toBeDefined();
         expect(this_result[0].fullMWT).toBeDefined();

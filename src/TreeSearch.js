@@ -340,9 +340,9 @@ Openphacts.TreeSearch.prototype.parseTargetClassPharmacologyPaginated = function
         var targets = [];
         var chemblActivityURI = null,
             pmid = null,
-            relation = null,
-            standardUnits = null,
-            standardValue = null,
+            //relation = null,
+            //standardUnits = null,
+            //standardValue = null,
             activityType = null,
             inDataset = null,
             fullMWT = null,
@@ -364,8 +364,6 @@ Openphacts.TreeSearch.prototype.parseTargetClassPharmacologyPaginated = function
             publishedType = null,
             publishedUnits = null,
             publishedValue = null,
-            standardUnits = null,
-            standardValue = null,
             pChembl = null,
             activityType = null,
             activityRelation = null,
@@ -383,9 +381,9 @@ Openphacts.TreeSearch.prototype.parseTargetClassPharmacologyPaginated = function
             activityUnits = units.prefLabel;
         }
 
-        relation = item.relation ? item.relation : null;
-        standardUnits = item.standardUnits;
-        standardValue = item.standardValue ? item.standardValue : null;
+        //relation = item.relation ? item.relation : null;
+        //standardUnits = item.standardUnits;
+        //standardValue = item.standardValue ? item.standardValue : null;
         activityType = item.activity_type;
         inDataset = item[constants.IN_DATASET];
         forMolecule = item[constants.FOR_MOLECULE];
@@ -514,9 +512,9 @@ Openphacts.TreeSearch.prototype.parseTargetClassPharmacologyPaginated = function
             'targets': assayTargets,
             'chemblActivityURI': chemblActivityURI,
             'pmid': pmid,
-            'relation': relation,
-            'standardUnits': standardUnits,
-            'standardValue': standardValue,
+            //'relation': relation,
+            //'standardUnits': standardUnits,
+            //'standardValue': standardValue,
             'activityType': activityType,
             'activityRelation': activityRelation,
             'activityUnits': activityUnits,
@@ -564,9 +562,9 @@ Openphacts.TreeSearch.prototype.parseCompoundClassPharmacologyPaginated = functi
         var chemblActivityURI = null,
             qudtURI = null,
             pmid = null,
-            relation = null,
-            standardUnits = null,
-            standardValue = null,
+            //relation = null,
+            //standardUnits = null,
+            //standardValue = null,
             activityType = null,
             inDataset = null,
             fullMWT = null,
@@ -588,8 +586,6 @@ Openphacts.TreeSearch.prototype.parseCompoundClassPharmacologyPaginated = functi
             publishedType = null,
             publishedUnits = null,
             publishedValue = null,
-            standardUnits = null,
-            standardValue = null,
             pChembl = null,
             activityType = null,
             activityRelation = null,
@@ -607,9 +603,9 @@ Openphacts.TreeSearch.prototype.parseCompoundClassPharmacologyPaginated = functi
             activityUnits = units.prefLabel;
         }
         qudtURI = item.qudt_uri ? item.qudt_uri : null;
-        relation = item.relation ? item.relation : null;
-        standardUnits = item.standardUnits;
-        standardValue = item.standardValue ? item.standardValue : null;
+        //relation = item.relation ? item.relation : null;
+        //standardUnits = item.standardUnits;
+        //standardValue = item.standardValue ? item.standardValue : null;
         activityType = item.activity_type;
         inDataset = item[constants.IN_DATASET];
         forMolecule = item[constants.FOR_MOLECULE];
@@ -739,9 +735,9 @@ Openphacts.TreeSearch.prototype.parseCompoundClassPharmacologyPaginated = functi
             'targets': assayTargets,
             'chemblActivityURI': chemblActivityURI,
             'pmid': pmid,
-            'relation': relation,
-            'standardUnits': standardUnits,
-            'standardValue': standardValue,
+            //'relation': relation,
+            //'standardUnits': standardUnits,
+            //'standardValue': standardValue,
             'activityType': activityType,
             'activityRelation': activityRelation,
             'activityUnits': activityUnits,
