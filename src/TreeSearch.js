@@ -336,7 +336,7 @@ Openphacts.TreeSearch.prototype.parseTargetClassPharmacologyCount = function(res
 Openphacts.TreeSearch.prototype.parseTargetClassPharmacologyPaginated = function(response) {
     var constants = new Openphacts.Constants();
     var records = [];
-    $.each(response.items, function(i, item) {
+    response.items.forEach(function(item, i, all) {
         var targets = [];
         var chemblActivityURI = null,
             pmid = null,
@@ -389,7 +389,7 @@ Openphacts.TreeSearch.prototype.parseTargetClassPharmacologyPaginated = function
         forMolecule = item[constants.FOR_MOLECULE];
         chemblURI = forMolecule[constants.ABOUT] ? forMolecule[constants.ABOUT] : null;
         pChembl = item.pChembl ? item.pChembl : null;
-        $.each(forMolecule[constants.EXACT_MATCH], function(j, match) {
+        forMolecule[constants.EXACT_MATCH].forEach(function(match, j, all) {
             var src = match[constants.IN_DATASET];
             if (constants.SRC_CLS_MAPPINGS[src] == 'conceptWikiValue') {
                 cwURI = match[constants.ABOUT];
@@ -419,16 +419,16 @@ Openphacts.TreeSearch.prototype.parseTargetClassPharmacologyPaginated = function
         });
         var targets = item.hasAssay.hasTarget;
         var assayTargets = [];
-        if ($.isArray(targets)) {
-            $.each(targets, function(index, target) {
+        if (Array.isArray(targets)) {
+            targets.forEach(function(target, index, all) {
                 var targetURI = target[constants.ABOUT];
                 var targetTitle = target.title;
                 var targetOrganismNames = target.targetOrganismName;
                 var targetComponents = target.hasTargetComponent;
                 var assayTargetComponents = [];
                 if (targetComponents) {
-                    if ($.isArray(targetComponents)) {
-                        $.each(targetComponents, function(j, targetComponent) {
+                    if (Array.isArray(targetComponents)) {
+                        targetComponents.forEach(function(targetComponent, j, all) {
                             var targetComponentLabel = targetComponent[constants.EXACT_MATCH].prefLabel;
                             var targetComponentURI = targetComponent[constants.EXACT_MATCH];
                             assayTargetComponents.push({
@@ -463,8 +463,8 @@ Openphacts.TreeSearch.prototype.parseTargetClassPharmacologyPaginated = function
             var targetComponents = targets.hasTargetComponent;
             var assayTargetComponents = [];
             if (targetComponents) {
-                if ($.isArray(targetComponents)) {
-                    $.each(targetComponents, function(j, targetComponent) {
+                if (Array.isArray(targetComponents)) {
+                    targetComponents.forEach(function(targetComponent, j, all) {
                         var targetComponentLabel = targetComponent[constants.EXACT_MATCH].prefLabel;
                         var targetComponentURI = targetComponent[constants.ABOUT];
                         assayTargetComponents.push({
@@ -508,7 +508,19 @@ Openphacts.TreeSearch.prototype.parseTargetClassPharmacologyPaginated = function
         publishedUnits = item.publishedUnits ? item.publishedUnits : null;
         publishedValue = item.publishedValue ? item.publishedValue : null;
         standardUnits = item.standardUnits ? item.standardUnits : null;
-        records.push({
+	var activity_comment = item['activityComment'] ? item['activityComment'] : null;
+	var documents = [];
+	if (item.hasDocument) {
+            if (Array.isArray(item.hasDocument)) {
+                item.hasDocument.forEach(function(document, index, documents) {
+                    documents.push(document);
+		});
+	    } else {
+                documents.push(item.hasDocument);
+	    }
+	}
+
+	records.push({
             'targets': assayTargets,
             'chemblActivityURI': chemblActivityURI,
             'pmid': pmid,
@@ -543,7 +555,9 @@ Openphacts.TreeSearch.prototype.parseTargetClassPharmacologyPaginated = function
             'conceptWikiProvenance': conceptwikiProvenance,
             'chemspiderProvenance': chemspiderProvenance,
             'assayTargetProvenance': assayTargetProvenance,
-            'assayProvenance': assayProvenance
+            'assayProvenance': assayProvenance,
+	    'chemblDOIs': documents,
+	    'activityComment': activity_comment
         });
     });
     return records;

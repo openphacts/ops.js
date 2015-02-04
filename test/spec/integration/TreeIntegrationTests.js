@@ -460,6 +460,9 @@ describe("Trees", function() {
         expect(this_result[0].chemspiderProvenance).toBeDefined();
         expect(this_result[0].assayTargetProvenance).toBeDefined();
         expect(this_result[0].assayProvenance).toBeDefined();
+	// chemblDOIs is an array but could be empty
+        expect(this_result[0].chemblDOIs).not.toBeNull();
+	expect(this_result[0].activityComment).toBeDefined();
       });
       searcher.getTargetClassPharmacologyPaginated('http://purl.uniprot.org/enzyme/1.1.1.-', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);
     });

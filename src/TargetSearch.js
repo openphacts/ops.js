@@ -602,7 +602,7 @@ Openphacts.TargetSearch.prototype.parseTargetPharmacologyResponse = function(res
 
 		var cw_compound_uri = null, compound_pref_label = null, cw_src = null, cs_compound_uri = null, compound_inchi = null, compound_inchikey = null, compound_smiles = null, cs_src = null, drugbank_compound_uri = null, compound_drug_type = null, compound_generic_name = null, drugbank_src = null, csid = null, compound_pref_label_item = null, compound_inchi_item = null, compound_inchikey_item = null, compound_smiles_item = null, assay_description = null, assay_description_item = null, compound_ro5_violations = null;
 
-		$.each(em, function(index, match) {
+		em.forEach(function(match, index, all) {
           var src = match[constants.IN_DATASET];
           if (constants.SRC_CLS_MAPPINGS[src] == 'conceptWikiValue') {
               cw_compound_uri = match["_about"];
