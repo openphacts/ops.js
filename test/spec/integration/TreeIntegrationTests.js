@@ -569,6 +569,9 @@ describe("Trees", function() {
         expect(this_result[0].chemspiderProvenance).toBeDefined();
         expect(this_result[0].assayTargetProvenance).toBeDefined();
         expect(this_result[0].assayProvenance).toBeDefined();
+	// chemblDOIs is an array but could be empty
+        expect(this_result[0].chemblDOIs).not.toBeNull();
+	expect(this_result[0].activityComment).toBeDefined();
       });
       searcher.getCompoundClassPharmacologyPaginated('http://purl.obolibrary.org/obo/CHEBI_100', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);
     });
