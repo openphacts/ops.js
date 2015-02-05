@@ -770,7 +770,6 @@ Openphacts.CompoundSearch.prototype.parseCompoundResponse = function(response) {
     };
 }
 
-<<<<<<< HEAD
 /**
  * Parse the results from {@link Openphacts.CompoundSearch#fetchCompound} which have a lens applied
  * @param {Object} response - the JSON response from {@link Openphacts.CompoundSearch#fetchCompound}
@@ -987,8 +986,6 @@ Openphacts.CompoundSearch.prototype.parseCompoundLensResponse = function(respons
     };
 }
 
-=======
->>>>>>> develop
 /**
  * Parse the results from {@link Openphacts.CompoundSearch#fetchCompoundBatch}
  * @param {Object} response - the JSON response from {@link Openphacts.CompoundSearch#fetchCompoundBatch}
