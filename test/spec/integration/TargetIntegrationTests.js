@@ -124,7 +124,7 @@ describe("Target search", function() {
       searcher.fetchTarget('http://www.conceptwiki.org/concept/876876876', null, callback);
     });
   });
-  describe("multiple target search", function() {
+  describe("fetch mutiple targets using batch call", function() {
 
     it("and return a response", function() {
       var this_success = null;
@@ -169,6 +169,7 @@ describe("Target search", function() {
         expect(this_result[0].prefLabel).toBeDefined();
         expect(this_result[0].chemblItems).toBeDefined();
         expect(this_result[0].URI).toBeDefined();
+	expect(this_result[0].mass).toBeDefined();
       });
 
       searcher.fetchTargetBatch(['http://www.conceptwiki.org/concept/00059958-a045-4581-9dc5-e5a08bb0c291', 'http://www.conceptwiki.org/concept/7b21c06f-0343-4fcc-ab0f-a74ffe871ade'], null, callback);
@@ -254,8 +255,11 @@ describe("Target search", function() {
         expect(this_result[0].compoundInchikeyItem).toBeDefined();
         expect(this_result[0].assayOrganismItem).toBeDefined();
         expect(this_result[0].targets).toBeDefined();
+	// chemblDOIs is an array but could be empty
+        expect(this_result[0].chemblDOIs).not.toBeNull();
+	expect(this_result[0].activityComment).toBeDefined();
 
-        // mandatory values
+	// mandatory values
         expect(this_result[0].chemblActivityUri).not.toBeNull();
         expect(this_result[0].cwCompoundUri).not.toBeNull();
         expect(this_result[0].compoundPrefLabel).not.toBeNull();

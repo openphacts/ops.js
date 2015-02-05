@@ -436,9 +436,9 @@ describe("Trees", function() {
         expect(this_result[0].targets.length).toBeGreaterThan(0);
         expect(this_result[0].chemblActivityURI).toBeDefined();
         expect(this_result[0].pmid).toBeDefined();
-        expect(this_result[0].relation).toBeDefined();
-        expect(this_result[0].standardUnits).toBeDefined();
-        expect(this_result[0].standardValue).toBeDefined();
+        //expect(this_result[0].relation).toBeDefined();
+        //expect(this_result[0].standardUnits).toBeDefined();
+        //expect(this_result[0].standardValue).toBeDefined();
         expect(this_result[0].activityType).toBeDefined();
         expect(this_result[0].inDataset).toBeDefined();
         expect(this_result[0].fullMWT).toBeDefined();
@@ -460,6 +460,9 @@ describe("Trees", function() {
         expect(this_result[0].chemspiderProvenance).toBeDefined();
         expect(this_result[0].assayTargetProvenance).toBeDefined();
         expect(this_result[0].assayProvenance).toBeDefined();
+	// chemblDOIs is an array but could be empty
+        expect(this_result[0].chemblDOIs).not.toBeNull();
+	expect(this_result[0].activityComment).toBeDefined();
       });
       searcher.getTargetClassPharmacologyPaginated('http://purl.uniprot.org/enzyme/1.1.1.-', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);
     });
@@ -542,9 +545,9 @@ describe("Trees", function() {
         expect(this_result[0].targets.length).toBeGreaterThan(0);
         expect(this_result[0].chemblActivityURI).toBeDefined();
         expect(this_result[0].pmid).toBeDefined();
-        expect(this_result[0].relation).toBeDefined();
-        expect(this_result[0].standardUnits).toBeDefined();
-        expect(this_result[0].standardValue).toBeDefined();
+        //expect(this_result[0].relation).toBeDefined();
+        //expect(this_result[0].standardUnits).toBeDefined();
+        //expect(this_result[0].standardValue).toBeDefined();
         expect(this_result[0].activityType).toBeDefined();
         expect(this_result[0].inDataset).toBeDefined();
         expect(this_result[0].fullMWT).toBeDefined();
@@ -566,6 +569,9 @@ describe("Trees", function() {
         expect(this_result[0].chemspiderProvenance).toBeDefined();
         expect(this_result[0].assayTargetProvenance).toBeDefined();
         expect(this_result[0].assayProvenance).toBeDefined();
+	// chemblDOIs is an array but could be empty
+        expect(this_result[0].chemblDOIs).not.toBeNull();
+	expect(this_result[0].activityComment).toBeDefined();
       });
       searcher.getCompoundClassPharmacologyPaginated('http://purl.obolibrary.org/obo/CHEBI_100', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);
     });
