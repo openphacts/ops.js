@@ -1224,6 +1224,10 @@ Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyResponse = function
         //during testing there have been cases where em is null
         var chemblMolecule = em != null ? em[constants.ABOUT] : null;
         if (em != null) {
+		// the exact match block may only have 1 entry
+		if (!Array.isArray(em)) {
+			em = [em];
+		}
             $.each(em, function(index, match) {
                 var src = match[constants.IN_DATASET];
                 if (constants.SRC_CLS_MAPPINGS[src] == 'conceptWikiValue') {
