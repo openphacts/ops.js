@@ -284,15 +284,17 @@ Openphacts.TargetSearch.prototype.targetTypes = function(lens, callback) {
 Openphacts.TargetSearch.prototype.parseTargetResponse = function(response) {
     var constants = new Openphacts.Constants();
 	var drugbankData = null, chemblData = null, uniprotData = null, cellularLocation = null, molecularWeight = null, numberOfResidues = null, theoreticalPi = null, drugbankURI = null, functionAnnotation  =null, alternativeName = null, existence = null, organism = null, sequence = null, uniprotURI = null, URI = null, cwUri = null, mass = null;
-	var drugbankProvenance, chemblProvenance, uniprotProvenance, conceptwikiProvenance;
+	var drugbankProvenance = null, chemblProvenance = null, uniprotProvenance = null, conceptwikiProvenance = null;
 	var URI = response.primaryTopic[constants.ABOUT];
 	var id = URI.split("/").pop();
 	var keywords = [];
 	var classifiedWith = [];
 	var seeAlso = [];
     var chemblItems = [];
-    var label = response.primaryTopic[constants.PREF_LABEL];
-	$.each(response.primaryTopic[constants.EXACT_MATCH], function(i, exactMatch) {
+    var label = response.primaryTopic[constants.PREF_LABEL] != null ? response.primaryTopic[constants.PREF_LABEL] : null;
+    var exactMatches = response.primaryTopic[constants.EXACT_MATCH];
+    if (Array.isArray(exactMatches)) {
+	exactMatches.forEach(function(exactMatch, i, allMatches) {
         var src = exactMatch[constants.IN_DATASET];
 		if (src) {
 			if (constants.SRC_CLS_MAPPINGS[src] == 'drugbankValue') {
@@ -325,14 +327,14 @@ Openphacts.TargetSearch.prototype.parseTargetResponse = function(response) {
                 chemblDataItem['synonyms'] = synonymsData;
                 var targetComponents = {};
                 if (chemblData[constants.HAS_TARGET_COMPONENT]) {
-                    $.each(chemblData[constants.HAS_TARGET_COMPONENT], function(index, targetComponent) {
+                    chemblData[constants.HAS_TARGET_COMPONENT].forEach(function(targetComponent, index, allTargetComponents) {
                       targetComponents[targetComponent[constants.ABOUT]] = targetComponent.description;
                     });
                 }
                 chemblDataItem['targetComponents'] = targetComponents;
                 chemblDataItem['type'] = chemblData.type;
                 if (chemblData.keyword) {
-				  $.each(chemblData.keyword, function(j, key) {
+				 chemblData.keyword.forEach(function(key, j, keys) {
 				 keywords.push(key);
 				  });
                 }
@@ -349,13 +351,13 @@ Openphacts.TargetSearch.prototype.parseTargetResponse = function(response) {
 				uniprotData = exactMatch;
                 uniprotURI = uniprotData[constants.ABOUT];
 				if (uniprotData.classifiedWith) {
-					$.each(uniprotData.classifiedWith, function(j, classified) {
+					uniprotData.classifiedWith.forEach(function(classified, j, allClassified) {
 						classifiedWith.push(classified);
 					});
 				}
 				if (uniprotData.seeAlso) {
-                    if ($.isArray(uniprotData.seeAlso)) {
-					  $.each(uniprotData.seeAlso, function(j, see) {
+                    if (Array.isArray(uniprotData.seeAlso)) {
+					  uniprotData.forEach(function(see, j, allSee) {
 						  seeAlso.push(see);
 					  });
                     } else {
@@ -394,7 +396,7 @@ Openphacts.TargetSearch.prototype.parseTargetResponse = function(response) {
             }
 		}
 	});
-
+    }
 	return {
 		'id': id,
 		'cellularLocation': cellularLocation,
