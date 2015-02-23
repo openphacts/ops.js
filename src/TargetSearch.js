@@ -309,7 +309,7 @@ Openphacts.TargetSearch.prototype.parseTargetResponse = function(response) {
         chemblProvenance = null,
         uniprotProvenance = null,
         conceptwikiProvenance = null;
-    var keywords = [];
+    //var keywords = [];
     var classifiedWith = [];
     var seeAlso = [];
     var chemblItems = [];
@@ -386,25 +386,18 @@ Openphacts.TargetSearch.prototype.parseTargetResponse = function(response) {
                     chemblDataItem['synonyms'] = synonymsData;
                     var targetComponents = {};
                     if (chemblData[constants.HAS_TARGET_COMPONENT]) {
-                        var targetComponentArray = [];
-                        if (!Array.isArray(chemblData[constants.HAS_TARGET_COMPONENT])) {
-                            // Singleton with key/values
-                            targetComponentArray.push(chemblData[constants.HAS_TARGET_COMPONENT]);
-                        } else {
-                            targetComponentArray = chemblData[constants.HAS_TARGET_COMPONENT];
-                        }
-                        targetComponentArray.forEach(function(targetComponent, index, allTargetComponents) {
+                        Openphacts.arrayOrSingletonToArray(chemblData[constants.HAS_TARGET_COMPONENT]).forEach(function(targetComponent, index, allTargetComponents) {
                             targetComponents[targetComponent[constants.ABOUT]] = targetComponent.description;
                         });
                     }
                     chemblDataItem['targetComponents'] = targetComponents;
                     chemblDataItem['type'] = chemblData.type;
-                    if (chemblData.keyword) {
-                        chemblData.keyword.forEach(function(key, j, keys) {
-                            keywords.push(key);
-                        });
-                    }
-                    chemblDataItem['keywords'] = keywords;
+                    //if (chemblData.keyword) {
+                    //    chemblData.keyword.forEach(function(key, j, keys) {
+                    //        keywords.push(key);
+                    //    });
+                    //}
+                    //chemblDataItem['keywords'] = keywords;
                     chemblItems.push(chemblDataItem);
 
                     chemblProvenance = {};
@@ -412,7 +405,7 @@ Openphacts.TargetSearch.prototype.parseTargetResponse = function(response) {
                     chemblProvenance['synonymsData'] = chemblLinkOut;
                     chemblProvenance['targetComponents'] = chemblLinkOut;
                     chemblProvenance['type'] = chemblLinkOut;
-                    chemblProvenance['keywords'] = chemblLinkOut;
+                    //chemblProvenance['keywords'] = chemblLinkOut;
                 } else if (constants.SRC_CLS_MAPPINGS[src] == 'uniprotValue') {
                     uniprotData = exactMatch;
                     uniprotURI = uniprotData[constants.ABOUT];
@@ -467,7 +460,7 @@ Openphacts.TargetSearch.prototype.parseTargetResponse = function(response) {
         'numberOfResidues': numberOfResidues,
         'theoreticalPi': theoreticalPi,
         'drugbankURI': drugbankURI,
-        'keywords': keywords,
+        //'keywords': keywords,
         'functionAnnotation': functionAnnotation,
         'alternativeName': alternativeName,
         'mass': mass,
@@ -517,7 +510,7 @@ Openphacts.TargetSearch.prototype.parseTargetBatchResponse = function(response) 
         var drugbankProvenance, chemblProvenance, uniprotProvenance, conceptwikiProvenance;
         var URI = item[constants.ABOUT];
         var id = URI.split("/").pop();
-        var keywords = [];
+        //var keywords = [];
         var classifiedWith = [];
         var seeAlso = [];
         var chemblItems = [];
@@ -561,12 +554,12 @@ Openphacts.TargetSearch.prototype.parseTargetBatchResponse = function(response) 
                     }
                     chemblDataItem['targetComponents'] = targetComponents;
                     chemblDataItem['type'] = chemblData.type;
-                    if (chemblData.keyword) {
-                        $.each(chemblData.keyword, function(j, key) {
-                            keywords.push(key);
-                        });
-                    }
-                    chemblDataItem['keywords'] = keywords;
+                    //if (chemblData.keyword) {
+                    //    $.each(chemblData.keyword, function(j, key) {
+                    //        keywords.push(key);
+                    //    });
+                    //}
+                    //chemblDataItem['keywords'] = keywords;
                     chemblItems.push(chemblDataItem);
 
                     chemblProvenance = {};
@@ -574,23 +567,19 @@ Openphacts.TargetSearch.prototype.parseTargetBatchResponse = function(response) 
                     chemblProvenance['synonymsData'] = chemblLinkOut;
                     chemblProvenance['targetComponents'] = chemblLinkOut;
                     chemblProvenance['type'] = chemblLinkOut;
-                    chemblProvenance['keywords'] = chemblLinkOut;
+                    //chemblProvenance['keywords'] = chemblLinkOut;
                 } else if (constants.SRC_CLS_MAPPINGS[src] == 'uniprotValue') {
                     uniprotData = exactMatch;
                     uniprotURI = uniprotData[constants.ABOUT];
                     if (uniprotData.classifiedWith) {
-                        $.each(uniprotData.classifiedWith, function(j, classified) {
+                        Openphacts.arrayOrSingletonToArray(uniprotData.classifiedWith).forEach(function(classified, j, allClassified) {
                             classifiedWith.push(classified);
                         });
                     }
                     if (uniprotData.seeAlso) {
-                        if ($.isArray(uniprotData.seeAlso)) {
-                            $.each(uniprotData.seeAlso, function(j, see) {
-                                seeAlso.push(see);
-                            });
-                        } else {
-                            seeAlso.push(uniprotData.seeAlso);
-                        }
+                        Openphacts.arrayOrSingletonToArray(uniprotData.seeAlso).forEach(function(see, i, allSe) {
+                            seeAlso.push(see);
+                        });
                     }
                     molecularWeight = uniprotData.molecularWeight ? uniprotData.molecularWeight : null;
                     functionAnnotation = uniprotData.Function_Annotation ? uniprotData.Function_Annotation : null;
@@ -632,7 +621,7 @@ Openphacts.TargetSearch.prototype.parseTargetBatchResponse = function(response) 
             'numberOfResidues': numberOfResidues,
             'theoreticalPi': theoreticalPi,
             'drugbankURI': drugbankURI,
-            'keywords': keywords,
+            //'keywords': keywords,
             'functionAnnotation': functionAnnotation,
             'alternativeName': alternativeName,
             'existence': existence,
@@ -802,13 +791,9 @@ Openphacts.TargetSearch.prototype.parseTargetPharmacologyResponse = function(res
         var pChembl = item.pChembl;
         var documents = [];
         if (item.hasDocument) {
-            if (Array.isArray(item.hasDocument)) {
-                item.hasDocument.forEach(function(document, index, documents) {
+                Openphacts.arrayOrSingletonToArray(item.hasDocument).forEach(function(document, index, documents) {
                     documents.push(document);
                 });
-            } else {
-                documents.push(item.hasDocument);
-            }
         }
         records.push({ //for compound
             'compoundInchikey': compound_inchikey,

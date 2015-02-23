@@ -42,7 +42,7 @@ describe("Target search", function() {
         expect(this_result.molecularWeight).toBeDefined();
         expect(this_result.numberOfResidues).toBeDefined();
         expect(this_result.theoreticalPi).toBeDefined();
-        expect(this_result.keywords).toBeDefined();
+        //expect(this_result.keywords).toBeDefined();
         expect(this_result.functionAnnotation).toBeDefined();
         expect(this_result.alternativeName).toBeDefined();
         expect(this_result.organism).toBeDefined();
@@ -88,7 +88,7 @@ describe("Target search", function() {
         expect(this_result.molecularWeight).toBeDefined();
         expect(this_result.numberOfResidues).toBeDefined();
         expect(this_result.theoreticalPi).toBeDefined();
-        expect(this_result.keywords).toBeDefined();
+        //expect(this_result.keywords).toBeDefined();
         expect(this_result.functionAnnotation).toBeDefined();
         expect(this_result.alternativeName).toBeDefined();
         expect(this_result.organism).toBeDefined();
@@ -158,7 +158,7 @@ describe("Target search", function() {
         expect(this_result[0].molecularWeight).toBeDefined();
         expect(this_result[0].numberOfResidues).toBeDefined();
         expect(this_result[0].theoreticalPi).toBeDefined();
-        expect(this_result[0].keywords).toBeDefined();
+        //expect(this_result[0].keywords).toBeDefined();
         expect(this_result[0].functionAnnotation).toBeDefined();
         expect(this_result[0].alternativeName).toBeDefined();
         expect(this_result[0].organism).toBeDefined();
