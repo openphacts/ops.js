@@ -325,13 +325,9 @@ Openphacts.TargetSearch.prototype.parseTargetResponse = function(response) {
             });
         }
         if (uniprotData.seeAlso) {
-            if (Array.isArray(uniprotData.seeAlso)) {
-                uniprotData.seeAlso.forEach(function(see, j, allSee) {
-                    seeAlso.push(see);
-                });
-            } else {
-                seeAlso.push(uniprotData.seeAlso);
-            }
+            Openphacts.arrayOrSingleton(uniprotData.seeAlso).forEach(function(see, j, allSee) {
+                seeAlso.push(see);
+            });
         }
         molecularWeight = uniprotData.molecularWeight ? uniprotData.molecularWeight : null;
         functionAnnotation = uniprotData.Function_Annotation ? uniprotData.Function_Annotation : null;
@@ -426,13 +422,9 @@ Openphacts.TargetSearch.prototype.parseTargetResponse = function(response) {
                         });
                     }
                     if (uniprotData.seeAlso) {
-                        if (Array.isArray(uniprotData.seeAlso)) {
-                            uniprotData.seeAlso.forEach(function(see, j, allSee) {
-                                seeAlso.push(see);
-                            });
-                        } else {
-                            seeAlso.push(uniprotData.seeAlso);
-                        }
+                        Openphacts.arrayOrSingleton(uniprotData.seeAlso).forEach(function(see, j, allSee) {
+                            seeAlso.push(see);
+                        });
                     }
                     molecularWeight = uniprotData.molecularWeight ? uniprotData.molecularWeight : null;
                     functionAnnotation = uniprotData.Function_Annotation ? uniprotData.Function_Annotation : null;
