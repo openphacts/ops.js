@@ -1907,15 +1907,56 @@ Openphacts.TargetSearch.prototype.targetTypes = function(lens, callback) {
 Openphacts.TargetSearch.prototype.parseTargetResponse = function(response) {
     var constants = new Openphacts.Constants();
 	var drugbankData = null, chemblData = null, uniprotData = null, cellularLocation = null, molecularWeight = null, numberOfResidues = null, theoreticalPi = null, drugbankURI = null, functionAnnotation  =null, alternativeName = null, existence = null, organism = null, sequence = null, uniprotURI = null, URI = null, cwUri = null, mass = null;
-	var drugbankProvenance, chemblProvenance, uniprotProvenance, conceptwikiProvenance;
-	var URI = response.primaryTopic[constants.ABOUT];
-	var id = URI.split("/").pop();
+	var drugbankProvenance = null, chemblProvenance = null, uniprotProvenance = null, conceptwikiProvenance = null;
 	var keywords = [];
 	var classifiedWith = [];
 	var seeAlso = [];
-    var chemblItems = [];
-    var label = response.primaryTopic[constants.PREF_LABEL];
-	$.each(response.primaryTopic[constants.EXACT_MATCH], function(i, exactMatch) {
+	var chemblItems = [];
+	var URI = response.primaryTopic[constants.ABOUT];
+	// depending on the URI used the info block for that object will be on the top level in primaryTopic rather than in exactMatch
+	// We need to check what the URI represents and pull the appropriate info out 
+	if (constants.SRC_CLS_MAPPINGS[response.primaryTopic[constants.IN_DATASET]] === 'uniprotValue') {
+				uniprotData = response.primaryTopic;
+                uniprotURI = uniprotData[constants.ABOUT];
+				if (uniprotData.classifiedWith) {
+					uniprotData.classifiedWith.forEach(function(classified, j, allClassified) {
+						classifiedWith.push(classified);
+					});
+				}
+				if (uniprotData.seeAlso) {
+                    if (Array.isArray(uniprotData.seeAlso)) {
+					  uniprotData.seeAlso.forEach(function(see, j, allSee) {
+						  seeAlso.push(see);
+					  });
+                    } else {
+				      seeAlso.push(uniprotData.seeAlso);
+                    }
+				}
+                molecularWeight =  uniprotData.molecularWeight ? uniprotData.molecularWeight: null;
+	            functionAnnotation = uniprotData.Function_Annotation ? uniprotData.Function_Annotation : null;
+                alternativeName = uniprotData.alternativeName ? uniprotData.alternativeName : null;
+	            existence = uniprotData.existence ? uniprotData.existence : null;
+	            organism = uniprotData.organism ? uniprotData.organism : null;
+	            sequence = uniprotData.sequence ? uniprotData.sequence : null;
+		    mass = uniprotData.mass ? uniprotData.mass : null;
+	            uniprotProvenance = {};
+	            uniprotLinkOut = uniprotURI;
+				uniprotProvenance['source'] = 'uniprot';
+	            uniprotProvenance['classifiedWith'] = uniprotLinkOut;
+	            uniprotProvenance['seeAlso'] = uniprotLinkOut;
+	            uniprotProvenance['molecularWeight'] = uniprotLinkOut;
+	            uniprotProvenance['functionAnnotation'] = uniprotLinkOut;
+	        	uniprotProvenance['alternativeName'] = uniprotLinkOut;
+	            uniprotProvenance['existence'] = uniprotLinkOut;
+	            uniprotProvenance['organism'] = uniprotLinkOut;
+	            uniprotProvenance['sequence'] = uniprotLinkOut;
+		    uniprotProvenance['mass'] = uniprotLinkOut;
+	}
+	var id = URI.split("/").pop();
+    var label = response.primaryTopic[constants.PREF_LABEL] != null ? response.primaryTopic[constants.PREF_LABEL] : null;
+    var exactMatches = response.primaryTopic[constants.EXACT_MATCH];
+    if (Array.isArray(exactMatches)) {
+	exactMatches.forEach(function(exactMatch, i, allMatches) {
         var src = exactMatch[constants.IN_DATASET];
 		if (src) {
 			if (constants.SRC_CLS_MAPPINGS[src] == 'drugbankValue') {
@@ -1948,14 +1989,21 @@ Openphacts.TargetSearch.prototype.parseTargetResponse = function(response) {
                 chemblDataItem['synonyms'] = synonymsData;
                 var targetComponents = {};
                 if (chemblData[constants.HAS_TARGET_COMPONENT]) {
-                    $.each(chemblData[constants.HAS_TARGET_COMPONENT], function(index, targetComponent) {
+			var targetComponentArray = [];
+                    if (!Array.isArray(chemblData[constants.HAS_TARGET_COMPONENT])) {
+			    // Singleton with key/values
+		        targetComponentArray.push(chemblData[constants.HAS_TARGET_COMPONENT]);
+		    } else {
+                        targetComponentArray = chemblData[constants.HAS_TARGET_COMPONENT];
+		    }
+			    targetComponentArray.forEach(function(targetComponent, index, allTargetComponents) {
                       targetComponents[targetComponent[constants.ABOUT]] = targetComponent.description;
                     });
                 }
                 chemblDataItem['targetComponents'] = targetComponents;
                 chemblDataItem['type'] = chemblData.type;
                 if (chemblData.keyword) {
-				  $.each(chemblData.keyword, function(j, key) {
+				 chemblData.keyword.forEach(function(key, j, keys) {
 				 keywords.push(key);
 				  });
                 }
@@ -1972,13 +2020,13 @@ Openphacts.TargetSearch.prototype.parseTargetResponse = function(response) {
 				uniprotData = exactMatch;
                 uniprotURI = uniprotData[constants.ABOUT];
 				if (uniprotData.classifiedWith) {
-					$.each(uniprotData.classifiedWith, function(j, classified) {
+					uniprotData.classifiedWith.forEach(function(classified, j, allClassified) {
 						classifiedWith.push(classified);
 					});
 				}
 				if (uniprotData.seeAlso) {
-                    if ($.isArray(uniprotData.seeAlso)) {
-					  $.each(uniprotData.seeAlso, function(j, see) {
+                    if (Array.isArray(uniprotData.seeAlso)) {
+					  uniprotData.seeAlso.forEach(function(see, j, allSee) {
 						  seeAlso.push(see);
 					  });
                     } else {
@@ -2017,6 +2065,7 @@ Openphacts.TargetSearch.prototype.parseTargetResponse = function(response) {
             }
 		}
 	});
+    }
 
 	return {
 		'id': id,
