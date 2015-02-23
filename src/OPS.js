@@ -16,7 +16,7 @@ var Openphacts = Openphacts || {};
  * @returns {Array}
  * @method
  */
-Openphacts.arrayOrSingleton = function(data) {
+Openphacts.arrayOrSingletonToArray = function(data) {
     if (!Array.isArray(data)) {
         return [data];
     } else {

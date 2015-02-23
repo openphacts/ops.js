@@ -320,12 +320,12 @@ Openphacts.TargetSearch.prototype.parseTargetResponse = function(response) {
         uniprotData = response.primaryTopic;
         uniprotURI = uniprotData[constants.ABOUT];
         if (uniprotData.classifiedWith) {
-            uniprotData.classifiedWith.forEach(function(classified, j, allClassified) {
+            Openphacts.arrayOrSingletonToArray(uniprotData.classifiedWith).forEach(function(classified, j, allClassified) {
                 classifiedWith.push(classified);
             });
         }
         if (uniprotData.seeAlso) {
-            Openphacts.arrayOrSingleton(uniprotData.seeAlso).forEach(function(see, j, allSee) {
+            Openphacts.arrayOrSingletonToArray(uniprotData.seeAlso).forEach(function(see, j, allSee) {
                 seeAlso.push(see);
             });
         }
@@ -417,12 +417,12 @@ Openphacts.TargetSearch.prototype.parseTargetResponse = function(response) {
                     uniprotData = exactMatch;
                     uniprotURI = uniprotData[constants.ABOUT];
                     if (uniprotData.classifiedWith) {
-                        uniprotData.classifiedWith.forEach(function(classified, j, allClassified) {
+                        Openphacts.arrayOrSingletonToArray(uniprotData.classifiedWith).forEach(function(classified, j, allClassified) {
                             classifiedWith.push(classified);
                         });
                     }
                     if (uniprotData.seeAlso) {
-                        Openphacts.arrayOrSingleton(uniprotData.seeAlso).forEach(function(see, j, allSee) {
+                        Openphacts.arrayOrSingletonToArray(uniprotData.seeAlso).forEach(function(see, j, allSee) {
                             seeAlso.push(see);
                         });
                     }
