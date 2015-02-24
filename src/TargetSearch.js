@@ -282,200 +282,217 @@ Openphacts.TargetSearch.prototype.targetTypes = function(lens, callback) {
 }
 
 /**
- * Parse the results from {@link Openphacts.TargetSearch#fetchTarget}
- * @param {Object} response - the JSON response from {@link Openphacts.TargetSearch#fetchTarget}
- * @returns {FetchTargetResponse} Containing the flattened response
+ * Parse a block of uniprot data for a target
+ * @param {Object} uniprotBlock - JSON containing some Uniprot data for a target
+ * @returns {Object} Flattened uniprot response
  * @method
  */
-Openphacts.TargetSearch.prototype.parseTargetResponse = function(response) {
+Openphacts.TargetSearch.prototype.parseUniprotBlock = function(uniprotBlock) {
     var constants = new Openphacts.Constants();
-    var drugbankData = null,
-        chemblData = null,
-        uniprotData = null,
-        cellularLocation = null,
-        molecularWeight = null,
-        numberOfResidues = null,
-        theoreticalPi = null,
-        drugbankURI = null,
-        functionAnnotation = null,
-        alternativeName = null,
-        existence = null,
-        organism = null,
-        sequence = null,
-        uniprotURI = null,
-        URI = null,
-        cwUri = null,
-        mass = null;
-    var drugbankProvenance = null,
-        chemblProvenance = null,
-        uniprotProvenance = null,
-        conceptwikiProvenance = null;
-    //var keywords = [];
+    var uniprotData = uniprotBlock;
+    var uniprotURI = uniprotData[constants.ABOUT];
     var classifiedWith = [];
     var seeAlso = [];
-    var chemblItems = [];
-    var URI = response[constants.ABOUT];
-    // depending on the URI used the info block for that object will be on the top level rather than in exactMatch
-    // We need to check what the URI represents and pull the appropriate info out 
-    if (constants.SRC_CLS_MAPPINGS[response[constants.IN_DATASET]] === 'uniprotValue') {
-        uniprotData = response;
-        uniprotURI = uniprotData[constants.ABOUT];
-        if (uniprotData.classifiedWith) {
-            Openphacts.arrayify(uniprotData.classifiedWith).forEach(function(classified, j, allClassified) {
-                classifiedWith.push(classified);
-            });
-        }
-        if (uniprotData.seeAlso) {
-            Openphacts.arrayify(uniprotData.seeAlso).forEach(function(see, j, allSee) {
-                seeAlso.push(see);
-            });
-        }
-        molecularWeight = uniprotData.molecularWeight ? uniprotData.molecularWeight : null;
-        functionAnnotation = uniprotData.Function_Annotation ? uniprotData.Function_Annotation : null;
-        alternativeName = uniprotData.alternativeName ? uniprotData.alternativeName : null;
-        existence = uniprotData.existence ? uniprotData.existence : null;
-        organism = uniprotData.organism ? uniprotData.organism : null;
-        sequence = uniprotData.sequence ? uniprotData.sequence : null;
-        mass = uniprotData.mass ? uniprotData.mass : null;
-        uniprotProvenance = {};
-        uniprotLinkOut = uniprotURI;
-        uniprotProvenance['source'] = 'uniprot';
-        uniprotProvenance['classifiedWith'] = uniprotLinkOut;
-        uniprotProvenance['seeAlso'] = uniprotLinkOut;
-        uniprotProvenance['molecularWeight'] = uniprotLinkOut;
-        uniprotProvenance['functionAnnotation'] = uniprotLinkOut;
-        uniprotProvenance['alternativeName'] = uniprotLinkOut;
-        uniprotProvenance['existence'] = uniprotLinkOut;
-        uniprotProvenance['organism'] = uniprotLinkOut;
-        uniprotProvenance['sequence'] = uniprotLinkOut;
-        uniprotProvenance['mass'] = uniprotLinkOut;
+    if (uniprotData.classifiedWith) {
+        Openphacts.arrayify(uniprotData.classifiedWith).forEach(function(classified, j, allClassified) {
+            classifiedWith.push(classified);
+        });
     }
-    var id = URI.split("/").pop();
-    var label = response[constants.PREF_LABEL] != null ? response[constants.PREF_LABEL] : null;
-    var exactMatches = response[constants.EXACT_MATCH];
-    Openphacts.arrayify(exactMatches).forEach(function(exactMatch, i, allMatches) {
-        var src = exactMatch[constants.IN_DATASET];
-        if (src) {
-            if (constants.SRC_CLS_MAPPINGS[src] == 'drugbankValue') {
-                drugbankData = exactMatch;
-                cellularLocation = drugbankData.cellularLocation ? drugbankData.cellularLocation : null;
-                numberOfResidues = drugbankData.numberOfResidues ? drugbankData.numberOfResidues : null;
-                theoreticalPi = drugbankData.theoreticalPi ? drugbankData.theoreticalPi : null;
-                drugbankURI = drugbankData[constants.ABOUT] ? drugbankData[constants.ABOUT] : null;
-
-                var drugbankLinkOut = drugbankURI;
-                drugbankProvenance = {};
-                drugbankProvenance['source'] = 'drugbank';
-                drugbankProvenance['cellularLocation'] = drugbankLinkOut;
-                drugbankProvenance['numberOfResidues'] = drugbankLinkOut;
-                drugbankProvenance['theoreticalPi'] = drugbankLinkOut;
-            } else if (constants.SRC_CLS_MAPPINGS[src] == 'chemblValue') {
-                // there can be multiple proteins per target response
-                chemblData = exactMatch;
-                var chemblLinkOut = 'https://www.ebi.ac.uk/chembldb/target/inspect/';
-                chemblDataItem = {};
-                chemblDataItem['chembl_src'] = chemblData[constants.IN_DATASET];
-                chemblUri = chemblData[constants.ABOUT];
-                chemblLinkOut += chemblUri.split('/').pop();
-                chemblDataItem['linkOut'] = chemblLinkOut;
-                // synomnys
-                var synonymsData;
-                if (chemblData[constants.LABEL]) {
-                    synonymsData = chemblData[constants.LABEL];
-                }
-                chemblDataItem['synonyms'] = synonymsData;
-                var targetComponents = {};
-                if (chemblData[constants.HAS_TARGET_COMPONENT]) {
-                    Openphacts.arrayify(chemblData[constants.HAS_TARGET_COMPONENT]).forEach(function(targetComponent, index, allTargetComponents) {
-                        targetComponents[targetComponent[constants.ABOUT]] = targetComponent.description;
-                    });
-                }
-                chemblDataItem['targetComponents'] = targetComponents;
-                chemblDataItem['type'] = chemblData.type;
-                //if (chemblData.keyword) {
-                //    chemblData.keyword.forEach(function(key, j, keys) {
-                //        keywords.push(key);
-                //    });
-                //}
-                //chemblDataItem['keywords'] = keywords;
-                chemblItems.push(chemblDataItem);
-
-                chemblProvenance = {};
-                chemblProvenance['source'] = 'chembl';
-                chemblProvenance['synonymsData'] = chemblLinkOut;
-                chemblProvenance['targetComponents'] = chemblLinkOut;
-                chemblProvenance['type'] = chemblLinkOut;
-                //chemblProvenance['keywords'] = chemblLinkOut;
-            } else if (constants.SRC_CLS_MAPPINGS[src] == 'uniprotValue') {
-                uniprotData = exactMatch;
-                uniprotURI = uniprotData[constants.ABOUT];
-                if (uniprotData.classifiedWith) {
-                    Openphacts.arrayify(uniprotData.classifiedWith).forEach(function(classified, j, allClassified) {
-                        classifiedWith.push(classified);
-                    });
-                }
-                if (uniprotData.seeAlso) {
-                    Openphacts.arrayify(uniprotData.seeAlso).forEach(function(see, j, allSee) {
-                        seeAlso.push(see);
-                    });
-                }
-                molecularWeight = uniprotData.molecularWeight ? uniprotData.molecularWeight : null;
-                functionAnnotation = uniprotData.Function_Annotation ? uniprotData.Function_Annotation : null;
-                alternativeName = uniprotData.alternativeName ? uniprotData.alternativeName : null;
-                existence = uniprotData.existence ? uniprotData.existence : null;
-                organism = uniprotData.organism ? uniprotData.organism : null;
-                sequence = uniprotData.sequence ? uniprotData.sequence : null;
-                mass = uniprotData.mass ? uniprotData.mass : null;
-                uniprotProvenance = {};
-                uniprotLinkOut = uniprotURI;
-                uniprotProvenance['source'] = 'uniprot';
-                uniprotProvenance['classifiedWith'] = uniprotLinkOut;
-                uniprotProvenance['seeAlso'] = uniprotLinkOut;
-                uniprotProvenance['molecularWeight'] = uniprotLinkOut;
-                uniprotProvenance['functionAnnotation'] = uniprotLinkOut;
-                uniprotProvenance['alternativeName'] = uniprotLinkOut;
-                uniprotProvenance['existence'] = uniprotLinkOut;
-                uniprotProvenance['organism'] = uniprotLinkOut;
-                uniprotProvenance['sequence'] = uniprotLinkOut;
-                uniprotProvenance['mass'] = uniprotLinkOut;
-            } else if (constants.SRC_CLS_MAPPINGS[src] == 'conceptWikiValue') {
-                // if using a chembl id to search then the about would be a chembl id rather than the
-                // cw one which we want
-                //id = exactMatch[constants.ABOUT].split("/").pop();
-                cwUri = exactMatch[constants.ABOUT];
-                label = exactMatch[constants.PREF_LABEL];
-                conceptWikiLinkOut = exactMatch[constants.ABOUT];
-                conceptwikiProvenance = {};
-                conceptwikiProvenance['source'] = 'conceptwiki';
-                conceptwikiProvenance['prefLabel'] = conceptWikiLinkOut;
-            }
-        }
-    });
+    if (uniprotData.seeAlso) {
+        Openphacts.arrayify(uniprotData.seeAlso).forEach(function(see, j, allSee) {
+            seeAlso.push(see);
+        });
+    }
+    var molecularWeight = uniprotData.molecularWeight ? uniprotData.molecularWeight : null;
+    var functionAnnotation = uniprotData.Function_Annotation ? uniprotData.Function_Annotation : null;
+    var alternativeName = uniprotData.alternativeName ? uniprotData.alternativeName : null;
+    var existence = uniprotData.existence ? uniprotData.existence : null;
+    var organism = uniprotData.organism ? uniprotData.organism : null;
+    var sequence = uniprotData.sequence ? uniprotData.sequence : null;
+    var mass = uniprotData.mass ? uniprotData.mass : null;
+    var uniprotProvenance = {};
+    var uniprotLinkOut = uniprotURI;
+    uniprotProvenance['source'] = 'uniprot';
+    uniprotProvenance['classifiedWith'] = uniprotLinkOut;
+    uniprotProvenance['seeAlso'] = uniprotLinkOut;
+    uniprotProvenance['molecularWeight'] = uniprotLinkOut;
+    uniprotProvenance['functionAnnotation'] = uniprotLinkOut;
+    uniprotProvenance['alternativeName'] = uniprotLinkOut;
+    uniprotProvenance['existence'] = uniprotLinkOut;
+    uniprotProvenance['organism'] = uniprotLinkOut;
+    uniprotProvenance['sequence'] = uniprotLinkOut;
+    uniprotProvenance['mass'] = uniprotLinkOut;
 
     return {
         'id': id,
-        'cellularLocation': cellularLocation,
         'molecularWeight': molecularWeight,
-        'numberOfResidues': numberOfResidues,
-        'theoreticalPi': theoreticalPi,
-        'drugbankURI': drugbankURI,
-        //'keywords': keywords,
         'functionAnnotation': functionAnnotation,
-        'alternativeName': alternativeName,
         'mass': mass,
         'existence': existence,
         'organism': organism,
         'sequence': sequence,
         'classifiedWith': classifiedWith,
         'seeAlso': seeAlso,
+        'uniprotProvenance': uniprotProvenance
+    };
+}
+
+/**
+ * Parse a block of concept wiki data for a target
+ * @param {Object} conceptWikiBlock - JSON containing some Concept Wiki data for a target
+ * @returns {Object} Flattened Concept Wiki response
+ * @method
+ */
+Openphacts.TargetSearch.prototype.parseConceptWikiBlock = function(conceptWikiBlock) {
+    var constants = new Openphacts.Constants();
+    var cwUri = conceptWikiBlock[constants.ABOUT];
+    var label = conceptWikiBlock[constants.PREF_LABEL];
+    var conceptWikiLinkOut = conceptWikiBlock[constants.ABOUT];
+    var conceptwikiProvenance = {};
+    conceptwikiProvenance['source'] = 'conceptwiki';
+    conceptwikiProvenance['prefLabel'] = conceptWikiLinkOut;
+    return {
         'prefLabel': label,
-        'chemblItems': chemblItems,
         'cwURI': cwUri,
-        'URI': URI,
-        'chemblProvenance': chemblProvenance,
-        'drugbankProvenance': drugbankProvenance,
-        'uniprotProvenance': uniprotProvenance,
         'conceptwikiProvenance': conceptwikiProvenance
+    };
+}
+
+/**
+ * Parse a block of ChEMBL data for a target
+ * @param {Object} chemblBlock - JSON containing some ChEMBL data for a target
+ * @returns {Object} Flattened ChEMBL response
+ * @method
+ */
+Openphacts.TargetSearch.prototype.parseChemblBlock = function(chemblBlock) {
+    var constants = new Openphacts.Constants();
+    // there can be multiple proteins per target response
+    var chemblData = chemblBlock;
+    var chemblLinkOut = 'https://www.ebi.ac.uk/chembldb/target/inspect/';
+    var chemblDataItem = {};
+    chemblDataItem['chembl_src'] = chemblData[constants.IN_DATASET];
+    chemblUri = chemblData[constants.ABOUT];
+    chemblLinkOut += chemblUri.split('/').pop();
+    chemblDataItem['linkOut'] = chemblLinkOut;
+    var synonymsData;
+    if (chemblData[constants.LABEL]) {
+        synonymsData = chemblData[constants.LABEL];
+    }
+    chemblDataItem['synonyms'] = synonymsData;
+    var targetComponents = {};
+    if (chemblData[constants.HAS_TARGET_COMPONENT]) {
+        Openphacts.arrayify(chemblData[constants.HAS_TARGET_COMPONENT]).forEach(function(targetComponent, index, allTargetComponents) {
+            targetComponents[targetComponent[constants.ABOUT]] = targetComponent.description;
+        });
+    }
+    chemblDataItem['targetComponents'] = targetComponents;
+    chemblDataItem['type'] = chemblData.type;
+    chemblItems.push(chemblDataItem);
+
+    var chemblProvenance = {};
+    chemblProvenance['source'] = 'chembl';
+    chemblProvenance['synonymsData'] = chemblLinkOut;
+    chemblProvenance['targetComponents'] = chemblLinkOut;
+    chemblProvenance['type'] = chemblLinkOut;
+    return {
+        'chemblItems': chemblItems,
+        'chemblProvenance': chemblProvenance
+    };
+}
+
+/**
+ * Parse a block of drugbank data for a target
+ * @param {Object} drugbankBlock - JSON containing some drugbank data for a target
+ * @returns {Object} Flattened drugbank response
+ */
+Openphacts.TargetSearch.prototype.parseDrugbankBlock = function(drugbankBlock) {
+    var constants = new Openphacts.Constants();
+    var drugbankData = drugbankBlock;
+    var cellularLocation = drugbankData.cellularLocation ? drugbankData.cellularLocation : null;
+    var numberOfResidues = drugbankData.numberOfResidues ? drugbankData.numberOfResidues : null;
+    var theoreticalPi = drugbankData.theoreticalPi ? drugbankData.theoreticalPi : null;
+    var drugbankURI = drugbankData[constants.ABOUT] ? drugbankData[constants.ABOUT] : null;
+
+    var drugbankLinkOut = drugbankURI;
+    var drugbankProvenance = {};
+    drugbankProvenance['source'] = 'drugbank';
+    drugbankProvenance['cellularLocation'] = drugbankLinkOut;
+    drugbankProvenance['numberOfResidues'] = drugbankLinkOut;
+    drugbankProvenance['theoreticalPi'] = drugbankLinkOut;
+    return {
+        'cellularLocation': cellularLocation,
+        'numberOfResidues': numberOfResidues,
+        'theoreticalPi': theoreticalPi,
+        'drugbankURI': drugbankURI,
+        'drugbankProvenance': drugbankProvenance
+    };
+}
+
+/**
+ * Parse the results from {@link Openphacts.TargetSearch#fetchTarget}
+ * @param {Object} response - the JSON response from {@link Openphacts.TargetSearch#fetchTarget}
+ * @returns {FetchTargetResponse} Containing the flattened response
+ * @method
+ */
+Openphacts.TargetSearch.prototype.parseTargetResponse = function(response) {
+    var me = this;
+    var constants = new Openphacts.Constants();
+    var uniprotBlock = {};
+    var conceptWikiBlock = {};
+    var chemblBlock = {};
+    var drugbankBlock = {};
+    var URI = response[constants.ABOUT];
+    var id = URI.split("/").pop();
+    // depending on the URI used the info block for that object will be on the top level rather than in exactMatch
+    // We need to check what the URI represents and pull the appropriate info out 
+    if (response[constants.IN_DATASET] === 'drugbankValue') {
+        drugblankBlock = me.parseDrugbankBlock(exactMatch);
+    } else if (response[constants.IN_DATASET] === 'chemblValue') {
+        chemblBlock = me.parseChemblBlock(exactMatch);
+    } else if (response[constants.IN_DATASET] === 'uniprotValue') {
+        uniprotBlock = me.parseUniprotBlock(exactMatch);
+    } else if (response[constants.IN_DATASET] === 'conceptWikiValue') {
+        conceptWikiBlock = me.parseConceptWikiBlock(exactMatch);
+    }
+    var exactMatches = response[constants.EXACT_MATCH];
+    Openphacts.arrayify(exactMatches).forEach(function(exactMatch, i, allMatches) {
+        var src = exactMatch[constants.IN_DATASET];
+        if (src) {
+            if (constants.SRC_CLS_MAPPINGS[src] === 'drugbankValue') {
+                drugblankBlock = me.parseDrugbankBlock(exactMatch);
+            } else if (constants.SRC_CLS_MAPPINGS[src] === 'chemblValue') {
+                chemblBlock = me.parseChemblBlock(exactMatch);
+            } else if (constants.SRC_CLS_MAPPINGS[src] === 'uniprotValue') {
+                uniprotBlock = me.parseUniprotBlock(exactMatch);
+            } else if (constants.SRC_CLS_MAPPINGS[src] === 'conceptWikiValue') {
+                conceptWikiBlock = me.parseConceptWikiBlock(exactMatch);
+            }
+        }
+    });
+
+    return {
+        'id': id,
+        'URI': URI,
+        'cellularLocation': drugbankBlock.cellularLocation,
+        'numberOfResidues': drugbankBlock.numberOfResidues,
+        'theoreticalPi': drugbankBlock.theoreticalPi,
+        'drugbankURI': drugbankBlock.drugbankURI,
+        'molecularWeight': uniprotBlock.molecularWeight,
+        'functionAnnotation': uniprotBlock.functionAnnotation,
+        'alternativeName': uniprotBlock.alternativeName,
+        'mass': uniprotBlock.mass,
+        'existence': uniprotBlock.existence,
+        'organism': uniprotBlock.organism,
+        'sequence': uniprotBlock.sequence,
+        'classifiedWith': uniprotBlock.classifiedWith,
+        'seeAlso': uniprotBlock.seeAlso,
+        'chemblItems': chemblBlock.chemblItems,
+        'cwURI': conceptWikiBlock.cwUri,
+        'prefLabel': conceptWikBlock.label,
+        'drugbankProvenance': drugbankBlock.drugbankProvenance,
+        'uniprotProvenance': uniprotBlock.uniprotProvenance,
+        'chemblProvenance': chemblBlock.chemblProvenance,
+        'conceptwikiProvenance': conceptWikiBlock.conceptwikiProvenance
     };
 }
 
