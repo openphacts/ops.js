@@ -305,7 +305,7 @@ Openphacts.TargetSearch.prototype.parseUniprotBlock = function(uniprotBlock) {
     }
     var molecularWeight = uniprotData.molecularWeight ? uniprotData.molecularWeight : null;
     var functionAnnotation = uniprotData.Function_Annotation ? uniprotData.Function_Annotation : null;
-    var alternativeName = uniprotData.alternativeName ? uniprotData.alternativeName : null;
+    var alternativeName = uniprotData.alternativeName ? Openphacts.arrayify(uniprotData.alternativeName) : [];
     var existence = uniprotData.existence ? uniprotData.existence : null;
     var organism = uniprotData.organism ? uniprotData.organism : null;
     var sequence = uniprotData.sequence ? uniprotData.sequence : null;
@@ -324,6 +324,7 @@ Openphacts.TargetSearch.prototype.parseUniprotBlock = function(uniprotBlock) {
     uniprotProvenance['mass'] = uniprotLinkOut;
 
     return {
+        'alternativeName': alternativeName,
         'molecularWeight': molecularWeight,
         'functionAnnotation': functionAnnotation,
         'mass': mass,
@@ -352,7 +353,7 @@ Openphacts.TargetSearch.prototype.parseConceptWikiBlock = function(conceptWikiBl
     conceptwikiProvenance['prefLabel'] = conceptWikiLinkOut;
     return {
         'prefLabel': label,
-        'cwURI': cwUri,
+        'URI': cwUri,
         'conceptwikiProvenance': conceptwikiProvenance
     };
 }
@@ -393,7 +394,7 @@ Openphacts.TargetSearch.prototype.parseChemblBlock = function(chemblBlock) {
     chemblProvenance['targetComponents'] = chemblLinkOut;
     chemblProvenance['type'] = chemblLinkOut;
     return {
-        'chemblItems': chemblDataItem,
+        'chemblDataItem': chemblDataItem,
         'chemblProvenance': chemblProvenance
     };
 }
@@ -444,15 +445,15 @@ Openphacts.TargetSearch.prototype.parseTargetResponse = function(response) {
     var chemblItems = [];
     // depending on the URI used the info block for that object will be on the top level rather than in exactMatch
     // We need to check what the URI represents and pull the appropriate info out 
-    if (response[constants.IN_DATASET] === 'drugbankValue') {
-        drugbankBlock = me.parseDrugbankBlock(exactMatch);
-    } else if (response[constants.IN_DATASET] === 'chemblValue') {
-        chemblBlock = me.parseChemblBlock(exactMatch);
+    if (constants.SRC_CLS_MAPPINGS[response[constants.IN_DATASET]] === 'drugbankValue') {
+        drugbankBlock = me.parseDrugbankBlock(response);
+    } else if (constants.SRC_CLS_MAPPINGS[response[constants.IN_DATASET]] === 'chemblValue') {
+        chemblBlock = me.parseChemblBlock(response);
         chemblItems.push(chemblBlock);
-    } else if (response[constants.IN_DATASET] === 'uniprotValue') {
-        uniprotBlock = me.parseUniprotBlock(exactMatch);
-    } else if (response[constants.IN_DATASET] === 'conceptWikiValue') {
-        conceptWikiBlock = me.parseConceptWikiBlock(exactMatch);
+    } else if (constants.SRC_CLS_MAPPINGS[response[constants.IN_DATASET]] === 'uniprotValue') {
+        uniprotBlock = me.parseUniprotBlock(response);
+    } else if (constants.SRC_CLS_MAPPINGS[response[constants.IN_DATASET]] === 'conceptWikiValue') {
+        conceptWikiBlock = me.parseConceptWikiBlock(response);
     }
     var exactMatches = response[constants.EXACT_MATCH];
     Openphacts.arrayify(exactMatches).forEach(function(exactMatch, i, allMatches) {
@@ -489,11 +490,11 @@ Openphacts.TargetSearch.prototype.parseTargetResponse = function(response) {
         'classifiedWith': uniprotBlock.classifiedWith != null ? uniprotBlock.classifiedWith : null,
         'seeAlso': uniprotBlock.seeAlso != null ? uniprotBlock.seeAlso : null,
         'chemblItems': chemblItems,
-        'cwURI': conceptWikiBlock.cwURI != null ? conceptWikiBlock.cwUri : null,
-        'prefLabel': conceptWikiBlock.label != null ? conceptWikiBlock.label : null,
+        'cwURI': conceptWikiBlock.URI != null ? conceptWikiBlock.URI : null,
+        'prefLabel': conceptWikiBlock.prefLabel != null ? conceptWikiBlock.prefLabel : null,
         'drugbankProvenance': drugbankBlock.drugbankProvenance != null ? drugbankBlock.drugbankProvenance : null,
         'uniprotProvenance': uniprotBlock.uniprotProvenance != null ? uniprotBlock.uniprotProvenance : null,
-        'conceptwikiProvenance': conceptWikiBlock.conceptWikiProvenance != null ? conceptWikiBlock.conceptwikiProvenance : null
+        'conceptwikiProvenance': conceptWikiBlock.conceptwikiProvenance != null ? conceptWikiBlock.conceptwikiProvenance : null
     };
 }
 
