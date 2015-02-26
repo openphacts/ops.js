@@ -1,10 +1,10 @@
 describe("IRS2", function() {
-  var searcher, appID, appKey;
+  var searcher;
 
   beforeEach(function() {
     searcher = new Openphacts.IRS2Search("http://example.com/");
   });
-  
+
 
   describe("free text search", function() {
     it("can be executed", function() {
