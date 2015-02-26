@@ -122,7 +122,7 @@ describe("Disease search", function() {
     it("can be executed", function() {
       spyOn(searcher, 'associationsByTarget');
       searcher.associationsByTarget('targetURI', 'lens', 'callback');
-      expect(searcher.assocationsByTarget).toHaveBeenCalled();
+      expect(searcher.associationsByTarget).toHaveBeenCalled();
     });
     it("executes asynchronously", function() {
       var callback = jasmine.createSpy();
