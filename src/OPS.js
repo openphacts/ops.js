@@ -25,6 +25,32 @@ Openphacts.arrayify = function(data) {
 }
 
 /**
+ * Merge a list of lists to a single list
+ */
+Openphacts.merge_lists = function(lists){
+  var list = []
+  lists.forEach(function(l) {
+    if ($.isArray(l)) {
+      $.merge(list, l);
+    }
+  });
+  return list
+}
+
+/**
+  * Remove duplicates from list
+  */
+Openphacts.uniq = function(list) {
+  // based on http://stackoverflow.com/a/9229821/412540
+  // by Georg Barikin
+  var seen = {};
+  return list.filter(function(item) {
+    key = item.toLowerCase();
+    return seen.hasOwnProperty(key) ? false : (seen[key] = true);
+  });
+}
+
+/**
  * General callback for any request
  * @callback requestCallback
  * @param {Boolean} success - True or False
@@ -209,7 +235,7 @@ Openphacts.arrayify = function(data) {
  * @property {string} name - name
  * @property {Array.<object>} gene - containing URI for the gene, link to the gene it encodes, encodesLabel and encodesProvenance link to where the label came from
  */
-/** 
+/**
  * Contains list of targets for a particular disease fetched with {@link Openphacts.DiseaseSearch#targetsByDisease}
  * @typedef {Array.<Object>} TargetsByDiseaseResponse
  * @property {string} URI - URI
