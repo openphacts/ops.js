@@ -6,7 +6,7 @@
  * @license [MIT]{@link http://opensource.org/licenses/MIT}
  * @author Stian Soiland-Reyes
  */
-Openphacts.IRS2Search = function IRS2Search(elasticSearchURL) {
+Openphacts.IRS2Search = function(elasticSearchURL) {
 	this.baseURL = elasticSearchURL;
 }
 
@@ -51,7 +51,7 @@ Openphacts.IRS2Search.prototype.freeText = function(query, limit, callback) {
 
 	var ajax = {
 			type: "POST",
-			url: "_search?pretty=true",
+			url: this.baseURL + "_search?pretty=true",
 			data: JSON.stringify(search),
 			contentType: "application/json",
 			dataType: "json"
@@ -69,13 +69,22 @@ Openphacts.IRS2Search.prototype.freeText = function(query, limit, callback) {
 
 
 Openphacts.IRS2Search.prototype.parseResponse = function(response) {
+	function merge_lists(lists) {
+		var list = []
+		lists.forEach(function(l) {
+			if ($.isArray(l)) {
+				$.merge(list, l);
+			}
+		});
+		return list
+	}
+
 	var uris = [];
 	$.each(response.data.hits.hits, function(i, hit) {
-					doc = hit._source.doc;
-					var names = Openphacts.merge_lists(
-						[doc.prefLabel, doc.title, doc.label, doc.mnemonic,
-						 doc.shortName, doc.fullName, hit._id]);
-					var name = names[0];
+					doc = hit._source;
+					names = merge_lists([doc.prefLabel, doc.title, doc.label, doc.mnemonic,
+						doc.shortName, doc.fullName, hit._id]);
+					name = names[0];
 			    uris.push({
 				   'uri': hit._id,
 				   'prefLabel': name,
