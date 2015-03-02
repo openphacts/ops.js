@@ -698,6 +698,226 @@ Openphacts.CompoundSearch.prototype.parseCompoundLensResponse = function(respons
     };
 }
 
+Openphacts.CompoundSearch.prototype.parseDrugbankBlock = function(drugbankBlock) {
+        var id = null,
+            prefLabel = null,
+            cwURI = null,
+            description = null,
+            biotransformationItem = null,
+            toxicity = null,
+            proteinBinding = null,
+            csURI = null,
+            hba = null,
+            hbd = null,
+            inchi = null,
+            logp = null,
+            psa = null,
+            ro5Violations = null,
+            smiles = null,
+            chemblURI = null,
+            fullMWT = null,
+            molform = null,
+            mwFreebase = null,
+            rtb = null,
+            inchiKey = null,
+            drugbankURI = null,
+            molweight = null,
+            molformula = null;
+        var drugbankData, chemspiderData, chemblData, conceptWikiData;
+        var uri = item[constants.ABOUT];
+
+        // check if we already have the CS URI
+        var possibleURI = 'http://' + uri.split('/')[2];
+        //var uriLink = document.createElement('a');
+        //uriLink.href = uri;
+        //var possibleURI = 'http://' + uriLink.hostname;
+        csURI = constants.SRC_CLS_MAPPINGS[possibleURI] === 'chemspiderValue' ? uri : null;
+
+        var drugbankProvenance, chemspiderProvenance, chemblProvenance;
+        var descriptionItem, toxicityItem, proteinBindingItem, hbaItem, hbdItem, inchiItem, logpItem, psaItem, ro5VioloationsItem, smilesItem, inchiKeyItem, molformItem, fullMWTItem, mwFreebaseItem;
+        var drugbankLinkout, chemspiderLinkOut, chemblLinkOut;
+
+
+	description = drugbankData.description != null ? drugbankData.description : description;
+            biotransformationItem = drugbankData.biotransformation != null ? drugbankData.biotransformation : biotransformationItem;
+            toxicity = drugbankData.toxicity != null ? drugbankData.toxicity : toxicity;
+            proteinBinding = drugbankData.proteinBinding != null ? drugbankData.proteinBinding : proteinBinding;
+            drugbankURI = drugbankData[constants.ABOUT] != null ? drugbankData[constants.ABOUT] : drugbankURI;
+
+            // provenance
+            drugbankLinkout = drugbankURI;
+            drugbankProvenance = {};
+            drugbankProvenance['source'] = 'drugbank';
+            drugbankProvenance['description'] = drugbankLinkout;
+            drugbankProvenance['biotransformation'] = drugbankLinkout;
+            drugbankProvenance['toxicity'] = drugbankLinkout;
+            drugbankProvenance['proteinBinding'] = drugbankLinkout;
+}
+
+Openphacts.CompoundSearch.prototype.parseChemspiderBlock = function(chemspiderBlock) {
+        var id = null,
+            prefLabel = null,
+            cwURI = null,
+            description = null,
+            biotransformationItem = null,
+            toxicity = null,
+            proteinBinding = null,
+            csURI = null,
+            hba = null,
+            hbd = null,
+            inchi = null,
+            logp = null,
+            psa = null,
+            ro5Violations = null,
+            smiles = null,
+            chemblURI = null,
+            fullMWT = null,
+            molform = null,
+            mwFreebase = null,
+            rtb = null,
+            inchiKey = null,
+            drugbankURI = null,
+            molweight = null,
+            molformula = null;
+        var drugbankData, chemspiderData, chemblData, conceptWikiData;
+        var uri = item[constants.ABOUT];
+
+        // check if we already have the CS URI
+        var possibleURI = 'http://' + uri.split('/')[2];
+        //var uriLink = document.createElement('a');
+        //uriLink.href = uri;
+        //var possibleURI = 'http://' + uriLink.hostname;
+        csURI = constants.SRC_CLS_MAPPINGS[possibleURI] === 'chemspiderValue' ? uri : null;
+
+        var drugbankProvenance, chemspiderProvenance, chemblProvenance;
+        var descriptionItem, toxicityItem, proteinBindingItem, hbaItem, hbdItem, inchiItem, logpItem, psaItem, ro5VioloationsItem, smilesItem, inchiKeyItem, molformItem, fullMWTItem, mwFreebaseItem;
+        var drugbankLinkout, chemspiderLinkOut, chemblLinkOut;
+
+
+	csURI = chemspiderData["_about"] !== null ? chemspiderData["_about"] : csURI;
+            hba = chemspiderData.hba != null ? chemspiderData.hba : hba;
+            hbd = chemspiderData.hbd != null ? chemspiderData.hbd : hbd;
+            inchi = chemspiderData.inchi != null ? chemspiderData.inchi : inchi;
+            logp = chemspiderData.logp != null ? chemspiderData.logp : logp;
+            psa = chemspiderData.psa != null ? chemspiderData.psa : psa;
+            ro5Violations = chemspiderData.ro5_violations != null ? chemspiderData.ro5_violations : ro5Violations;
+            smiles = chemspiderData.smiles != null ? chemspiderData.smiles : smiles;
+            inchiKey = chemspiderData.inchikey != null ? chemspiderData.inchikey : inchikey;
+            rtb = chemspiderData.rtb != null ? chemspiderData.rtb : rtb;
+            fullMWT = chemspiderData.molweight != null ? chemspiderData.molweight : molweight;
+            molform = chemspiderData.molformula != null ? chemspiderData.molformula : molformula;
+
+            // provenance 
+            chemspiderLinkOut = csURI;
+            chemspiderProvenance = {};
+            chemspiderProvenance['source'] = 'chemspider';
+            chemspiderProvenance['hba'] = chemspiderLinkOut;
+            chemspiderProvenance['hbd'] = chemspiderLinkOut;
+            chemspiderProvenance['inchi'] = chemspiderLinkOut;
+            chemspiderProvenance['logp'] = chemspiderLinkOut;
+            chemspiderProvenance['psa'] = chemspiderLinkOut;
+            chemspiderProvenance['ro5violations'] = chemspiderLinkOut;
+            chemspiderProvenance['smiles'] = chemspiderLinkOut;
+            chemspiderProvenance['inchiKey'] = chemspiderLinkOut;
+            chemspiderProvenance['molform'] = chemspiderLinkOut;
+}
+
+Openphacts.CompoundSearch.prototype.parseChemblBlock = function(chemblBlock) {
+         var id = null,
+            prefLabel = null,
+            cwURI = null,
+            description = null,
+            biotransformationItem = null,
+            toxicity = null,
+            proteinBinding = null,
+            csURI = null,
+            hba = null,
+            hbd = null,
+            inchi = null,
+            logp = null,
+            psa = null,
+            ro5Violations = null,
+            smiles = null,
+            chemblURI = null,
+            fullMWT = null,
+            molform = null,
+            mwFreebase = null,
+            rtb = null,
+            inchiKey = null,
+            drugbankURI = null,
+            molweight = null,
+            molformula = null;
+        var drugbankData, chemspiderData, chemblData, conceptWikiData;
+        var uri = item[constants.ABOUT];
+
+        // check if we already have the CS URI
+        var possibleURI = 'http://' + uri.split('/')[2];
+        //var uriLink = document.createElement('a');
+        //uriLink.href = uri;
+        //var possibleURI = 'http://' + uriLink.hostname;
+        csURI = constants.SRC_CLS_MAPPINGS[possibleURI] === 'chemspiderValue' ? uri : null;
+
+        var drugbankProvenance, chemspiderProvenance, chemblProvenance;
+        var descriptionItem, toxicityItem, proteinBindingItem, hbaItem, hbdItem, inchiItem, logpItem, psaItem, ro5VioloationsItem, smilesItem, inchiKeyItem, molformItem, fullMWTItem, mwFreebaseItem;
+        var drugbankLinkout, chemspiderLinkOut, chemblLinkOut;
+
+
+	chemblURI = chemblData["_about"] != null ? chemblData["_about"] : chemblURI;
+            mwFreebase = chemblData.mw_freebase != null ? chemblData.mw_freebase : mwFreebase;
+
+            // provenance
+            chemblLinkOut = 'https://www.ebi.ac.uk/chembldb/compound/inspect/' + chemblURI.split("/").pop();
+            chemblProvenance = {};
+            chemblProvenance['source'] = 'chembl';
+            chemblProvenance['fullMWT'] = chemblLinkOut;
+            chemblProvenance['mwFreebase'] = chemblLinkOut;
+            chemblProvenance['rtb'] = chemblLinkOut;
+}
+
+Openphacts.CompoundSearch.prototype.parseConceptwikiBlock = function(conceptwikiBlock) {
+            prefLabel = conceptWikiData.prefLabel != null ? conceptWikiData.prefLabel : prefLabel;
+            cwURI = conceptWikiData["_about"] != null ? conceptWikiData["_about"] : cwURI;
+        var id = null,
+            prefLabel = null,
+            cwURI = null,
+            description = null,
+            biotransformationItem = null,
+            toxicity = null,
+            proteinBinding = null,
+            csURI = null,
+            hba = null,
+            hbd = null,
+            inchi = null,
+            logp = null,
+            psa = null,
+            ro5Violations = null,
+            smiles = null,
+            chemblURI = null,
+            fullMWT = null,
+            molform = null,
+            mwFreebase = null,
+            rtb = null,
+            inchiKey = null,
+            drugbankURI = null,
+            molweight = null,
+            molformula = null;
+        var drugbankData, chemspiderData, chemblData, conceptWikiData;
+        var uri = item[constants.ABOUT];
+
+        // check if we already have the CS URI
+        var possibleURI = 'http://' + uri.split('/')[2];
+        //var uriLink = document.createElement('a');
+        //uriLink.href = uri;
+        //var possibleURI = 'http://' + uriLink.hostname;
+        csURI = constants.SRC_CLS_MAPPINGS[possibleURI] === 'chemspiderValue' ? uri : null;
+
+        var drugbankProvenance, chemspiderProvenance, chemblProvenance;
+        var descriptionItem, toxicityItem, proteinBindingItem, hbaItem, hbdItem, inchiItem, logpItem, psaItem, ro5VioloationsItem, smilesItem, inchiKeyItem, molformItem, fullMWTItem, mwFreebaseItem;
+        var drugbankLinkout, chemspiderLinkOut, chemblLinkOut;
+
+
+}
+
 /**
  * Parse the results from {@link Openphacts.CompoundSearch#fetchCompoundBatch}
  * @param {Object} response - the JSON response from {@link Openphacts.CompoundSearch#fetchCompoundBatch}
