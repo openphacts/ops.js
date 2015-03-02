@@ -699,44 +699,17 @@ Openphacts.CompoundSearch.prototype.parseCompoundLensResponse = function(respons
 }
 
 Openphacts.CompoundSearch.prototype.parseDrugbankBlock = function(drugbankBlock) {
-        var id = null,
-            prefLabel = null,
-            cwURI = null,
+     var constants = new Openphacts.Constants();
+     	var URI = null,
             description = null,
             biotransformationItem = null,
             toxicity = null,
             proteinBinding = null,
-            csURI = null,
-            hba = null,
-            hbd = null,
-            inchi = null,
-            logp = null,
-            psa = null,
-            ro5Violations = null,
-            smiles = null,
-            chemblURI = null,
-            fullMWT = null,
-            molform = null,
-            mwFreebase = null,
-            rtb = null,
-            inchiKey = null,
-            drugbankURI = null,
-            molweight = null,
-            molformula = null;
-        var drugbankData, chemspiderData, chemblData, conceptWikiData;
-        var uri = item[constants.ABOUT];
+            drugbankData = null, 
+	    drugbankProvenance = null, 
+	    drugbankLinkout = null;
 
-        // check if we already have the CS URI
-        var possibleURI = 'http://' + uri.split('/')[2];
-        //var uriLink = document.createElement('a');
-        //uriLink.href = uri;
-        //var possibleURI = 'http://' + uriLink.hostname;
-        csURI = constants.SRC_CLS_MAPPINGS[possibleURI] === 'chemspiderValue' ? uri : null;
-
-        var drugbankProvenance, chemspiderProvenance, chemblProvenance;
-        var descriptionItem, toxicityItem, proteinBindingItem, hbaItem, hbdItem, inchiItem, logpItem, psaItem, ro5VioloationsItem, smilesItem, inchiKeyItem, molformItem, fullMWTItem, mwFreebaseItem;
-        var drugbankLinkout, chemspiderLinkOut, chemblLinkOut;
-
+	drugbankData = drugbankBlock;
 
 	description = drugbankData.description != null ? drugbankData.description : description;
             biotransformationItem = drugbankData.biotransformation != null ? drugbankData.biotransformation : biotransformationItem;
@@ -752,6 +725,15 @@ Openphacts.CompoundSearch.prototype.parseDrugbankBlock = function(drugbankBlock)
             drugbankProvenance['biotransformation'] = drugbankLinkout;
             drugbankProvenance['toxicity'] = drugbankLinkout;
             drugbankProvenance['proteinBinding'] = drugbankLinkout;
+return {
+        "description": description,
+        "biotransformationItem": biotransformationItem,
+        "toxicity": toxicity,
+        "proteinBinding": proteinBinding,
+        "URI": drugbankURI,
+        "drugbankProvenance": drugbankProvenance,
+    };
+
 }
 
 Openphacts.CompoundSearch.prototype.parseChemspiderBlock = function(chemspiderBlock) {
@@ -820,6 +802,37 @@ Openphacts.CompoundSearch.prototype.parseChemspiderBlock = function(chemspiderBl
             chemspiderProvenance['smiles'] = chemspiderLinkOut;
             chemspiderProvenance['inchiKey'] = chemspiderLinkOut;
             chemspiderProvenance['molform'] = chemspiderLinkOut;
+return {
+        "id": id,
+        "cwURI": cwURI,
+        "prefLabel": prefLabel,
+        "URI": uri,
+        "description": description,
+        "biotransformationItem": biotransformationItem,
+        "toxicity": toxicity,
+        "proteinBinding": proteinBinding,
+        "csURI": csURI,
+        "hba": hba,
+        "hbd": hbd,
+        "inchi": inchi,
+        "logp": logp,
+        "psa": psa,
+        "ro5Violations": ro5Violations,
+        "smiles": smiles,
+        "chemblURI": chemblURI,
+        "fullMWT": fullMWT,
+        "molform": molform,
+        "mwFreebase": mwFreebase,
+        "rtb": rtb,
+        "inchiKey": inchiKey,
+        "drugbankURI": drugbankURI,
+
+        "drugbankProvenance": drugbankProvenance,
+        "chemspiderProvenance": chemspiderProvenance,
+        "chemblProvenance": chemblProvenance
+
+    };
+
 }
 
 Openphacts.CompoundSearch.prototype.parseChemblBlock = function(chemblBlock) {
@@ -872,6 +885,37 @@ Openphacts.CompoundSearch.prototype.parseChemblBlock = function(chemblBlock) {
             chemblProvenance['fullMWT'] = chemblLinkOut;
             chemblProvenance['mwFreebase'] = chemblLinkOut;
             chemblProvenance['rtb'] = chemblLinkOut;
+return {
+        "id": id,
+        "cwURI": cwURI,
+        "prefLabel": prefLabel,
+        "URI": uri,
+        "description": description,
+        "biotransformationItem": biotransformationItem,
+        "toxicity": toxicity,
+        "proteinBinding": proteinBinding,
+        "csURI": csURI,
+        "hba": hba,
+        "hbd": hbd,
+        "inchi": inchi,
+        "logp": logp,
+        "psa": psa,
+        "ro5Violations": ro5Violations,
+        "smiles": smiles,
+        "chemblURI": chemblURI,
+        "fullMWT": fullMWT,
+        "molform": molform,
+        "mwFreebase": mwFreebase,
+        "rtb": rtb,
+        "inchiKey": inchiKey,
+        "drugbankURI": drugbankURI,
+
+        "drugbankProvenance": drugbankProvenance,
+        "chemspiderProvenance": chemspiderProvenance,
+        "chemblProvenance": chemblProvenance
+
+    };
+
 }
 
 Openphacts.CompoundSearch.prototype.parseConceptwikiBlock = function(conceptwikiBlock) {
@@ -914,6 +958,36 @@ Openphacts.CompoundSearch.prototype.parseConceptwikiBlock = function(conceptwiki
         var drugbankProvenance, chemspiderProvenance, chemblProvenance;
         var descriptionItem, toxicityItem, proteinBindingItem, hbaItem, hbdItem, inchiItem, logpItem, psaItem, ro5VioloationsItem, smilesItem, inchiKeyItem, molformItem, fullMWTItem, mwFreebaseItem;
         var drugbankLinkout, chemspiderLinkOut, chemblLinkOut;
+return {
+        "id": id,
+        "cwURI": cwURI,
+        "prefLabel": prefLabel,
+        "URI": uri,
+        "description": description,
+        "biotransformationItem": biotransformationItem,
+        "toxicity": toxicity,
+        "proteinBinding": proteinBinding,
+        "csURI": csURI,
+        "hba": hba,
+        "hbd": hbd,
+        "inchi": inchi,
+        "logp": logp,
+        "psa": psa,
+        "ro5Violations": ro5Violations,
+        "smiles": smiles,
+        "chemblURI": chemblURI,
+        "fullMWT": fullMWT,
+        "molform": molform,
+        "mwFreebase": mwFreebase,
+        "rtb": rtb,
+        "inchiKey": inchiKey,
+        "drugbankURI": drugbankURI,
+
+        "drugbankProvenance": drugbankProvenance,
+        "chemspiderProvenance": chemspiderProvenance,
+        "chemblProvenance": chemblProvenance
+
+    };
 
 
 }
