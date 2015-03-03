@@ -40,6 +40,8 @@ describe("Compound search", function() {
 		// API contract implies that prefLabel, chemblURI & drugbankURI  should be present but this is not the case in 1.4 API
 		expect(this_result.chemblURI).toBeDefined();
                 expect(this_result.prefLabel).toBeDefined();
+		expect(this_result.cwURI).toBeDefined();
+		expect(this_result.csURI).toBeDefined();
 		expect(this_result.fullMWT).toBeDefined();
                 expect(this_result.molform).toBeDefined();
                 expect(this_result.mwFreebase).toBeDefined();
