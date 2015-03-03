@@ -6,7 +6,7 @@
  * @license [MIT]{@link http://opensource.org/licenses/MIT}
  * @author Stian Soiland-Reyes
  */
-Openphacts.IRS2Search = function(elasticSearchURL) {
+Openphacts.IRS2Search = function IRS2Search(elasticSearchURL) {
 	this.baseURL = elasticSearchURL;
 }
 
@@ -88,7 +88,8 @@ Openphacts.IRS2Search.prototype.parseResponse = function(response) {
 			    uris.push({
 				   'uri': hit._id,
 				   'prefLabel': name,
-				   'match': hit._source
+				   'match': hit._source,
+					 'type': hit._type
 			    });
 		    });
 	return uris;
