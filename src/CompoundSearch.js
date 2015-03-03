@@ -325,6 +325,18 @@ Openphacts.CompoundSearch.prototype.parseCompoundResponse = function(response) {
     var URI = response.primaryTopic[constants.ABOUT];
     var id = URI.split("/").pop();
 var me = this;
+    if (constants.SRC_CLS_MAPPINGS[response.primaryTopic[constants.IN_DATASET]] === 'drugbankValue') {
+        drugbankData = me.parseDrugbankBlock(response.primaryTopic);
+    } else if (constants.SRC_CLS_MAPPINGS[response.primaryTopic[constants.IN_DATASET]] === 'chemspiderValue') {
+        chemspiderData = me.parseChemspiderBlock(response.primaryTopic);
+    } else if (constants.SRC_CLS_MAPPINGS[response.primaryTopic[constants.IN_DATASET]] === 'chemblValue') {
+        chemblData = me.parseChemblBlock(response.primaryTopic);
+        //TODO more than 1 chembl block possible?
+	//chemblItems.push(chemblBlock);
+    } else if (constants.SRC_CLS_MAPPINGS[response.primaryTopic[constants.IN_DATASET]] === 'conceptWikiValue') {
+        conceptWikiData = me.parseConceptwikiBlock(response.primaryTopic);
+    }
+
     Openphacts.arrayify(response.primaryTopic.exactMatch).forEach(function(match, i, allValues) {
         var src = match[constants.IN_DATASET];
         if (constants.SRC_CLS_MAPPINGS[src] == 'drugbankValue') {
