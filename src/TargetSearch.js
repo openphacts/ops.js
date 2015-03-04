@@ -617,7 +617,9 @@ Openphacts.TargetSearch.prototype.parseTargetPharmacologyResponse = function(res
         var target_concatenated_uris;
         var chemblTargetLink = 'https://www.ebi.ac.uk/chembldb/target/inspect/';
         var target_organisms = new Array();
-        var targets = new Array();
+        var targets = [];
+        // Target has a title, a target organism and a target component. Each target component has an exactMatch singleton which
+        // contains a prefLabel and a URI
         if (target != null) {
             chembl_target_uri = target["_about"];
             //target_pref_label = target['prefLabel'];
@@ -630,7 +632,17 @@ Openphacts.TargetSearch.prototype.parseTargetPharmacologyResponse = function(res
             //	target_pref_label_item = targetMatchURI;
             //	target_title = target_pref_label ? target_pref_label : null;
             //}
-
+            var targetComponents = {};
+            if (target[constants.HAS_TARGET_COMPONENT] != null) {
+                Openphacts.arrayify(target[constants.HAS_TARGET_COMPONENT]).forEach(function(targetComponent, index, allTargetComponents) {
+                    var targetComponentDetails = {};
+                    if (targetComponent[constants.EXACT_MATCH] != null) {
+                        targetComponentDetails['prefLabel'] = targetComponent[constants.EXACT_MATCH].prefLabel;
+                        targetComponentDetails['URI'] = targetComponent[constants.EXACT_MATCH][constants.ABOUT];
+                    }
+                    targetComponents[targetComponent[constants.ABOUT]] = targetComponentDetails;
+                });
+            }
             target_organism = target['targetOrganismName'];
             target_organism_item = chemblTargetLink + chembl_target_uri.split('/').pop();
             //target_concatenated_uris = target['concatenatedURIs'];
@@ -639,8 +651,11 @@ Openphacts.TargetSearch.prototype.parseTargetPharmacologyResponse = function(res
             target_organisms_inner['src'] = target_organism_item;
             target_organisms.push(target_organisms_inner);
             var targets_inner = {};
+            targets_inner['targetComponents'] = targetComponents;
+            targets_inner['type'] = target.type != null ? target.type : null;
+
             targets_inner['title'] = target_title;
-            targets_inner['cw_uri'] = target_pref_label_item ? target_pref_label_item : null;
+            //targets_inner['cw_uri'] = target_pref_label_item ? target_pref_label_item : null;
             targets_inner['URI'] = target[constants.ABOUT];
             targets.push(targets_inner);
         }
