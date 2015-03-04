@@ -632,15 +632,16 @@ Openphacts.TargetSearch.prototype.parseTargetPharmacologyResponse = function(res
             //	target_pref_label_item = targetMatchURI;
             //	target_title = target_pref_label ? target_pref_label : null;
             //}
-            var targetComponents = {};
+            var targetComponents = [];
             if (target[constants.HAS_TARGET_COMPONENT] != null) {
                 Openphacts.arrayify(target[constants.HAS_TARGET_COMPONENT]).forEach(function(targetComponent, index, allTargetComponents) {
-                    var targetComponentDetails = {};
+                    var targetComponentDetails = {'URI': targetComponent[constants.ABOUT]};
                     if (targetComponent[constants.EXACT_MATCH] != null) {
                         targetComponentDetails['prefLabel'] = targetComponent[constants.EXACT_MATCH].prefLabel;
-                        targetComponentDetails['URI'] = targetComponent[constants.EXACT_MATCH][constants.ABOUT];
+                        targetComponentDetails['prefLabelURI'] = targetComponent[constants.EXACT_MATCH][constants.ABOUT];
                     }
-                    targetComponents[targetComponent[constants.ABOUT]] = targetComponentDetails;
+
+                    targetComponents.push(targetComponentDetails);
                 });
             }
             target_organism = target['targetOrganismName'];
