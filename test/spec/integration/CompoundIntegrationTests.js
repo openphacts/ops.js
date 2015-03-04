@@ -221,7 +221,7 @@ describe("Compound search", function() {
                 expect(this_result.lensCW).toBeDefined();
                 expect(this_result.lensDrugbank).toBeDefined();
             });
-            searcher.fetchCompound('http://ops.rsc.org/OPS539735', 'stereochemistry', callback);
+            searcher.fetchCompound('http://ops.rsc.org/OPS539735', 'ChemistryParentChild', callback);
         });
         it("can handle errors", function() {
             var this_success = null;
