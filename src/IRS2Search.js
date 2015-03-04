@@ -59,10 +59,10 @@ Openphacts.IRS2Search.prototype.freeText = function(query, limit, callback) {
 
 	var IRS2Searcher = $.ajax(ajax).done(
 			function(response, status, request){
-				callback.call(this, true, request.status, response.result);
+				callback.call(this, true, status, response);
 		}).fail(
 			function(response, status, statusText){
-				callback.call(this, false, response.status);
+				callback.call(this, false, status);
 		});
 
 }
@@ -80,7 +80,7 @@ Openphacts.IRS2Search.prototype.parseResponse = function(response) {
 	}
 
 	var uris = [];
-	$.each(response.data.hits.hits, function(i, hit) {
+	$.each(response.hits.hits, function(i, hit) {
 					doc = hit._source;
 					names = merge_lists([doc.prefLabel, doc.title, doc.label, doc.mnemonic,
 						doc.shortName, doc.fullName, hit._id]);
