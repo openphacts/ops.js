@@ -466,7 +466,7 @@ Openphacts.CompoundSearch.prototype.parseCompoundLensResponse = function(respons
         })
 
     }
-    $.each(response.primaryTopic.exactMatch, function(i, match) {
+    response.primaryTopic.exactMatch.forEach(function(match, i, allMatches) {
         var src = match[constants.IN_DATASET];
         var prefLabel = null,
             cwURI = null,
@@ -748,7 +748,7 @@ return {
 Openphacts.CompoundSearch.prototype.parseCompoundBatchResponse = function(response) {
     var constants = new Openphacts.Constants();
     var compounds = [];
-    $.each(response.items, function(index, item) {
+    response.items.forEach(function(item, index, items) {
         var id = null,
             prefLabel = null,
             cwURI = null,
@@ -924,7 +924,7 @@ Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyResponse = function
     var constants = new Openphacts.Constants();
     var records = [];
 
-    $.each(response.items, function(i, item) {
+    response.items.forEach(function(item, i, items) {
 
         chemblProvenance = {};
         chemblProvenance['source'] = 'chembl';
@@ -981,7 +981,7 @@ Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyResponse = function
             if (!Array.isArray(em)) {
                 em = [em];
             }
-            $.each(em, function(index, match) {
+            em.forEach(function(match, index, matches) {
                 var src = match[constants.IN_DATASET];
                 if (constants.SRC_CLS_MAPPINGS[src] == 'conceptWikiValue') {
                     cw_compound_uri = match[constants.ABOUT];
@@ -1038,8 +1038,8 @@ Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyResponse = function
             var targets = [];
             var target_organisms = [];
 
-            if ($.isArray(target)) {
-                $.each(target, function(index, target_item) {
+            if (Array.isArray(target)) {
+                target.forEach(function(target_item, index, target_items) {
                     // For Target
                     var target_inner = {};
                     target_inner['title'] = target_item['title']
