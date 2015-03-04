@@ -2,7 +2,7 @@ describe("IRS2", function() {
   var searcher;
 
   beforeEach(function() {
-    searcher = new Openphacts.IRS2Search("http://localhost:9200/");
+    searcher = new Openphacts.IRS2Search("http://search.s11.no/");
   });
 
   describe("free text search", function() {
@@ -26,6 +26,7 @@ describe("IRS2", function() {
         expect(this_success).toEqual(true);
         expect(this_status).toEqual(200);
         expect(this_response).not.toBeNull();
+        expect(this_response.hits.hits[0]).not.toBeNull();
       });
       searcher.freeText('Aspirin', null, callback);
     });

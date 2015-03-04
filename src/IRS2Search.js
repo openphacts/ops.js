@@ -59,10 +59,10 @@ Openphacts.IRS2Search.prototype.freeText = function(query, limit, callback) {
 
 	var IRS2Searcher = $.ajax(ajax).done(
 			function(response, status, request){
-				callback.call(this, true, status, response);
+				callback.call(this, true, request.status, response);
 		}).fail(
 			function(response, status, statusText){
-				callback.call(this, false, status);
+				callback.call(this, false, request.status, response);
 		});
 
 }
