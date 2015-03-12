@@ -6,7 +6,10 @@
  * @license [MIT]{@link http://opensource.org/licenses/MIT}
  * @author Ian Dunlop
  */
-var Openphacts = Openphacts || {};
+
+var Openphacts = {} || Openphacts;
+var Openphacts.CompoundSearch = require("./CompoundSearch");
+exports.Openphacts = Openphacts;
 
 /**
  * Check if some data is an array and return either itself if it is an array
@@ -23,6 +26,8 @@ Openphacts.arrayify = function(data) {
         return data;;
     }
 }
+
+module.exports = Openphacts;
 
 /**
  * General callback for any request
