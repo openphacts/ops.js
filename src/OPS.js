@@ -8,7 +8,7 @@
  */
 
 var Openphacts = {} || Openphacts;
-var Openphacts.CompoundSearch = require("./CompoundSearch");
+Openphacts.CompoundSearch = require("./CompoundSearch");
 exports.Openphacts = Openphacts;
 
 /**

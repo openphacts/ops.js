@@ -340,7 +340,7 @@ var me = this;
         conceptWikiData = me.parseConceptwikiBlock(response.primaryTopic);
     }
 
-    Utils.arrayify(response.primaryTopic.exactMatch.forEach(function(match, i, allValues) {
+    Utils.arrayify(response.primaryTopic.exactMatch).forEach(function(match, i, allValues) {
         var src = match[constants.IN_DATASET];
         if (constants.SRC_CLS_MAPPINGS[src] == 'drugbankValue') {
             drugbankData = me.parseDrugbankBlock(match);
