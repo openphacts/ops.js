@@ -3,10 +3,10 @@ describe("Compound search", function() {
     var searcher, appID, appKey;
 
     beforeEach(function() {
-        appID = "12345";
-        appKey = "67890";
-        appUrl = "https://example.com/openphacts/api";
-        searcher = new Openphacts.CompoundSearch(appUrl, appID, appKey);
+        appID = "1c22cbe7";
+        appKey = "167a3a3d8539b5d85280e7178f4e62ab";
+        appUrl = "https://beta.openphacts.org/1.4";
+        searcher = new CompoundSearch(appUrl, appID, appKey);
     });
 
     describe("single compound search", function() {

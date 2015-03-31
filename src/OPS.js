@@ -9,7 +9,6 @@
 
 var Openphacts = {} || Openphacts;
 Openphacts.CompoundSearch = require("./CompoundSearch");
-exports.Openphacts = Openphacts;
 
 /**
  * Check if some data is an array and return either itself if it is an array
