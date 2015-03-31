@@ -51,11 +51,10 @@ CompoundSearch.prototype.fetchCompound = function(URI, lens, callback) {
             "Accept": "application/json"
         }
     }, function(err, resp, body) {
-        if (err === null && body !== null) {
-            callback.call(this, true, resp.status, JSON.parse(body.toString()));
+        if (resp.statusCode === 200) {
+            callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
         } else {
-console.log('err ' + err + ' resp ' + resp + ' body ' + body);
-            callback.call(this, false, resp.status);
+            callback.call(this, false, resp.statusCode);
         }
     });
 }
@@ -354,7 +353,6 @@ CompoundSearch.prototype.parseCompoundResponse = function(response) {
     } else if (constants.SRC_CLS_MAPPINGS[response.primaryTopic[constants.IN_DATASET]] === 'conceptWikiValue') {
         conceptWikiData = me.parseConceptwikiBlock(response.primaryTopic);
     }
-
     Utils.arrayify(response.primaryTopic.exactMatch).forEach(function(match, i, allValues) {
         var src = match[constants.IN_DATASET];
         if (constants.SRC_CLS_MAPPINGS[src] == 'drugbankValue') {

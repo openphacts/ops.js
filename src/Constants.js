@@ -57,4 +57,4 @@ Constants.prototype.MOLWT = 'molweight';
 Constants.prototype.EBILINK = 'http://www.ebi.ac.uk';
 
 
-exports.Constants = Constants;;
+module.exports = Constants;;
