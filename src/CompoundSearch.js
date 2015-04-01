@@ -80,15 +80,25 @@ CompoundSearch.prototype.fetchCompoundBatch = function(URIList, lens, callback) 
     var URIs = URIList.join('|');
     params['uri_list'] = URIs;
     lens ? params['_lens'] = lens : '';
-    var compoundQuery = $.ajax({
-        url: this.baseURL + '/compound/batch',
-        dataType: 'json',
-        cache: true,
-        data: params
-    }).done(function(response, status, request) {
-        callback.call(this, true, request.status, response.result);
-    }).fail(function(response, status, statusText) {
-        callback.call(this, false, response.status);
+    var requestParams = "";
+    Object.keys(params).forEach(function(key, index) {
+        requestParams += key + "=" + encodeURIComponent(params[key]) + "&";
+    });
+    requestParams = requestParams.substr(0, requestParams.length -1);
+    nets({
+        url: this.baseURL + '/compound/batch?' + requestParams,
+        method: "GET",
+        // 30 second timeout just in case
+        timeout: 30000,
+        headers: {
+            "Accept": "application/json"
+        }
+    }, function(err, resp, body) {
+        if (resp.statusCode === 200) {
+            callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
+        } else {
+            callback.call(this, false, resp.statusCode);
+        }
     });
 }
 
