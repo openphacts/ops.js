@@ -406,98 +406,98 @@ describe("Compound search", function() {
         });
     });
 
-//    describe("compound pharmacology search", function() {
-//
-//        it("can return a response", function() {
-//            var this_success = null;
-//            var this_status = null;
-//            var this_result = null;
-//            var callback = function(success, status, response) {
-//                this_success = success;
-//                this_status = status;
-//                this_result = searcher.parseCompoundPharmacologyResponse(response);
-//            };
-//            waitsFor(function() {
-//                return this_result != null;
-//            });
-//            runs(function() {
-//                expect(this_success).toEqual(true);
-//                expect(this_status).toEqual(200);
-//                expect(this_result[0]).toBeDefined();
-//                // optional values
-//                expect(this_result[0].compoundDrugType).toBeDefined();
-//                expect(this_result[0].compoundGenericName).toBeDefined();
-//                expect(this_result[0].targets).toBeDefined();
-//                expect(this_result[0].compoundInchikeySrc).toBeDefined();
-//                expect(this_result[0].compoundDrugTypeSrc).toBeDefined();
-//                expect(this_result[0].compoundGenericNameSrc).toBeDefined();
-//                expect(this_result[0].targetTitleSrc).toBeDefined();
-//                expect(this_result[0].chemblCompoundUri).toBeDefined();
-//                expect(this_result[0].compoundFullMwt).toBeDefined();
-//                expect(this_result[0].chemblAssayUri).toBeDefined();
-//                expect(this_result[0].targetOrganisms).toBeDefined();
-//                expect(this_result[0].assayOrganism).toBeDefined();
-//                expect(this_result[0].assayDescription).toBeDefined();
-//                expect(this_result[0].activityRelation).toBeDefined();
-//                expect(this_result[0].activityStandardUnits).toBeDefined();
-//                expect(this_result[0].activityStandardValue).toBeDefined();
-//                expect(this_result[0].activityActivityType).toBeDefined();
-//                expect(this_result[0].compoundFullMwtSrc).toBeDefined();
-//                expect(this_result[0].compoundPrefLabel_src).toBeDefined();
-//                expect(this_result[0].compoundInchiSrc).toBeDefined();
-//                expect(this_result[0].compoundSmilesSrc).toBeDefined();
-//                expect(this_result[0].targetOrganismSrc).toBeDefined();
-//                expect(this_result[0].assayOrganismSrc).toBeDefined();
-//                expect(this_result[0].assayDescriptionSrc).toBeDefined();
-//                expect(this_result[0].activityRelationSrc).toBeDefined();
-//                expect(this_result[0].activityStandardUnitsSrc).toBeDefined();
-//                expect(this_result[0].activityStandardValueSrc).toBeDefined();
-//                expect(this_result[0].activityActivityTypeSrc).toBeDefined();
-//                expect(this_result[0].activityPubmedId).toBeDefined();
-//                expect(this_result[0].assayDescriptionItem).toBeDefined();
-//                expect(this_result[0].assayOrganismItem).toBeDefined();
-//                expect(this_result[0].activityActivityTypeItem).toBeDefined();
-//                expect(this_result[0].activityRelationItem).toBeDefined();
-//                expect(this_result[0].activityStandardValueItem).toBeDefined();
-//                expect(this_result[0].activityStandardUnitsItem).toBeDefined();
-//                expect(this_result[0].compoundFullMwtItem).toBeDefined();
-//                expect(this_result[0].compoundSmilesItem).toBeDefined();
-//                expect(this_result[0].compoundInchiItem).toBeDefined();
-//                expect(this_result[0].compoundInchikeyItem).toBeDefined();
-//                expect(this_result[0].compoundPrefLabelItem).toBeDefined();
-//                expect(this_result[0].pChembl).toBeDefined();
-//                expect(this_result[0].activityValue).toBeDefined();
-//
-//                // mandatory values
-//                expect(this_result[0].chemblActivityUri).not.toBeNull();
-//                expect(this_result[0].cwCompoundUri).not.toBeNull();
-//                expect(this_result[0].compoundPrefLabel).not.toBeNull();
-//                expect(this_result[0].compoundInchikey).not.toBeNull();
-//                expect(this_result[0].compoundSmiles).not.toBeNull();
-//                expect(this_result[0].compoundInchi).not.toBeNull();
-//                expect(this_result[0].csCompoundUri).not.toBeNull();
-//                expect(this_result[0].csid).not.toBeNull();
-//
-//            });
-//            searcher.compoundPharmacology('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 1, 20, null, null, callback);
-//        });
-////        it("and handle errors", function() {
-////            var this_success = null;
-////            var this_status = null;
-////            var callback = function(success, status) {
-////                this_success = success;
-////                this_status = status;
-////            };
-//            waitsFor(function() {
-//                return this_success != null;
-//            });
-//            runs(function() {
-//                expect(this_success).toEqual(false);
-//                expect(this_status).toEqual(404);
-//            });
-//            searcher.compoundPharmacology('http://www.conceptwiki.org/concept/876876876', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 1, 20, null, null, callback);
-//        });
-//    });
+    describe("compound pharmacology search", function() {
+
+        it("can return a response", function() {
+            var this_success = null;
+            var this_status = null;
+            var this_result = null;
+            var callback = function(success, status, response) {
+                this_success = success;
+                this_status = status;
+                this_result = searcher.parseCompoundPharmacologyResponse(response);
+            };
+            waitsFor(function() {
+                return this_result != null;
+            });
+            runs(function() {
+                expect(this_success).toEqual(true);
+                expect(this_status).toEqual(200);
+                expect(this_result[0]).toBeDefined();
+                // optional values
+                expect(this_result[0].compoundDrugType).toBeDefined();
+                expect(this_result[0].compoundGenericName).toBeDefined();
+                expect(this_result[0].targets).toBeDefined();
+                expect(this_result[0].compoundInchikeySrc).toBeDefined();
+                expect(this_result[0].compoundDrugTypeSrc).toBeDefined();
+                expect(this_result[0].compoundGenericNameSrc).toBeDefined();
+                expect(this_result[0].targetTitleSrc).toBeDefined();
+                expect(this_result[0].chemblCompoundUri).toBeDefined();
+                expect(this_result[0].compoundFullMwt).toBeDefined();
+                expect(this_result[0].chemblAssayUri).toBeDefined();
+                expect(this_result[0].targetOrganisms).toBeDefined();
+                expect(this_result[0].assayOrganism).toBeDefined();
+                expect(this_result[0].assayDescription).toBeDefined();
+                expect(this_result[0].activityRelation).toBeDefined();
+                expect(this_result[0].activityStandardUnits).toBeDefined();
+                expect(this_result[0].activityStandardValue).toBeDefined();
+                expect(this_result[0].activityActivityType).toBeDefined();
+                expect(this_result[0].compoundFullMwtSrc).toBeDefined();
+                expect(this_result[0].compoundPrefLabel_src).toBeDefined();
+                expect(this_result[0].compoundInchiSrc).toBeDefined();
+                expect(this_result[0].compoundSmilesSrc).toBeDefined();
+                expect(this_result[0].targetOrganismSrc).toBeDefined();
+                expect(this_result[0].assayOrganismSrc).toBeDefined();
+                expect(this_result[0].assayDescriptionSrc).toBeDefined();
+                expect(this_result[0].activityRelationSrc).toBeDefined();
+                expect(this_result[0].activityStandardUnitsSrc).toBeDefined();
+                expect(this_result[0].activityStandardValueSrc).toBeDefined();
+                expect(this_result[0].activityActivityTypeSrc).toBeDefined();
+                expect(this_result[0].activityPubmedId).toBeDefined();
+                expect(this_result[0].assayDescriptionItem).toBeDefined();
+                expect(this_result[0].assayOrganismItem).toBeDefined();
+                expect(this_result[0].activityActivityTypeItem).toBeDefined();
+                expect(this_result[0].activityRelationItem).toBeDefined();
+                expect(this_result[0].activityStandardValueItem).toBeDefined();
+                expect(this_result[0].activityStandardUnitsItem).toBeDefined();
+                expect(this_result[0].compoundFullMwtItem).toBeDefined();
+                expect(this_result[0].compoundSmilesItem).toBeDefined();
+                expect(this_result[0].compoundInchiItem).toBeDefined();
+                expect(this_result[0].compoundInchikeyItem).toBeDefined();
+                expect(this_result[0].compoundPrefLabelItem).toBeDefined();
+                expect(this_result[0].pChembl).toBeDefined();
+                expect(this_result[0].activityValue).toBeDefined();
+
+                // mandatory values
+                expect(this_result[0].chemblActivityUri).not.toBeNull();
+                expect(this_result[0].cwCompoundUri).not.toBeNull();
+                expect(this_result[0].compoundPrefLabel).not.toBeNull();
+                expect(this_result[0].compoundInchikey).not.toBeNull();
+                expect(this_result[0].compoundSmiles).not.toBeNull();
+                expect(this_result[0].compoundInchi).not.toBeNull();
+                expect(this_result[0].csCompoundUri).not.toBeNull();
+                expect(this_result[0].csid).not.toBeNull();
+
+            });
+            searcher.compoundPharmacology('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 1, 20, null, null, callback);
+        });
+        it("and handle errors", function() {
+            var this_success = null;
+            var this_status = null;
+            var callback = function(success, status) {
+                this_success = success;
+                this_status = status;
+            };
+            waitsFor(function() {
+                return this_success != null;
+            });
+            runs(function() {
+                expect(this_success).toEqual(false);
+                expect(this_status).toEqual(404);
+            });
+            searcher.compoundPharmacology('http://www.conceptwiki.org/concept/876876876', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 1, 20, null, null, callback);
+        });
+    });
 //    describe("compound pharmacology count", function() {
 //
 //        it("can return a response", function() {
