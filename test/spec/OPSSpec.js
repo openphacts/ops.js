@@ -3,9 +3,12 @@ describe("Compound search", function() {
     var searcher, appID, appKey;
 
     beforeEach(function() {
-        appID = "1c22cbe7";
-        appKey = "167a3a3d8539b5d85280e7178f4e62ab";
-        appUrl = "https://beta.openphacts.org/1.4";
+        appID = process.env['app_id'];
+        appKey = process.env['app_key'];
+        appUrl = process.env['app_url'];
+//        appID = "1c22cbe7";
+//        appKey = "167a3a3d8539b5d85280e7178f4e62ab";
+//        appUrl = "https://beta.openphacts.org/1.4";
         searcher = new CompoundSearch(appUrl, appID, appKey);
     });
 
