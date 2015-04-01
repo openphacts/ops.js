@@ -1,5 +1,4 @@
 //This content is released under the MIT License, http://opensource.org/licenses/MIT. See licence.txt for more details.
-//This content is released under the MIT License, http://opensource.org/licenses/MIT. See licence.txt for more details.
 var Utils = require("./Utils");
 var Constants = require("./Constants");
 var nets = require("nets");
@@ -38,17 +37,19 @@ TargetSearch.prototype.fetchTarget = function(URI, lens, callback) {
     params['app_id'] = this.appID;
     params['uri'] = URI;
     lens ? params['_lens'] = lens : '';
-    var targetQuery = $.ajax({
-        url: this.baseURL + '/target',
-        dataType: 'json',
-        cache: true,
-        data: params,
-        success: function(response, status, request) {
-            //return the primaryTopic so we can use the same parser for this and batch
-            callback.call(this, true, request.status, response.result.primaryTopic);
-        },
-        error: function(request, status, error) {
-            callback.call(this, false, request.status);
+    nets({
+        url: this.baseURL + '/target?' + Utils.encodeParams(params),
+        method: "GET",
+        // 30 second timeout just in case
+        timeout: 30000,
+        headers: {
+            "Accept": "application/json"
+        }
+    }, function(err, resp, body) {
+        if (resp.statusCode === 200) {
+            callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
+        } else {
+            callback.call(this, false, resp.statusCode);
         }
     });
 }

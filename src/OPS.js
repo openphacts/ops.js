@@ -9,6 +9,7 @@
 
 var Openphacts = {} || Openphacts;
 Openphacts.CompoundSearch = require("./CompoundSearch");
+Openphacts.TargetSearch = require("./TargetSearch");
 Openphacts.Version = require("./Version");
 
 module.exports = Openphacts;
