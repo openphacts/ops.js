@@ -9,8 +9,7 @@ OPS.js is a javascript based library for accessing the Open PHACTS Linked Data A
 Please read the [API documentation](http://openphacts.github.io/ops.js "OPS.js API documentation").
  
 ## Dependencies
-JQuery 1.9.1  
-[Purl 2.2.1 (Used during testing only)](https://github.com/allmarkedup/jQuery-URL-Parser "Purl URL library")  
+NodeJS, NPM, nets  
 Get your openphacts api appID and appKey by registering at https://dev.openphacts.org
 
 ## Licence
@@ -28,12 +27,12 @@ We love receiving patches for bug fixes and new features. Please follow these si
 ## Citations  
 To cite OPS.js in publications please use:  
 
->Ian Dunlop. OPS.js. 4.1.0. Javascript library for accessing the Open PHACTS Linked Data API. University of Manchester. http://github.com/openphacts/ops.js
+>Ian Dunlop. OPS.js. 5.0.0. Javascript library for accessing the Open PHACTS Linked Data API. University of Manchester. http://github.com/openphacts/ops.js
 
 Bibtex:
 
 >@Manual{,  
->title = {OPS.js 4.1.0: Javascript library for accessing the Open PHACTS Linked Data API},  
+>title = {OPS.js 5.0.0: Javascript library for accessing the Open PHACTS Linked Data API},  
 >author = {{Ian Dunlop}},  
 >organization = {School of Computer Science},  
 >address = {University of Manchester, United Kingdom},  
@@ -56,11 +55,10 @@ Look at https://dev.openphacts.org for more information about the source methods
 ## Testing the library
 
 [Jasmine](http://pivotal.github.io/jasmine/ "Jasmine javascript testing framework") is used to test the ops.js api. There are various test runners which can be used, they
-are contained within the 'test' directory with the specs for the tests in the 'test/spec' directory. FunctionalTests.html and IntegrationTests.html should be run within a browser.
+are contained within the 'test' directory with the specs for the tests in the 'test/spec' directory. To run them us jasmine-node like this:
 
-`file:///path_to_ops.js/test/FunctionalTests.html?app_id=sdfsdf&app_key=sdfsdfsdf&app_url=https://beta.openphacts.org/1.4`
+jasmine-node --config app_id your_app_id --config app_key your_app_key --config app_url https://beta.openphacts.org/1.4 test/spec/integration/
 
-Use the appropriate values for `app_id`, `app_key` & `app_url`
 
 PhantomIntegrationTests.html and PhantomFunctionalTests.html use [phantomjs](http://phantomjs.org "PhanotmJS headless web browser"), a headless web browser, and
 can be run from the command line with  

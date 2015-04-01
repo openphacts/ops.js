@@ -9,7 +9,7 @@
 
 var Openphacts = {} || Openphacts;
 Openphacts.CompoundSearch = require("./CompoundSearch");
-
+Openphacts.Version = require("./Version");
 /**
  * Check if some data is an array and return either itself if it is an array
  * or an array with it as the first member if it is not. Used for the cases where
