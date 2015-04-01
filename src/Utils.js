@@ -13,3 +13,12 @@ exports.arrayify = function(data) {
         return data;;
     }
 }
+
+exports.encodeParams = function(params) {
+    var requestParams = "";
+    Object.keys(params).forEach(function(key, index) {
+        requestParams += key + "=" + encodeURIComponent(params[key]) + "&";
+    });
+    requestParams = requestParams.substr(0, requestParams.length - 1);
+    return requestParams;
+}

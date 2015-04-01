@@ -37,13 +37,8 @@ CompoundSearch.prototype.fetchCompound = function(URI, lens, callback) {
     params['app_id'] = this.appID;
     params['uri'] = URI;
     lens ? params['_lens'] = lens : '';
-    var requestParams = "";
-    Object.keys(params).forEach(function(key, index) {
-        requestParams += key + "=" + encodeURIComponent(params[key]) + "&";
-    });
-    requestParams = requestParams.substr(0, requestParams.length -1);
     nets({
-        url: this.baseURL + '/compound?' + requestParams,
+        url: this.baseURL + '/compound?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
         timeout: 30000,
@@ -80,13 +75,8 @@ CompoundSearch.prototype.fetchCompoundBatch = function(URIList, lens, callback) 
     var URIs = URIList.join('|');
     params['uri_list'] = URIs;
     lens ? params['_lens'] = lens : '';
-    var requestParams = "";
-    Object.keys(params).forEach(function(key, index) {
-        requestParams += key + "=" + encodeURIComponent(params[key]) + "&";
-    });
-    requestParams = requestParams.substr(0, requestParams.length -1);
     nets({
-        url: this.baseURL + '/compound/batch?' + requestParams,
+        url: this.baseURL + '/compound/batch?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
         timeout: 30000,
@@ -122,13 +112,8 @@ CompoundSearch.prototype.compoundClassMembersCount = function(URI, lens, callbac
     params['app_id'] = this.appID;
     params['uri'] = URI;
     lens ? params['_lens'] = lens : '';
-    var requestParams = "";
-    Object.keys(params).forEach(function(key, index) {
-        requestParams += key + "=" + encodeURIComponent(params[key]) + "&";
-    });
-    requestParams = requestParams.substr(0, requestParams.length -1);
     nets({
-        url: this.baseURL + '/compound/members/count?' + requestParams,
+        url: this.baseURL + '/compound/members/count?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
         timeout: 30000,
@@ -171,13 +156,8 @@ CompoundSearch.prototype.compoundClassMembers = function(URI, page, pageSize, or
     orderBy ? params['_orderBy'] = orderBy : '';
     lens ? params['_lens'] = lens : '';
 
-    var requestParams = "";
-    Object.keys(params).forEach(function(key, index) {
-        requestParams += key + "=" + encodeURIComponent(params[key]) + "&";
-    });
-    requestParams = requestParams.substr(0, requestParams.length -1);
     nets({
-        url: this.baseURL + '/compound/members/pages?' + requestParams,
+        url: this.baseURL + '/compound/members/pages?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
         timeout: 30000,
@@ -252,13 +232,8 @@ CompoundSearch.prototype.compoundPharmacology = function(URI, assayOrganism, tar
     orderBy ? params['_orderBy'] = orderBy : '';
     lens ? params['_lens'] = lens : '';
 
-    var requestParams = "";
-    Object.keys(params).forEach(function(key, index) {
-        requestParams += key + "=" + encodeURIComponent(params[key]) + "&";
-    });
-    requestParams = requestParams.substr(0, requestParams.length -1);
     nets({
-        url: this.baseURL + '/compound/pharmacology/pages?' + requestParams,
+        url: this.baseURL + '/compound/pharmacology/pages?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
         timeout: 30000,
@@ -327,13 +302,8 @@ CompoundSearch.prototype.compoundPharmacologyCount = function(URI, assayOrganism
     targetType ? params['target_type'] = targetType : '';
     lens ? params['_lens'] = lens : '';
 
-    var requestParams = "";
-    Object.keys(params).forEach(function(key, index) {
-        requestParams += key + "=" + encodeURIComponent(params[key]) + "&";
-    });
-    requestParams = requestParams.substr(0, requestParams.length -1);
     nets({
-        url: this.baseURL + '/compound/pharmacology/count?' + requestParams,
+        url: this.baseURL + '/compound/pharmacology/count?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
         timeout: 30000,
@@ -364,13 +334,8 @@ CompoundSearch.prototype.compoundClassifications = function(URI, tree, callback)
     params['uri'] = URI;
     params['tree'] = tree;
 
-    var requestParams = "";
-    Object.keys(params).forEach(function(key, index) {
-        requestParams += key + "=" + encodeURIComponent(params[key]) + "&";
-    });
-    requestParams = requestParams.substr(0, requestParams.length -1);
     nets({
-        url: this.baseURL + '/compound/classifications?' + requestParams,
+        url: this.baseURL + '/compound/classifications?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
         timeout: 30000,

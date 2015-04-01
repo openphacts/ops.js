@@ -1,4 +1,9 @@
 //This content is released under the MIT License, http://opensource.org/licenses/MIT. See licence.txt for more details.
+//This content is released under the MIT License, http://opensource.org/licenses/MIT. See licence.txt for more details.
+var Utils = require("./Utils");
+var Constants = require("./Constants");
+var nets = require("nets");
+
 /**
  * @constructor
  * @param {string} baseURL - URL for the Open PHACTS API
@@ -7,7 +12,7 @@
  * @license [MIT]{@link http://opensource.org/licenses/MIT}
  * @author Ian Dunlop
  */
-Openphacts.TargetSearch = function TargetSearch(baseURL, appID, appKey) {
+TargetSearch = function TargetSearch(baseURL, appID, appKey) {
     this.baseURL = baseURL;
     this.appID = appID;
     this.appKey = appKey;
@@ -20,13 +25,13 @@ Openphacts.TargetSearch = function TargetSearch(baseURL, appID, appKey) {
  * @param {requestCallback} callback - Function that will be called with the result.
  * @method
  * @example
- * var searcher = new Openphacts.TargetSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
+ * var searcher = new TargetSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
  * var callback=function(success, status, response){
  *    var targetResult = searcher.parseTargetResponse(response);
  * };
  * searcher.fetchTarget('http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', null, callback);
  */
-Openphacts.TargetSearch.prototype.fetchTarget = function(URI, lens, callback) {
+TargetSearch.prototype.fetchTarget = function(URI, lens, callback) {
     params = {};
     params['_format'] = "json";
     params['app_key'] = this.appKey;
@@ -55,13 +60,13 @@ Openphacts.TargetSearch.prototype.fetchTarget = function(URI, lens, callback) {
  * @param {requestCallback} callback - Function that will be called with the result.
  * @method
  * @example
- * var searcher = new Openphacts.TargetSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
+ * var searcher = new TargetSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
  * var callback=function(success, status, response){
  *    var targets = searcher.parseTargetBatchResponse(response);
  * };
  * searcher.fetchTargetBatch(['http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', 'http://www.conceptwiki.org/concept/7b21c06f-0343-4fcc-ab0f-a74ffe871ade'], null, callback);
  */
-Openphacts.TargetSearch.prototype.fetchTargetBatch = function(URIList, lens, callback) {
+TargetSearch.prototype.fetchTargetBatch = function(URIList, lens, callback) {
     params = {};
     params['_format'] = "json";
     params['app_key'] = this.appKey;
@@ -89,13 +94,13 @@ Openphacts.TargetSearch.prototype.fetchTargetBatch = function(URIList, lens, cal
  * @param {requestCallback} callback - Function that will be called with the result.
  * @method
  * @example
- * var searcher = new Openphacts.TargetSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
+ * var searcher = new TargetSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
  * var callback=function(success, status, response){
  *    var targetResult = searcher.parseTargetResponse(response);
  * };
  * searcher.compoundsForTarget('http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', callback);
  */
-Openphacts.TargetSearch.prototype.compoundsForTarget = function(URI, callback) {
+TargetSearch.prototype.compoundsForTarget = function(URI, callback) {
     var targetQuery = $.ajax({
         url: this.baseURL + '/target/classificationsForCompounds',
         dataType: 'json',
@@ -141,13 +146,13 @@ Openphacts.TargetSearch.prototype.compoundsForTarget = function(URI, callback) {
  * @param {requestCallback} callback - Function that will be called with the result
  * @method
  * @example
- * var searcher = new Openphacts.TargetSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
+ * var searcher = new TargetSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
  * var callback=function(success, status, response){
  *     var pharmacologyResult == searcher.parseTargetPharmacologyResponse(response);
  * };
  * searcher.targetPharmacology('http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 1, 20, null, null, callback);
  */
-Openphacts.TargetSearch.prototype.targetPharmacology = function(URI, assayOrganism, targetOrganism, activityType, activityValue, minActivityValue, minExActivityValue, maxActivityValue, maxExActivityValue, activityUnit, activityRelation, pChembl, minpChembl, minExpChembl, maxpChembl, maxExpChembl, targetType, page, pageSize, orderBy, lens, callback) {
+TargetSearch.prototype.targetPharmacology = function(URI, assayOrganism, targetOrganism, activityType, activityValue, minActivityValue, minExActivityValue, maxActivityValue, maxExActivityValue, activityUnit, activityRelation, pChembl, minpChembl, minExpChembl, maxpChembl, maxExpChembl, targetType, page, pageSize, orderBy, lens, callback) {
     params = {};
     params['_format'] = "json";
     params['app_key'] = this.appKey;
@@ -211,13 +216,13 @@ Openphacts.TargetSearch.prototype.targetPharmacology = function(URI, assayOrgani
  * @param {requestCallback} callback - Function that will be called with the result
  * @method
  * @example
- * var searcher = new Openphacts.TargetSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
+ * var searcher = new TargetSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
  * var callback=function(success, status, response){
  *     var pharmacologyResult == searcher.parseTargetPharmacologyCountResponse(response);
  * };
  * searcher.targetPharmacologyCount('http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);
  */
-Openphacts.TargetSearch.prototype.targetPharmacologyCount = function(URI, assayOrganism, targetOrganism, activityType, activityValue, minActivityValue, minExActivityValue, maxActivityValue, maxExActivityValue, activityUnit, activityRelation, pChembl, minpChembl, minExpChembl, maxpChembl, maxExpChembl, targetType, lens, callback) {
+TargetSearch.prototype.targetPharmacologyCount = function(URI, assayOrganism, targetOrganism, activityType, activityValue, minActivityValue, minExActivityValue, maxActivityValue, maxExActivityValue, activityUnit, activityRelation, pChembl, minpChembl, minExpChembl, maxpChembl, maxExpChembl, targetType, lens, callback) {
     params = {};
     params['_format'] = "json";
     params['app_key'] = this.appKey;
@@ -261,7 +266,7 @@ Openphacts.TargetSearch.prototype.targetPharmacologyCount = function(URI, assayO
  * @param {requestCallback} callback - Function that will be called with the result
  * @method
  */
-Openphacts.TargetSearch.prototype.targetTypes = function(lens, callback) {
+TargetSearch.prototype.targetTypes = function(lens, callback) {
     var targetQuery = $.ajax({
         url: this.baseURL + '/target/types',
         dataType: 'json',
@@ -287,25 +292,25 @@ Openphacts.TargetSearch.prototype.targetTypes = function(lens, callback) {
  * @returns {Object} Flattened uniprot response
  * @method
  */
-Openphacts.TargetSearch.prototype.parseUniprotBlock = function(uniprotBlock) {
-    var constants = new Openphacts.Constants();
+TargetSearch.prototype.parseUniprotBlock = function(uniprotBlock) {
+    var constants = new Constants();
     var uniprotData = uniprotBlock;
     var uniprotURI = uniprotData[constants.ABOUT];
     var classifiedWith = [];
     var seeAlso = [];
     if (uniprotData.classifiedWith) {
-        Openphacts.arrayify(uniprotData.classifiedWith).forEach(function(classified, j, allClassified) {
+        arrayify(uniprotData.classifiedWith).forEach(function(classified, j, allClassified) {
             classifiedWith.push(classified);
         });
     }
     if (uniprotData.seeAlso) {
-        Openphacts.arrayify(uniprotData.seeAlso).forEach(function(see, j, allSee) {
+        arrayify(uniprotData.seeAlso).forEach(function(see, j, allSee) {
             seeAlso.push(see);
         });
     }
     var molecularWeight = uniprotData.molecularWeight ? uniprotData.molecularWeight : null;
     var functionAnnotation = uniprotData.Function_Annotation ? uniprotData.Function_Annotation : null;
-    var alternativeName = uniprotData.alternativeName ? Openphacts.arrayify(uniprotData.alternativeName) : [];
+    var alternativeName = uniprotData.alternativeName ? arrayify(uniprotData.alternativeName) : [];
     var existence = uniprotData.existence ? uniprotData.existence : null;
     var organism = uniprotData.organism ? uniprotData.organism : null;
     var sequence = uniprotData.sequence ? uniprotData.sequence : null;
@@ -343,8 +348,8 @@ Openphacts.TargetSearch.prototype.parseUniprotBlock = function(uniprotBlock) {
  * @returns {Object} Flattened Concept Wiki response
  * @method
  */
-Openphacts.TargetSearch.prototype.parseConceptWikiBlock = function(conceptWikiBlock) {
-    var constants = new Openphacts.Constants();
+TargetSearch.prototype.parseConceptWikiBlock = function(conceptWikiBlock) {
+    var constants = new Constants();
     var cwUri = conceptWikiBlock[constants.ABOUT];
     var label = conceptWikiBlock[constants.PREF_LABEL];
     var conceptWikiLinkOut = conceptWikiBlock[constants.ABOUT];
@@ -364,8 +369,8 @@ Openphacts.TargetSearch.prototype.parseConceptWikiBlock = function(conceptWikiBl
  * @returns {Object} Flattened ChEMBL response
  * @method
  */
-Openphacts.TargetSearch.prototype.parseChemblBlock = function(chemblBlock) {
-    var constants = new Openphacts.Constants();
+TargetSearch.prototype.parseChemblBlock = function(chemblBlock) {
+    var constants = new Constants();
     // there can be multiple proteins per target response
     var chemblData = chemblBlock;
     var chemblLinkOut = 'https://www.ebi.ac.uk/chembldb/target/inspect/';
@@ -381,7 +386,7 @@ Openphacts.TargetSearch.prototype.parseChemblBlock = function(chemblBlock) {
     chemblDataItem['synonyms'] = synonymsData;
     var targetComponents = {};
     if (chemblData[constants.HAS_TARGET_COMPONENT]) {
-        Openphacts.arrayify(chemblData[constants.HAS_TARGET_COMPONENT]).forEach(function(targetComponent, index, allTargetComponents) {
+        arrayify(chemblData[constants.HAS_TARGET_COMPONENT]).forEach(function(targetComponent, index, allTargetComponents) {
             targetComponents[targetComponent[constants.ABOUT]] = targetComponent.description;
         });
     }
@@ -404,8 +409,8 @@ Openphacts.TargetSearch.prototype.parseChemblBlock = function(chemblBlock) {
  * @param {Object} drugbankBlock - JSON containing some drugbank data for a target
  * @returns {Object} Flattened drugbank response
  */
-Openphacts.TargetSearch.prototype.parseDrugbankBlock = function(drugbankBlock) {
-    var constants = new Openphacts.Constants();
+TargetSearch.prototype.parseDrugbankBlock = function(drugbankBlock) {
+    var constants = new Constants();
     var drugbankData = drugbankBlock;
     var cellularLocation = drugbankData.cellularLocation ? drugbankData.cellularLocation : null;
     var numberOfResidues = drugbankData.numberOfResidues ? drugbankData.numberOfResidues : null;
@@ -428,14 +433,14 @@ Openphacts.TargetSearch.prototype.parseDrugbankBlock = function(drugbankBlock) {
 }
 
 /**
- * Parse the results from {@link Openphacts.TargetSearch#fetchTarget}
- * @param {Object} response - the JSON response from {@link Openphacts.TargetSearch#fetchTarget}
+ * Parse the results from {@link TargetSearch#fetchTarget}
+ * @param {Object} response - the JSON response from {@link TargetSearch#fetchTarget}
  * @returns {FetchTargetResponse} Containing the flattened response
  * @method
  */
-Openphacts.TargetSearch.prototype.parseTargetResponse = function(response) {
+TargetSearch.prototype.parseTargetResponse = function(response) {
     var me = this;
-    var constants = new Openphacts.Constants();
+    var constants = new Constants();
     var uniprotBlock = {};
     var conceptWikiBlock = {};
     var chemblBlock = {};
@@ -456,7 +461,7 @@ Openphacts.TargetSearch.prototype.parseTargetResponse = function(response) {
         conceptWikiBlock = me.parseConceptWikiBlock(response);
     }
     var exactMatches = response[constants.EXACT_MATCH];
-    Openphacts.arrayify(exactMatches).forEach(function(exactMatch, i, allMatches) {
+    arrayify(exactMatches).forEach(function(exactMatch, i, allMatches) {
         var src = exactMatch[constants.IN_DATASET];
         if (src) {
             if (constants.SRC_CLS_MAPPINGS[src] === 'drugbankValue') {
@@ -499,13 +504,13 @@ Openphacts.TargetSearch.prototype.parseTargetResponse = function(response) {
 }
 
 /**
- * Parse the results from {@link Openphacts.TargetSearch#fetchTargetBatch}
- * @param {Object} response - the JSON response from {@link Openphacts.TargetSearch#fetchTargetBatch}
+ * Parse the results from {@link TargetSearch#fetchTargetBatch}
+ * @param {Object} response - the JSON response from {@link TargetSearch#fetchTargetBatch}
  * @returns {FetchTargetBatchResponse} Containing the flattened response
  * @method
  */
-Openphacts.TargetSearch.prototype.parseTargetBatchResponse = function(response) {
-    var constants = new Openphacts.Constants();
+TargetSearch.prototype.parseTargetBatchResponse = function(response) {
+    var constants = new Constants();
     var targets = [];
     var me = this;
     response.items.forEach(function(item, index, items) {
@@ -514,8 +519,8 @@ Openphacts.TargetSearch.prototype.parseTargetBatchResponse = function(response) 
     return targets;
 }
 
-Openphacts.TargetSearch.prototype.parseTargetPharmacologyResponse = function(response) {
-    var constants = new Openphacts.Constants();
+TargetSearch.prototype.parseTargetPharmacologyResponse = function(response) {
+    var constants = new Constants();
     var records = [];
 
     response.items.forEach(function(item, index, items) {
@@ -634,7 +639,7 @@ Openphacts.TargetSearch.prototype.parseTargetPharmacologyResponse = function(res
             //}
             var targetComponents = [];
             if (target[constants.HAS_TARGET_COMPONENT] != null) {
-                Openphacts.arrayify(target[constants.HAS_TARGET_COMPONENT]).forEach(function(targetComponent, index, allTargetComponents) {
+                arrayify(target[constants.HAS_TARGET_COMPONENT]).forEach(function(targetComponent, index, allTargetComponents) {
                     var targetComponentDetails = {'URI': targetComponent[constants.ABOUT]};
                     if (targetComponent[constants.EXACT_MATCH] != null) {
                         targetComponentDetails['prefLabel'] = targetComponent[constants.EXACT_MATCH].prefLabel;
@@ -678,7 +683,7 @@ Openphacts.TargetSearch.prototype.parseTargetPharmacologyResponse = function(res
         var pChembl = item.pChembl;
         var documents = [];
         if (item.hasDocument) {
-            Openphacts.arrayify(item.hasDocument).forEach(function(document, index, documents) {
+            arrayify(item.hasDocument).forEach(function(document, index, documents) {
                 documents.push(document);
             });
         }
@@ -758,6 +763,6 @@ Openphacts.TargetSearch.prototype.parseTargetPharmacologyResponse = function(res
     return records;
 }
 
-Openphacts.TargetSearch.prototype.parseTargetPharmacologyCountResponse = function(response) {
+TargetSearch.prototype.parseTargetPharmacologyCountResponse = function(response) {
     return response.primaryTopic.targetPharmacologyTotalResults;
 }
