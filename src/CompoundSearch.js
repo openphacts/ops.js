@@ -327,15 +327,25 @@ CompoundSearch.prototype.compoundPharmacologyCount = function(URI, assayOrganism
     targetType ? params['target_type'] = targetType : '';
     lens ? params['_lens'] = lens : '';
 
-    var compoundQuery = $.ajax({
-        url: this.baseURL + '/compound/pharmacology/count',
-        dataType: 'json',
-        cache: true,
-        data: params
-    }).done(function(response, status, request) {
-        callback.call(this, true, request.status, response.result);
-    }).fail(function(response, status, statusText) {
-        callback.call(this, false, response.status);
+    var requestParams = "";
+    Object.keys(params).forEach(function(key, index) {
+        requestParams += key + "=" + encodeURIComponent(params[key]) + "&";
+    });
+    requestParams = requestParams.substr(0, requestParams.length -1);
+    nets({
+        url: this.baseURL + '/compound/pharmacology/count?' + requestParams,
+        method: "GET",
+        // 30 second timeout just in case
+        timeout: 30000,
+        headers: {
+            "Accept": "application/json"
+        }
+    }, function(err, resp, body) {
+        if (resp.statusCode === 200) {
+            callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
+        } else {
+            callback.call(this, false, resp.statusCode);
+        }
     });
 }
 
@@ -347,22 +357,31 @@ CompoundSearch.prototype.compoundPharmacologyCount = function(URI, assayOrganism
  * @method
  */
 CompoundSearch.prototype.compoundClassifications = function(URI, tree, callback) {
-    var compoundQuery = $.ajax({
-        url: this.baseURL + '/compound/classifications',
-        dataType: 'json',
-        cache: true,
-        data: {
-            _format: "json",
-            uri: URI,
-            app_id: this.appID,
-            app_key: this.appKey,
-            tree: tree
-        },
-        success: function(response, status, request) {
-            callback.call(this, true, request.status, response.result);
-        },
-        error: function(request, status, error) {
-            callback.call(this, false, request.status);
+    params = {};
+    params['_format'] = "json";
+    params['app_key'] = this.appKey;
+    params['app_id'] = this.appID;
+    params['uri'] = URI;
+    params['tree'] = tree;
+
+    var requestParams = "";
+    Object.keys(params).forEach(function(key, index) {
+        requestParams += key + "=" + encodeURIComponent(params[key]) + "&";
+    });
+    requestParams = requestParams.substr(0, requestParams.length -1);
+    nets({
+        url: this.baseURL + '/compound/classifications?' + requestParams,
+        method: "GET",
+        // 30 second timeout just in case
+        timeout: 30000,
+        headers: {
+            "Accept": "application/json"
+        }
+    }, function(err, resp, body) {
+        if (resp.statusCode === 200) {
+            callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
+        } else {
+            callback.call(this, false, resp.statusCode);
         }
     });
 }

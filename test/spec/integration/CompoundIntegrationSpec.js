@@ -498,47 +498,47 @@ describe("Compound search", function() {
             searcher.compoundPharmacology('http://www.conceptwiki.org/concept/876876876', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 1, 20, null, null, callback);
         });
     });
-//    describe("compound pharmacology count", function() {
-//
-//        it("can return a response", function() {
-//            var this_success = null;
-//            var this_status = null;
-//            var this_result = null;
-//            var callback = function(success, status, response) {
-//                this_success = success;
-//                this_status = status;
-//                this_result = searcher.parseCompoundPharmacologyCountResponse(response);
-//            };
-//            waitsFor(function() {
-//                return this_result != null;
-//            });
-//            runs(function() {
-//                expect(this_success).toEqual(true);
-//                expect(this_status).toEqual(200);
-//                expect(this_result).toBeDefined();
-//            });
-//            searcher.compoundPharmacologyCount('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);
-//        });
-//    });
-//    describe("compound classifications", function() {
-//
-//        it("can return a response", function() {
-//            var this_success = null;
-//            var this_status = null;
-//            var callback = function(success, status, response) {
-//                this_success = success;
-//                this_status = status;
-//            };
-//            waitsFor(function() {
-//                return this_status != null;
-//            });
-//            runs(function() {
-//                expect(this_success).toEqual(true);
-//                expect(this_status).toEqual(200);
-//            });
-//            searcher.compoundClassifications('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', 'chebi', callback);
-//        });
-//    });
+    describe("compound pharmacology count", function() {
+
+        it("can return a response", function() {
+            var this_success = null;
+            var this_status = null;
+            var this_result = null;
+            var callback = function(success, status, response) {
+                this_success = success;
+                this_status = status;
+                this_result = searcher.parseCompoundPharmacologyCountResponse(response);
+            };
+            waitsFor(function() {
+                return this_result != null;
+            });
+            runs(function() {
+                expect(this_success).toEqual(true);
+                expect(this_status).toEqual(200);
+                expect(this_result).toBeDefined();
+            });
+            searcher.compoundPharmacologyCount('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);
+        });
+    });
+    describe("compound classifications", function() {
+
+        it("can return a response", function() {
+            var this_success = null;
+            var this_status = null;
+            var callback = function(success, status, response) {
+                this_success = success;
+                this_status = status;
+            };
+            waitsFor(function() {
+                return this_status != null;
+            });
+            runs(function() {
+                expect(this_success).toEqual(true);
+                expect(this_status).toEqual(200);
+            });
+            searcher.compoundClassifications('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', 'chebi', callback);
+        });
+    });
     describe("compound class members count", function() {
         it("can return a response", function() {
             var this_success = null;
