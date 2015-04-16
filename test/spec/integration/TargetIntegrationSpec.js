@@ -125,77 +125,77 @@ describe("Target search", function() {
             searcher.fetchTarget('http://www.conceptwiki.org/concept/876876876', null, callback);
         });
     });
-    //  describe("fetch mutiple targets using batch call", function() {
-    //
-    //    it("and return a response", function() {
-    //      var this_success = null;
-    //      var this_status = null;
-    //      var this_result = null;
-    //
-    //      var callback=function(success, status, response){
-    //        this_success = success;
-    //        this_status = status;
-    //        this_result = searcher.parseTargetBatchResponse(response);
-    //      };
-    //
-    //      waitsFor(function() {
-    //        return this_result != null;
-    //      });
-    //
-    //      runs(function() {
-    //        expect(this_success).toBe(true);
-    //        expect(this_status).toBe(200);
-    //        expect(this_result).toBeDefined();
-    //	expect(this_result.length).toEqual(2);
-    //        // mandatory
-    //        expect(this_result[0].id).not.toBeNull();
-    //        //expect(this_result.cwURI).not.toBeNull();
-    //        //expect(this_result.uniprotURI).not.toBeNull();
-    //        //expect(this_result.existence).not.toBeNull();
-    //        expect(this_result[0].URI).not.toBeNull();
-    //
-    //        // optional
-    //        expect(this_result[0].cellularLocation).toBeDefined();
-    //        expect(this_result[0].molecularWeight).toBeDefined();
-    //        expect(this_result[0].numberOfResidues).toBeDefined();
-    //        expect(this_result[0].theoreticalPi).toBeDefined();
-    //        //expect(this_result[0].keywords).toBeDefined();
-    //        expect(this_result[0].functionAnnotation).toBeDefined();
-    //        expect(this_result[0].alternativeName).toBeDefined();
-    //        expect(this_result[0].organism).toBeDefined();
-    //        expect(this_result[0].sequence).toBeDefined();
-    //        expect(this_result[0].classifiedWith).toBeDefined();
-    //        expect(this_result[0].seeAlso).toBeDefined();
-    //        expect(this_result[0].drugbankURI).toBeDefined();
-    //        expect(this_result[0].prefLabel).toBeDefined();
-    //        expect(this_result[0].chemblItems).toBeDefined();
-    //        expect(this_result[0].URI).toBeDefined();
-    //	expect(this_result[0].mass).toBeDefined();
-    //      });
-    //
-    //      searcher.fetchTargetBatch(['http://www.conceptwiki.org/concept/00059958-a045-4581-9dc5-e5a08bb0c291', 'http://www.conceptwiki.org/concept/7b21c06f-0343-4fcc-ab0f-a74ffe871ade'], null, callback);
-    //    });
-    //    it("and handle errors", function() {
-    //      var this_success = null;
-    //      var this_status = null;
-    //
-    //      var callback=function(success, status, response){
-    //        this_success = success;
-    //        this_status = status;
-    //      };
-    //
-    //      waitsFor(function() {
-    //        return this_success != null;
-    //      });
-    //
-    //      runs(function() {
-    //        expect(this_success).toBe(false);
-    //        expect(this_status).toBe(404);
-    //      });
-    //
-    //      searcher.fetchTargetBatch(['http://www.conceptwiki.org/concept/876876876', 'http://www.conceptwiki.org/concept/7b21c0-a74ffe871ade'], null, callback);
-    //    });
-    //  });
+    describe("fetch mutiple targets using batch call", function() {
+
+        it("and return a response", function() {
+            var this_success = null;
+            var this_status = null;
+            var this_result = null;
+
+            var callback = function(success, status, response) {
+                this_success = success;
+                this_status = status;
+                this_result = searcher.parseTargetBatchResponse(response);
+            };
+
+            waitsFor(function() {
+                return this_result != null;
+            });
+
+            runs(function() {
+                expect(this_success).toBe(true);
+                expect(this_status).toBe(200);
+                expect(this_result).toBeDefined();
+                expect(this_result.length).toEqual(2);
+                // mandatory
+                expect(this_result[0].id).not.toBeNull();
+                //expect(this_result.cwURI).not.toBeNull();
+                //expect(this_result.uniprotURI).not.toBeNull();
+                //expect(this_result.existence).not.toBeNull();
+                expect(this_result[0].URI).not.toBeNull();
+
+                // optional
+                expect(this_result[0].cellularLocation).toBeDefined();
+                expect(this_result[0].molecularWeight).toBeDefined();
+                expect(this_result[0].numberOfResidues).toBeDefined();
+                expect(this_result[0].theoreticalPi).toBeDefined();
+                //expect(this_result[0].keywords).toBeDefined();
+                expect(this_result[0].functionAnnotation).toBeDefined();
+                expect(this_result[0].alternativeName).toBeDefined();
+                expect(this_result[0].organism).toBeDefined();
+                expect(this_result[0].sequence).toBeDefined();
+                expect(this_result[0].classifiedWith).toBeDefined();
+                expect(this_result[0].seeAlso).toBeDefined();
+                expect(this_result[0].drugbankURI).toBeDefined();
+                expect(this_result[0].prefLabel).toBeDefined();
+                expect(this_result[0].chemblItems).toBeDefined();
+                expect(this_result[0].URI).toBeDefined();
+                expect(this_result[0].mass).toBeDefined();
+            });
+
+            searcher.fetchTargetBatch(['http://www.conceptwiki.org/concept/00059958-a045-4581-9dc5-e5a08bb0c291', 'http://www.conceptwiki.org/concept/7b21c06f-0343-4fcc-ab0f-a74ffe871ade'], null, callback);
+        });
+        it("and handle errors", function() {
+            var this_success = null;
+            var this_status = null;
+
+            var callback = function(success, status, response) {
+                this_success = success;
+                this_status = status;
+            };
+
+            waitsFor(function() {
+                return this_success != null;
+            });
+
+            runs(function() {
+                expect(this_success).toBe(false);
+                expect(this_status).toBe(404);
+            });
+
+            searcher.fetchTargetBatch(['http://www.conceptwiki.org/concept/876876876', 'http://www.conceptwiki.org/concept/7b21c0-a74ffe871ade'], null, callback);
+        });
+    });
     //  describe("target pharmacology search", function() {
     //
     //    it("and return a response", function() {

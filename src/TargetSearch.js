@@ -75,16 +75,20 @@ TargetSearch.prototype.fetchTargetBatch = function(URIList, lens, callback) {
     var URIs = URIList.join('|');
     params['uri_list'] = URIs;
     lens ? params['_lens'] = lens : '';
-    var targetQuery = $.ajax({
-        url: this.baseURL + '/target/batch',
-        dataType: 'json',
-        cache: true,
-        data: params,
-        success: function(response, status, request) {
-            callback.call(this, true, request.status, response.result);
-        },
-        error: function(request, status, error) {
-            callback.call(this, false, request.status);
+
+    nets({
+        url: this.baseURL + '/target/batch?' + Utils.encodeParams(params),
+        method: "GET",
+        // 30 second timeout just in case
+        timeout: 30000,
+        headers: {
+            "Accept": "application/json"
+        }
+    }, function(err, resp, body) {
+        if (resp.statusCode === 200) {
+            callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
+        } else {
+            callback.call(this, false, resp.statusCode);
         }
     });
 }
