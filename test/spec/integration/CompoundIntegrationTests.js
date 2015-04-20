@@ -444,13 +444,13 @@ describe("Compound search", function() {
 
                 // mandatory values
                 expect(this_result[0].chemblActivityUri).not.toBeNull();
-                expect(this_result[0].cwCompoundUri).not.toBeNull();
-                expect(this_result[0].compoundPrefLabel).not.toBeNull();
-                expect(this_result[0].compoundInchikey).not.toBeNull();
-                expect(this_result[0].compoundSmiles).not.toBeNull();
-                expect(this_result[0].compoundInchi).not.toBeNull();
-                expect(this_result[0].csCompoundUri).not.toBeNull();
-                expect(this_result[0].csid).not.toBeNull();
+                expect(this_result[0].cwCompoundUri).toBeDefined();
+                expect(this_result[0].compoundPrefLabel).toBeDefined();;
+                expect(this_result[0].compoundInchikey).toBeDefined();;
+                expect(this_result[0].compoundSmiles).toBeDefined();
+                expect(this_result[0].compoundInchi).toBeDefined();
+                expect(this_result[0].csCompoundUri).toBeDefined();
+                expect(this_result[0].csid).toBeDefined();
 
             });
             searcher.compoundPharmacology('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 1, 20, null, null, callback);
