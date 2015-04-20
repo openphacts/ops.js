@@ -1,4 +1,4 @@
-# OPS.js [![Build Status](https://travis-ci.org/openphacts/ops.js.svg?branch=develop)](https://travis-ci.org/openphacts/ops.js) [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.13044.svg)](http://dx.doi.org/10.5281/zenodo.13044)
+# OPS.js [![Build Status](https://travis-ci.org/openphacts/ops.js.svg?branch=develop)](https://travis-ci.org/openphacts/ops.js) [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.14723.svg)](http://dx.doi.org/10.5281/zenodo.14723)
 
 ## Open PHACTS API Version
 
@@ -28,16 +28,16 @@ We love receiving patches for bug fixes and new features. Please follow these si
 ## Citations  
 To cite OPS.js in publications please use:  
 
->Ian Dunlop. OPS.js. 4.1.0. Javascript library for accessing the Open PHACTS Linked Data API. University of Manchester. http://github.com/openphacts/ops.js
+>Ian Dunlop. OPS.js. 5.0.0. Javascript library for accessing the Open PHACTS Linked Data API. University of Manchester. http://github.com/openphacts/ops.js
 
 Bibtex:
 
 >@Manual{,  
->title = {OPS.js 4.1.0: Javascript library for accessing the Open PHACTS Linked Data API},  
+>title = {OPS.js 5.0.0: Javascript library for accessing the Open PHACTS Linked Data API},  
 >author = {{Ian Dunlop}},  
 >organization = {School of Computer Science},  
 >address = {University of Manchester, United Kingdom},  
->year = 2014,  
+>year = 2015,  
 >url = {http://github.com/openphacts/ops.js}  
 >} 
 
