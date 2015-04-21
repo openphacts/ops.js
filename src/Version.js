@@ -4,7 +4,7 @@ Openphacts.Version = function Version() {
 
 Openphacts.Version.prototype.information = function() {
 	return {
-               "version": "5.0.0", 
+               "version": "5.0.1", 
                "author": "Ian Dunlop",
 	       "ORCID": "http://orcid.org/0000-0001-7066-3350",
                "title": "OPS.js",
@@ -13,8 +13,8 @@ Openphacts.Version.prototype.information = function() {
                "organization": "School of Computer Science",
                "address": "University of Manchester, UK",
                "year": "2015",
-               "month": "January",
+               "month": "April",
                "url": "http://github.com/openphacts/ops.js",
-               "LDA-version": "1.4"
+               "LDA-version": "1.5"
            }; 
 };
