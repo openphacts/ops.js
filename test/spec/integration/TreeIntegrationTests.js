@@ -184,7 +184,7 @@ describe("Trees", function() {
         expect(this_result.label).not.toBeNull();
         expect(this_result.children.length).toBeGreaterThan(1);
         expect(this_result.children[0].uri).toBeDefined();
-        expect(this_result.children[0].names.length).toBeGreaterThan(0);
+        expect(this_result.children[0].names).toBeDefined();
       });
       searcher.getChildNodes('http://purl.uniprot.org/enzyme/1.1.1.-', callback);
     });
