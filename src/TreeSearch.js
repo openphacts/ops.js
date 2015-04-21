@@ -241,6 +241,10 @@ Openphacts.TreeSearch.prototype.parseChildNodes = function(response) {
         label = label[0];
     }
     childResponse['label'] = label;
+    // The childNode might be inside an exactMatch block in 1.5
+    if (response.primaryTopic.childNode == null) {
+        response.primaryTopic.childNode = response.primaryTopic.exactMatch.childNode;
+    }
     if ($.isArray(response.primaryTopic.childNode)) {
         $.each(response.primaryTopic.childNode, function(i, member) {
             var about;
