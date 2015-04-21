@@ -41,7 +41,7 @@ describe("Trees", function() {
       });
       runs(function() {
         expect(this_success).toEqual(false);
-        expect(this_status).toEqual(500);
+        expect(this_status).toEqual(404);
       });
       searcher.getRootNodes('http://sdfgdgdg', callback);
     });
@@ -80,7 +80,7 @@ describe("Trees", function() {
       });
       runs(function() {
         expect(this_success).toEqual(false);
-        expect(this_status).toEqual(500);
+        expect(this_status).toEqual(404);
       });
       searcher.getRootNodes('http://sdfgdgdg', callback);
     });
@@ -119,7 +119,7 @@ describe("Trees", function() {
       });
       runs(function() {
         expect(this_success).toEqual(false);
-        expect(this_status).toEqual(500);
+        expect(this_status).toEqual(404);
       });
       searcher.getRootNodes('http://sdfgdgdg', callback);
     });
@@ -158,7 +158,7 @@ describe("Trees", function() {
       });
       runs(function() {
         expect(this_success).toEqual(false);
-        expect(this_status).toEqual(500);
+        expect(this_status).toEqual(404);
       });
       searcher.getRootNodes('http://sdfgdgdg', callback);
     });
