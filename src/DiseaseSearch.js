@@ -486,8 +486,8 @@ Openphacts.DiseaseSearch.prototype.parseAssociationsByTargetResponse = function(
                 dta.pmid.push(diseaseTargetAssociation.pmid);
             }
             dta.type = [];
-            if (Array.isArray(diseaseTargetAssociation.type)) {
-                diseaseTargetAssociation.type.forEach(function(type, index, array) {
+            if (Array.isArray(diseaseTargetAssociation.assoc_type)) {
+                diseaseTargetAssociation.assoc_type.forEach(function(type, index, array) {
                     dta.type.push({
                         "about": type[constants.ABOUT],
                         "label": type.label
@@ -495,8 +495,8 @@ Openphacts.DiseaseSearch.prototype.parseAssociationsByTargetResponse = function(
                 });
             } else {
                 dta.type.push({
-                    "URI": diseaseTargetAssociation.type[constants.ABOUT],
-                    "label": diseaseTargetAssociation.type.label
+                    "URI": diseaseTargetAssociation.assoc_type[constants.ABOUT],
+                    "label": diseaseTargetAssociation.assoc_type.label
                 });
             }
 
@@ -520,8 +520,8 @@ Openphacts.DiseaseSearch.prototype.parseAssociationsByTargetResponse = function(
             dta.disease.diseaseClasses = [];
             dta.disease.URI = diseaseTargetAssociation.disease[constants.ABOUT];
             dta.disease.dataset = diseaseTargetAssociation.disease[constants.IN_DATASET];
-            if (Array.isArray(diseaseTargetAssociation.disease.diseaseClass)) {
-                diseaseTargetAssociation.disease.diseaseClass.forEach(function(diseaseClass, index, array) {
+            if(diseaseTargetAssociation.disease.diseaseClass != null) {
+	    Openphacts.arrayify(diseaseTargetAssociation.disease.diseaseClass).forEach(function(diseaseClass, index, array) {
                     var URI = diseaseClass[constants.ABOUT];
                     var name = diseaseClass.name;
                     var dataset = diseaseClass[constants.IN_DATASET];
@@ -530,17 +530,8 @@ Openphacts.DiseaseSearch.prototype.parseAssociationsByTargetResponse = function(
                         "name": name,
                         "dataset": dataset
                     });
-                });
-            } else {
-                var URI = response.diseaseClass[constants.ABOUT];
-                var name = response.diseaseClass.name;
-                var dataset = response.diseaseClass[constants.IN_DATASET];
-                dta.disease.diseaseClasses.push({
-                    "URI": URI,
-                    "name": name,
-                    "dataset": dataset
-                });
-            }
+            });
+	    }
             diseaseTargetAssociations.push(dta);
         });
     };

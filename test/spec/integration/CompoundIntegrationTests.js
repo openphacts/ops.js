@@ -583,4 +583,3 @@ describe("Compound search", function() {
 //            searcher.compoundClassMembers('http://purl.obolibrary.org/obo/CHEBI_24431', null, null, null, null, callback);
 //        });
     });
-});
