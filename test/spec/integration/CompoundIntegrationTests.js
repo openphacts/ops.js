@@ -37,12 +37,12 @@ describe("Compound search", function() {
                 expect(this_result.inchiKey).not.toBeNull();
                 //expect(this_result.drugbankURI).not.toBeNull();
 
-		// API contract implies that prefLabel, chemblURI & drugbankURI  should be present but this is not the case in 1.4 API
-		expect(this_result.chemblURI).toBeDefined();
+                // API contract implies that prefLabel, chemblURI & drugbankURI  should be present but this is not the case in 1.4 API
+                expect(this_result.chemblURI).toBeDefined();
                 expect(this_result.prefLabel).toBeDefined();
-		expect(this_result.cwURI).toBeDefined();
-		expect(this_result.csURI).toBeDefined();
-		expect(this_result.fullMWT).toBeDefined();
+                expect(this_result.cwURI).toBeDefined();
+                expect(this_result.csURI).toBeDefined();
+                expect(this_result.fullMWT).toBeDefined();
                 expect(this_result.molform).toBeDefined();
                 expect(this_result.mwFreebase).toBeDefined();
                 expect(this_result.rtb).toBeDefined();
@@ -86,10 +86,10 @@ describe("Compound search", function() {
                 expect(this_result.inchiKey).not.toBeNull();
                 //expect(this_result.drugbankURI).not.toBeNull();
 
-		// API contract implies that prefLabel, chemblURI & drugbankURI  should be present but this is not the case in 1.4 API
-		expect(this_result.chemblURI).toBeDefined();
+                // API contract implies that prefLabel, chemblURI & drugbankURI  should be present but this is not the case in 1.4 API
+                expect(this_result.chemblURI).toBeDefined();
                 expect(this_result.prefLabel).toBeDefined();
-		expect(this_result.fullMWT).toBeDefined();
+                expect(this_result.fullMWT).toBeDefined();
                 expect(this_result.molform).toBeDefined();
                 expect(this_result.mwFreebase).toBeDefined();
                 expect(this_result.rtb).toBeDefined();
@@ -133,9 +133,9 @@ describe("Compound search", function() {
 
                 // These values are not guaranteed to be in the response from the API but should present though may be null
                 // API contract implies that prefLabel, chemblURI & drugbankURI  should be present but this is not the case in 1.4 API
-		expect(this_result.chemblURI).toBeDefined();
+                expect(this_result.chemblURI).toBeDefined();
                 expect(this_result.prefLabel).toBeDefined();
-		expect(this_result.fullMWT).toBeDefined();
+                expect(this_result.fullMWT).toBeDefined();
                 expect(this_result.molform).toBeDefined();
                 expect(this_result.mwFreebase).toBeDefined();
                 expect(this_result.rtb).toBeDefined();
@@ -152,7 +152,7 @@ describe("Compound search", function() {
             });
             searcher.fetchCompound('http://ops.rsc.org/OPS1891233', null, callback);
         });
-	it("use identifiers.org uri in request", function() {
+        it("use identifiers.org uri in request", function() {
             var this_success = null;
             var this_status = null;
             var this_result = null;
@@ -179,10 +179,10 @@ describe("Compound search", function() {
                 expect(this_result.inchiKey).not.toBeNull();
                 //expect(this_result.drugbankURI).not.toBeNull();
 
-		// API contract implies that prefLabel, chemblURI & drugbankURI  should be present but this is not the case in 1.4 API
-		expect(this_result.chemblURI).toBeDefined();
+                // API contract implies that prefLabel, chemblURI & drugbankURI  should be present but this is not the case in 1.4 API
+                expect(this_result.chemblURI).toBeDefined();
                 expect(this_result.prefLabel).toBeDefined();
-		expect(this_result.fullMWT).toBeDefined();
+                expect(this_result.fullMWT).toBeDefined();
                 expect(this_result.molform).toBeDefined();
                 expect(this_result.mwFreebase).toBeDefined();
                 expect(this_result.rtb).toBeDefined();
@@ -269,8 +269,8 @@ describe("Compound search", function() {
                 expect(this_result[0].inchiKey).not.toBeNull();
                 //expect(this_result.drugbankURI).not.toBeNull();
 
-		// API contract implies that prefLabel, chemblURI & drugbankURI  should be present but this is not the case in 1.4 API
-		expect(this_result[0].chemblURI).toBeDefined();
+                // API contract implies that prefLabel, chemblURI & drugbankURI  should be present but this is not the case in 1.4 API
+                expect(this_result[0].chemblURI).toBeDefined();
                 expect(this_result[0].prefLabel).toBeDefined();
 
                 // These values are not guaranteed to be in the response from the API but should present though may be null
@@ -316,8 +316,8 @@ describe("Compound search", function() {
                 expect(this_result.inchiKey).not.toBeNull();
                 //expect(this_result.drugbankURI).not.toBeNull();
 
-		// API contract implies that prefLabel, chemblURI & drugbankURI  should be present but this is not the case in 1.4 API
-		expect(this_result.chemblURI).toBeDefined();
+                // API contract implies that prefLabel, chemblURI & drugbankURI  should be present but this is not the case in 1.4 API
+                expect(this_result.chemblURI).toBeDefined();
                 expect(this_result.prefLabel).toBeDefined();
 
 
@@ -364,8 +364,8 @@ describe("Compound search", function() {
                 expect(this_result.inchiKey).not.toBeNull();
                 //expect(this_result.drugbankURI).not.toBeNull();
 
-		// API contract implies that prefLabel, chemblURI & drugbankURI  should be present but this is not the case in 1.4 API
-		expect(this_result.chemblURI).toBeDefined();
+                // API contract implies that prefLabel, chemblURI & drugbankURI  should be present but this is not the case in 1.4 API
+                expect(this_result.chemblURI).toBeDefined();
                 expect(this_result.prefLabel).toBeDefined();
 
 
@@ -439,7 +439,7 @@ describe("Compound search", function() {
                 expect(this_result[0].assayDescription).toBeDefined();
                 expect(this_result[0].activityRelation).toBeDefined();
                 // Response format seems wrong for 1.5 - see https://github.com/openphacts/GLOBAL/issues/245
-		//expect(this_result[0].activityStandardUnits).toBeDefined();
+                //expect(this_result[0].activityStandardUnits).toBeDefined();
                 expect(this_result[0].activityStandardValue).toBeDefined();
                 expect(this_result[0].activityActivityType).toBeDefined();
                 expect(this_result[0].compoundFullMwtSrc).toBeDefined();
@@ -561,25 +561,25 @@ describe("Compound search", function() {
         });
 
     });
-//1.5 does not parse compound class members according to the spec
+    //1.5 does not parse compound class members according to the spec
     //    describe("compound class members fetch", function() {
-//        it("can return a response", function() {
-//            var this_success = null;
-//            var this_status = null;
-//            var this_result = null
-//            var callback = function(success, status, response) {
-//                this_success = success;
-//                this_status = status;
-//                this_result = searcher.parseCompoundClassMembersResponse(response);
-//            };
-//            waitsFor(function() {
-//                return this_result !== null;
-//            });
-//            runs(function() {
-//                expect(this_success).toEqual(true);
-//                expect(this_status).toEqual(200);
-//                expect(this_result).not.toBeNull();
-//            });
-//            searcher.compoundClassMembers('http://purl.obolibrary.org/obo/CHEBI_24431', null, null, null, null, callback);
-//        });
-    });
+    //        it("can return a response", function() {
+    //            var this_success = null;
+    //            var this_status = null;
+    //            var this_result = null
+    //            var callback = function(success, status, response) {
+    //                this_success = success;
+    //                this_status = status;
+    //                this_result = searcher.parseCompoundClassMembersResponse(response);
+    //            };
+    //            waitsFor(function() {
+    //                return this_result !== null;
+    //            });
+    //            runs(function() {
+    //                expect(this_success).toEqual(true);
+    //                expect(this_status).toEqual(200);
+    //                expect(this_result).not.toBeNull();
+    //            });
+    //            searcher.compoundClassMembers('http://purl.obolibrary.org/obo/CHEBI_24431', null, null, null, null, callback);
+    //        });
+});
