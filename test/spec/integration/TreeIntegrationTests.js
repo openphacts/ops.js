@@ -271,7 +271,7 @@ describe("Trees", function() {
         expect(this_result.children[0].uri).toBeDefined();
         expect(this_result.children[0].names.length).toBeGreaterThan(0);
       });
-      searcher.getChildNodes('http://rdf.ebi.ac.uk/resource/chembl/protclass/CHEMBL_PC_1000', callback);
+      searcher.getChildNodes('http://rdf.ebi.ac.uk/resource/chembl/protclass/CHEMBL_PC_1', callback);
     });
     it("and handle errors", function() {
       var this_success = null;
