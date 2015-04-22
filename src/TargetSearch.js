@@ -563,35 +563,35 @@ Openphacts.TargetSearch.prototype.parseTargetPharmacologyResponse = function(res
             assay_description = null,
             assay_description_item = null,
             compound_ro5_violations = null;
-if (em != null) {
-        em.forEach(function(match, index, all) {
-            var src = match[constants.IN_DATASET];
-            if (constants.SRC_CLS_MAPPINGS[src] == 'conceptWikiValue') {
-                cw_compound_uri = match["_about"];
-                compound_pref_label = match['prefLabel'];
-                cw_src = match["inDataset"];
-                compound_pref_label_item = cw_compound_uri;
-            } else if (constants.SRC_CLS_MAPPINGS[src] == 'chemspiderValue') {
-                cs_compound_uri = match["_about"];
-                csid = cs_compound_uri.split('/').pop();
-                compound_inchi = match['inchi'];
-                compound_inchikey = match['inchikey'];
-                compound_smiles = match['smiles'];
-                compound_full_mwt = match.molweight;
-                compound_ro5_violations = match.ro5_violations;
-                cs_src = match["inDataset"];
-                var chemSpiderLink = 'http://www.chemspider.com/' + csid;
-                compound_inchi_item = chemSpiderLink;
-                compound_inchikey_item = chemSpiderLink;
-                compound_smiles_item = chemSpiderLink;
-            } // else if (constants.SRC_CLS_MAPPINGS[src] == 'drugbankValue') {
-            //   drugbank_compound_uri = match["_about"];
-            //   compound_drug_type = match['drugType'];
-            //   compound_generic_name = match['genericName'];
-            //   drugbank_src = match["_about"];
-            //}
-        });
-}
+        if (em != null) {
+            em.forEach(function(match, index, all) {
+                var src = match[constants.IN_DATASET];
+                if (constants.SRC_CLS_MAPPINGS[src] == 'conceptWikiValue') {
+                    cw_compound_uri = match["_about"];
+                    compound_pref_label = match['prefLabel'];
+                    cw_src = match["inDataset"];
+                    compound_pref_label_item = cw_compound_uri;
+                } else if (constants.SRC_CLS_MAPPINGS[src] == 'chemspiderValue') {
+                    cs_compound_uri = match["_about"];
+                    csid = cs_compound_uri.split('/').pop();
+                    compound_inchi = match['inchi'];
+                    compound_inchikey = match['inchikey'];
+                    compound_smiles = match['smiles'];
+                    compound_full_mwt = match.molweight;
+                    compound_ro5_violations = match.ro5_violations;
+                    cs_src = match["inDataset"];
+                    var chemSpiderLink = 'http://www.chemspider.com/' + csid;
+                    compound_inchi_item = chemSpiderLink;
+                    compound_inchikey_item = chemSpiderLink;
+                    compound_smiles_item = chemSpiderLink;
+                } // else if (constants.SRC_CLS_MAPPINGS[src] == 'drugbankValue') {
+                //   drugbank_compound_uri = match["_about"];
+                //   compound_drug_type = match['drugType'];
+                //   compound_generic_name = match['genericName'];
+                //   drugbank_src = match["_about"];
+                //}
+            });
+        }
 
         var onAssay = item[constants.ON_ASSAY];
         var chembl_assay_uri;
@@ -636,7 +636,9 @@ if (em != null) {
             var targetComponents = [];
             if (target[constants.HAS_TARGET_COMPONENT] != null) {
                 Openphacts.arrayify(target[constants.HAS_TARGET_COMPONENT]).forEach(function(targetComponent, index, allTargetComponents) {
-                    var targetComponentDetails = {'URI': targetComponent[constants.ABOUT]};
+                    var targetComponentDetails = {
+                        'URI': targetComponent[constants.ABOUT]
+                    };
                     if (targetComponent[constants.EXACT_MATCH] != null) {
                         targetComponentDetails['prefLabel'] = targetComponent[constants.EXACT_MATCH].prefLabel;
                         targetComponentDetails['prefLabelURI'] = targetComponent[constants.EXACT_MATCH][constants.ABOUT];
