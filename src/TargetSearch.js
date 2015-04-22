@@ -529,7 +529,7 @@ Openphacts.TargetSearch.prototype.parseTargetPharmacologyResponse = function(res
         //big bits
         var forMolecule = item[constants.FOR_MOLECULE];
         var chembl_compound_uri;
-        var compound_full_mwt;
+        var compound_full_mwt = null;
         var compound_full_mwt_item;
 
         var em;
@@ -563,7 +563,7 @@ Openphacts.TargetSearch.prototype.parseTargetPharmacologyResponse = function(res
             assay_description = null,
             assay_description_item = null,
             compound_ro5_violations = null;
-
+if (em != null) {
         em.forEach(function(match, index, all) {
             var src = match[constants.IN_DATASET];
             if (constants.SRC_CLS_MAPPINGS[src] == 'conceptWikiValue') {
@@ -591,6 +591,7 @@ Openphacts.TargetSearch.prototype.parseTargetPharmacologyResponse = function(res
             //   drugbank_src = match["_about"];
             //}
         });
+}
 
         var onAssay = item[constants.ON_ASSAY];
         var chembl_assay_uri;

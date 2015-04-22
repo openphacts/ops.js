@@ -112,7 +112,105 @@ describe("Target search", function() {
                 expect(callback).toHaveBeenCalled();
             });
         });
-    });
+	it("in 1.5 due to missing OCRS an item can have a missing exactMatch in hasMolecule block", function() {
+var JSONResponse = {items:[{
+	_about: "http://rdf.ebi.ac.uk/resource/chembl/activity/CHEMBL_ACT_13306592",
+		pmid: "http://identifiers.org/pubmed/23651455",
+		hasAssay: {
+			_about: "http://rdf.ebi.ac.uk/resource/chembl/assay/CHEMBL2384413",
+		description: "Inhibition of PDE5A (unknown origin)",
+		assayOrganismName: "Homo sapiens",
+		hasTarget: {
+			_about: "http://rdf.ebi.ac.uk/resource/chembl/target/CHEMBL1827",
+		title: "Phosphodiesterase 5A",
+		hasTargetComponent: {
+			_about: "http://rdf.ebi.ac.uk/resource/chembl/targetcomponent/CHEMBL_TC_124",
+		exactMatch: {
+			_about: "http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49",
+		inDataset: "http://www.conceptwiki.org",
+		prefLabel_en: "cGMP-specific 3',5'-cyclic phosphodiesterase (Homo sapiens)",
+		prefLabel: "cGMP-specific 3',5'-cyclic phosphodiesterase (Homo sapiens)"
+		}
+		},
+		assay_organism: "Homo sapiens",
+		inDataset: "http://www.ebi.ac.uk/chembl",
+		type: "http://rdf.ebi.ac.uk/terms/chembl#SingleProtein"
+		},
+		inDataset: "http://www.ebi.ac.uk/chembl"
+		},
+		hasMolecule: {
+				     _about: "http://rdf.ebi.ac.uk/resource/chembl/molecule/CHEMBL2381188",
+				     inDataset: "http://www.ebi.ac.uk/chembl"
+			     },
+		activity_unit: {
+				       _about: "http://www.openphacts.org/units/Nanomolar",
+				       prefLabel: "nM"
+			       },
+		pChembl: 4.59,
+		publishedRelation: "=",
+		publishedType: "IC50",
+		publishedUnits: "uM",
+		publishedValue: 26,
+		activity_relation: "=",
+		activity_type: "IC50",
+		activity_value: 26000,
+		inDataset: "http://www.ebi.ac.uk/chembl"
+}]};
+            var this_result = searcher.parseTargetPharmacologyResponse(JSONResponse);
+        expect(this_result[0].targetTitle).toBeDefined();
+        expect(this_result[0].compoundInchikeySrc).toBeDefined();
+        expect(this_result[0].targetTitleSrc).toBeDefined();
+        expect(this_result[0].chemblCompoundUri).toBeDefined();
+        expect(this_result[0].compoundFullMwt).toBeDefined();
+        expect(this_result[0].chemblAssayUri).toBeDefined();
+        expect(this_result[0].chemblTargetUri).toBeDefined();
+        expect(this_result[0].targetOrganisms).toBeDefined();
+        expect(this_result[0].assayOrganism).toBeDefined();
+        expect(this_result[0].assayDescription).toBeDefined();
+        expect(this_result[0].activityRelation).toBeDefined();
+        expect(this_result[0].activityStandardUnits).toBeDefined();
+        expect(this_result[0].activityStandardValue).toBeDefined();
+        expect(this_result[0].activityActivityType).toBeDefined();
+        expect(this_result[0].activityPubmedId).toBeDefined();
+        expect(this_result[0].compoundFullMwtSrc).toBeDefined();
+        expect(this_result[0].compoundPrefLabelSrc).toBeDefined();
+        expect(this_result[0].compoundInchiSrc).toBeDefined();
+        expect(this_result[0].compoundSmilesSrc).toBeDefined();
+        expect(this_result[0].targetPrefLabelSrc).toBeDefined();
+        expect(this_result[0].assayOrganismSrc).toBeDefined();
+        expect(this_result[0].assayDescriptionSrc).toBeDefined();
+        expect(this_result[0].activityRelationSrc).toBeDefined();
+        expect(this_result[0].activityStandardUnits_src).toBeDefined();
+        expect(this_result[0].activityStandardValue_src).toBeDefined();
+        expect(this_result[0].activityActivityType_src).toBeDefined();
+        expect(this_result[0].compoundPrefLabelItem).toBeDefined();
+        expect(this_result[0].activityActivityTypeItem).toBeDefined();
+        expect(this_result[0].activityRelationItem).toBeDefined();
+        expect(this_result[0].activityStandardValueItem).toBeDefined();
+        expect(this_result[0].activityStandardUnitsItem).toBeDefined();
+        expect(this_result[0].compoundFullMwtItem).toBeDefined();
+        expect(this_result[0].compoundSmilesItem).toBeDefined();
+        expect(this_result[0].compoundInchiItem).toBeDefined();
+        expect(this_result[0].compoundInchikeyItem).toBeDefined();
+        expect(this_result[0].assayOrganismItem).toBeDefined();
+        expect(this_result[0].targets).toBeDefined();
+	// chemblDOIs is an array but could be empty
+        expect(this_result[0].chemblDOIs).not.toBeNull();
+	expect(this_result[0].activityComment).toBeDefined();
+
+	// mandatory values
+        expect(this_result[0].chemblActivityUri).not.toBeNull();
+	// TODO in 1.5 due to missing OCRS no guarantee this will have a value
+        expect(this_result[0].cwCompoundUri).toBeDefined();
+        expect(this_result[0].compoundPrefLabel).toBeDefined();
+        expect(this_result[0].compoundInchikey).toBeDefined();
+        expect(this_result[0].compoundSmiles).toBeDefined();
+        expect(this_result[0].compoundInchi).toBeDefined();
+        expect(this_result[0].csCompoundUri).toBeDefined();
+        expect(this_result[0].csid).toBeDefined();
+ 
+	    });
+	});
     describe("target pharmacology count", function() {
 
         it("can be executed", function() {
@@ -149,6 +247,7 @@ describe("Target search", function() {
             });
         });
     });
+
     describe("target pharmacology response contains target components", function() {
 
         it("and can be parsed", function() {
