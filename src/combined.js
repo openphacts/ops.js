@@ -769,7 +769,7 @@ Openphacts.CompoundSearch.prototype.parseCompoundLensResponse = function(respons
         })
 
     }
-    $.each(response.primaryTopic.exactMatch, function(i, match) {
+    response.primaryTopic.exactMatch.forEach(function(match, i, allMatches) {
         var src = match[constants.IN_DATASET];
         var prefLabel = null,
             cwURI = null,
@@ -1051,7 +1051,7 @@ return {
 Openphacts.CompoundSearch.prototype.parseCompoundBatchResponse = function(response) {
     var constants = new Openphacts.Constants();
     var compounds = [];
-    $.each(response.items, function(index, item) {
+    response.items.forEach(function(item, index, items) {
         var id = null,
             prefLabel = null,
             cwURI = null,
@@ -1227,7 +1227,7 @@ Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyResponse = function
     var constants = new Openphacts.Constants();
     var records = [];
 
-    $.each(response.items, function(i, item) {
+    response.items.forEach(function(item, i, items) {
 
         chemblProvenance = {};
         chemblProvenance['source'] = 'chembl';
@@ -1284,7 +1284,7 @@ Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyResponse = function
             if (!Array.isArray(em)) {
                 em = [em];
             }
-            $.each(em, function(index, match) {
+            em.forEach(function(match, index, matches) {
                 var src = match[constants.IN_DATASET];
                 if (constants.SRC_CLS_MAPPINGS[src] == 'conceptWikiValue') {
                     cw_compound_uri = match[constants.ABOUT];
@@ -1341,8 +1341,8 @@ Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyResponse = function
             var targets = [];
             var target_organisms = [];
 
-            if ($.isArray(target)) {
-                $.each(target, function(index, target_item) {
+            if (Array.isArray(target)) {
+                target.forEach(function(target_item, index, target_items) {
                     // For Target
                     var target_inner = {};
                     target_inner['title'] = target_item['title']
@@ -2296,7 +2296,9 @@ Openphacts.TargetSearch.prototype.parseTargetPharmacologyResponse = function(res
         var target_concatenated_uris;
         var chemblTargetLink = 'https://www.ebi.ac.uk/chembldb/target/inspect/';
         var target_organisms = new Array();
-        var targets = new Array();
+        var targets = [];
+        // Target has a title, a target organism and a target component. Each target component has an exactMatch singleton which
+        // contains a prefLabel and a URI
         if (target != null) {
             chembl_target_uri = target["_about"];
             //target_pref_label = target['prefLabel'];
@@ -2309,7 +2311,18 @@ Openphacts.TargetSearch.prototype.parseTargetPharmacologyResponse = function(res
             //	target_pref_label_item = targetMatchURI;
             //	target_title = target_pref_label ? target_pref_label : null;
             //}
+            var targetComponents = [];
+            if (target[constants.HAS_TARGET_COMPONENT] != null) {
+                Openphacts.arrayify(target[constants.HAS_TARGET_COMPONENT]).forEach(function(targetComponent, index, allTargetComponents) {
+                    var targetComponentDetails = {'URI': targetComponent[constants.ABOUT]};
+                    if (targetComponent[constants.EXACT_MATCH] != null) {
+                        targetComponentDetails['prefLabel'] = targetComponent[constants.EXACT_MATCH].prefLabel;
+                        targetComponentDetails['prefLabelURI'] = targetComponent[constants.EXACT_MATCH][constants.ABOUT];
+                    }
 
+                    targetComponents.push(targetComponentDetails);
+                });
+            }
             target_organism = target['targetOrganismName'];
             target_organism_item = chemblTargetLink + chembl_target_uri.split('/').pop();
             //target_concatenated_uris = target['concatenatedURIs'];
@@ -2318,8 +2331,11 @@ Openphacts.TargetSearch.prototype.parseTargetPharmacologyResponse = function(res
             target_organisms_inner['src'] = target_organism_item;
             target_organisms.push(target_organisms_inner);
             var targets_inner = {};
+            targets_inner['targetComponents'] = targetComponents;
+            targets_inner['type'] = target.type != null ? target.type : null;
+
             targets_inner['title'] = target_title;
-            targets_inner['cw_uri'] = target_pref_label_item ? target_pref_label_item : null;
+            //targets_inner['cw_uri'] = target_pref_label_item ? target_pref_label_item : null;
             targets_inner['URI'] = target[constants.ABOUT];
             targets.push(targets_inner);
         }
@@ -2976,6 +2992,10 @@ Openphacts.TreeSearch.prototype.parseChildNodes = function(response) {
         label = label[0];
     }
     childResponse['label'] = label;
+    // The childNode might be inside an exactMatch block in 1.5
+    if (response.primaryTopic.childNode == null) {
+        response.primaryTopic.childNode = response.primaryTopic.exactMatch.childNode;
+    }
     if ($.isArray(response.primaryTopic.childNode)) {
         $.each(response.primaryTopic.childNode, function(i, member) {
             var about;
@@ -4760,8 +4780,8 @@ Openphacts.DiseaseSearch.prototype.parseAssociationsByTargetResponse = function(
                 dta.pmid.push(diseaseTargetAssociation.pmid);
             }
             dta.type = [];
-            if (Array.isArray(diseaseTargetAssociation.type)) {
-                diseaseTargetAssociation.type.forEach(function(type, index, array) {
+            if (Array.isArray(diseaseTargetAssociation.assoc_type)) {
+                diseaseTargetAssociation.assoc_type.forEach(function(type, index, array) {
                     dta.type.push({
                         "about": type[constants.ABOUT],
                         "label": type.label
@@ -4769,8 +4789,8 @@ Openphacts.DiseaseSearch.prototype.parseAssociationsByTargetResponse = function(
                 });
             } else {
                 dta.type.push({
-                    "URI": diseaseTargetAssociation.type[constants.ABOUT],
-                    "label": diseaseTargetAssociation.type.label
+                    "URI": diseaseTargetAssociation.assoc_type[constants.ABOUT],
+                    "label": diseaseTargetAssociation.assoc_type.label
                 });
             }
 
@@ -4794,8 +4814,8 @@ Openphacts.DiseaseSearch.prototype.parseAssociationsByTargetResponse = function(
             dta.disease.diseaseClasses = [];
             dta.disease.URI = diseaseTargetAssociation.disease[constants.ABOUT];
             dta.disease.dataset = diseaseTargetAssociation.disease[constants.IN_DATASET];
-            if (Array.isArray(diseaseTargetAssociation.disease.diseaseClass)) {
-                diseaseTargetAssociation.disease.diseaseClass.forEach(function(diseaseClass, index, array) {
+            if(diseaseTargetAssociation.disease.diseaseClass != null) {
+	    Openphacts.arrayify(diseaseTargetAssociation.disease.diseaseClass).forEach(function(diseaseClass, index, array) {
                     var URI = diseaseClass[constants.ABOUT];
                     var name = diseaseClass.name;
                     var dataset = diseaseClass[constants.IN_DATASET];
@@ -4804,17 +4824,8 @@ Openphacts.DiseaseSearch.prototype.parseAssociationsByTargetResponse = function(
                         "name": name,
                         "dataset": dataset
                     });
-                });
-            } else {
-                var URI = response.diseaseClass[constants.ABOUT];
-                var name = response.diseaseClass.name;
-                var dataset = response.diseaseClass[constants.IN_DATASET];
-                dta.disease.diseaseClasses.push({
-                    "URI": URI,
-                    "name": name,
-                    "dataset": dataset
-                });
-            }
+            });
+	    }
             diseaseTargetAssociations.push(dta);
         });
     };
@@ -4932,7 +4943,7 @@ Openphacts.Version = function Version() {
 
 Openphacts.Version.prototype.information = function() {
 	return {
-               "version": "5.0.0", 
+               "version": "5.0.1", 
                "author": "Ian Dunlop",
 	       "ORCID": "http://orcid.org/0000-0001-7066-3350",
                "title": "OPS.js",
@@ -4941,8 +4952,8 @@ Openphacts.Version.prototype.information = function() {
                "organization": "School of Computer Science",
                "address": "University of Manchester, UK",
                "year": "2015",
-               "month": "January",
+               "month": "April",
                "url": "http://github.com/openphacts/ops.js",
-               "LDA-version": "1.4"
+               "LDA-version": "1.5"
            }; 
 };
