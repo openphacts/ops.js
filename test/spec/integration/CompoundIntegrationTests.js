@@ -426,7 +426,8 @@ describe("Compound search", function() {
                 // optional values
                 expect(this_result[0].compoundDrugType).toBeDefined();
                 expect(this_result[0].compoundGenericName).toBeDefined();
-                expect(this_result[0].targets).toBeDefined();
+                expect(this_result[0].targetOrganism).toBeDefined();
+		expect(this_result[0].targetOrganism.targetComponents).toBeDefined();
                 expect(this_result[0].compoundInchikeySrc).toBeDefined();
                 expect(this_result[0].compoundDrugTypeSrc).toBeDefined();
                 expect(this_result[0].compoundGenericNameSrc).toBeDefined();
@@ -434,7 +435,6 @@ describe("Compound search", function() {
                 expect(this_result[0].chemblCompoundUri).toBeDefined();
                 expect(this_result[0].compoundFullMwt).toBeDefined();
                 expect(this_result[0].chemblAssayUri).toBeDefined();
-                expect(this_result[0].targetOrganisms).toBeDefined();
                 expect(this_result[0].assayOrganism).toBeDefined();
                 expect(this_result[0].assayDescription).toBeDefined();
                 expect(this_result[0].activityRelation).toBeDefined();
