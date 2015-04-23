@@ -1348,7 +1348,8 @@ Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyResponse = function
 	    var target_uri = null;
 	    if (target != null) {
                 target_title = target.title;
-                target_uri = 'https://www.ebi.ac.uk/chembl/target/inspect/' + target._about.split('/').pop();
+		target_uri = target._about;
+                target_provenance = 'https://www.ebi.ac.uk/chembl/target/inspect/' + target._about.split('/').pop();
 		target_organism_name = target.assay_organism != null ? target.assay_organism : null;
 		if (target.hasTargetComponent != null) {
 			Openphacts.arrayify(target.hasTargetComponent).forEach(function(targetComponent, i) {
@@ -1393,6 +1394,7 @@ Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyResponse = function
 	    targetOrganismName: target_organism_name,
 	    targetComponents: target_components,
 	    targetURI: target_uri,
+	    targetProvenance: target_provenance,
             assayOrganism: assay_organism,
             assayDescription: assay_description,
             activityRelation: activity_relation,

@@ -429,6 +429,7 @@ describe("Compound search", function() {
                 expect(this_result[0].targetOrganismName).toBeDefined();
 		expect(this_result[0].targetTitle).toBeDefined();
 		expect(this_result[0].targetURI).toBeDefined();
+		expect(this_result[0].targetProvenance).toBeDefined();
 		expect(this_result[0].targetComponents).toBeDefined();
                 expect(this_result[0].compoundInchikeySrc).toBeDefined();
                 expect(this_result[0].compoundDrugTypeSrc).toBeDefined();
