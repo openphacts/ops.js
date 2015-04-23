@@ -1043,6 +1043,7 @@ Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyResponse = function
                 target_organism.title = target.title;
                 var organismLink = 'https://www.ebi.ac.uk/chembl/target/inspect/' + target._about.split('/').pop();
                 target_organism.uri = organismLink;
+		target_organism.assayOrganism = target.assay_organism != null ? target.assay_organism : null;
 		target_organism.targetComponents = [];
 		if (target.hasTargetComponent != null) {
 			Openphacts.arrayify(target.hasTargetComponent).forEach(function(targetComponent, i) {

@@ -624,10 +624,13 @@ Openphacts.CompoundSearch.prototype.compoundClassifications = function(URI, tree
  */
 Openphacts.CompoundSearch.prototype.parseCompoundResponse = function(response) {
     var constants = new Openphacts.Constants();
-    var drugbankData = {}, chemspiderData = {}, chemblData = {}, conceptWikiData = {};
+    var drugbankData = {},
+        chemspiderData = {},
+        chemblData = {},
+        conceptWikiData = {};
     var URI = response.primaryTopic[constants.ABOUT];
     var id = URI.split("/").pop();
-var me = this;
+    var me = this;
     if (constants.SRC_CLS_MAPPINGS[response.primaryTopic[constants.IN_DATASET]] === 'drugbankValue') {
         drugbankData = me.parseDrugbankBlock(response.primaryTopic);
     } else if (constants.SRC_CLS_MAPPINGS[response.primaryTopic[constants.IN_DATASET]] === 'chemspiderValue') {
@@ -635,7 +638,7 @@ var me = this;
     } else if (constants.SRC_CLS_MAPPINGS[response.primaryTopic[constants.IN_DATASET]] === 'chemblValue') {
         chemblData = me.parseChemblBlock(response.primaryTopic);
         //TODO more than 1 chembl block possible?
-	//chemblItems.push(chemblBlock);
+        //chemblItems.push(chemblBlock);
     } else if (constants.SRC_CLS_MAPPINGS[response.primaryTopic[constants.IN_DATASET]] === 'conceptWikiValue') {
         conceptWikiData = me.parseConceptwikiBlock(response.primaryTopic);
     }
@@ -662,7 +665,7 @@ var me = this;
         "toxicity": drugbankData.toxicity != null ? drugbankData.toxicity : null,
         "proteinBinding": drugbankData.proteinBinding != null ? drugbankData.proteinBinding : null,
         "drugbankURI": drugbankData.URI != null ? drugbankData.URI : null,
-	"csURI": chemspiderData.URI != null ? chemspiderData.URI : null,
+        "csURI": chemspiderData.URI != null ? chemspiderData.URI : null,
         "hba": chemspiderData.hba != null ? chemspiderData.hba : null,
         "hbd": chemspiderData.hbd != null ? chemspiderData.hbd : null,
         "inchi": chemspiderData.inchi != null ? chemspiderData.inchi : null,
@@ -670,7 +673,7 @@ var me = this;
         "psa": chemspiderData.psa != null ? chemspiderData.psa : null,
         "ro5Violations": chemspiderData.ro5Violations != null ? chemspiderData.ro5Violations : null,
         "smiles": chemspiderData.smiles != null ? chemspiderData.smiles : null,
-  "rtb": chemspiderData.rtb != null ? chemspiderData.rtb : null,
+        "rtb": chemspiderData.rtb != null ? chemspiderData.rtb : null,
         "inchiKey": chemspiderData.inchiKey != null ? chemspiderData.inchiKey : null,
         "fullMWT": chemspiderData.fullMWT != null ? chemspiderData.fullMWT : null,
         "molform": chemspiderData.molform != null ? chemspiderData.molform : null,
@@ -680,7 +683,7 @@ var me = this;
         "drugbankProvenance": drugbankData.drugbankProvenance != null ? drugbankData.drugbankProvenance : null,
         "chemspiderProvenance": chemspiderData.chemspiderProvenance != null ? chemspiderData.chemspiderProvenance : null,
         "chemblProvenance": chemblData.chemblProvenance != null ? chemblData.chemblProvenance : null,
-	"conceptWikiProvenance": conceptWikiData.conceptwikiProvenance != null ? conceptWikiData.conceptwikiProvenance: null
+        "conceptWikiProvenance": conceptWikiData.conceptwikiProvenance != null ? conceptWikiData.conceptwikiProvenance : null
     };
 }
 
@@ -901,32 +904,32 @@ Openphacts.CompoundSearch.prototype.parseCompoundLensResponse = function(respons
 }
 
 Openphacts.CompoundSearch.prototype.parseDrugbankBlock = function(drugbankBlock) {
-     var constants = new Openphacts.Constants();
-     	var URI = null,
-            description = null,
-            biotransformationItem = null,
-            toxicity = null,
-            proteinBinding = null,
-            drugbankData = null, 
-	    drugbankProvenance = {}, 
-	    drugbankLinkout = null;
+    var constants = new Openphacts.Constants();
+    var URI = null,
+        description = null,
+        biotransformationItem = null,
+        toxicity = null,
+        proteinBinding = null,
+        drugbankData = null,
+        drugbankProvenance = {},
+        drugbankLinkout = null;
 
-	drugbankData = drugbankBlock;
-URI = drugbankData[constants.ABOUT] !== null ? drugbankData[constants.ABOUT] : null;
-	description = drugbankData.description != null ? drugbankData.description : description;
-            biotransformationItem = drugbankData.biotransformation != null ? drugbankData.biotransformation : biotransformationItem;
-            toxicity = drugbankData.toxicity != null ? drugbankData.toxicity : toxicity;
-            proteinBinding = drugbankData.proteinBinding != null ? drugbankData.proteinBinding : proteinBinding;
-            drugbankURI = drugbankData[constants.ABOUT] != null ? drugbankData[constants.ABOUT] : drugbankURI;
+    drugbankData = drugbankBlock;
+    URI = drugbankData[constants.ABOUT] !== null ? drugbankData[constants.ABOUT] : null;
+    description = drugbankData.description != null ? drugbankData.description : description;
+    biotransformationItem = drugbankData.biotransformation != null ? drugbankData.biotransformation : biotransformationItem;
+    toxicity = drugbankData.toxicity != null ? drugbankData.toxicity : toxicity;
+    proteinBinding = drugbankData.proteinBinding != null ? drugbankData.proteinBinding : proteinBinding;
+    drugbankURI = drugbankData[constants.ABOUT] != null ? drugbankData[constants.ABOUT] : drugbankURI;
 
-            // provenance
-            drugbankLinkout = URI;
-            drugbankProvenance['source'] = 'drugbank';
-            drugbankProvenance['description'] = drugbankLinkout;
-            drugbankProvenance['biotransformation'] = drugbankLinkout;
-            drugbankProvenance['toxicity'] = drugbankLinkout;
-            drugbankProvenance['proteinBinding'] = drugbankLinkout;
-return {
+    // provenance
+    drugbankLinkout = URI;
+    drugbankProvenance['source'] = 'drugbank';
+    drugbankProvenance['description'] = drugbankLinkout;
+    drugbankProvenance['biotransformation'] = drugbankLinkout;
+    drugbankProvenance['toxicity'] = drugbankLinkout;
+    drugbankProvenance['proteinBinding'] = drugbankLinkout;
+    return {
         "description": description,
         "biotransformationItem": biotransformationItem,
         "toxicity": toxicity,
@@ -938,51 +941,51 @@ return {
 }
 
 Openphacts.CompoundSearch.prototype.parseChemspiderBlock = function(chemspiderBlock) {
-      var constants = new Openphacts.Constants();
-     	var URI = null,
-            hba = null,
-            hbd = null,
-            inchi = null,
-            logp = null,
-            psa = null,
-            ro5Violations = null,
-            smiles = null,
-            fullMWT = null,
-            molform = null,
-            rtb = null,
-            inchiKey = null,
-            molform = null;
-        var chemspiderData = chemspiderBlock;
-        var chemspiderProvenance  = {};
-        var chemspiderLinkOut = null;
+    var constants = new Openphacts.Constants();
+    var URI = null,
+        hba = null,
+        hbd = null,
+        inchi = null,
+        logp = null,
+        psa = null,
+        ro5Violations = null,
+        smiles = null,
+        fullMWT = null,
+        molform = null,
+        rtb = null,
+        inchiKey = null,
+        molform = null;
+    var chemspiderData = chemspiderBlock;
+    var chemspiderProvenance = {};
+    var chemspiderLinkOut = null;
 
-	URI = chemspiderData["_about"] !== null ? chemspiderData["_about"] : URI;
-            hba = chemspiderData.hba != null ? chemspiderData.hba : hba;
-            hbd = chemspiderData.hbd != null ? chemspiderData.hbd : hbd;
-            inchi = chemspiderData.inchi != null ? chemspiderData.inchi : inchi;
-            logp = chemspiderData.logp != null ? chemspiderData.logp : logp;
-            psa = chemspiderData.psa != null ? chemspiderData.psa : psa;
-            ro5Violations = chemspiderData.ro5_violations != null ? chemspiderData.ro5_violations : ro5Violations;
-            smiles = chemspiderData.smiles != null ? chemspiderData.smiles : smiles;
-            inchiKey = chemspiderData.inchikey != null ? chemspiderData.inchikey : inchikey;
-            rtb = chemspiderData.rtb != null ? chemspiderData.rtb : rtb;
-            fullMWT = chemspiderData.molweight != null ? chemspiderData.molweight : molweight;
-            molform = chemspiderData.molformula != null ? chemspiderData.molformula : molformula;
+    URI = chemspiderData["_about"] !== null ? chemspiderData["_about"] : URI;
+    hba = chemspiderData.hba != null ? chemspiderData.hba : hba;
+    hbd = chemspiderData.hbd != null ? chemspiderData.hbd : hbd;
+    inchi = chemspiderData.inchi != null ? chemspiderData.inchi : inchi;
+    logp = chemspiderData.logp != null ? chemspiderData.logp : logp;
+    psa = chemspiderData.psa != null ? chemspiderData.psa : psa;
+    ro5Violations = chemspiderData.ro5_violations != null ? chemspiderData.ro5_violations : ro5Violations;
+    smiles = chemspiderData.smiles != null ? chemspiderData.smiles : smiles;
+    inchiKey = chemspiderData.inchikey != null ? chemspiderData.inchikey : inchikey;
+    rtb = chemspiderData.rtb != null ? chemspiderData.rtb : rtb;
+    fullMWT = chemspiderData.molweight != null ? chemspiderData.molweight : molweight;
+    molform = chemspiderData.molformula != null ? chemspiderData.molformula : molformula;
 
-            // provenance 
-            chemspiderLinkOut = URI;
-            chemspiderProvenance = {};
-            chemspiderProvenance['source'] = 'chemspider';
-            chemspiderProvenance['hba'] = chemspiderLinkOut;
-            chemspiderProvenance['hbd'] = chemspiderLinkOut;
-            chemspiderProvenance['inchi'] = chemspiderLinkOut;
-            chemspiderProvenance['logp'] = chemspiderLinkOut;
-            chemspiderProvenance['psa'] = chemspiderLinkOut;
-            chemspiderProvenance['ro5violations'] = chemspiderLinkOut;
-            chemspiderProvenance['smiles'] = chemspiderLinkOut;
-            chemspiderProvenance['inchiKey'] = chemspiderLinkOut;
-            chemspiderProvenance['molform'] = chemspiderLinkOut;
-return {
+    // provenance 
+    chemspiderLinkOut = URI;
+    chemspiderProvenance = {};
+    chemspiderProvenance['source'] = 'chemspider';
+    chemspiderProvenance['hba'] = chemspiderLinkOut;
+    chemspiderProvenance['hbd'] = chemspiderLinkOut;
+    chemspiderProvenance['inchi'] = chemspiderLinkOut;
+    chemspiderProvenance['logp'] = chemspiderLinkOut;
+    chemspiderProvenance['psa'] = chemspiderLinkOut;
+    chemspiderProvenance['ro5violations'] = chemspiderLinkOut;
+    chemspiderProvenance['smiles'] = chemspiderLinkOut;
+    chemspiderProvenance['inchiKey'] = chemspiderLinkOut;
+    chemspiderProvenance['molform'] = chemspiderLinkOut;
+    return {
         "URI": URI,
         "hba": hba,
         "hbd": hbd,
@@ -1001,21 +1004,21 @@ return {
 }
 
 Openphacts.CompoundSearch.prototype.parseChemblBlock = function(chemblBlock) {
-      var constants = new Openphacts.Constants(); 
-     	var mwFreebase = null;
-        var chemblData = chemblBlock;
-        var URI = chemblData[constants.ABOUT];
-        var chemblProvenance = null;
-        var chemblLinkOut = null;
+    var constants = new Openphacts.Constants();
+    var mwFreebase = null;
+    var chemblData = chemblBlock;
+    var URI = chemblData[constants.ABOUT];
+    var chemblProvenance = null;
+    var chemblLinkOut = null;
 
-            mwFreebase = chemblData.mw_freebase != null ? chemblData.mw_freebase : mwFreebase;
+    mwFreebase = chemblData.mw_freebase != null ? chemblData.mw_freebase : mwFreebase;
 
-            // provenance
-            chemblLinkOut = 'https://www.ebi.ac.uk/chembldb/compound/inspect/' + URI.split("/").pop();
-            chemblProvenance = {};
-            chemblProvenance['source'] = 'chembl';
-            chemblProvenance['mwFreebase'] = chemblLinkOut;
-return {
+    // provenance
+    chemblLinkOut = 'https://www.ebi.ac.uk/chembldb/compound/inspect/' + URI.split("/").pop();
+    chemblProvenance = {};
+    chemblProvenance['source'] = 'chembl';
+    chemblProvenance['mwFreebase'] = chemblLinkOut;
+    return {
         "URI": URI,
         "mwFreebase": mwFreebase,
         "chemblProvenance": chemblProvenance
@@ -1023,20 +1026,20 @@ return {
 }
 
 Openphacts.CompoundSearch.prototype.parseConceptwikiBlock = function(conceptwikiBlock) {
-        var constants = new Openphacts.Constants();
-       	var conceptWikiData = conceptwikiBlock;    
-	var prefLabel = conceptWikiData.prefLabel != null ? conceptWikiData.prefLabel : prefLabel;
-            var URI = conceptWikiData[constants.ABOUT] != null ? conceptWikiData[constants.ABOUT] : cwURI;
+    var constants = new Openphacts.Constants();
+    var conceptWikiData = conceptwikiBlock;
+    var prefLabel = conceptWikiData.prefLabel != null ? conceptWikiData.prefLabel : prefLabel;
+    var URI = conceptWikiData[constants.ABOUT] != null ? conceptWikiData[constants.ABOUT] : cwURI;
 
-        var conceptwikiProvenance = {};
-        // provenance
-            conceptwikiProvenance['source'] = 'conceptwiki';
-            conceptwikiProvenance['prefLabel'] = URI;
+    var conceptwikiProvenance = {};
+    // provenance
+    conceptwikiProvenance['source'] = 'conceptwiki';
+    conceptwikiProvenance['prefLabel'] = URI;
 
-return {
+    return {
         "URI": URI,
         "prefLabel": prefLabel,
-	"conceptwikiProvenance": conceptwikiProvenance
+        "conceptwikiProvenance": conceptwikiProvenance
     };
 
 
@@ -1324,7 +1327,7 @@ Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyResponse = function
             assay_organism = null,
             assay_organism_src = null,
             assay_organism_item = null;
-
+        var target_organism = {};
         var onAssay = item[constants.ON_ASSAY];
         if (onAssay != null) {
             var chembl_assay_uri = onAssay[constants.ABOUT];
@@ -1338,63 +1341,23 @@ Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyResponse = function
             chemblProvenance['assayDescription'] = chembleAssayLink;
 
             var target = onAssay[constants.ON_TARGET];
-            var targets = [];
-            var target_organisms = [];
-
-            if (Array.isArray(target)) {
-                target.forEach(function(target_item, index, target_items) {
-                    // For Target
-                    var target_inner = {};
-                    target_inner['title'] = target_item['title']
-                    target_inner['src'] = onAssay["inDataset"] ? onAssay["inDataset"] : '';
-                    if (target_item["_about"]) {
-                        target_inner['about'] = target_item['_about'];
-                        var targetLink = 'https://www.ebi.ac.uk/chembl/target/inspect/' + target_item["_about"].split('/').pop();
-                        target_inner['item'] = targetLink;
-                    } else {
-                        target_inner['item'] = '';
-                    }
-                    targets.push(target_inner);
-
-                    // For Organism
-                    var organism_inner = {};
-                    organism_inner['organism'] = target_item.targetOrganismName ? target_item.targetOrganismName : '';
-                    organism_inner['src'] = onAssay["inDataset"] ? onAssay["inDataset"] : '';
-                    if (target_item["_about"]) {
-                        var organismLink = 'https://www.ebi.ac.uk/chembl/target/inspect/' + target_item["_about"].split('/').pop();
-                        organism_inner['item'] = organismLink;
-                    } else {
-                        organism_inner['item'] = '';
-                    }
-                    target_organisms.push(organism_inner);
-                });
-            } else {
-                // For Target
-                var target_inner = {};
-                target_inner['title'] = target['title']
-                target_inner['src'] = onAssay["inDataset"] ? onAssay["inDataset"] : '';
-                if (target["_about"]) {
-                    target_inner['about'] = target['_about'];
-                    var targetLink = 'https://www.ebi.ac.uk/chembl/target/inspect/' + target["_about"].split('/').pop();
-                    target_inner['item'] = targetLink;
-                    chemblProvenance['targetTitle'] = targetLink;
-                } else {
-                    target_inner['item'] = '';
-                }
-                targets.push(target_inner);
-
-                // For Organism
-                var organism_inner = {};
-                organism_inner['organism'] = target.targetOrganismName ? target.targetOrganismName : '';
-                organism_inner['src'] = onAssay["inDataset"] ? onAssay["inDataset"] : '';
-                if (target["_about"]) {
-                    var organismLink = 'https://www.ebi.ac.uk/chembl/target/inspect/' + target["_about"].split('/').pop();
-                    organism_inner['item'] = organismLink;
-                    chemblProvenance['organismTitle'] = organismLink;
-                } else {
-                    organism_inner['item'] = '';
-                }
-                target_organisms.push(organism_inner);
+            // For Target
+            if (target != null) {
+                target_organism.title = target.title;
+                var organismLink = 'https://www.ebi.ac.uk/chembl/target/inspect/' + target._about.split('/').pop();
+                target_organism.uri = organismLink;
+		target_organism.targetComponents = [];
+		if (target.hasTargetComponent != null) {
+			Openphacts.arrayify(target.hasTargetComponent).forEach(function(targetComponent, i) {
+				var tc = {};
+				tc.uri = targetComponent._about;
+				if (targetComponent.exactMatch != null) {
+					tc.labelProvenance = targetComponent._about;
+					tc.label = targetComponent.prefLabel;
+				}
+				target_organism.targetComponents.push(tc);
+			});
+		}
             }
         }
         var chemblActivityLink = 'https://www.ebi.ac.uk/ebisearch/search.ebi?t=' + chembl_activity_uri.split('/').pop().split('_').pop() + '&db=chembl-activity';
@@ -1408,7 +1371,6 @@ Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyResponse = function
             compoundInchikey: compound_inchikey,
             compoundDrugType: compound_drug_type,
             compoundGenericName: compound_generic_name,
-            targets: targets,
             compoundInchikeySrc: cs_src,
             compoundDrugTypeSrc: drugbank_src,
             compoundGenericNameSrc: drugbank_src,
@@ -1424,7 +1386,7 @@ Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyResponse = function
             compoundInchi: compound_inchi,
             compoundSmiles: compound_smiles,
             chemblAssayUri: chembl_assay_uri,
-            targetOrganisms: target_organisms,
+            targetOrganism: target_organism,
             assayOrganism: assay_organism,
             assayDescription: assay_description,
             activityRelation: activity_relation,
