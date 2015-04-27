@@ -50,7 +50,7 @@ describe("Activities", function() {
 //      var activitySearch = new Openphacts.ActivitySearch(appUrl, "sdfsdf", "sdfsdf");
 //      activitySearch.getTypes('percent', null, null, null, null, callback);
 //    });
-//  });
+  });
   describe("get units", function() {
 
     it("and return a response", function() {
