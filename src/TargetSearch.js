@@ -617,7 +617,7 @@ Openphacts.TargetSearch.prototype.parseTargetPharmacologyResponse = function(res
         var target_organism_item;
         var target_concatenated_uris;
         var chemblTargetLink = 'https://www.ebi.ac.uk/chembldb/target/inspect/';
-        var target_organisms = new Array();
+        var target_organisms = [];
             // For Target
             var target_components = [];
 	    var target_title = null;

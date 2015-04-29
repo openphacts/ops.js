@@ -433,7 +433,9 @@ describe("Trees", function() {
         expect(this_success).toBe(true);
         expect(this_status).toBe(200);
         expect(this_result.length).toBeGreaterThan(0);
-        expect(this_result[0].targets.length).toBeGreaterThan(0);
+        expect(this_result[0].targetTitle).toBeDefined();
+	expect(this_result[0].targetOrganismName).toBeDefined();
+	expect(this_result[0].targetURI).toBeDefined();
         expect(this_result[0].chemblActivityURI).toBeDefined();
         expect(this_result[0].pmid).toBeDefined();
         //expect(this_result[0].relation).toBeDefined();
@@ -451,7 +453,7 @@ describe("Trees", function() {
         expect(this_result[0].smiles).toBeDefined();
         expect(this_result[0].ro5Violations).toBeDefined();
         expect(this_result[0].pChembl).toBeDefined();
-        expect(this_result[0].targets).toBeDefined();
+        expect(this_result[0].targetComponents).toBeDefined();
         //expect(this_result[0].targetOrganism).toBeDefined();
         expect(this_result[0].assayURI).toBeDefined();
         expect(this_result[0].assayDescription).toBeDefined();
