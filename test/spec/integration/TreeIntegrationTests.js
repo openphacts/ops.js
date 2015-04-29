@@ -454,7 +454,9 @@ describe("Trees", function() {
         expect(this_result[0].ro5Violations).toBeDefined();
         expect(this_result[0].pChembl).toBeDefined();
         expect(this_result[0].targetComponents).toBeDefined();
-        //expect(this_result[0].targetOrganism).toBeDefined();
+	//	expect(this_result[0].targetComponents[0].label).toBeDefined();
+ 	//	expect(this_result[0].targetComponents[0].uri).toBeDefined();
+        //        expect(this_result[0].targetComponents[0].labelProvenance).toBeDefined();
         expect(this_result[0].assayURI).toBeDefined();
         expect(this_result[0].assayDescription).toBeDefined();
         expect(this_result[0].assayOrganismName).toBeDefined();

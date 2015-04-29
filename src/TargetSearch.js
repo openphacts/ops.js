@@ -633,8 +633,8 @@ Openphacts.TargetSearch.prototype.parseTargetPharmacologyResponse = function(res
 				var tc = {};
 				tc.uri = targetComponent._about;
 				if (targetComponent.exactMatch != null) {
-					tc.labelProvenance = targetComponent._about;
-					tc.label = targetComponent.prefLabel;
+	tc.labelProvenance = targetComponent[constants.EXACT_MATCH]._about != null ? targetComponent[constants.EXACT_MATCH]._about : null;
+					tc.label = targetComponent[constants.EXACT_MATCH].prefLabel != null ? targetComponent[constants.EXACT_MATCH].prefLabel : null;		
 				}
 				target_components.push(tc);
 			});
