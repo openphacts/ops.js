@@ -224,8 +224,8 @@ describe("Target search", function() {
         expect(this_result[0].chemblCompoundUri).toBeDefined();
         expect(this_result[0].compoundFullMwt).toBeDefined();
         expect(this_result[0].chemblAssayUri).toBeDefined();
-        expect(this_result[0].chemblTargetUri).toBeDefined();
-        expect(this_result[0].targetOrganisms).toBeDefined();
+        expect(this_result[0].targetURI).toBeDefined();
+        expect(this_result[0].targetOrganismName).toBeDefined();
         expect(this_result[0].assayOrganism).toBeDefined();
         expect(this_result[0].assayDescription).toBeDefined();
         expect(this_result[0].activityRelation).toBeDefined();
@@ -254,7 +254,6 @@ describe("Target search", function() {
         expect(this_result[0].compoundInchiItem).toBeDefined();
         expect(this_result[0].compoundInchikeyItem).toBeDefined();
         expect(this_result[0].assayOrganismItem).toBeDefined();
-        expect(this_result[0].targets).toBeDefined();
 	// chemblDOIs is an array but could be empty
         expect(this_result[0].chemblDOIs).not.toBeNull();
 	expect(this_result[0].activityComment).toBeDefined();
