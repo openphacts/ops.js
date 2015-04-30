@@ -674,11 +674,11 @@ Openphacts.TargetSearch.prototype.parseTargetPharmacologyResponse = function(res
             //compoundGenericNameSrc: drugbank_src,
             'targetTitleSrc': chembl_src,
             //targetConcatenatedUrisSrc: chembl_src,
-	    targetTitle: target_title,
-	    targetOrganismName: target_organism_name,
-	    targetComponents: target_components,
-	    targetURI: target_uri,
-	    targetProvenance: target_provenance,
+	    'targetTitle': target_title,
+	    'targetOrganismName': target_organism_name,
+	    'targetComponents': target_components,
+	    'targetURI': target_uri,
+	    'targetProvenance': target_provenance,
 
             //for target
             'chemblActivityUri': chembl_activity_uri,
