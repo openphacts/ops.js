@@ -1,5 +1,5 @@
 @Manual{,
-title = {OPS.js 5.0.1: Javascript library for accessing the Open PHACTS Linked Data API},
+title = {OPS.js 5.0.2: Javascript library for accessing the Open PHACTS Linked Data API},
 author = {{Ian Dunlop}},
 organization = {School of Computer Science},
 address = {University of Manchester, United Kingdom},

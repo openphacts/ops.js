@@ -47,7 +47,7 @@ Openphacts.CompoundSearch.prototype.fetchCompound = function(URI, lens, callback
 
 /**
  * Fetch the compounds matching the list of URIs provided.
- * @param {string} URIList - An array of URIs for the compounds of interest.
+ * @param {Array} URIList - An array of URIs for the compounds of interest.
  * @param {string} [lens] - An optional lens to apply to the result.
  * @param {requestCallback} callback - Function that will be called with the result.
  * @method

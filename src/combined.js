@@ -350,7 +350,7 @@ Openphacts.CompoundSearch.prototype.fetchCompound = function(URI, lens, callback
 
 /**
  * Fetch the compounds matching the list of URIs provided.
- * @param {string} URIList - An array of URIs for the compounds of interest.
+ * @param {Array} URIList - An array of URIs for the compounds of interest.
  * @param {string} [lens] - An optional lens to apply to the result.
  * @param {requestCallback} callback - Function that will be called with the result.
  * @method
@@ -4195,6 +4195,39 @@ Openphacts.DiseaseSearch.prototype.fetchDisease = function(URI, lens, callback) 
 }
 
 /**
+ * Fetch multiple diseases represented by the URIs provided.
+ * @param {Array} URIList - A list of URIs for multiple diseases.
+ * @param {string} [lens] - An optional lens to apply to the result.
+ * @param {requestCallback} callback - Function that will be called with the result.
+ * @method
+ * @example
+ * var searcher = new Openphacts.DiseaseSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
+ * var callback=function(success, status, response){
+ *    var diseaseResult = searcher.parseDiseaseBatchResponse(response);
+ * };
+ * searcher.fetchDiseaseBatch('http://linkedlifedata.com/resource/umls/id/C0004238|http://linkedlifedata.com/resource/umls/id/C0004238', null, callback);
+ */
+Openphacts.DiseaseSearch.prototype.fetchDiseaseBatch = function(URIList, lens, callback) {
+    params = {};
+    params['_format'] = "json";
+    params['app_key'] = this.appKey;
+    params['app_id'] = this.appID;
+    var URIs = URIList.join('|');
+    params['uri_list'] = URIs;
+    lens ? params['_lens'] = lens : '';
+    var diseaseQuery = $.ajax({
+        url: this.baseURL + '/disease/batch',
+        dataType: 'json',
+        cache: true,
+	timeout: 30000,
+        data: params
+    }).done(function(response, status, request) {
+        callback.call(this, true, request.status, response.result);
+    }).fail(function(response, status, statusText) {
+        callback.call(this, false, response.status);
+    });
+}
+/**
  * Count the number of diseases for a target represented by the URI provided.
  * @param {string} URI - The URI for the target of interest.
  * @param {string} [lens] - An optional lens to apply to the result.
@@ -4471,7 +4504,8 @@ Openphacts.DiseaseSearch.prototype.associationsByDiseaseCount = function(URI, le
             callback.call(this, false, response.status);
         });
     }
-    /**
+
+/**
      * Parse the results from {@link Openphacts.DiseaseSearch#fetchDisease}
      * @param {Object} response - the JSON response from {@link Openphacts.DiseaseSearch#fetchDisease}
      * @returns {FetchDiseaseResponse} Containing the flattened response
@@ -4504,6 +4538,38 @@ Openphacts.DiseaseSearch.prototype.parseDiseaseResponse = function(response) {
         "name": name,
         "diseaseClass": diseaseClass
     };
+}
+
+/**
+     * Parse the results from {@link Openphacts.DiseaseSearch#fetchDiseaseBatch}
+     * @param {Object} response - the JSON response from {@link Openphacts.DiseaseSearch#fetchDiseaseBatch}
+     * @returns {Array.FetchDiseaseResponse} Containing the flattened response
+     * @method
+     */
+Openphacts.DiseaseSearch.prototype.parseDiseaseBatchResponse = function(response) {
+    var constants = new Openphacts.Constants();
+    var items = [];
+    response.items.forEach(function(item, index) {
+    var URI = null,
+        name = null,
+        diseaseClass = [];
+    URI = item[constants.ABOUT];
+    name = item.name;
+    if (item.diseaseClass != null) {
+        Openphacts.arrayify(item.diseaseClass).forEach(function(diseaseClassItem, index) {
+                diseaseClass.push({
+                    "name": diseaseClassItem.name,
+                    "URI": diseaseClassItem[constants.ABOUT]
+                });
+            });
+        }
+    items.push({
+        "URI": URI,
+        "name": name,
+        "diseaseClass": diseaseClass
+    });
+    });
+    return items;
 }
 
 /**
@@ -4798,7 +4864,7 @@ Openphacts.Version = function Version() {
 
 Openphacts.Version.prototype.information = function() {
 	return {
-               "version": "5.0.1", 
+               "version": "5.0.2", 
                "author": "Ian Dunlop",
 	       "ORCID": "http://orcid.org/0000-0001-7066-3350",
                "title": "OPS.js",

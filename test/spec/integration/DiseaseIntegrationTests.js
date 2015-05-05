@@ -98,6 +98,97 @@ describe("Disease search", function() {
             searcher.diseasesByTargetCount('http://www.conceptwiki.org/concept/876876876', null, callback);
         });
     });
+    describe("multiple disease search", function() {
+
+        it("can return a response", function() {
+            var this_success = null;
+            var this_status = null;
+            var this_result = null;
+            var callback = function(success, status, response) {
+                this_success = success;
+                this_status = status;
+                this_result = searcher.parseDiseaseBatchResponse(response);
+            };
+            waitsFor(function() {
+                return this_result != null;
+            });
+            runs(function() {
+                expect(this_success).toBe(true);
+                expect(this_status).toBe(200);
+expect(this_result.length).toBeGreaterThan(0);
+                // API contract states that these will be present
+                expect(this_result[0].name).not.toBeNull();
+                expect(this_result[0].URI).not.toBeNull();
+
+                // May not be present but should be defined
+                expect(this_result[0].diseaseClass).not.toBeNull();
+                expect(this_result[0].diseaseClass.length).toEqual(2);
+                expect(this_result[0].diseaseClass[0].name).not.toBeNull();
+                expect(this_result[0].diseaseClass[0].URI).not.toBeNull();
+            });
+            searcher.fetchDiseaseBatch(['http://linkedlifedata.com/resource/umls/id/C0004238', 'http://linkedlifedata.com/resource/umls/id/C0004238'], null, callback);
+        });
+        it("can handle errors", function() {
+            var this_success = null;
+            var this_status = null;
+            var callback = function(success, status) {
+                this_success = success;
+                this_status = status;
+            };
+            waitsFor(function() {
+                return this_success != null;
+            });
+            runs(function() {
+                expect(this_success).toEqual(false);
+                expect(this_status).toEqual(404);
+            });
+            searcher.fetchDiseaseBatch(['http://linkedlifedata.com/rC0004238', 'http://www.conceptwiki.org/concept/876876876'], null, callback);
+        });
+    });
+    describe("count diseases for target", function() {
+
+        it("can return a response", function() {
+            var this_success = null;
+            var this_status = null;
+            var this_result = null;
+            var callback = function(success, status, response) {
+                this_success = success;
+                this_status = status;
+                this_result = searcher.parseDiseasesByTargetCountResponse(response);
+            };
+            waitsFor(function() {
+                return this_result != null;
+            });
+            runs(function() {
+                expect(this_success).toBe(true);
+                expect(this_status).toBe(200);
+
+                // API contract states that these will be present
+                expect(this_result).not.toBeNull();
+            });
+            searcher.diseasesByTargetCount('http://purl.uniprot.org/uniprot/Q9Y5Y9', null, callback);
+        });
+        it("can handle random URI", function() {
+            var this_success = null;
+            var this_status = null;
+            var this_result = null
+            var callback = function(success, status, response) {
+                this_success = success;
+                this_status = status;
+                this_result = searcher.parseDiseasesByTargetCountResponse(response);
+            };
+            waitsFor(function() {
+                return this_result != null;
+            });
+            runs(function() {
+                expect(this_success).toEqual(true);
+                expect(this_status).toEqual(200);
+                expect(this_result).toEqual(0);
+            });
+            searcher.diseasesByTargetCount('http://www.conceptwiki.org/concept/876876876', null, callback);
+        });
+    });
+
     describe("diseases for target", function() {
 
         it("can return a response", function() {
@@ -146,6 +237,7 @@ describe("Disease search", function() {
             });
             searcher.diseasesByTarget('http://www.conceptwiki.org/concept/876876876', null, null, null, null, callback);
         });
+
     });
     describe("count targets for disease", function() {
 
