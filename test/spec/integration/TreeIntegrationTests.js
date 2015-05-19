@@ -41,7 +41,7 @@ describe("Trees", function() {
       });
       runs(function() {
         expect(this_success).toEqual(false);
-        expect(this_status).toEqual(500);
+        expect(this_status).toEqual(404);
       });
       searcher.getRootNodes('http://sdfgdgdg', callback);
     });
@@ -80,7 +80,7 @@ describe("Trees", function() {
       });
       runs(function() {
         expect(this_success).toEqual(false);
-        expect(this_status).toEqual(500);
+        expect(this_status).toEqual(404);
       });
       searcher.getRootNodes('http://sdfgdgdg', callback);
     });
@@ -119,7 +119,7 @@ describe("Trees", function() {
       });
       runs(function() {
         expect(this_success).toEqual(false);
-        expect(this_status).toEqual(500);
+        expect(this_status).toEqual(404);
       });
       searcher.getRootNodes('http://sdfgdgdg', callback);
     });
@@ -158,7 +158,7 @@ describe("Trees", function() {
       });
       runs(function() {
         expect(this_success).toEqual(false);
-        expect(this_status).toEqual(500);
+        expect(this_status).toEqual(404);
       });
       searcher.getRootNodes('http://sdfgdgdg', callback);
     });
@@ -184,7 +184,7 @@ describe("Trees", function() {
         expect(this_result.label).not.toBeNull();
         expect(this_result.children.length).toBeGreaterThan(1);
         expect(this_result.children[0].uri).toBeDefined();
-        expect(this_result.children[0].names.length).toBeGreaterThan(0);
+        expect(this_result.children[0].names).toBeDefined();
       });
       searcher.getChildNodes('http://purl.uniprot.org/enzyme/1.1.1.-', callback);
     });
@@ -271,7 +271,7 @@ describe("Trees", function() {
         expect(this_result.children[0].uri).toBeDefined();
         expect(this_result.children[0].names.length).toBeGreaterThan(0);
       });
-      searcher.getChildNodes('http://rdf.ebi.ac.uk/resource/chembl/protclass/CHEMBL_PC_1000', callback);
+      searcher.getChildNodes('http://rdf.ebi.ac.uk/resource/chembl/protclass/CHEMBL_PC_1', callback);
     });
     it("and handle errors", function() {
       var this_success = null;
@@ -433,7 +433,9 @@ describe("Trees", function() {
         expect(this_success).toBe(true);
         expect(this_status).toBe(200);
         expect(this_result.length).toBeGreaterThan(0);
-        expect(this_result[0].targets.length).toBeGreaterThan(0);
+        expect(this_result[0].targetTitle).toBeDefined();
+	expect(this_result[0].targetOrganismName).toBeDefined();
+	expect(this_result[0].targetURI).toBeDefined();
         expect(this_result[0].chemblActivityURI).toBeDefined();
         expect(this_result[0].pmid).toBeDefined();
         //expect(this_result[0].relation).toBeDefined();
@@ -451,8 +453,10 @@ describe("Trees", function() {
         expect(this_result[0].smiles).toBeDefined();
         expect(this_result[0].ro5Violations).toBeDefined();
         expect(this_result[0].pChembl).toBeDefined();
-        expect(this_result[0].targets).toBeDefined();
-        //expect(this_result[0].targetOrganism).toBeDefined();
+        expect(this_result[0].targetComponents).toBeDefined();
+	//	expect(this_result[0].targetComponents[0].label).toBeDefined();
+ 	//	expect(this_result[0].targetComponents[0].uri).toBeDefined();
+        //        expect(this_result[0].targetComponents[0].labelProvenance).toBeDefined();
         expect(this_result[0].assayURI).toBeDefined();
         expect(this_result[0].assayDescription).toBeDefined();
         expect(this_result[0].assayOrganismName).toBeDefined();
@@ -542,7 +546,6 @@ describe("Trees", function() {
         expect(this_success).toBe(true);
         expect(this_status).toBe(200);
         expect(this_result.length).toBeGreaterThan(0);
-        expect(this_result[0].targets.length).toBeGreaterThan(0);
         expect(this_result[0].chemblActivityURI).toBeDefined();
         expect(this_result[0].pmid).toBeDefined();
         //expect(this_result[0].relation).toBeDefined();
@@ -560,8 +563,11 @@ describe("Trees", function() {
         expect(this_result[0].smiles).toBeDefined();
         expect(this_result[0].ro5Violations).toBeDefined();
         expect(this_result[0].pChembl).toBeDefined();
-        expect(this_result[0].targets).toBeDefined();
-        //expect(this_result[0].targetOrganism).toBeDefined();
+        expect(this_result[0].targetTitle).toBeDefined();
+        expect(this_result[0].targetURI).toBeDefined();
+expect(this_result[0].targetOrganismName).toBeDefined();
+expect(this_result[0].targetComponents).toBeDefined();
+	//expect(this_result[0].targetOrganism).toBeDefined();
         expect(this_result[0].assayURI).toBeDefined();
         expect(this_result[0].assayDescription).toBeDefined();
         expect(this_result[0].assayOrganismName).toBeDefined();

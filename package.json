@@ -14,7 +14,7 @@
         "jasmine-node": "~1.14.5"
     },
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "node_modules/.bin/jasmine-node --config app_id a409dcc9 --config app_key ad4fca9111f258325e3ca50e7217dcbc --config app_url https://beta.openphacts.org/1.5 ./test/spec/integration/CompoundIntegrationSpec.js"
     },
     "repository": {
         "type": "git",

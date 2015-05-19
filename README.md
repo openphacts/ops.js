@@ -1,8 +1,8 @@
-# OPS.js [![Build Status](https://travis-ci.org/openphacts/ops.js.svg?branch=develop)](https://travis-ci.org/openphacts/ops.js) [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.13044.svg)](http://dx.doi.org/10.5281/zenodo.13044)
+# OPS.js [![Build Status](https://travis-ci.org/openphacts/ops.js.svg?branch=develop)](https://travis-ci.org/openphacts/ops.js) [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.14723.svg)](http://dx.doi.org/10.5281/zenodo.14723)
 
 ## Open PHACTS API Version
 
-1.4
+1.5
 
 ## About
 OPS.js is a javascript based library for accessing the Open PHACTS Linked Data API (LDA). It uses jquery to handle the asynchronous nature of the requests. OPS.js can also be used to parse responses from the LDA.
@@ -27,16 +27,16 @@ We love receiving patches for bug fixes and new features. Please follow these si
 ## Citations  
 To cite OPS.js in publications please use:  
 
->Ian Dunlop. OPS.js. 5.0.0. Javascript library for accessing the Open PHACTS Linked Data API. University of Manchester. http://github.com/openphacts/ops.js
+>Ian Dunlop. OPS.js. 5.0.2. Javascript library for accessing the Open PHACTS Linked Data API. University of Manchester. http://github.com/openphacts/ops.js
 
 Bibtex:
 
 >@Manual{,  
->title = {OPS.js 5.0.0: Javascript library for accessing the Open PHACTS Linked Data API},  
+>title = {OPS.js 5.0.2: Javascript library for accessing the Open PHACTS Linked Data API},  
 >author = {{Ian Dunlop}},  
 >organization = {School of Computer Science},  
 >address = {University of Manchester, United Kingdom},  
->year = 2014,  
+>year = 2015,  
 >url = {http://github.com/openphacts/ops.js}  
 >} 
 
@@ -59,7 +59,6 @@ are contained within the 'test' directory with the specs for the tests in the 't
 
 jasmine-node --config app_id your_app_id --config app_key your_app_key --config app_url https://beta.openphacts.org/1.4 test/spec/integration/
 
-
 PhantomIntegrationTests.html and PhantomFunctionalTests.html use [phantomjs](http://phantomjs.org "PhanotmJS headless web browser"), a headless web browser, and
 can be run from the command line with  
 
@@ -74,7 +73,7 @@ More examples can be found in the integration tests.
 ### Concept Wiki free text search
 
 ```javascript
-var searcher = new Openphacts.ConceptWikiSearch("https://beta.openphacts.org/1.4", appID, appKey);  
+var searcher = new Openphacts.ConceptWikiSearch("https://beta.openphacts.org/1.5", appID, appKey);  
 var callback=function(success, status, response){  
     searcher.parseResponse(response);
 };  
@@ -86,7 +85,7 @@ searcher.byTag('Aspirin', '20', '4', '07a84994-e464-4bbf-812a-a4b96fa3d197', cal
 ### Concept Wiki compound search
 
 ```javascript
-var searcher = new Openphacts.ConceptWikiSearch("https://beta.openphacts.org/1.4", appID, appKey);  
+var searcher = new Openphacts.ConceptWikiSearch("https://beta.openphacts.org/1.5", appID, appKey);  
 var callback=function(success, status, response){  
     searcher.parseResponse(response);
 };  
@@ -98,7 +97,7 @@ searcher.findCompounds('Aspirin', '20', '4', callback);
 ### Compound information
 
 ```javascript
-var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.4", appID, appKey);  
+var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.5", appID, appKey);  
 var callback=function(success, status, response){  
     var compoundResult = searcher.parseCompoundResponse(response);  
 };  
@@ -110,7 +109,7 @@ searcher.fetchCompound('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a4
 ### Compound Pharmacology
 
 ```javascript
-var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.4", appID, appKey);  
+var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.5", appID, appKey);  
 var callback=function(success, status, response){  
     var compoundResult = searcher.parseCompoundPharmacologyResponse(response);  
 };  
@@ -122,7 +121,7 @@ searcher.compoundPharmacology('http://www.conceptwiki.org/concept/38932552-111f-
 ### Compound Pharmacology Count
 
 ```javascript
-var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.4", appID, appKey);  
+var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.5", appID, appKey);  
 var callback=function(success, status, response){  
     var result = searcher.parseCompoundPharmacologyCountResponse(response);  
 };  
@@ -135,7 +134,7 @@ searcher.compoundPharmacologyCount('http://www.conceptwiki.org/concept/38932552-
 ### Exact Structure Search
 
 ```javascript
-var searcher = new Openphacts.StructureSearch("https://beta.openphacts.org/1.4", appID, appKey);  
+var searcher = new Openphacts.StructureSearch("https://beta.openphacts.org/1.5", appID, appKey);  
 var callback=function(success, status, response){  
     var result = searcher.parseExactResponse(response);  
 };  

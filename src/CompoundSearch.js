@@ -56,7 +56,7 @@ CompoundSearch.prototype.fetchCompound = function(URI, lens, callback) {
 
 /**
  * Fetch the compounds matching the list of URIs provided.
- * @param {string} URIList - An array of URIs for the compounds of interest.
+ * @param {Array} URIList - An array of URIs for the compounds of interest.
  * @param {string} [lens] - An optional lens to apply to the result.
  * @param {requestCallback} callback - Function that will be called with the result.
  * @method
@@ -701,10 +701,10 @@ CompoundSearch.prototype.parseChemspiderBlock = function(chemspiderBlock) {
     psa = chemspiderData.psa != null ? chemspiderData.psa : psa;
     ro5Violations = chemspiderData.ro5_violations != null ? chemspiderData.ro5_violations : ro5Violations;
     smiles = chemspiderData.smiles != null ? chemspiderData.smiles : smiles;
-    inchiKey = chemspiderData.inchikey != null ? chemspiderData.inchikey : inchikey;
+    inchiKey = chemspiderData.inchikey != null ? chemspiderData.inchikey : null;
     rtb = chemspiderData.rtb != null ? chemspiderData.rtb : rtb;
-    fullMWT = chemspiderData.molweight != null ? chemspiderData.molweight : molweight;
-    molform = chemspiderData.molformula != null ? chemspiderData.molformula : molformula;
+    fullMWT = chemspiderData.molweight != null ? chemspiderData.molweight : null;
+    molform = chemspiderData.molformula != null ? chemspiderData.molformula : null;
 
     // provenance 
     chemspiderLinkOut = URI;
@@ -963,7 +963,6 @@ CompoundSearch.prototype.parseCompoundPharmacologyResponse = function(response) 
     var drugbankProvenance, chemspiderProvenance, chemblProvenance, conceptwikiProvenance;
     var constants = new Constants();
     var records = [];
-
     response.items.forEach(function(item, i, items) {
 
         chemblProvenance = {};
@@ -1018,10 +1017,7 @@ CompoundSearch.prototype.parseCompoundPharmacologyResponse = function(response) 
         var chemblMolecule = em != null ? em[constants.ABOUT] : null;
         if (em != null) {
             // the exact match block may only have 1 entry
-            if (!Array.isArray(em)) {
-                em = [em];
-            }
-            em.forEach(function(match, index, matches) {
+            Utils.arrayify(em).forEach(function(match, index, matches) {
                 var src = match[constants.IN_DATASET];
                 if (constants.SRC_CLS_MAPPINGS[src] == 'conceptWikiValue') {
                     cw_compound_uri = match[constants.ABOUT];
@@ -1061,7 +1057,7 @@ CompoundSearch.prototype.parseCompoundPharmacologyResponse = function(response) 
             assay_organism = null,
             assay_organism_src = null,
             assay_organism_item = null;
-
+        var target_organism = {};
         var onAssay = item[constants.ON_ASSAY];
         if (onAssay != null) {
             var chembl_assay_uri = onAssay[constants.ABOUT];
@@ -1075,63 +1071,27 @@ CompoundSearch.prototype.parseCompoundPharmacologyResponse = function(response) 
             chemblProvenance['assayDescription'] = chembleAssayLink;
 
             var target = onAssay[constants.ON_TARGET];
-            var targets = [];
-            var target_organisms = [];
-
-            if (Array.isArray(target)) {
-                target.forEach(function(target_item, index, target_items) {
-                    // For Target
-                    var target_inner = {};
-                    target_inner['title'] = target_item['title']
-                    target_inner['src'] = onAssay["inDataset"] ? onAssay["inDataset"] : '';
-                    if (target_item["_about"]) {
-                        target_inner['about'] = target_item['_about'];
-                        var targetLink = 'https://www.ebi.ac.uk/chembl/target/inspect/' + target_item["_about"].split('/').pop();
-                        target_inner['item'] = targetLink;
-                    } else {
-                        target_inner['item'] = '';
-                    }
-                    targets.push(target_inner);
-
-                    // For Organism
-                    var organism_inner = {};
-                    organism_inner['organism'] = target_item.targetOrganismName ? target_item.targetOrganismName : '';
-                    organism_inner['src'] = onAssay["inDataset"] ? onAssay["inDataset"] : '';
-                    if (target_item["_about"]) {
-                        var organismLink = 'https://www.ebi.ac.uk/chembl/target/inspect/' + target_item["_about"].split('/').pop();
-                        organism_inner['item'] = organismLink;
-                    } else {
-                        organism_inner['item'] = '';
-                    }
-                    target_organisms.push(organism_inner);
-                });
-            } else {
-                // For Target
-                var target_inner = {};
-                target_inner['title'] = target['title']
-                target_inner['src'] = onAssay["inDataset"] ? onAssay["inDataset"] : '';
-                if (target["_about"]) {
-                    target_inner['about'] = target['_about'];
-                    var targetLink = 'https://www.ebi.ac.uk/chembl/target/inspect/' + target["_about"].split('/').pop();
-                    target_inner['item'] = targetLink;
-                    chemblProvenance['targetTitle'] = targetLink;
-                } else {
-                    target_inner['item'] = '';
-                }
-                targets.push(target_inner);
-
-                // For Organism
-                var organism_inner = {};
-                organism_inner['organism'] = target.targetOrganismName ? target.targetOrganismName : '';
-                organism_inner['src'] = onAssay["inDataset"] ? onAssay["inDataset"] : '';
-                if (target["_about"]) {
-                    var organismLink = 'https://www.ebi.ac.uk/chembl/target/inspect/' + target["_about"].split('/').pop();
-                    organism_inner['item'] = organismLink;
-                    chemblProvenance['organismTitle'] = organismLink;
-                } else {
-                    organism_inner['item'] = '';
-                }
-                target_organisms.push(organism_inner);
+            // For Target
+            var target_components = [];
+	    var target_title = null;
+	    var target_organism_name = null;
+	    var target_uri = null;
+	    if (target != null) {
+                target_title = target.title;
+		target_uri = target._about;
+                target_provenance = 'https://www.ebi.ac.uk/chembl/target/inspect/' + target._about.split('/').pop();
+		target_organism_name = target.targetOrganismName != null ? target.targetOrganismName : null;
+		if (target.hasTargetComponent != null) {
+			Utils.arrayify(target.hasTargetComponent).forEach(function(targetComponent, i) {
+				var tc = {};
+				tc.uri = targetComponent._about;
+				if (targetComponent.exactMatch != null) {
+					tc.labelProvenance = targetComponent[constants.EXACT_MATCH]._about != null ? targetComponent[constants.EXACT_MATCH]._about : null;
+					tc.label = targetComponent[constants.EXACT_MATCH].prefLabel != null ? targetComponent[constants.EXACT_MATCH].prefLabel : null;
+				}
+				target_components.push(tc);
+			});
+		}
             }
         }
         var chemblActivityLink = 'https://www.ebi.ac.uk/ebisearch/search.ebi?t=' + chembl_activity_uri.split('/').pop().split('_').pop() + '&db=chembl-activity';
@@ -1145,7 +1105,6 @@ CompoundSearch.prototype.parseCompoundPharmacologyResponse = function(response) 
             compoundInchikey: compound_inchikey,
             compoundDrugType: compound_drug_type,
             compoundGenericName: compound_generic_name,
-            targets: targets,
             compoundInchikeySrc: cs_src,
             compoundDrugTypeSrc: drugbank_src,
             compoundGenericNameSrc: drugbank_src,
@@ -1161,7 +1120,11 @@ CompoundSearch.prototype.parseCompoundPharmacologyResponse = function(response) 
             compoundInchi: compound_inchi,
             compoundSmiles: compound_smiles,
             chemblAssayUri: chembl_assay_uri,
-            targetOrganisms: target_organisms,
+            targetTitle: target_title,
+	    targetOrganismName: target_organism_name,
+	    targetComponents: target_components,
+	    targetURI: target_uri,
+	    targetProvenance: target_provenance,
             assayOrganism: assay_organism,
             assayDescription: assay_description,
             activityRelation: activity_relation,
