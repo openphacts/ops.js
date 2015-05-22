@@ -304,18 +304,18 @@ TargetSearch.prototype.parseUniprotBlock = function(uniprotBlock) {
     var classifiedWith = [];
     var seeAlso = [];
     if (uniprotData.classifiedWith) {
-        arrayify(uniprotData.classifiedWith).forEach(function(classified, j, allClassified) {
+        Utils.arrayify(uniprotData.classifiedWith).forEach(function(classified, j, allClassified) {
             classifiedWith.push(classified);
         });
     }
     if (uniprotData.seeAlso) {
-        arrayify(uniprotData.seeAlso).forEach(function(see, j, allSee) {
+        Utils.arrayify(uniprotData.seeAlso).forEach(function(see, j, allSee) {
             seeAlso.push(see);
         });
     }
     var molecularWeight = uniprotData.molecularWeight ? uniprotData.molecularWeight : null;
     var functionAnnotation = uniprotData.Function_Annotation ? uniprotData.Function_Annotation : null;
-    var alternativeName = uniprotData.alternativeName ? arrayify(uniprotData.alternativeName) : [];
+    var alternativeName = uniprotData.alternativeName ? Utils.arrayify(uniprotData.alternativeName) : [];
     var existence = uniprotData.existence ? uniprotData.existence : null;
     var organism = uniprotData.organism ? uniprotData.organism : null;
     var sequence = uniprotData.sequence ? uniprotData.sequence : null;
@@ -391,7 +391,7 @@ TargetSearch.prototype.parseChemblBlock = function(chemblBlock) {
     chemblDataItem['synonyms'] = synonymsData;
     var targetComponents = {};
     if (chemblData[constants.HAS_TARGET_COMPONENT]) {
-        arrayify(chemblData[constants.HAS_TARGET_COMPONENT]).forEach(function(targetComponent, index, allTargetComponents) {
+        Utils.arrayify(chemblData[constants.HAS_TARGET_COMPONENT]).forEach(function(targetComponent, index, allTargetComponents) {
             targetComponents[targetComponent[constants.ABOUT]] = targetComponent.description;
         });
     }
@@ -450,23 +450,23 @@ TargetSearch.prototype.parseTargetResponse = function(response) {
     var conceptWikiBlock = {};
     var chemblBlock = {};
     var drugbankBlock = {};
-    var URI = response[constants.ABOUT];
+    var URI = response.primaryTopic[constants.ABOUT];
     var id = URI.split("/").pop();
     var chemblItems = [];
     // depending on the URI used the info block for that object will be on the top level rather than in exactMatch
     // We need to check what the URI represents and pull the appropriate info out 
-    if (constants.SRC_CLS_MAPPINGS[response[constants.IN_DATASET]] === 'drugbankValue') {
-        drugbankBlock = me.parseDrugbankBlock(response);
-    } else if (constants.SRC_CLS_MAPPINGS[response[constants.IN_DATASET]] === 'chemblValue') {
-        chemblBlock = me.parseChemblBlock(response);
+    if (constants.SRC_CLS_MAPPINGS[response.primaryTopic[constants.IN_DATASET]] === 'drugbankValue') {
+        drugbankBlock = me.parseDrugbankBlock(response.primaryTopic);
+    } else if (constants.SRC_CLS_MAPPINGS[response.primaryTopic[constants.IN_DATASET]] === 'chemblValue') {
+    	    chemblBlock = me.parseChemblBlock(response.primaryTopic);
         chemblItems.push(chemblBlock);
-    } else if (constants.SRC_CLS_MAPPINGS[response[constants.IN_DATASET]] === 'uniprotValue') {
-        uniprotBlock = me.parseUniprotBlock(response);
-    } else if (constants.SRC_CLS_MAPPINGS[response[constants.IN_DATASET]] === 'conceptWikiValue') {
-        conceptWikiBlock = me.parseConceptWikiBlock(response);
+    } else if (constants.SRC_CLS_MAPPINGS[response.primaryTopic[constants.IN_DATASET]] === 'uniprotValue') {
+        uniprotBlock = me.parseUniprotBlock(response.primaryTopic);
+    } else if (constants.SRC_CLS_MAPPINGS[response.primaryTopic[constants.IN_DATASET]] === 'conceptWikiValue') {
+        conceptWikiBlock = me.parseConceptWikiBlock(response.primaryTopic);
     }
-    var exactMatches = response[constants.EXACT_MATCH];
-    arrayify(exactMatches).forEach(function(exactMatch, i, allMatches) {
+    var exactMatches = response.primaryTopic[constants.EXACT_MATCH];
+    Utils.arrayify(exactMatches).forEach(function(exactMatch, i, allMatches) {
         var src = exactMatch[constants.IN_DATASET];
         if (src) {
             if (constants.SRC_CLS_MAPPINGS[src] === 'drugbankValue') {
@@ -481,7 +481,6 @@ TargetSearch.prototype.parseTargetResponse = function(response) {
             }
         }
     });
-
     // each chemblItem has its own provenance
     return {
         'id': id,
@@ -518,8 +517,67 @@ TargetSearch.prototype.parseTargetBatchResponse = function(response) {
     var constants = new Constants();
     var targets = [];
     var me = this;
+    var constants = new Constants();
     response.items.forEach(function(item, index, items) {
-        targets.push(me.parseTargetResponse(item));
+
+    var uniprotBlock = {};
+    var conceptWikiBlock = {};
+    var chemblBlock = {};
+    var drugbankBlock = {};
+    var URI = item[constants.ABOUT];
+    var id = URI.split("/").pop();
+    var chemblItems = [];
+    // depending on the URI used the info block for that object will be on the top level rather than in exactMatch
+    // We need to check what the URI represents and pull the appropriate info out 
+    if (constants.SRC_CLS_MAPPINGS[item[constants.IN_DATASET]] === 'drugbankValue') {
+        drugbankBlock = me.parseDrugbankBlock(item);
+    } else if (constants.SRC_CLS_MAPPINGS[item[constants.IN_DATASET]] === 'chemblValue') {
+    	    chemblBlock = me.parseChemblBlock(item);
+        chemblItems.push(chemblBlock);
+    } else if (constants.SRC_CLS_MAPPINGS[item[constants.IN_DATASET]] === 'uniprotValue') {
+        uniprotBlock = me.parseUniprotBlock(item);
+    } else if (constants.SRC_CLS_MAPPINGS[item[constants.IN_DATASET]] === 'conceptWikiValue') {
+        conceptWikiBlock = me.parseConceptWikiBlock(item);
+    }
+    var exactMatches = item[constants.EXACT_MATCH];
+    Utils.arrayify(exactMatches).forEach(function(exactMatch, i, allMatches) {
+        var src = exactMatch[constants.IN_DATASET];
+        if (src) {
+            if (constants.SRC_CLS_MAPPINGS[src] === 'drugbankValue') {
+                drugbankBlock = me.parseDrugbankBlock(exactMatch);
+            } else if (constants.SRC_CLS_MAPPINGS[src] === 'chemblValue') {
+                chemblBlock = me.parseChemblBlock(exactMatch);
+                chemblItems.push(chemblBlock);
+            } else if (constants.SRC_CLS_MAPPINGS[src] === 'uniprotValue') {
+                uniprotBlock = me.parseUniprotBlock(exactMatch);
+            } else if (constants.SRC_CLS_MAPPINGS[src] === 'conceptWikiValue') {
+                conceptWikiBlock = me.parseConceptWikiBlock(exactMatch);
+            }
+        }
+    });
+targets.push({
+        'id': id,
+        'URI': URI,
+        'cellularLocation': drugbankBlock.cellularLocation != null ? drugbankBlock.cellularLocation : null,
+        'numberOfResidues': drugbankBlock.numberOfResidues != null ? drugbankBlock.numberOfResidues : null,
+        'theoreticalPi': drugbankBlock.theoreticalPi != null ? drugbankBlock.theoreticalPi : null,
+        'drugbankURI': drugbankBlock.drugbankURI != null ? drugbankBlock.drugbankURI : null,
+        'molecularWeight': uniprotBlock.molecularWeight != null ? uniprotBlock.molecularWeight : null,
+        'functionAnnotation': uniprotBlock.functionAnnotation != null ? uniprotBlock.functionAnnotation : null,
+        'alternativeName': uniprotBlock.alternativeName != null ? uniprotBlock.alternativeName : null,
+        'mass': uniprotBlock.mass != null ? uniprotBlock.mass : null,
+        'existence': uniprotBlock.existence != null ? uniprotBlock.existence : null,
+        'organism': uniprotBlock.organism != null ? uniprotBlock.organism : null,
+        'sequence': uniprotBlock.sequence != null ? uniprotBlock.sequence : null,
+        'classifiedWith': uniprotBlock.classifiedWith != null ? uniprotBlock.classifiedWith : null,
+        'seeAlso': uniprotBlock.seeAlso != null ? uniprotBlock.seeAlso : null,
+        'chemblItems': chemblItems,
+        'cwURI': conceptWikiBlock.URI != null ? conceptWikiBlock.URI : null,
+        'prefLabel': conceptWikiBlock.prefLabel != null ? conceptWikiBlock.prefLabel : null,
+        'drugbankProvenance': drugbankBlock.drugbankProvenance != null ? drugbankBlock.drugbankProvenance : null,
+        'uniprotProvenance': uniprotBlock.uniprotProvenance != null ? uniprotBlock.uniprotProvenance : null,
+        'conceptwikiProvenance': conceptWikiBlock.conceptwikiProvenance != null ? conceptWikiBlock.conceptwikiProvenance : null
+    });
     });
     return targets;
 }
@@ -639,7 +697,7 @@ TargetSearch.prototype.parseTargetPharmacologyResponse = function(response) {
                 target_provenance = 'https://www.ebi.ac.uk/chembl/target/inspect/' + target._about.split('/').pop();
 		target_organism_name = target.targetOrganismName != null ? target.targetOrganismName : null;
 		if (target.hasTargetComponent != null) {
-			Openphacts.arrayify(target.hasTargetComponent).forEach(function(targetComponent, i) {
+			Utils.arrayify(target.hasTargetComponent).forEach(function(targetComponent, i) {
 				var tc = {};
 				tc.uri = targetComponent._about;
 				if (targetComponent.exactMatch != null) {
@@ -668,7 +726,7 @@ TargetSearch.prototype.parseTargetPharmacologyResponse = function(response) {
         var pChembl = item.pChembl;
         var documents = [];
         if (item.hasDocument) {
-            arrayify(item.hasDocument).forEach(function(document, index, documents) {
+            Utils.arrayify(item.hasDocument).forEach(function(document, index, documents) {
                 documents.push(document);
             });
         }

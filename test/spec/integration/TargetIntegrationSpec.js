@@ -6,7 +6,7 @@ describe("Target search", function() {
         appID = process.env['app_id'];
         appKey = process.env['app_key'];
         appUrl = process.env['app_url'];
-        searcher = new TargetSearch(appUrl, appID, appKey);
+	searcher = new TargetSearch(appUrl, appID, appKey);
     });
 
     describe("single target search", function() {
@@ -27,7 +27,7 @@ describe("Target search", function() {
             });
 
             runs(function() {
-                expect(this_success).toBe(true);
+     		    expect(this_success).toBe(true);
                 expect(this_status).toBe(200);
                 expect(this_result).toBeDefined();
 
@@ -118,7 +118,7 @@ describe("Target search", function() {
             });
 
             runs(function() {
-                expect(this_success).toBe(false);
+    		    expect(this_success).toBe(false);
                 expect(this_status).toBe(404);
             });
 
