@@ -106,23 +106,28 @@ TargetSearch.prototype.fetchTargetBatch = function(URIList, lens, callback) {
  * searcher.compoundsForTarget('http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', callback);
  */
 TargetSearch.prototype.compoundsForTarget = function(URI, callback) {
-    var targetQuery = $.ajax({
-        url: this.baseURL + '/target/classificationsForCompounds',
-        dataType: 'json',
-        cache: true,
-        data: {
-            _format: "json",
-            uri: URI,
-            app_id: this.appID,
-            app_key: this.appKey
-        },
-        success: function(response, status, request) {
-            callback.call(this, true, request.status, response.result);
-        },
-        error: function(request, status, error) {
-            callback.call(this, false, request.status);
+    params = {};
+    params['_format'] = "json";
+    params['app_key'] = this.appKey;
+    params['app_id'] = this.appID;
+    params['uri'] = URI;
+
+    nets({
+        url: this.baseURL + '/target/classificationsForCompounds?' + Utils.encodeParams(params),
+        method: "GET",
+        // 30 second timeout just in case
+        timeout: 30000,
+        headers: {
+            "Accept": "application/json"
+        }
+    }, function(err, resp, body) {
+        if (resp.statusCode === 200) {
+            callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
+        } else {
+            callback.call(this, false, resp.statusCode);
         }
     });
+
 }
 
 /**
@@ -184,18 +189,22 @@ TargetSearch.prototype.targetPharmacology = function(URI, assayOrganism, targetO
     orderBy ? params['_orderBy'] = orderBy : '';
     lens ? params['_lens'] = lens : '';
 
-    var targetQuery = $.ajax({
-        url: this.baseURL + '/target/pharmacology/pages',
-        dataType: 'json',
-        cache: true,
-        data: params,
-        success: function(response, status, request) {
-            callback.call(this, true, request.status, response.result);
-        },
-        error: function(request, status, error) {
-            callback.call(this, false, request.status);
+    nets({
+        url: this.baseURL + '/target/pharmacology/pages?' + Utils.encodeParams(params),
+        method: "GET",
+        // 30 second timeout just in case
+        timeout: 30000,
+        headers: {
+            "Accept": "application/json"
+        }
+    }, function(err, resp, body) {
+        if (resp.statusCode === 200) {
+            callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
+        } else {
+            callback.call(this, false, resp.statusCode);
         }
     });
+
 }
 
 /**
@@ -251,18 +260,22 @@ TargetSearch.prototype.targetPharmacologyCount = function(URI, assayOrganism, ta
     targetType ? params['target_type'] = targetType : '';
     lens ? params['_lens'] = lens : '';
 
-    var targetQuery = $.ajax({
-        url: this.baseURL + '/target/pharmacology/count',
-        dataType: 'json',
-        cache: true,
-        data: params,
-        success: function(response, status, request) {
-            callback.call(this, true, request.status, response.result);
-        },
-        error: function(request, status, error) {
-            callback.call(this, false, request.status);
+    nets({
+        url: this.baseURL + '/target/pharmacology/count?' + Utils.encodeParams(params),
+        method: "GET",
+        // 30 second timeout just in case
+        timeout: 30000,
+        headers: {
+            "Accept": "application/json"
+        }
+    }, function(err, resp, body) {
+        if (resp.statusCode === 200) {
+            callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
+        } else {
+            callback.call(this, false, resp.statusCode);
         }
     });
+
 }
 
 /**
@@ -272,23 +285,27 @@ TargetSearch.prototype.targetPharmacologyCount = function(URI, assayOrganism, ta
  * @method
  */
 TargetSearch.prototype.targetTypes = function(lens, callback) {
-    var targetQuery = $.ajax({
-        url: this.baseURL + '/target/types',
-        dataType: 'json',
-        cache: true,
-        data: {
-            _format: "json",
-            lens: lens,
-            app_id: this.appID,
-            app_key: this.appKey
-        },
-        success: function(response, status, request) {
-            callback.call(this, true, request.status, response.result);
-        },
-        error: function(request, status, error) {
-            callback.call(this, false, request.status);
+    params = {};
+    params['_format'] = "json";
+    params['app_key'] = this.appKey;
+    params['app_id'] = this.appID;
+
+    nets({
+        url: this.baseURL + '/types?' + Utils.encodeParams(params),
+        method: "GET",
+        // 30 second timeout just in case
+        timeout: 30000,
+        headers: {
+            "Accept": "application/json"
+        }
+    }, function(err, resp, body) {
+        if (resp.statusCode === 200) {
+            callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
+        } else {
+            callback.call(this, false, resp.statusCode);
         }
     });
+
 }
 
 /**
