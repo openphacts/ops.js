@@ -31,24 +31,25 @@ describe("Activities", function() {
       });
       searcher.getTypes('percent', null, null, null, null, callback);
     });
-    it("and handle errors", function() {
-      var this_success = null;
-      var this_status = null;
-      var callback=function(success, status){
-        this_success = success;
-        this_status = status;
-      };
-      waitsFor(function() {
-        return this_status != null;
-      });
-      runs(function() {
-        expect(this_success).toEqual(false);
-        // Origin null is not allowed by Access-Control-Allow-Origin. 
-        expect(this_status).toEqual(0);
-      });
-      var activitySearch = new Openphacts.ActivitySearch(appUrl, "sdfsdf", "sdfsdf");
-      activitySearch.getTypes('percent', null, null, null, null, callback);
-    });
+//the error test here serves no purpose
+    //    it("and handle errors", function() {
+//      var this_success = null;
+//      var this_status = null;
+//      var callback=function(success, status){
+//        this_success = success;
+//        this_status = status;
+//      };
+//      waitsFor(function() {
+//        return this_status != null;
+//      });
+//     runs(function() {
+//        expect(this_success).toEqual(false);
+//        // Origin null is not allowed by Access-Control-Allow-Origin. 
+//        expect(this_status).toEqual(0);
+//      });
+//      var activitySearch = new Openphacts.ActivitySearch(appUrl, "sdfsdf", "sdfsdf");
+//      activitySearch.getTypes('percent', null, null, null, null, callback);
+//    });
   });
   describe("get units", function() {
 

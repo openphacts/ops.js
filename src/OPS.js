@@ -1,12 +1,29 @@
 //This content is released under the MIT License, http://opensource.org/licenses/MIT. See licence.txt for more details.
 /**
  * Main container of the OPS.js library. It is the parent class for all the components.
- * 
+ *
  * @namespace
  * @license [MIT]{@link http://opensource.org/licenses/MIT}
- * @author Ian Dunlop 
+ * @author Ian Dunlop
  */
 var Openphacts = Openphacts || {};
+
+/**
+ * Check if some data is an array and return either itself if it is an array
+ * or an array with it as the first member if it is not. Used for the cases where
+ * the API returns either an array or a singleton.
+ * @param {Object}
+ * @returns {Array}
+ * @method
+ */
+Openphacts.arrayify = function(data) {
+    if (!Array.isArray(data)) {
+        return [data];
+    } else {
+        return data;;
+    }
+}
+
 /**
  * General callback for any request
  * @callback requestCallback
@@ -184,14 +201,14 @@ var Openphacts = Openphacts || {};
  * @property {string} URI - URI
  * @property {string} name - name
  * @property {Array} diseaseClass - diseaseClass
- */ 
+ */
 /**
  * Contains list of diseases for a single target fetched with {@link Openphacts.DiseaseSearch#diseasesByTarget}
  * @typedef {Array.<Object>} DiseasesByTargetResponse
  * @property {string} URI - URI
  * @property {string} name - name
  * @property {Array.<object>} gene - containing URI for the gene, link to the gene it encodes, encodesLabel and encodesProvenance link to where the label came from
- */ 
+ */
 /** 
  * Contains list of targets for a particular disease fetched with {@link Openphacts.DiseaseSearch#targetsByDisease}
  * @typedef {Array.<Object>} TargetsByDiseaseResponse
@@ -209,11 +226,20 @@ var Openphacts = Openphacts || {};
  * @property {Array.<string>} pmid - pubmed ID
  * @property {Array.<string>} primarySource - primarySource
  * @property {Array.<Object>} type - containing URI and label
- */ 
+ */
 /**
  * Contains list of diseases contained within a {@link AssociationsResponse}
  * @typedef {Array.<Object>} DiseaseResponse
  * @property {string} URI - link to the disease
  * @property {string} dataset - source of the data
  * @property {Array.<Object>} diseaseClasses - containing URI, source dataset and name
- */ 
+ */
+/**
+ * Contains various types of data about the compounds matching a source compound when a lens is applied using {@Link Openphacts.CompoundSearch#fetchCompound}
+ * Note that the items in each list cannot be linked together but you can use the {@Link Openphacts.MapSearch#mapURL} call to discover which items are about the same compound.
+ * @typedef {Array.<Object>} FetchCompoundLensResponse
+ * @property {Array} lensChemspider - List of compounds from chemspider
+ * @property {Array} lensDrugbank - list of drugbank info items relating to the chemspider compounds
+ * @property {Array} lensCW - list of conceptwiki info about the compounds
+ * @property {Array} lensChembl - list of chembl info items about the compounds
+ */

@@ -42,7 +42,7 @@ describe("Target search", function() {
         expect(this_result.molecularWeight).toBeDefined();
         expect(this_result.numberOfResidues).toBeDefined();
         expect(this_result.theoreticalPi).toBeDefined();
-        expect(this_result.keywords).toBeDefined();
+        //expect(this_result.keywords).toBeDefined();
         expect(this_result.functionAnnotation).toBeDefined();
         expect(this_result.alternativeName).toBeDefined();
         expect(this_result.organism).toBeDefined();
@@ -88,7 +88,7 @@ describe("Target search", function() {
         expect(this_result.molecularWeight).toBeDefined();
         expect(this_result.numberOfResidues).toBeDefined();
         expect(this_result.theoreticalPi).toBeDefined();
-        expect(this_result.keywords).toBeDefined();
+        //expect(this_result.keywords).toBeDefined();
         expect(this_result.functionAnnotation).toBeDefined();
         expect(this_result.alternativeName).toBeDefined();
         expect(this_result.organism).toBeDefined();
@@ -124,7 +124,7 @@ describe("Target search", function() {
       searcher.fetchTarget('http://www.conceptwiki.org/concept/876876876', null, callback);
     });
   });
-  describe("multiple target search", function() {
+  describe("fetch mutiple targets using batch call", function() {
 
     it("and return a response", function() {
       var this_success = null;
@@ -158,7 +158,7 @@ describe("Target search", function() {
         expect(this_result[0].molecularWeight).toBeDefined();
         expect(this_result[0].numberOfResidues).toBeDefined();
         expect(this_result[0].theoreticalPi).toBeDefined();
-        expect(this_result[0].keywords).toBeDefined();
+        //expect(this_result[0].keywords).toBeDefined();
         expect(this_result[0].functionAnnotation).toBeDefined();
         expect(this_result[0].alternativeName).toBeDefined();
         expect(this_result[0].organism).toBeDefined();
@@ -169,6 +169,7 @@ describe("Target search", function() {
         expect(this_result[0].prefLabel).toBeDefined();
         expect(this_result[0].chemblItems).toBeDefined();
         expect(this_result[0].URI).toBeDefined();
+	expect(this_result[0].mass).toBeDefined();
       });
 
       searcher.fetchTargetBatch(['http://www.conceptwiki.org/concept/00059958-a045-4581-9dc5-e5a08bb0c291', 'http://www.conceptwiki.org/concept/7b21c06f-0343-4fcc-ab0f-a74ffe871ade'], null, callback);
@@ -219,12 +220,17 @@ describe("Target search", function() {
         // optional values
         expect(this_result[0].targetTitle).toBeDefined();
         expect(this_result[0].compoundInchikeySrc).toBeDefined();
+		expect(this_result[0].targetComponents).toBeDefined();
+		//expect(this_result[0].targetComponents[0].label).toBeDefined();
+ 		//expect(this_result[0].targetComponents[0].uri).toBeDefined();
+                //expect(this_result[0].targetComponents[0].labelProvenance).toBeDefined();
+	
         expect(this_result[0].targetTitleSrc).toBeDefined();
         expect(this_result[0].chemblCompoundUri).toBeDefined();
         expect(this_result[0].compoundFullMwt).toBeDefined();
         expect(this_result[0].chemblAssayUri).toBeDefined();
-        expect(this_result[0].chemblTargetUri).toBeDefined();
-        expect(this_result[0].targetOrganisms).toBeDefined();
+        expect(this_result[0].targetURI).toBeDefined();
+        expect(this_result[0].targetOrganismName).toBeDefined();
         expect(this_result[0].assayOrganism).toBeDefined();
         expect(this_result[0].assayDescription).toBeDefined();
         expect(this_result[0].activityRelation).toBeDefined();
@@ -253,9 +259,11 @@ describe("Target search", function() {
         expect(this_result[0].compoundInchiItem).toBeDefined();
         expect(this_result[0].compoundInchikeyItem).toBeDefined();
         expect(this_result[0].assayOrganismItem).toBeDefined();
-        expect(this_result[0].targets).toBeDefined();
+	// chemblDOIs is an array but could be empty
+        expect(this_result[0].chemblDOIs).not.toBeNull();
+	expect(this_result[0].activityComment).toBeDefined();
 
-        // mandatory values
+	// mandatory values
         expect(this_result[0].chemblActivityUri).not.toBeNull();
         expect(this_result[0].cwCompoundUri).not.toBeNull();
         expect(this_result[0].compoundPrefLabel).not.toBeNull();
