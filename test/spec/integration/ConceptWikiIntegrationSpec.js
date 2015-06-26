@@ -1,11 +1,12 @@
+var Openphacts = require("../../../src/OPS.js");
 describe("Concept Wiki", function() {
   var searcher, appID, appKey, appUrl;
 
   beforeEach(function() {
-      	  appID == null ? appID = $.url().param('app_id'): '';
-    appKey == null ? appKey = $.url().param('app_key') : '';
-    appUrl == null ? appUrl = $.url().param('app_url'): '';
-    searcher = new Openphacts.ConceptWikiSearch(appUrl, appID, appKey);
+        appID = process.env['app_id'];
+        appKey = process.env['app_key'];
+        appUrl = process.env['app_url'];
+        searcher = new ConceptWikiSearch(appUrl, appID, appKey);
   });
 
   describe("search by tag", function() {
@@ -26,6 +27,7 @@ describe("Concept Wiki", function() {
       });
 
       runs(function() {
+	      console.log('1');
         expect(this_result[0]).toBeDefined();
         expect(this_result[0].uri).toBeDefined();
         expect(this_result[0].prefLabel).toBeDefined();
@@ -49,6 +51,7 @@ describe("Concept Wiki", function() {
       });
 
       runs(function() {
+	      console.log('2');
         expect(this_result[0]).toBeDefined();
         expect(this_result[0].uri).toBeDefined();
         expect(this_result[0].prefLabel).toBeDefined();
@@ -71,6 +74,7 @@ describe("Concept Wiki", function() {
       });
 
       runs(function() {
+	      console.log('3');
         expect(this_success).toEqual(false);
         expect(this_status).toEqual(500);
       });
@@ -95,6 +99,7 @@ describe("Concept Wiki", function() {
       });
 
       runs(function() {
+	      console.log('4');
         expect(this_success).toEqual(true);
         expect(this_status).toEqual(200);
         expect(this_result[0]).toBeDefined();
@@ -116,6 +121,7 @@ describe("Concept Wiki", function() {
       });
 
       runs(function() {
+	      console.log('5');
         expect(this_success).toEqual(false);
         expect(this_status).toEqual(500);
       });
@@ -141,6 +147,7 @@ describe("Concept Wiki", function() {
       });
 
       runs(function() {
+	      console.log('6');
         expect(this_success).toEqual(true);
         expect(this_status).toEqual(200);
         expect(this_result[0]).toBeDefined();
@@ -169,6 +176,7 @@ describe("Concept Wiki", function() {
       });
 
       runs(function() {
+	      console.log('7');
         expect(this_success).toEqual(false);
         expect(this_status).toEqual(500);
       });
@@ -190,6 +198,7 @@ describe("Concept Wiki", function() {
       });
 
       runs(function() {
+	      console.log('8');
         expect(this_success).toEqual(true);
         expect(this_status).toEqual(200);
       });
@@ -204,8 +213,10 @@ describe("Concept Wiki", function() {
       var this_result = null;
 
       var callback=function(success, status, response){
+	      console.log('9a');
         this_success = success;
         this_status = status;
+	console.log('9b');
         this_result = searcher.parseFindConceptResponse(response);
       };
 
@@ -214,13 +225,14 @@ describe("Concept Wiki", function() {
       });
 
       runs(function() {
+	      console.log('9');
         expect(this_success).toEqual(true);
         expect(this_status).toEqual(200);
         expect(this_result.altLabels).toBeDefined();
         expect(this_result.prefLabel).toBeDefined();
         expect(this_result.definition).toBeDefined();
       });
-      searcher.findConcept('8e3a87ae-345d-4c25-bd7a-5b3221c6e3fa', callback);
+      searcher.findConcept('8e3a87ae-345d-4c25-bd7a-5b3221c6e3fa', 4, callback);
     });
     it("and handle errors", function() {
       var this_success = null;
@@ -237,10 +249,11 @@ describe("Concept Wiki", function() {
       });
 
       runs(function() {
+	      console.log('11');
         expect(this_success).toEqual(false);
         expect(this_status).toEqual(500);
       });
-      searcher.findConcept('07a84994-e464-4b96fa3d197', callback);
+      searcher.findConcept('07a84994-e464-4b96fa3d197', 4, callback);
     });
   });
   describe("free text search", function() {
@@ -261,6 +274,7 @@ describe("Concept Wiki", function() {
       });
 
       runs(function() {
+	      console.log('12');
         expect(this_success).toEqual(true);
         expect(this_status).toEqual(200);
         expect(this_response).not.toBeNull();
