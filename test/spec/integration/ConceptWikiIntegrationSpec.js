@@ -27,7 +27,6 @@ describe("Concept Wiki", function() {
       });
 
       runs(function() {
-	      console.log('1');
         expect(this_result[0]).toBeDefined();
         expect(this_result[0].uri).toBeDefined();
         expect(this_result[0].prefLabel).toBeDefined();
@@ -51,7 +50,6 @@ describe("Concept Wiki", function() {
       });
 
       runs(function() {
-	      console.log('2');
         expect(this_result[0]).toBeDefined();
         expect(this_result[0].uri).toBeDefined();
         expect(this_result[0].prefLabel).toBeDefined();
@@ -74,7 +72,6 @@ describe("Concept Wiki", function() {
       });
 
       runs(function() {
-	      console.log('3');
         expect(this_success).toEqual(false);
         expect(this_status).toEqual(500);
       });
@@ -99,7 +96,6 @@ describe("Concept Wiki", function() {
       });
 
       runs(function() {
-	      console.log('4');
         expect(this_success).toEqual(true);
         expect(this_status).toEqual(200);
         expect(this_result[0]).toBeDefined();
@@ -121,7 +117,6 @@ describe("Concept Wiki", function() {
       });
 
       runs(function() {
-	      console.log('5');
         expect(this_success).toEqual(false);
         expect(this_status).toEqual(500);
       });
@@ -147,7 +142,6 @@ describe("Concept Wiki", function() {
       });
 
       runs(function() {
-	      console.log('6');
         expect(this_success).toEqual(true);
         expect(this_status).toEqual(200);
         expect(this_result[0]).toBeDefined();
@@ -176,7 +170,6 @@ describe("Concept Wiki", function() {
       });
 
       runs(function() {
-	      console.log('7');
         expect(this_success).toEqual(false);
         expect(this_status).toEqual(500);
       });
@@ -198,7 +191,6 @@ describe("Concept Wiki", function() {
       });
 
       runs(function() {
-	      console.log('8');
         expect(this_success).toEqual(true);
         expect(this_status).toEqual(200);
       });
@@ -213,10 +205,8 @@ describe("Concept Wiki", function() {
       var this_result = null;
 
       var callback=function(success, status, response){
-	      console.log('9a');
         this_success = success;
         this_status = status;
-	console.log('9b');
         this_result = searcher.parseFindConceptResponse(response);
       };
 
@@ -225,10 +215,8 @@ describe("Concept Wiki", function() {
       });
 
       runs(function() {
-	      console.log('9');
         expect(this_success).toEqual(true);
         expect(this_status).toEqual(200);
-	console.log(this_result);
         expect(this_result.altLabels).toBeDefined();
         expect(this_result.prefLabel).toBeDefined();
         expect(this_result.definition).toBeDefined();
@@ -250,7 +238,6 @@ describe("Concept Wiki", function() {
       });
 
       runs(function() {
-	      console.log('11');
         expect(this_success).toEqual(false);
         expect(this_status).toEqual(500);
       });
@@ -275,7 +262,6 @@ describe("Concept Wiki", function() {
       });
 
       runs(function() {
-	      console.log('12');
         expect(this_success).toEqual(true);
         expect(this_status).toEqual(200);
         expect(this_response).not.toBeNull();

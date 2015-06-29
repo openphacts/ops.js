@@ -188,7 +188,6 @@ TargetSearch.prototype.targetPharmacology = function(URI, assayOrganism, targetO
     pageSize ? params['_pageSize'] = pageSize : '';
     orderBy ? params['_orderBy'] = orderBy : '';
     lens ? params['_lens'] = lens : '';
- console.log(this.baseURL + '/target/pharmacology/pages?' + Utils.encodeParams(params));
     nets({
         url: this.baseURL + '/target/pharmacology/pages?' + Utils.encodeParams(params),
         method: "GET",
@@ -817,7 +816,6 @@ TargetSearch.prototype.parseTargetPharmacologyResponse = function(response) {
             'chemblDOIs': documents
         });
     });
-    console.log(records[0]);
     return records;
 }
 

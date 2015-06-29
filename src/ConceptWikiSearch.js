@@ -156,7 +156,6 @@ ConceptWikiSearch.prototype.findConcept = function(uuid, branch, callback) {
 	params['_format'] = "json";
     params['app_key'] = this.appKey;
     params['app_id'] = this.appID;
-    console.log(this.baseURL + '/getConceptDescription?' + Utils.encodeParams(params));
     nets({
         url: this.baseURL + '/getConceptDescription?' + Utils.encodeParams(params),
         method: "GET",
@@ -191,19 +190,14 @@ ConceptWikiSearch.prototype.parseResponse = function(response) {
 }
 
 ConceptWikiSearch.prototype.parseFindConceptResponse = function(response) {
-	console.log('f1a ' + response);
 	var prefLabel = response.primaryTopic.prefLabel_en;
 	var definition = response.primaryTopic.definition != null ? response.primaryTopic.definition : null;
 	var altLabels = [];
-	console.log('f1');
 	if (response.primaryTopic.altLabel_en) {
-		console.log('f2');
 		response.primaryTopic.altLabel_en.forEach(function(altLabel, index) {
-			console.log('f3');
 			altLabels.push(altLabel);
 		});
 	}
-	console.log('f4');
 	return {
 		prefLabel: prefLabel,
 		definition: definition,
