@@ -188,7 +188,7 @@ TargetSearch.prototype.targetPharmacology = function(URI, assayOrganism, targetO
     pageSize ? params['_pageSize'] = pageSize : '';
     orderBy ? params['_orderBy'] = orderBy : '';
     lens ? params['_lens'] = lens : '';
-
+ console.log(this.baseURL + '/target/pharmacology/pages?' + Utils.encodeParams(params));
     nets({
         url: this.baseURL + '/target/pharmacology/pages?' + Utils.encodeParams(params),
         method: "GET",
@@ -693,7 +693,6 @@ TargetSearch.prototype.parseTargetPharmacologyResponse = function(response) {
             //assay_description_item = chembldAssayLink + chembl_assay_uri.split('/').pop();
             target = onAssay[constants.ON_TARGET];
         }
-        var chembl_target_uri;
         var target_pref_label;
         var target_pref_label_item;
         var targetMatch;
@@ -775,7 +774,6 @@ TargetSearch.prototype.parseTargetPharmacologyResponse = function(response) {
             'compoundInchi': compound_inchi,
             'compoundSmiles': compound_smiles,
             'chemblAssayUri': chembl_assay_uri,
-            'chemblTargetUri': chembl_target_uri,
 
 
             'assayOrganism': assay_organism,
@@ -819,6 +817,7 @@ TargetSearch.prototype.parseTargetPharmacologyResponse = function(response) {
             'chemblDOIs': documents
         });
     });
+    console.log(records[0]);
     return records;
 }
 
