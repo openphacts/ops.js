@@ -228,11 +228,12 @@ describe("Concept Wiki", function() {
 	      console.log('9');
         expect(this_success).toEqual(true);
         expect(this_status).toEqual(200);
+	console.log(this_result);
         expect(this_result.altLabels).toBeDefined();
         expect(this_result.prefLabel).toBeDefined();
         expect(this_result.definition).toBeDefined();
       });
-      searcher.findConcept('8e3a87ae-345d-4c25-bd7a-5b3221c6e3fa', 4, callback);
+      searcher.findConcept('38932552-111f-4a4e-a46a-4ed1d7bdf9d5', 4, callback);
     });
     it("and handle errors", function() {
       var this_success = null;
