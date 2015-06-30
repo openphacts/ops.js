@@ -1,11 +1,12 @@
+var Openphacts = require("../../../src/OPS.js");
 describe("Trees", function() {
   var searcher, appID, appKey, appUrl;
 
   beforeEach(function() {
-      appID = $.url().param('app_id');
-      appKey = $.url().param('app_key');
-      appUrl = $.url().param('app_url');
-      searcher = new Openphacts.TreeSearch(appUrl, appID, appKey);
+        appID = process.env['app_id'];
+        appKey = process.env['app_key'];
+        appUrl = process.env['app_url'];
+      searcher = new TreeSearch(appUrl, appID, appKey);
   });
 
   describe("get root nodes for enzymes", function() {
@@ -23,7 +24,7 @@ describe("Trees", function() {
         return this_success != null;
       });
       runs(function() {
-        expect(this_success).toBe(true);
+      	      expect(this_success).toBe(true);
         expect(this_status).toBe(200);
         expect(this_result.rootClasses.length).toBeGreaterThan(1);
       });
@@ -62,7 +63,7 @@ describe("Trees", function() {
         return this_success != null;
       });
       runs(function() {
-        expect(this_success).toBe(true);
+      	      expect(this_success).toBe(true);
         expect(this_status).toBe(200);
         expect(this_result.rootClasses.length).toBeGreaterThan(1);
       });
@@ -182,7 +183,7 @@ describe("Trees", function() {
         expect(this_success).toBe(true);
         expect(this_status).toBe(200);
         expect(this_result.label).not.toBeNull();
-        expect(this_result.children.length).toBeGreaterThan(1);
+        expect(this_result.children.length).toBeGreaterThan(0);
         expect(this_result.children[0].uri).toBeDefined();
         expect(this_result.children[0].names).toBeDefined();
       });
