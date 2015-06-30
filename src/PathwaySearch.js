@@ -1,4 +1,7 @@
 //This content is released under the MIT License, http://opensource.org/licenses/MIT. See licence.txt for more details.
+var Utils = require("./Utils");
+var Constants = require("./Constants");
+var nets = require("nets");
 
 /**
  * @constructor
@@ -8,34 +11,38 @@
  * @license [MIT]{@link http://opensource.org/licenses/MIT}
  * @author Ian Dunlop
  */
-Openphacts.PathwaySearch = function PathwaySearch(baseURL, appID, appKey) {
+PathwaySearch = function PathwaySearch(baseURL, appID, appKey) {
     this.baseURL = baseURL;
     this.appID = appID;
     this.appKey = appKey;
 }
 
-Openphacts.PathwaySearch.prototype.information = function(URI, lens, callback) {
+PathwaySearch.prototype.information = function(URI, lens, callback) {
     params = {};
     params['_format'] = "json";
     params['app_key'] = this.appKey;
     params['app_id'] = this.appID;
     params['uri'] = URI;
     lens ? params['_lens'] = lens : '';
-    var pathwayQuery = $.ajax({
-        url: this.baseURL + '/pathway',
-        dataType: 'json',
-        cache: true,
-        data: params,
-        success: function(response, status, request) {
-            callback.call(this, true, request.status, response.result);
-        },
-        error: function(request, status, error) {
-            callback.call(this, false, request.status);
+    nets({
+        url: this.baseURL + '/pathway?' + Utils.encodeParams(params),
+        method: "GET",
+        // 30 second timeout just in case
+        timeout: 30000,
+        headers: {
+            "Accept": "application/json"
+        }
+    }, function(err, resp, body) {
+        if (resp.statusCode === 200) {
+            callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
+        } else {
+            callback.call(this, false, resp.statusCode);
         }
     });
+
 }
 
-Openphacts.PathwaySearch.prototype.byCompound = function(URI, organism, lens, page, pageSize, orderBy, callback) {
+PathwaySearch.prototype.byCompound = function(URI, organism, lens, page, pageSize, orderBy, callback) {
     params = {};
     params['_format'] = "json";
     params['app_key'] = this.appKey;
@@ -48,21 +55,25 @@ Openphacts.PathwaySearch.prototype.byCompound = function(URI, organism, lens, pa
     //TODO order by neeeds an RDF like syntax to work eg ?cw_uri or DESC(?cw_uri), need to hide that
     //from users by having a descending flag and creating the correct syntax here
     orderBy ? params['_orderBy'] = orderBy : '';
-    var pathwayQuery = $.ajax({
-        url: this.baseURL + '/pathways/byCompound',
-        dataType: 'json',
-        cache: true,
-        data: params,
-        success: function(response, status, request) {
-            callback.call(this, true, request.status, response.result);
-        },
-        error: function(request, status, error) {
-            callback.call(this, false, request.status);
+    nets({
+        url: this.baseURL + '/pathways/byCompound?' + Utils.encodeParams(params),
+        method: "GET",
+        // 30 second timeout just in case
+        timeout: 30000,
+        headers: {
+            "Accept": "application/json"
+        }
+    }, function(err, resp, body) {
+        if (resp.statusCode === 200) {
+            callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
+        } else {
+            callback.call(this, false, resp.statusCode);
         }
     });
+
 }
 
-Openphacts.PathwaySearch.prototype.countPathwaysByCompound = function(URI, organism, lens, callback) {
+PathwaySearch.prototype.countPathwaysByCompound = function(URI, organism, lens, callback) {
     params = {};
     params['_format'] = "json";
     params['app_key'] = this.appKey;
@@ -70,21 +81,25 @@ Openphacts.PathwaySearch.prototype.countPathwaysByCompound = function(URI, organ
     params['uri'] = URI;
     organism ? params['pathway_organism'] = organism : '';
     lens ? params['_lens'] = lens : '';
-    var pathwayQuery = $.ajax({
-        url: this.baseURL + '/pathways/byCompound/count',
-        dataType: 'json',
-        cache: true,
-        data: params,
-        success: function(response, status, request) {
-            callback.call(this, true, request.status, response.result);
-        },
-        error: function(request, status, error) {
-            callback.call(this, false, request.status);
+    nets({
+        url: this.baseURL + '/pathways/byCompound/count?' + Utils.encodeParams(params),
+        method: "GET",
+        // 30 second timeout just in case
+        timeout: 30000,
+        headers: {
+            "Accept": "application/json"
+        }
+    }, function(err, resp, body) {
+        if (resp.statusCode === 200) {
+            callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
+        } else {
+            callback.call(this, false, resp.statusCode);
         }
     });
+
 }
 
-Openphacts.PathwaySearch.prototype.byTarget = function(URI, organism, lens, page, pageSize, orderBy, callback) {
+PathwaySearch.prototype.byTarget = function(URI, organism, lens, page, pageSize, orderBy, callback) {
     params = {};
     params['_format'] = "json";
     params['app_key'] = this.appKey;
@@ -97,21 +112,25 @@ Openphacts.PathwaySearch.prototype.byTarget = function(URI, organism, lens, page
     //TODO order by neeeds an RDF like syntax to work eg ?cw_uri or DESC(?cw_uri), need to hide that
     //from users by having a descending flag and creating the correct syntax here
     orderBy ? orderBy = params['_orderBy'] : '';
-    var pathwayQuery = $.ajax({
-        url: this.baseURL + '/pathways/byTarget',
-        dataType: 'json',
-        cache: true,
-        data: params,
-        success: function(response, status, request) {
-            callback.call(this, true, request.status, response.result);
-        },
-        error: function(request, status, error) {
-            callback.call(this, false, request.status);
+    nets({
+        url: this.baseURL + '/pathways/byTarget?' + Utils.encodeParams(params),
+        method: "GET",
+        // 30 second timeout just in case
+        timeout: 30000,
+        headers: {
+            "Accept": "application/json"
+        }
+    }, function(err, resp, body) {
+        if (resp.statusCode === 200) {
+            callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
+        } else {
+            callback.call(this, false, resp.statusCode);
         }
     });
+
 }
 
-Openphacts.PathwaySearch.prototype.countPathwaysByTarget = function(URI, organism, lens, callback) {
+PathwaySearch.prototype.countPathwaysByTarget = function(URI, organism, lens, callback) {
     params = {};
     params['_format'] = "json";
     params['app_key'] = this.appKey;
@@ -119,18 +138,22 @@ Openphacts.PathwaySearch.prototype.countPathwaysByTarget = function(URI, organis
     params['uri'] = URI;
     organism ? params['pathway_organism'] = organism : '';
     lens ? params['_lens'] = lens : '';
-    var pathwayQuery = $.ajax({
-        url: this.baseURL + '/pathways/byTarget/count',
-        dataType: 'json',
-        cache: true,
-        data: params,
-        success: function(response, status, request) {
-            callback.call(this, true, request.status, response.result);
-        },
-        error: function(request, status, error) {
-            callback.call(this, false, request.status);
+    nets({
+        url: this.baseURL + '/pathways/byTarget/count?' + Utils.encodeParams(params),
+        method: "GET",
+        // 30 second timeout just in case
+        timeout: 30000,
+        headers: {
+            "Accept": "application/json"
+        }
+    }, function(err, resp, body) {
+        if (resp.statusCode === 200) {
+            callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
+        } else {
+            callback.call(this, false, resp.statusCode);
         }
     });
+
 }
 
 /**
@@ -140,55 +163,63 @@ Openphacts.PathwaySearch.prototype.countPathwaysByTarget = function(URI, organis
  * @param {requestCallback} callback - Function that will be called with the result.
  * @method
  * @example
- * var searcher = new Openphacts.PathwaySearch("https://beta.openphacts.org/1.4", "appID", "appKey");
+ * var searcher = new PathwaySearch("https://beta.openphacts.org/1.4", "appID", "appKey");
  * var callback=function(success, status, response){
  *    var targets = searcher.parseGetTargetsResponse(response);
  * };
  * searcher.getTargets('http://identifiers.org/wikipathways/WP1008', null, callback);
  */
-Openphacts.PathwaySearch.prototype.getTargets = function(URI, lens, callback) {
+PathwaySearch.prototype.getTargets = function(URI, lens, callback) {
     params = {};
     params['_format'] = "json";
     params['app_key'] = this.appKey;
     params['app_id'] = this.appID;
     params['uri'] = URI;
     lens ? params['_lens'] = lens : '';
-    var pathwayQuery = $.ajax({
-        url: this.baseURL + '/pathway/getTargets',
-        dataType: 'json',
-        cache: true,
-        data: params,
-        success: function(response, status, request) {
-            callback.call(this, true, request.status, response.result);
-        },
-        error: function(request, status, error) {
-            callback.call(this, false, request.status);
+    nets({
+        url: this.baseURL + '/pathway/getTargets?' + Utils.encodeParams(params),
+        method: "GET",
+        // 30 second timeout just in case
+        timeout: 30000,
+        headers: {
+            "Accept": "application/json"
+        }
+    }, function(err, resp, body) {
+        if (resp.statusCode === 200) {
+            callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
+        } else {
+            callback.call(this, false, resp.statusCode);
         }
     });
+
 }
 
-Openphacts.PathwaySearch.prototype.getCompounds = function(URI, lens, callback) {
+PathwaySearch.prototype.getCompounds = function(URI, lens, callback) {
     params = {};
     params['_format'] = "json";
     params['app_key'] = this.appKey;
     params['app_id'] = this.appID;
     params['uri'] = URI;
     lens ? params['_lens'] = lens : '';
-    var pathwayQuery = $.ajax({
-        url: this.baseURL + '/pathway/getCompounds',
-        dataType: 'json',
-        cache: true,
-        data: params,
-        success: function(response, status, request) {
-            callback.call(this, true, request.status, response.result);
-        },
-        error: function(request, status, error) {
-            callback.call(this, false, request.status);
+    nets({
+        url: this.baseURL + '/pathway/getCompounds?' + Utils.encodeParams(params),
+        method: "GET",
+        // 30 second timeout just in case
+        timeout: 30000,
+        headers: {
+            "Accept": "application/json"
+        }
+    }, function(err, resp, body) {
+        if (resp.statusCode === 200) {
+            callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
+        } else {
+            callback.call(this, false, resp.statusCode);
         }
     });
+
 }
 
-Openphacts.PathwaySearch.prototype.byReference = function(URI, organism, lens, page, pageSize, orderBy, callback) {
+PathwaySearch.prototype.byReference = function(URI, organism, lens, page, pageSize, orderBy, callback) {
     params = {};
     params['_format'] = "json";
     params['app_key'] = this.appKey;
@@ -201,21 +232,25 @@ Openphacts.PathwaySearch.prototype.byReference = function(URI, organism, lens, p
     //TODO order by neeeds an RDF like syntax to work eg ?cw_uri or DESC(?cw_uri), need to hide that
     //from users by having a descending flag and creating the correct syntax here
     orderBy ? orderBy = params['_orderBy'] : '';
-    var pathwayQuery = $.ajax({
-        url: this.baseURL + '/pathways/byReference',
-        dataType: 'json',
-        cache: true,
-        data: params,
-        success: function(response, status, request) {
-            callback.call(this, true, request.status, response.result);
-        },
-        error: function(request, status, error) {
-            callback.call(this, false, request.status);
+    nets({
+        url: this.baseURL + '/pathways/byReference?' + Utils.encodeParams(params),
+        method: "GET",
+        // 30 second timeout just in case
+        timeout: 30000,
+        headers: {
+            "Accept": "application/json"
+        }
+    }, function(err, resp, body) {
+        if (resp.statusCode === 200) {
+            callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
+        } else {
+            callback.call(this, false, resp.statusCode);
         }
     });
+
 }
 
-Openphacts.PathwaySearch.prototype.countPathwaysByReference = function(URI, organism, lens, callback) {
+PathwaySearch.prototype.countPathwaysByReference = function(URI, organism, lens, callback) {
     params = {};
     params['_format'] = "json";
     params['app_key'] = this.appKey;
@@ -223,63 +258,75 @@ Openphacts.PathwaySearch.prototype.countPathwaysByReference = function(URI, orga
     params['uri'] = URI;
     organism ? params['pathway_organism'] = organism : '';
     lens ? params['_lens'] = lens : '';
-    var pathwayQuery = $.ajax({
-        url: this.baseURL + '/pathways/byReference/count',
-        dataType: 'json',
-        cache: true,
-        data: params,
-        success: function(response, status, request) {
-            callback.call(this, true, request.status, response.result);
-        },
-        error: function(request, status, error) {
-            callback.call(this, false, request.status);
+    nets({
+        url: this.baseURL + '/pathways/byReference/count?' + Utils.encodeParams(params),
+        method: "GET",
+        // 30 second timeout just in case
+        timeout: 30000,
+        headers: {
+            "Accept": "application/json"
+        }
+    }, function(err, resp, body) {
+        if (resp.statusCode === 200) {
+            callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
+        } else {
+            callback.call(this, false, resp.statusCode);
         }
     });
+
 }
 
-Openphacts.PathwaySearch.prototype.getReferences = function(URI, lens, callback) {
+PathwaySearch.prototype.getReferences = function(URI, lens, callback) {
     params = {};
     params['_format'] = "json";
     params['app_key'] = this.appKey;
     params['app_id'] = this.appID;
     params['uri'] = URI;
     lens ? params['_lens'] = lens : '';
-    var pathwayQuery = $.ajax({
-        url: this.baseURL + '/pathway/getReferences',
-        dataType: 'json',
-        cache: true,
-        data: params,
-        success: function(response, status, request) {
-            callback.call(this, true, request.status, response.result);
-        },
-        error: function(request, status, error) {
-            callback.call(this, false, request.status);
+    nets({
+        url: this.baseURL + '/pathway/getReferences?' + Utils.encodeParams(params),
+        method: "GET",
+        // 30 second timeout just in case
+        timeout: 30000,
+        headers: {
+            "Accept": "application/json"
+        }
+    }, function(err, resp, body) {
+        if (resp.statusCode === 200) {
+            callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
+        } else {
+            callback.call(this, false, resp.statusCode);
         }
     });
+
 }
 
-Openphacts.PathwaySearch.prototype.countPathways = function(organism, lens, callback) {
+PathwaySearch.prototype.countPathways = function(organism, lens, callback) {
     params = {};
     params['_format'] = "json";
     params['app_key'] = this.appKey;
     params['app_id'] = this.appID;
     organism ? params['pathway_organism'] = organism : '';
     lens ? params['_lens'] = lens : '';
-    var pathwayQuery = $.ajax({
-        url: this.baseURL + '/pathways/count',
-        dataType: 'json',
-        cache: true,
-        data: params,
-        success: function(response, status, request) {
-            callback.call(this, true, request.status, response.result);
-        },
-        error: function(request, status, error) {
-            callback.call(this, false, request.status);
+    nets({
+        url: this.baseURL + '/pathways/count?' + Utils.encodeParams(params),
+        method: "GET",
+        // 30 second timeout just in case
+        timeout: 30000,
+        headers: {
+            "Accept": "application/json"
+        }
+    }, function(err, resp, body) {
+        if (resp.statusCode === 200) {
+            callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
+        } else {
+            callback.call(this, false, resp.statusCode);
         }
     });
+
 }
 
-Openphacts.PathwaySearch.prototype.list = function(organism, lens, page, pageSize, orderBy, callback) {
+PathwaySearch.prototype.list = function(organism, lens, page, pageSize, orderBy, callback) {
     params = {};
     params['_format'] = "json";
     params['app_key'] = this.appKey;
@@ -291,21 +338,25 @@ Openphacts.PathwaySearch.prototype.list = function(organism, lens, page, pageSiz
     //TODO order by neeeds an RDF like syntax to work eg ?cw_uri or DESC(?cw_uri), need to hide that
     //from users by having a descending flag and creating the correct syntax here
     orderBy ? orderBy = params['_orderBy'] : '';
-    var pathwayQuery = $.ajax({
-        url: this.baseURL + '/pathways',
-        dataType: 'json',
-        cache: true,
-        data: params,
-        success: function(response, status, request) {
-            callback.call(this, true, request.status, response.result);
-        },
-        error: function(request, status, error) {
-            callback.call(this, false, request.status);
+    nets({
+        url: this.baseURL + '/pathways?' + Utils.encodeParams(params),
+        method: "GET",
+        // 30 second timeout just in case
+        timeout: 30000,
+        headers: {
+            "Accept": "application/json"
+        }
+    }, function(err, resp, body) {
+        if (resp.statusCode === 200) {
+            callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
+        } else {
+            callback.call(this, false, resp.statusCode);
         }
     });
+
 }
 
-Openphacts.PathwaySearch.prototype.organisms = function(lens, page, pageSize, orderBy, callback) {
+PathwaySearch.prototype.organisms = function(lens, page, pageSize, orderBy, callback) {
     params = {};
     params['_format'] = "json";
     params['app_key'] = this.appKey;
@@ -316,22 +367,26 @@ Openphacts.PathwaySearch.prototype.organisms = function(lens, page, pageSize, or
     //TODO order by neeeds an RDF like syntax to work eg ?cw_uri or DESC(?cw_uri), need to hide that
     //from users by having a descending flag and creating the correct syntax here
     orderBy ? orderBy = params['_orderBy'] : '';
-    var pathwayQuery = $.ajax({
-        url: this.baseURL + '/pathways/organisms',
-        dataType: 'json',
-        cache: true,
-        data: params,
-        success: function(response, status, request) {
-            callback.call(this, true, request.status, response.result);
-        },
-        error: function(request, status, error) {
-            callback.call(this, false, request.status);
+    nets({
+        url: this.baseURL + '/pathways/organisms?' + Utils.encodeParams(params),
+        method: "GET",
+        // 30 second timeout just in case
+        timeout: 30000,
+        headers: {
+            "Accept": "application/json"
+        }
+    }, function(err, resp, body) {
+        if (resp.statusCode === 200) {
+            callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
+        } else {
+            callback.call(this, false, resp.statusCode);
         }
     });
+
 }
 
-Openphacts.PathwaySearch.prototype.parseInformationResponse = function(response) {
-    var constants = new Openphacts.Constants();
+PathwaySearch.prototype.parseInformationResponse = function(response) {
+    var constants = new Constants();
     var latest_version, identifier, revision, title, description, parts, inDataset, pathwayOntology, organism, organismLabel, about, URI = null;
     latest_version = response.primaryTopic.latest_version;
     identifier = response.primaryTopic[constants.ABOUT];
@@ -342,19 +397,15 @@ Openphacts.PathwaySearch.prototype.parseInformationResponse = function(response)
     pathwayOntology = latest_version.pathwayOntology ? latest_version.pathwayOntology : null;
     var pathwayOntologies = [];
     if (pathwayOntology) {
-        if ($.isArray(pathwayOntology)) {
-            $.each(pathwayOntology, function(i, ontology) {
+            Utils.arrayify(pathwayOntology).forEach(function(ontology, i) {
                 pathwayOntologies.push(ontology);
             });
-        } else {
-            pathwayOntologies.push(pathwayOntology);
-        }
     }
     description = latest_version.description ? latest_version.description : null;
     revision = latest_version[constants.ABOUT] ? latest_version[constants.ABOUT] : null;
     var partsComplete = latest_version.hasPart ? latest_version.hasPart : null;
     var parts = [];
-    $.each(partsComplete, function(i, part) {
+    partsComplete.forEach(function(part,  i) {
         parts.push({
             about: part["_about"],
             type: part.type
@@ -380,11 +431,11 @@ Openphacts.PathwaySearch.prototype.parseInformationResponse = function(response)
     };
 }
 
-Openphacts.PathwaySearch.prototype.parseByCompoundResponse = function(response) {
-    var constants = new Openphacts.Constants();
+PathwaySearch.prototype.parseByCompoundResponse = function(response) {
+    var constants = new Constants();
     var items = response.items;
     var pathways = [];
-    $.each(items, function(i, item) {
+    items.forEach(function(item, i) {
         var title, identifier, organism, organismLabel, parts, about, type, prefLabel, description, pathwayOntology, geneProductLabel, geneProductURI, geneProductCWURI;
         title = item.title;
         identifier = item.identifier;
@@ -414,16 +465,16 @@ Openphacts.PathwaySearch.prototype.parseByCompoundResponse = function(response) 
     return pathways;
 }
 
-Openphacts.PathwaySearch.prototype.parseCountPathwaysByCompoundResponse = function(response) {
-    var constants = new Openphacts.Constants();
+PathwaySearch.prototype.parseCountPathwaysByCompoundResponse = function(response) {
+    var constants = new Constants();
     return response.primaryTopic[constants.PATHWAY_COUNT];
 }
 
-Openphacts.PathwaySearch.prototype.parseByTargetResponse = function(response) {
-    var constants = new Openphacts.Constants();
+PathwaySearch.prototype.parseByTargetResponse = function(response) {
+    var constants = new Constants();
     var items = response.items;
     var pathways = [];
-    $.each(items, function(i, item) {
+    items.forEach(function(item, i) {
         var title, identifier, organism, organismLabel, parts, about, type, prefLabel, description, pathwayOntology, geneProductLabel, geneProductURI, geneProductCWURI;
         var geneProducts = [];
         title = item.title;
@@ -431,36 +482,16 @@ Openphacts.PathwaySearch.prototype.parseByTargetResponse = function(response) {
         parts = item.hasPart;
         about = parts[constants.ABOUT];
         type = parts.type;
-        if (Array.isArray(parts)) {
-            parts.forEach(function(part, index, array) {
+            Utils.arrayify(parts).forEach(function(part, index, array) {
                 var geneProduct = {};
                 geneProducts.push(geneProduct);
                 geneProduct['URI'] = part[constants.ABOUT];
                 var exactMatches = [];
                 geneProduct['exactMatch'] = exactMatches;
-                if (Array.isArray(part.exactMatch)) {
-                    part.exactMatch.forEach(function(exactMatch, index, array) {
+                    Utils.arrayify(part.exactMatch).forEach(function(exactMatch, index, array) {
                         exactMatches.push({'label': exactMatch.prefLabel, 'URI': exactMatch[constants.ABOUT]});
                     });
-                } else {
-                    exactMatches.push({'label': part.exactMatch.prefLabel, 'URI': part.exactMatch[constants.ABOUT]});
-                }
-
             });
-        } else {
-            var geneProduct = {};
-            geneProducts.push(geneProduct);
-            geneProduct['URI'] = parts[constants.ABOUT];
-            var exactMatches = [];
-            geneProduct['exactMatch'] = exactMatches;
-            if (Array.isArray(parts.exactMatch)) {
-                parts.exactMatch.forEach(function(exactMatch, index, array) {
-                    exactMatches.push({'label': exactMatch.prefLabel, 'URI': exactMatch[constants.ABOUT]});
-                });
-            } else {
-                exactMatches.push({'label': parts.exactMatch.prefLabel, 'URI': parts.exactMatch[constants.ABOUT]});
-            }
-        }
         organism = item.pathway_organism[constants.ABOUT];
         organismLabel = item.pathway_organism.label;
         description = item.description ? item.description : null;
@@ -479,26 +510,22 @@ Openphacts.PathwaySearch.prototype.parseByTargetResponse = function(response) {
     return pathways;
 }
 
-Openphacts.PathwaySearch.prototype.parseCountPathwaysByTargetResponse = function(response) {
-    var constants = new Openphacts.Constants();
+PathwaySearch.prototype.parseCountPathwaysByTargetResponse = function(response) {
+    var constants = new Constants();
     return response.primaryTopic[constants.PATHWAY_COUNT];
 }
 
-Openphacts.PathwaySearch.prototype.parseGetTargetsResponse = function(response) {
-    var constants = new Openphacts.Constants();
+PathwaySearch.prototype.parseGetTargetsResponse = function(response) {
+    var constants = new Constants();
     var latest_version, revision, title, parts;
     latest_version = response.primaryTopic.latest_version;
     title = latest_version.title;
     revision = latest_version[constants.ABOUT];
     var partsComplete = latest_version.hasPart ? latest_version.hasPart : null;
     var geneProducts = [];
-    if ($.isArray(partsComplete)) {
-        $.each(partsComplete, function(i, part) {
+        Utils.arrayify(partsComplete).forEach(function(part, i) {
             geneProducts.push(part);
         });
-    } else {
-        geneProducts.push(partsComplete);
-    }
     return {
         'title': title,
         'revision': revision,
@@ -506,22 +533,17 @@ Openphacts.PathwaySearch.prototype.parseGetTargetsResponse = function(response) 
     };
 }
 
-Openphacts.PathwaySearch.prototype.parseGetCompoundsResponse = function(response) {
-    var constants = new Openphacts.Constants();
+PathwaySearch.prototype.parseGetCompoundsResponse = function(response) {
+    var constants = new Constants();
     var latest_version, revision, title, parts;
     latest_version = response.primaryTopic.latest_version;
     title = latest_version.title;
     revision = latest_version[constants.ABOUT];
     var partsComplete = latest_version.hasPart ? latest_version.hasPart : null;
     var metabolites = [];
-    if ($.isArray(partsComplete)) {
-        $.each(partsComplete, function(i, part) {
+        Utils.arrayify(partsComplete).forEach(function(part, i) {
             metabolites.push(part);
         });
-    } else {
-        //TODO check this out since the api docs are not really clear if this is true
-        metabolites.push(partsComplete);
-    }
     return {
         'title': title,
         'revision': revision,
@@ -529,11 +551,11 @@ Openphacts.PathwaySearch.prototype.parseGetCompoundsResponse = function(response
     };
 }
 
-Openphacts.PathwaySearch.prototype.parseByReferenceResponse = function(response) {
-    var constants = new Openphacts.Constants();
+PathwaySearch.prototype.parseByReferenceResponse = function(response) {
+    var constants = new Constants();
     var items = response.items;
     var pathways = [];
-    $.each(items, function(i, item) {
+    items.forEach(function(item, i) {
         var title, identifier, organism, organismLabel, parts, publication, prefLabel, description, pathwayOntology;
         title = item.title;
         identifier = item.identifier;
@@ -556,42 +578,38 @@ Openphacts.PathwaySearch.prototype.parseByReferenceResponse = function(response)
     return pathways;
 }
 
-Openphacts.PathwaySearch.prototype.parseCountPathwaysByReferenceResponse = function(response) {
-    var constants = new Openphacts.Constants();
+PathwaySearch.prototype.parseCountPathwaysByReferenceResponse = function(response) {
+    var constants = new Constants();
     return response.primaryTopic[constants.PATHWAY_COUNT];
 }
 
-Openphacts.PathwaySearch.prototype.parseGetReferencesResponse = function(response) {
-    var constants = new Openphacts.Constants();
+PathwaySearch.prototype.parseGetReferencesResponse = function(response) {
+    var constants = new Constants();
     var latest_version, revision, title, parts;
     latest_version = response.primaryTopic.latest_version;
     title = latest_version.title;
     revision = latest_version[constants.ABOUT];
     var partsComplete = latest_version.hasPart ? latest_version.hasPart : null;
     var references = [];
-    if ($.isArray(partsComplete)) {
-        $.each(partsComplete, function(i, part) {
+        Utils.arrayify(partsComplete).forEach(function(part, i) {
             references.push(part);
         });
-    } else {
-        references.push(partsComplete);
-    }
     return {
         'title': title,
         'revision': revision,
         'references': references
     };
 }
-Openphacts.PathwaySearch.prototype.parseCountPathwaysResponse = function(response) {
-    var constants = new Openphacts.Constants();
+PathwaySearch.prototype.parseCountPathwaysResponse = function(response) {
+    var constants = new Constants();
     return response.primaryTopic[constants.PATHWAY_COUNT];
 }
 
-Openphacts.PathwaySearch.prototype.parseListResponse = function(response) {
-    var constants = new Openphacts.Constants();
+PathwaySearch.prototype.parseListResponse = function(response) {
+    var constants = new Constants();
     var items = response.items;
     var pathways = [];
-    $.each(items, function(i, item) {
+    items.forEach(function(item, i) {
         var title, identifier, organism, organismLabel, parts, publication, prefLabel, description, pathwayOntology;
         title = item.title;
         identifier = item.identifier;
@@ -611,12 +629,11 @@ Openphacts.PathwaySearch.prototype.parseListResponse = function(response) {
     return pathways;
 }
 
-Openphacts.PathwaySearch.prototype.parseOrganismsResponse = function(response) {
-    var constants = new Openphacts.Constants();
+PathwaySearch.prototype.parseOrganismsResponse = function(response) {
+    var constants = new Constants();
     var items = response.items;
     var organisms = [];
-    if ($.isArray(items)) {
-        $.each(items, function(i, item) {
+        Utils.arrayify(items).forEach(function(item, i) {
             var URI, count, label;
             URI = item[constants.ABOUT];;
             count = item.pathway_count;
@@ -627,12 +644,7 @@ Openphacts.PathwaySearch.prototype.parseOrganismsResponse = function(response) {
                 'label': label
             });
         });
-    } else {
-        organisms.push({
-            'URI': items[constants.ABOUT],
-            'count': items.pathway_count,
-            'label': items.label
-        });
-    }
     return organisms;
 }
+
+exports.PathwaySearch = PathwaySearch;
