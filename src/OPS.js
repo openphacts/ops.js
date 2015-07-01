@@ -14,6 +14,7 @@ Openphacts.ConceptWikiSearch = require("./ConceptWikiSearch");
 Openphacts.TreeSearch = require("./TreeSearch");
 Openphacts.PathwaySearch = require("./PathwaySearch");
 Openphacts.StructureSearch = require("./StructureSearch");
+Openphacts.TissueSearch = require("./TissueSearch");
 Openphacts.Version = require("./Version");
 
 module.exports = Openphacts;
