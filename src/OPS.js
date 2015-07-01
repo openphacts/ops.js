@@ -16,6 +16,7 @@ Openphacts.PathwaySearch = require("./PathwaySearch");
 Openphacts.StructureSearch = require("./StructureSearch");
 Openphacts.TissueSearch = require("./TissueSearch");
 Openphacts.ActivitySearch = require("./ActivitySearch");
+Openphacts.DataSources = require("./DataSources");
 Openphacts.Version = require("./Version");
 
 module.exports = Openphacts;
