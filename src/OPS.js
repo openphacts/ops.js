@@ -13,6 +13,7 @@ Openphacts.TargetSearch = require("./TargetSearch");
 Openphacts.ConceptWikiSearch = require("./ConceptWikiSearch");
 Openphacts.TreeSearch = require("./TreeSearch");
 Openphacts.PathwaySearch = require("./PathwaySearch");
+Openphacts.StructureSearch = require("./StructureSearch");
 Openphacts.Version = require("./Version");
 
 module.exports = Openphacts;

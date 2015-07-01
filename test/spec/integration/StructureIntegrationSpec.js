@@ -1,11 +1,12 @@
+var Openphacts = require("../../../src/OPS.js");
 describe("Structure search", function() {
   var searcher, appID, appKey, appUrl;
 
   beforeEach(function() {
-      appID = $.url().param('app_id');
-      appKey = $.url().param('app_key');
-      appUrl = $.url().param('app_url');
-      searcher = new Openphacts.StructureSearch(appUrl, appID, appKey);
+       appID = process.env['app_id'];
+        appKey = process.env['app_key'];
+        appUrl = process.env['app_url'];
+      searcher = new StructureSearch(appUrl, appID, appKey);
   });
 
   describe("exact structure", function() {
