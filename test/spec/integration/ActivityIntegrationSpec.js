@@ -1,11 +1,12 @@
+var Openphacts = require("../../../src/OPS.js");
 describe("Activities", function() {
   var searcher, appID, appKey, appUrl;
 
   beforeEach(function() {
-      appID = $.url().param('app_id');
-      appKey = $.url().param('app_key');
-      appUrl = $.url().param('app_url');
-      searcher = new Openphacts.ActivitySearch(appUrl, appID, appKey);
+        appID = process.env['app_id'];
+        appKey = process.env['app_key'];
+        appUrl = process.env['app_url'];
+      searcher = new ActivitySearch(appUrl, appID, appKey);
   });
 
   describe("get types", function() {
@@ -31,25 +32,6 @@ describe("Activities", function() {
       });
       searcher.getTypes('percent', null, null, null, null, callback);
     });
-//the error test here serves no purpose
-    //    it("and handle errors", function() {
-//      var this_success = null;
-//      var this_status = null;
-//      var callback=function(success, status){
-//        this_success = success;
-//        this_status = status;
-//      };
-//      waitsFor(function() {
-//        return this_status != null;
-//      });
-//     runs(function() {
-//        expect(this_success).toEqual(false);
-//        // Origin null is not allowed by Access-Control-Allow-Origin. 
-//        expect(this_status).toEqual(0);
-//      });
-//      var activitySearch = new Openphacts.ActivitySearch(appUrl, "sdfsdf", "sdfsdf");
-//      activitySearch.getTypes('percent', null, null, null, null, callback);
-//    });
   });
   describe("get units", function() {
 
