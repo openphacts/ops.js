@@ -47,10 +47,8 @@ TissueSearch.prototype.fetchTissue = function(URI, lens, callback) {
         }
     }, function(err, resp, body) {
         if (resp.statusCode === 200) {
-		console.log('true');
             callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
         } else {
-		console.log('false');
             callback.call(this, false, resp.statusCode);
         }
     });

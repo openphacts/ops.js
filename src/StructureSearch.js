@@ -51,7 +51,6 @@ StructureSearch.prototype.substructure = function(smiles, molType, start, count,
     molType != null ? params['searchOptions.MolType'] = molType : '';
     start != null ? params['resultOptions.Start'] = start : '';
     count != null ? params['resultOptions.Count'] = count : '';
-    console.log(this.baseURL + '/structure/substructure?' + Utils.encodeParams(params));
     nets({
         url: this.baseURL + '/structure/substructure?' + Utils.encodeParams(params),
         method: "GET",
