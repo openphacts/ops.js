@@ -16,7 +16,7 @@
 	"jsdoc": ">=3.3.2"
     },
     "scripts": {
-        "test": "node_modules/.bin/jasmine-node --config app_id a409dcc9 --config app_key ad4fca9111f258325e3ca50e7217dcbc --config app_url https://beta.openphacts.org/1.5 ./test/spec/integration/"
+        "test": "node_modules/.bin/jasmine-node --config app_id 1c22cbe7 --config app_key 167a3a3d8539b5d85280e7178f4e62ab --config app_url https://beta.openphacts.org/1.5 ./test/spec/integration/"
     },
     "repository": {
         "type": "git",

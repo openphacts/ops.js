@@ -6,10 +6,10 @@ var nets = require("nets");
 /**
  * @constructor
  * @param {string} baseURL - URL for the Open PHACTS API
- * @param {string} appID - Application ID for the application being used. Created by https://dev.openphacts.org
+ * @param {string} appID - Application ID for the application being used. Created by {@link https://dev.openphacts.org}
  * @param {string} appKey - Application Key for the application ID.
  * @license [MIT]{@link http://opensource.org/licenses/MIT}
- * @author Ian Dunlop
+ * @author [Ian Dunlop]{@link https://github.com/ianwdunlop}
  */
 PathwaySearch = function PathwaySearch(baseURL, appID, appKey) {
     this.baseURL = baseURL;
@@ -163,7 +163,7 @@ PathwaySearch.prototype.countPathwaysByTarget = function(URI, organism, lens, ca
  * @param {requestCallback} callback - Function that will be called with the result.
  * @method
  * @example
- * var searcher = new PathwaySearch("https://beta.openphacts.org/1.4", "appID", "appKey");
+ * var searcher = new PathwaySearch("https://beta.openphacts.org/1.5", "appID", "appKey");
  * var callback=function(success, status, response){
  *    var targets = searcher.parseGetTargetsResponse(response);
  * };

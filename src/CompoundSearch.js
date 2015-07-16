@@ -6,10 +6,10 @@ var nets = require("nets");
 /**
  * @constructor
  * @param {string} baseURL - URL for the Open PHACTS API
- * @param {string} appID - Application ID for the application being used. Created by https://dev.openphacts.org
+ * @param {string} appID - Application ID for the application being used. Created by {@link https://dev.openphacts.org}
  * @param {string} appKey - Application Key for the application ID.
  * @license [MIT]{@link http://opensource.org/licenses/MIT}
- * @author Ian Dunlop
+ * @author [Ian Dunlop]{@link https://github.com/ianwdunlop}
  */
 CompoundSearch = function CompoundSearch(baseURL, appID, appKey) {
     this.baseURL = baseURL;
@@ -24,7 +24,7 @@ CompoundSearch = function CompoundSearch(baseURL, appID, appKey) {
  * @param {requestCallback} callback - Function that will be called with the result.
  * @method
  * @example
- * var searcher = new CompoundSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
+ * var searcher = new CompoundSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
  * var callback=function(success, status, response){
  *    var compoundResult = searcher.parseCompoundResponse(response);
  * };
@@ -61,7 +61,7 @@ CompoundSearch.prototype.fetchCompound = function(URI, lens, callback) {
  * @param {requestCallback} callback - Function that will be called with the result.
  * @method
  * @example
- * var searcher = new CompoundSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
+ * var searcher = new CompoundSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
  * var callback=function(success, status, response){
  *    var compoundResults = searcher.parseCompoundBatchResponse(response);
  * };
@@ -99,7 +99,7 @@ CompoundSearch.prototype.fetchCompoundBatch = function(URIList, lens, callback) 
  * @param {requestCallback} callback - Function that will be called with the result.
  * @method
  * @example
- * var searcher = new CompoundSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
+ * var searcher = new CompoundSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
  * var callback=function(success, status, response){
  *    var result = searcher.parseCompoundClassMembersCountResponse(response);
  * };
@@ -139,7 +139,7 @@ CompoundSearch.prototype.compoundClassMembersCount = function(URI, lens, callbac
  * @param {requestCallback} callback - Function that will be called with the result
  * @method
  * @example
- * var searcher = new CompoundSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
+ * var searcher = new CompoundSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
  * var callback=function(success, status, response){
  *     var classMembersResult == searcher.parseCompoundClassMembersResponse(response);
  * };
@@ -199,7 +199,7 @@ CompoundSearch.prototype.compoundClassMembers = function(URI, page, pageSize, or
  * @param {requestCallback} callback - Function that will be called with the result
  * @method
  * @example
- * var searcher = new CompoundSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
+ * var searcher = new CompoundSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
  * var callback=function(success, status, response){
  *     var pharmacologyResult == searcher.parseCompoundPharmacologyResponse(response);
  * };
@@ -272,7 +272,7 @@ CompoundSearch.prototype.compoundPharmacology = function(URI, assayOrganism, tar
  * @param {requestCallback} callback - Function that will be called with the result
  * @method
  * @example
- * var searcher = new CompoundSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
+ * var searcher = new CompoundSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
  * var callback=function(success, status, response){
  *     var pharmacologyResult == searcher.parseCompoundPharmacologyCountResponse(response);
  * };

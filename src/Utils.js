@@ -5,6 +5,8 @@
  * @param {Object}
  * @returns {Array}
  * @method
+ * @license [MIT]{@link http://opensource.org/licenses/MIT}
+ * @author [Ian Dunlop]{@link https://github.com/ianwdunlop}
  */
 exports.arrayify = function(data) {
     if (!Array.isArray(data)) {
@@ -14,6 +16,15 @@ exports.arrayify = function(data) {
     }
 }
 
+/**
+ * Turns an object containing key/value pairs into URI encoded 'key1=value1&key2=value2...' parameters for
+ * an http request.
+ * @param {Object}
+ * @returns {String}
+ * @method
+ * @license [MIT]{@link http://opensource.org/licenses/MIT}
+ * @author [Ian Dunlop]{@link https://github.com/ianwdunlop}
+ */
 exports.encodeParams = function(params) {
     var requestParams = "";
     Object.keys(params).forEach(function(key, index) {

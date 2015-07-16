@@ -6,10 +6,10 @@ var nets = require("nets");
 /**
  * @constructor
  * @param {string} baseURL - URL for the Open PHACTS API
- * @param {string} appID - Application ID for the application being used. Created by https://dev.openphacts.org
+ * @param {string} appID - Application ID for the application being used. Created by {@link https://dev.openphacts.org}
  * @param {string} appKey - Application Key for the application ID.
  * @license [MIT]{@link http://opensource.org/licenses/MIT}
- * @author Ian Dunlop
+ * @author [Ian Dunlop]{@link https://github.com/ianwdunlop}
  */
 MapSearch = function MapSearch(baseURL, appID, appKey) {
 	this.baseURL = baseURL;

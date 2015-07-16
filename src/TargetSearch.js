@@ -6,10 +6,10 @@ var nets = require("nets");
 /**
  * @constructor
  * @param {string} baseURL - URL for the Open PHACTS API
- * @param {string} appID - Application ID for the application being used. Created by https://dev.openphacts.org
+ * @param {string} appID - Application ID for the application being used. Created by {@link https://dev.openphacts.org}
  * @param {string} appKey - Application Key for the application ID.
  * @license [MIT]{@link http://opensource.org/licenses/MIT}
- * @author Ian Dunlop
+ * @author [Ian Dunlop]{@link https://github.com/ianwdunlop}
  */
 TargetSearch = function TargetSearch(baseURL, appID, appKey) {
     this.baseURL = baseURL;
@@ -24,7 +24,7 @@ TargetSearch = function TargetSearch(baseURL, appID, appKey) {
  * @param {requestCallback} callback - Function that will be called with the result.
  * @method
  * @example
- * var searcher = new TargetSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
+ * var searcher = new TargetSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
  * var callback=function(success, status, response){
  *    var targetResult = searcher.parseTargetResponse(response);
  * };
@@ -61,7 +61,7 @@ TargetSearch.prototype.fetchTarget = function(URI, lens, callback) {
  * @param {requestCallback} callback - Function that will be called with the result.
  * @method
  * @example
- * var searcher = new TargetSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
+ * var searcher = new TargetSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
  * var callback=function(success, status, response){
  *    var targets = searcher.parseTargetBatchResponse(response);
  * };
@@ -99,7 +99,7 @@ TargetSearch.prototype.fetchTargetBatch = function(URIList, lens, callback) {
  * @param {requestCallback} callback - Function that will be called with the result.
  * @method
  * @example
- * var searcher = new TargetSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
+ * var searcher = new TargetSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
  * var callback=function(success, status, response){
  *    var targetResult = searcher.parseTargetResponse(response);
  * };
@@ -156,7 +156,7 @@ TargetSearch.prototype.compoundsForTarget = function(URI, callback) {
  * @param {requestCallback} callback - Function that will be called with the result
  * @method
  * @example
- * var searcher = new TargetSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
+ * var searcher = new TargetSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
  * var callback=function(success, status, response){
  *     var pharmacologyResult == searcher.parseTargetPharmacologyResponse(response);
  * };
@@ -229,7 +229,7 @@ TargetSearch.prototype.targetPharmacology = function(URI, assayOrganism, targetO
  * @param {requestCallback} callback - Function that will be called with the result
  * @method
  * @example
- * var searcher = new TargetSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
+ * var searcher = new TargetSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
  * var callback=function(success, status, response){
  *     var pharmacologyResult == searcher.parseTargetPharmacologyCountResponse(response);
  * };
