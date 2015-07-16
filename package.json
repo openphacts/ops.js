@@ -1,6 +1,6 @@
 {
     "name": "ops.js",
-    "version": "5.0.0",
+    "version": "6.0.0",
     "description": "Javascript based library to access the Open PHACTS API and discover bio-chemical and life sciences data",
     "main": "./lib/OPS.js",
     "directories": {
@@ -15,7 +15,7 @@
 	"browserify": ">=10.2.6"
     },
     "scripts": {
-        "test": "node_modules/.bin/jasmine-node --config app_id a409dcc9 --config app_key ad4fca9111f258325e3ca50e7217dcbc --config app_url https://beta.openphacts.org/1.5 ./test/spec/integration/CompoundIntegrationSpec.js"
+        "test": "node_modules/.bin/jasmine-node --config app_id a409dcc9 --config app_key ad4fca9111f258325e3ca50e7217dcbc --config app_url https://beta.openphacts.org/1.5 ./test/spec/integration/"
     },
     "repository": {
         "type": "git",
