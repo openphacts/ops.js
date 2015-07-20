@@ -103,6 +103,10 @@ TreeSearch.prototype.getTargetClassPharmacologyCount = function(URI, assayOrgani
     activityType != null ? params['activity_type'] = activityType : '';
     activityValue != null ? params['activity_value'] = activityValue : '';
     activityUnit != null ? params['activity_unit'] = activityUnit : '';
+    minActivityValue ? params['min-activity_value'] = minActivityValue : '';
+    minExActivityValue ? params['minEx-activity_value'] = minExActivityValue : '';
+    maxActivityValue ? params['max-activity_value'] = maxActivityValue : '';
+    maxExActivityValue ? params['maxEx-activity_value'] = maxExActivityValue : '';
     relation != null ? params['relation'] = relation : '';
     pChembl != null ? params['pChembl'] = pChembl : '';
     minpChembl != null ? params['min-pChembl'] = minpChembl : '';
@@ -139,6 +143,10 @@ TreeSearch.prototype.getTargetClassPharmacologyPaginated = function(URI, assayOr
     activityType != null ? params['activity_type'] = activityType : '';
     activityValue != null ? params['activity_value'] = activityValue : '';
     activityUnit != null ? params['activity_unit'] = activityUnit : '';
+    minActivityValue ? params['min-activity_value'] = minActivityValue : '';
+    minExActivityValue ? params['minEx-activity_value'] = minExActivityValue : '';
+    maxActivityValue ? params['max-activity_value'] = maxActivityValue : '';
+    maxExActivityValue ? params['maxEx-activity_value'] = maxExActivityValue : '';
     relation != null ? params['relation'] = relation : '';
     pChembl != null ? params['pChembl'] = pChembl : '';
     minpChembl != null ? params['min-pChembl'] = minpChembl : '';
@@ -178,6 +186,10 @@ TreeSearch.prototype.getCompoundClassPharmacologyCount = function(URI, assayOrga
     activityType != null ? params['activity_type'] = activityType : '';
     activityValue != null ? params['activity_value'] = activityValue : '';
     activityUnit != null ? params['activity_unit'] = activityUnit : '';
+    minActivityValue ? params['min-activity_value'] = minActivityValue : '';
+    minExActivityValue ? params['minEx-activity_value'] = minExActivityValue : '';
+    maxActivityValue ? params['max-activity_value'] = maxActivityValue : '';
+    maxExActivityValue ? params['maxEx-activity_value'] = maxExActivityValue : '';
     relation != null ? params['relation'] = relation : '';
     pChembl != null ? params['pChembl'] = pChembl : '';
     minpChembl != null ? params['min-pChembl'] = minpChembl : '';
@@ -214,6 +226,10 @@ TreeSearch.prototype.getCompoundClassPharmacologyPaginated = function(URI, assay
     activityType != null ? params['activity_type'] = activityType : '';
     activityValue != null ? params['activity_value'] = activityValue : '';
     activityUnit != null ? params['activity_unit'] = activityUnit : '';
+    minActivityValue ? params['min-activity_value'] = minActivityValue : '';
+    minExActivityValue ? params['minEx-activity_value'] = minExActivityValue : '';
+    maxActivityValue ? params['max-activity_value'] = maxActivityValue : '';
+    maxExActivityValue ? params['maxEx-activity_value'] = maxExActivityValue : '';
     relation != null ? params['relation'] = relation : '';
     pChembl != null ? params['pChembl'] = pChembl : '';
     minpChembl != null ? params['min-pChembl'] = minpChembl : '';
@@ -389,7 +405,7 @@ TreeSearch.prototype.parseTargetClassPharmacologyPaginated = function(response) 
                     inchi = match[constants.INCHI];
                     inchiKey = match[constants.INCHIKEY];
                     smiles = match[constants.SMILES];
-                    ro5Violations = match[constants.RO5_VIOLATIONS] !== null ? match[constants.RO5_VIOLATIONS] : null;
+                    ro5Violations = match[constants.RO5_VIOLATIONS] != null ? match[constants.RO5_VIOLATIONS] : null;
                     fullMWT = match[constants.MOLWT] ? match[constants.MOLWT] : null;
                     var chemspiderLinkOut = csURI;
                     chemspiderProvenance['source'] = 'chemspider';
