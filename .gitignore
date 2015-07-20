@@ -1,3 +1,6 @@
 *~
 *.swp
 test/PartIntegrationTests.html
+node_modules/
+out/
+testout/
