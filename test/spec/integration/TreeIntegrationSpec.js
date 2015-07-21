@@ -659,7 +659,7 @@ describe("Trees", function() {
       });
       searcher.getCompoundClassPharmacologyCount('http://purl.obolibrary.org/obo/CHEBI_100', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);
     });
-    it("using filters", function() {
+    it("using activity value filter", function() {
       var this_success = null;
       var this_status = null;
       var this_result = null;
@@ -678,6 +678,26 @@ describe("Trees", function() {
       });
       searcher.getCompoundClassPharmacologyCount('http://purl.obolibrary.org/obo/CHEBI_100', null, null, null, null, null, null, 20000, null, null, null, null, null, null, null, null, null, null, callback);
     });
+    it("using activity relation filter", function() {
+      var this_success = null;
+      var this_status = null;
+      var this_result = null;
+      var callback=function(success, status, response){
+        this_success = success;
+        this_status = status;
+        this_result = searcher.parseCompoundClassPharmacologyCount(response);
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toBe(true);
+        expect(this_status).toBe(200);
+        expect(this_result).toBeGreaterThan(1);
+      });
+      searcher.getCompoundClassPharmacologyCount('http://purl.obolibrary.org/obo/CHEBI_100', null, null, null, null, null, null, null, "=", null, null, null, null, null, null, null, null, null, callback);
+    });
+
     it("and handle errors", function() {
       var this_success = null;
       var this_status = null;
