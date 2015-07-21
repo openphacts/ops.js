@@ -457,7 +457,7 @@ describe("Trees", function() {
 
   describe("get pharmacology paginated for enzymes", function() {
 
-    it("and return a response", function() {
+    it("using activity value filter", function() {
       var this_success = null;
       var this_status = null;
       var this_result = null;
@@ -511,7 +511,7 @@ describe("Trees", function() {
       });
       searcher.getTargetClassPharmacologyPaginated('http://purl.uniprot.org/enzyme/1.1.1.1', null, null, null, null, null, null, 20000, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);
     });
-    it("using filters", function() {
+    it("and return a response", function() {
       var this_success = null;
       var this_status = null;
       var this_result = null;
