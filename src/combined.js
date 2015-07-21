@@ -7287,7 +7287,7 @@ var target_organism_name = null;
                 target_provenance = 'https://www.ebi.ac.uk/chembl/target/inspect/' + target._about.split('/').pop();
 		target_organism_name = target.assay_organism != null ? target.assay_organism : null;
 		if (target.hasTargetComponent != null) {
-			arrayify(target.hasTargetComponent).forEach(function(targetComponent, i) {
+			Utils.arrayify(target.hasTargetComponent).forEach(function(targetComponent, i) {
 				var tc = {};
 				tc.uri = targetComponent._about;
 				if (targetComponent.exactMatch != null) {
