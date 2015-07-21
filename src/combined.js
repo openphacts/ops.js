@@ -6775,7 +6775,7 @@ TreeSearch.prototype.getTargetClassPharmacologyCount = function(URI, assayOrgani
     minExActivityValue ? params['minEx-activity_value'] = minExActivityValue : '';
     maxActivityValue ? params['max-activity_value'] = maxActivityValue : '';
     maxExActivityValue ? params['maxEx-activity_value'] = maxExActivityValue : '';
-    relation != null ? params['relation'] = relation : '';
+    relation != null ? params['activity_relation'] = relation : '';
     pChembl != null ? params['pChembl'] = pChembl : '';
     minpChembl != null ? params['min-pChembl'] = minpChembl : '';
     minExpChembl != null ? params['minEx-pChembl'] = minExpChembl : '';
@@ -6815,7 +6815,7 @@ TreeSearch.prototype.getTargetClassPharmacologyPaginated = function(URI, assayOr
     minExActivityValue ? params['minEx-activity_value'] = minExActivityValue : '';
     maxActivityValue ? params['max-activity_value'] = maxActivityValue : '';
     maxExActivityValue ? params['maxEx-activity_value'] = maxExActivityValue : '';
-    relation != null ? params['relation'] = relation : '';
+    relation != null ? params['activity_relation'] = relation : '';
     pChembl != null ? params['pChembl'] = pChembl : '';
     minpChembl != null ? params['min-pChembl'] = minpChembl : '';
     minExpChembl != null ? params['minEx-pChembl'] = minExpChembl : '';
@@ -6858,7 +6858,7 @@ TreeSearch.prototype.getCompoundClassPharmacologyCount = function(URI, assayOrga
     minExActivityValue ? params['minEx-activity_value'] = minExActivityValue : '';
     maxActivityValue ? params['max-activity_value'] = maxActivityValue : '';
     maxExActivityValue ? params['maxEx-activity_value'] = maxExActivityValue : '';
-    relation != null ? params['relation'] = relation : '';
+    relation != null ? params['activity_relation'] = relation : '';
     pChembl != null ? params['pChembl'] = pChembl : '';
     minpChembl != null ? params['min-pChembl'] = minpChembl : '';
     minExpChembl != null ? params['minEx-pChembl'] = minExpChembl : '';
@@ -6898,7 +6898,7 @@ TreeSearch.prototype.getCompoundClassPharmacologyPaginated = function(URI, assay
     minExActivityValue ? params['minEx-activity_value'] = minExActivityValue : '';
     maxActivityValue ? params['max-activity_value'] = maxActivityValue : '';
     maxExActivityValue ? params['maxEx-activity_value'] = maxExActivityValue : '';
-    relation != null ? params['relation'] = relation : '';
+    relation != null ? params['activity_relation'] = relation : '';
     pChembl != null ? params['pChembl'] = pChembl : '';
     minpChembl != null ? params['min-pChembl'] = minpChembl : '';
     minExpChembl != null ? params['minEx-pChembl'] = minExpChembl : '';
