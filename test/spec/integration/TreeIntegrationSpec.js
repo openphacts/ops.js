@@ -398,7 +398,7 @@ describe("Trees", function() {
       });
       searcher.getTargetClassPharmacologyCount('http://purl.uniprot.org/enzyme/1.1.1.-', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);
     });
-    it("using filters", function() {
+    it("using activity value filter", function() {
       var this_success = null;
       var this_status = null;
       var this_result = null;
@@ -416,6 +416,25 @@ describe("Trees", function() {
         expect(this_result).toBeGreaterThan(1);
       });
       searcher.getTargetClassPharmacologyCount('http://purl.uniprot.org/enzyme/1.1.1.1', null, null, null, null, null, null, 20000, null, null, null, null, null, null, null, null, null, null, callback);
+    });
+    it("using activity relation filter", function() {
+      var this_success = null;
+      var this_status = null;
+      var this_result = null;
+      var callback=function(success, status, response){
+        this_success = success;
+        this_status = status;
+        this_result = searcher.parseTargetClassPharmacologyCount(response);
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toBe(true);
+        expect(this_status).toBe(200);
+        expect(this_result).toBeGreaterThan(1);
+      });
+      searcher.getTargetClassPharmacologyCount('http://purl.uniprot.org/enzyme/1.1.1.1', null, null, null, null, null, null, null, null, null, '=', null, null, null, null, null, null, null, callback);
     });
 
     it("and handle errors", function() {
