@@ -1,5 +1,6 @@
 branches:
   only:
     - develop
-script:
-  - "phantomjs --local-to-remote-url-access=yes --ignore-ssl-errors=yes test/spec/phantomjs_jasminexml_runner.js test/PhantomIntegrationTests.html 1c22cbe7 167a3a3d8539b5d85280e7178f4e62ab https://beta.openphacts.org/1.5 testout"
+language: node_js
+node_js:
+  - "0.12"
