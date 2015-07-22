@@ -1,6 +1,6 @@
 {
     "name": "ops.js",
-    "version": "6.0.0",
+    "version": "6.0.1",
     "description": "Javascript based library to access the Open PHACTS API and discover bio-chemical and life sciences data",
     "main": "./lib/OPS.js",
     "directories": {

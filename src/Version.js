@@ -17,7 +17,7 @@ Version = function Version() {
  */
 Version.prototype.information = function() {
 	return {
-               "version": "6.0.0", 
+               "version": "6.0.1", 
                "author": "Ian Dunlop",
 	       "ORCID": "http://orcid.org/0000-0001-7066-3350",
                "title": "OPS.js",

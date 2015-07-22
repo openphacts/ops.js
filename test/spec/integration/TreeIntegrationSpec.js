@@ -617,7 +617,7 @@ describe("Trees", function() {
         expect(this_result[0].chemblDOIs).not.toBeNull();
 	expect(this_result[0].activityComment).toBeDefined();
       });
-      searcher.getTargetClassPharmacologyPaginated('http://purl.uniprot.org/enzyme/1.1.1.1', null, null, null, null, null, null, null, '=', null, null, null, null, null, null, null, null, null, null, null, null, callback);
+      searcher.getTargetClassPharmacologyPaginated('http://purl.uniprot.org/enzyme/1.1.1.1', null, null, null, null, null, null, null, null, null, '=', null, null, null, null, null, null, null, null, null, null, callback);
     });
 
     it("and handle errors", function() {
@@ -695,7 +695,7 @@ describe("Trees", function() {
         expect(this_status).toBe(200);
         expect(this_result).toBeGreaterThan(1);
       });
-      searcher.getCompoundClassPharmacologyCount('http://purl.obolibrary.org/obo/CHEBI_100', null, null, null, null, null, null, null, "=", null, null, null, null, null, null, null, null, null, callback);
+      searcher.getCompoundClassPharmacologyCount('http://purl.obolibrary.org/obo/CHEBI_100', null, null, null, null, null, null, null, null, null, "=", null, null, null, null, null, null, null, callback);
     });
 
     it("and handle errors", function() {
@@ -872,7 +872,7 @@ expect(this_result[0].targetComponents).toBeDefined();
         expect(this_result[0].chemblDOIs).not.toBeNull();
 	expect(this_result[0].activityComment).toBeDefined();
       });
-      searcher.getCompoundClassPharmacologyPaginated('http://purl.obolibrary.org/obo/CHEBI_100', null, null, null, null, null, null, null, "=", null, null, null, null, null, null, null, null, null, null, null, null, callback);
+      searcher.getCompoundClassPharmacologyPaginated('http://purl.obolibrary.org/obo/CHEBI_100', null, null, null, null, null, null, null, null, null, "=", null, null, null, null, null, null, null, null, null, null, callback);
     });
 
     it("and handle errors", function() {
