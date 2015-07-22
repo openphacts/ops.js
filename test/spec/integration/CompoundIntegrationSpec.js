@@ -1,11 +1,12 @@
+var Openphacts = require("../../../src/OPS.js");
 describe("Compound search", function() {
     var searcher, appID, appKey, appUrl;
 
     beforeEach(function() {
-        appID = $.url().param('app_id');
-        appKey = $.url().param('app_key');
-        appUrl = $.url().param('app_url');
-        searcher = new Openphacts.CompoundSearch(appUrl, appID, appKey);
+        appID = process.env['app_id'];
+        appKey = process.env['app_key'];
+        appUrl = process.env['app_url'];
+        searcher = new CompoundSearch(appUrl, appID, appKey);
     });
 
     describe("single compound search", function() {
@@ -23,7 +24,7 @@ describe("Compound search", function() {
                 return this_result != null;
             });
             runs(function() {
-                expect(this_success).toBe(true);
+    		    expect(this_success).toBe(true);
                 expect(this_status).toBe(200);
 
                 // API contract states that these will be present
@@ -165,7 +166,7 @@ describe("Compound search", function() {
                 return this_result != null;
             });
             runs(function() {
-                expect(this_success).toBe(true);
+     		    expect(this_success).toBe(true);
                 expect(this_status).toBe(200);
 
                 // API contract states that these will be present
@@ -398,7 +399,7 @@ describe("Compound search", function() {
                 return this_success != null;
             });
             runs(function() {
-                expect(this_success).toEqual(false);
+		    expect(this_success).toEqual(false);
                 expect(this_status).toEqual(404);
             });
             searcher.fetchCompound('http://www.conceptwiki.org/concept/876876876', null, callback);
@@ -519,7 +520,7 @@ describe("Compound search", function() {
                 return this_result != null;
             });
             runs(function() {
-                expect(this_success).toEqual(true);
+     		    expect(this_success).toEqual(true);
                 expect(this_status).toEqual(200);
                 expect(this_result).toBeDefined();
             });

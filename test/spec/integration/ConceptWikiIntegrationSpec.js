@@ -1,11 +1,12 @@
+var Openphacts = require("../../../src/OPS.js");
 describe("Concept Wiki", function() {
   var searcher, appID, appKey, appUrl;
 
   beforeEach(function() {
-      	  appID == null ? appID = $.url().param('app_id'): '';
-    appKey == null ? appKey = $.url().param('app_key') : '';
-    appUrl == null ? appUrl = $.url().param('app_url'): '';
-    searcher = new Openphacts.ConceptWikiSearch(appUrl, appID, appKey);
+        appID = process.env['app_id'];
+        appKey = process.env['app_key'];
+        appUrl = process.env['app_url'];
+        searcher = new ConceptWikiSearch(appUrl, appID, appKey);
   });
 
   describe("search by tag", function() {
@@ -220,7 +221,7 @@ describe("Concept Wiki", function() {
         expect(this_result.prefLabel).toBeDefined();
         expect(this_result.definition).toBeDefined();
       });
-      searcher.findConcept('8e3a87ae-345d-4c25-bd7a-5b3221c6e3fa', callback);
+      searcher.findConcept('38932552-111f-4a4e-a46a-4ed1d7bdf9d5', 4, callback);
     });
     it("and handle errors", function() {
       var this_success = null;
@@ -240,7 +241,7 @@ describe("Concept Wiki", function() {
         expect(this_success).toEqual(false);
         expect(this_status).toEqual(500);
       });
-      searcher.findConcept('07a84994-e464-4b96fa3d197', callback);
+      searcher.findConcept('07a84994-e464-4b96fa3d197', 4, callback);
     });
   });
   describe("free text search", function() {

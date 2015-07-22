@@ -1,0 +1,40 @@
+{
+    "name": "ops.js",
+    "version": "6.0.0",
+    "description": "Javascript based library to access the Open PHACTS API and discover bio-chemical and life sciences data",
+    "main": "./lib/OPS.js",
+    "directories": {
+        "test": "./test/spec",
+        "lib": "./src"
+    },
+    "dependencies": {
+        "nets": ">=3.1.0"
+    },
+    "devDependencies": {
+        "jasmine-node": "~1.14.5",
+	"browserify": ">=10.2.6",
+	"jsdoc": ">=3.3.2"
+    },
+    "scripts": {
+        "test": "node_modules/.bin/jasmine-node --config app_id 1c22cbe7 --config app_key 167a3a3d8539b5d85280e7178f4e62ab --config app_url https://beta.openphacts.org/1.5 ./test/spec/integration/"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/openphacts/ops.js.git"
+    },
+    "keywords": [
+        "chemistry",
+        "openphacts",
+        "life",
+        "sciences",
+        "biology",
+        "cheminformatics",
+        "bioinformatics"
+    ],
+    "author": "Ian Dunlop <ianwdunlop@gmail.com> (https://github.com/ianwdunlop)",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/openphacts/ops.js/issues"
+    },
+    "homepage": "https://github.com/openphacts/ops.js"
+}

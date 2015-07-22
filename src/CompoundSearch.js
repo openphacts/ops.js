@@ -1,13 +1,17 @@
 //This content is released under the MIT License, http://opensource.org/licenses/MIT. See licence.txt for more details.
+var Utils = require("./Utils");
+var Constants = require("./Constants");
+var nets = require("nets");
+
 /**
  * @constructor
  * @param {string} baseURL - URL for the Open PHACTS API
- * @param {string} appID - Application ID for the application being used. Created by https://dev.openphacts.org
+ * @param {string} appID - Application ID for the application being used. Created by {@link https://dev.openphacts.org}
  * @param {string} appKey - Application Key for the application ID.
  * @license [MIT]{@link http://opensource.org/licenses/MIT}
- * @author Ian Dunlop
+ * @author [Ian Dunlop]{@link https://github.com/ianwdunlop}
  */
-Openphacts.CompoundSearch = function CompoundSearch(baseURL, appID, appKey) {
+CompoundSearch = function CompoundSearch(baseURL, appID, appKey) {
     this.baseURL = baseURL;
     this.appID = appID;
     this.appKey = appKey;
@@ -20,28 +24,33 @@ Openphacts.CompoundSearch = function CompoundSearch(baseURL, appID, appKey) {
  * @param {requestCallback} callback - Function that will be called with the result.
  * @method
  * @example
- * var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
+ * var searcher = new CompoundSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
  * var callback=function(success, status, response){
  *    var compoundResult = searcher.parseCompoundResponse(response);
  * };
  * searcher.fetchCompound('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', null, callback);
  */
-Openphacts.CompoundSearch.prototype.fetchCompound = function(URI, lens, callback) {
+CompoundSearch.prototype.fetchCompound = function(URI, lens, callback) {
     params = {};
     params['_format'] = "json";
     params['app_key'] = this.appKey;
     params['app_id'] = this.appID;
     params['uri'] = URI;
     lens ? params['_lens'] = lens : '';
-    var compoundQuery = $.ajax({
-        url: this.baseURL + '/compound',
-        dataType: 'json',
-        cache: true,
-        data: params
-    }).done(function(response, status, request) {
-        callback.call(this, true, request.status, response.result);
-    }).fail(function(response, status, statusText) {
-        callback.call(this, false, response.status);
+    nets({
+        url: this.baseURL + '/compound?' + Utils.encodeParams(params),
+        method: "GET",
+        // 30 second timeout just in case
+        timeout: 30000,
+        headers: {
+            "Accept": "application/json"
+        }
+    }, function(err, resp, body) {
+        if (resp.statusCode === 200) {
+            callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
+        } else {
+            callback.call(this, false, resp.statusCode);
+        }
     });
 }
 
@@ -52,13 +61,13 @@ Openphacts.CompoundSearch.prototype.fetchCompound = function(URI, lens, callback
  * @param {requestCallback} callback - Function that will be called with the result.
  * @method
  * @example
- * var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
+ * var searcher = new CompoundSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
  * var callback=function(success, status, response){
  *    var compoundResults = searcher.parseCompoundBatchResponse(response);
  * };
  * searcher.fetchCompoundBatch(['http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', 'http://www.conceptwiki.org/concept/dd758846-1dac-4f0d-a329-06af9a7fa413'], null, callback);
  */
-Openphacts.CompoundSearch.prototype.fetchCompoundBatch = function(URIList, lens, callback) {
+CompoundSearch.prototype.fetchCompoundBatch = function(URIList, lens, callback) {
     params = {};
     params['_format'] = "json";
     params['app_key'] = this.appKey;
@@ -66,15 +75,20 @@ Openphacts.CompoundSearch.prototype.fetchCompoundBatch = function(URIList, lens,
     var URIs = URIList.join('|');
     params['uri_list'] = URIs;
     lens ? params['_lens'] = lens : '';
-    var compoundQuery = $.ajax({
-        url: this.baseURL + '/compound/batch',
-        dataType: 'json',
-        cache: true,
-        data: params
-    }).done(function(response, status, request) {
-        callback.call(this, true, request.status, response.result);
-    }).fail(function(response, status, statusText) {
-        callback.call(this, false, response.status);
+    nets({
+        url: this.baseURL + '/compound/batch?' + Utils.encodeParams(params),
+        method: "GET",
+        // 30 second timeout just in case
+        timeout: 30000,
+        headers: {
+            "Accept": "application/json"
+        }
+    }, function(err, resp, body) {
+        if (resp.statusCode === 200) {
+            callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
+        } else {
+            callback.call(this, false, resp.statusCode);
+        }
     });
 }
 
@@ -85,28 +99,33 @@ Openphacts.CompoundSearch.prototype.fetchCompoundBatch = function(URIList, lens,
  * @param {requestCallback} callback - Function that will be called with the result.
  * @method
  * @example
- * var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
+ * var searcher = new CompoundSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
  * var callback=function(success, status, response){
  *    var result = searcher.parseCompoundClassMembersCountResponse(response);
  * };
  * searcher.compoundClassMembersCount('http://purl.obolibrary.org/obo/CHEBI_24431', null, callback);
  */
-Openphacts.CompoundSearch.prototype.compoundClassMembersCount = function(URI, lens, callback) {
+CompoundSearch.prototype.compoundClassMembersCount = function(URI, lens, callback) {
     params = {};
     params['_format'] = "json";
     params['app_key'] = this.appKey;
     params['app_id'] = this.appID;
     params['uri'] = URI;
     lens ? params['_lens'] = lens : '';
-    var compoundQuery = $.ajax({
-        url: this.baseURL + '/compound/members/count',
-        dataType: 'json',
-        cache: true,
-        data: params
-    }).done(function(response, status, request) {
-        callback.call(this, true, request.status, response.result);
-    }).fail(function(response, status, statusText) {
-        callback.call(this, false, response.status);
+    nets({
+        url: this.baseURL + '/compound/members/count?' + Utils.encodeParams(params),
+        method: "GET",
+        // 30 second timeout just in case
+        timeout: 30000,
+        headers: {
+            "Accept": "application/json"
+        }
+    }, function(err, resp, body) {
+        if (resp.statusCode === 200) {
+            callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
+        } else {
+            callback.call(this, false, resp.statusCode);
+        }
     });
 }
 
@@ -120,13 +139,13 @@ Openphacts.CompoundSearch.prototype.compoundClassMembersCount = function(URI, le
  * @param {requestCallback} callback - Function that will be called with the result
  * @method
  * @example
- * var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
+ * var searcher = new CompoundSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
  * var callback=function(success, status, response){
  *     var classMembersResult == searcher.parseCompoundClassMembersResponse(response);
  * };
  * searcher.compoundClassMembers('http://purl.obolibrary.org/obo/CHEBI_24431', 1, 20, null, null, callback);
  */
-Openphacts.CompoundSearch.prototype.compoundClassMembers = function(URI, page, pageSize, orderBy, lens, callback) {
+CompoundSearch.prototype.compoundClassMembers = function(URI, page, pageSize, orderBy, lens, callback) {
     params = {};
     params['_format'] = "json";
     params['app_key'] = this.appKey;
@@ -137,15 +156,20 @@ Openphacts.CompoundSearch.prototype.compoundClassMembers = function(URI, page, p
     orderBy ? params['_orderBy'] = orderBy : '';
     lens ? params['_lens'] = lens : '';
 
-    var compoundQuery = $.ajax({
-        url: this.baseURL + '/compound/members/pages',
-        dataType: 'json',
-        cache: true,
-        data: params
-    }).done(function(response, status, request) {
-        callback.call(this, true, request.status, response.result);
-    }).fail(function(response, status, statusText) {
-        callback.call(this, false, response.status);
+    nets({
+        url: this.baseURL + '/compound/members/pages?' + Utils.encodeParams(params),
+        method: "GET",
+        // 30 second timeout just in case
+        timeout: 30000,
+        headers: {
+            "Accept": "application/json"
+        }
+    }, function(err, resp, body) {
+        if (resp.statusCode === 200) {
+            callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
+        } else {
+            callback.call(this, false, resp.statusCode);
+        }
     });
 }
 
@@ -175,13 +199,13 @@ Openphacts.CompoundSearch.prototype.compoundClassMembers = function(URI, page, p
  * @param {requestCallback} callback - Function that will be called with the result
  * @method
  * @example
- * var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
+ * var searcher = new CompoundSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
  * var callback=function(success, status, response){
  *     var pharmacologyResult == searcher.parseCompoundPharmacologyResponse(response);
  * };
  * searcher.compoundPharmacology('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 1, 20, null, null, callback);
  */
-Openphacts.CompoundSearch.prototype.compoundPharmacology = function(URI, assayOrganism, targetOrganism, activityType, activityValue, minActivityValue, minExActivityValue, maxActivityValue, maxExActivityValue, activityUnit, activityRelation, pChembl, minpChembl, minExpChembl, maxpChembl, maxExpChembl, targetType, page, pageSize, orderBy, lens, callback) {
+CompoundSearch.prototype.compoundPharmacology = function(URI, assayOrganism, targetOrganism, activityType, activityValue, minActivityValue, minExActivityValue, maxActivityValue, maxExActivityValue, activityUnit, activityRelation, pChembl, minpChembl, minExpChembl, maxpChembl, maxExpChembl, targetType, page, pageSize, orderBy, lens, callback) {
     params = {};
     params['_format'] = "json";
     params['app_key'] = this.appKey;
@@ -208,15 +232,20 @@ Openphacts.CompoundSearch.prototype.compoundPharmacology = function(URI, assayOr
     orderBy ? params['_orderBy'] = orderBy : '';
     lens ? params['_lens'] = lens : '';
 
-    var compoundQuery = $.ajax({
-        url: this.baseURL + '/compound/pharmacology/pages',
-        dataType: 'json',
-        cache: true,
-        data: params
-    }).done(function(response, status, request) {
-        callback.call(this, true, request.status, response.result);
-    }).fail(function(response, status, statusText) {
-        callback.call(this, false, response.status);
+    nets({
+        url: this.baseURL + '/compound/pharmacology/pages?' + Utils.encodeParams(params),
+        method: "GET",
+        // 30 second timeout just in case
+        timeout: 30000,
+        headers: {
+            "Accept": "application/json"
+        }
+    }, function(err, resp, body) {
+        if (resp.statusCode === 200) {
+            callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
+        } else {
+            callback.call(this, false, resp.statusCode);
+        }
     });
 }
 
@@ -243,13 +272,13 @@ Openphacts.CompoundSearch.prototype.compoundPharmacology = function(URI, assayOr
  * @param {requestCallback} callback - Function that will be called with the result
  * @method
  * @example
- * var searcher = new Openphacts.CompoundSearch("https://beta.openphacts.org/1.4", "appID", "appKey");
+ * var searcher = new CompoundSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
  * var callback=function(success, status, response){
  *     var pharmacologyResult == searcher.parseCompoundPharmacologyCountResponse(response);
  * };
  * searcher.compoundPharmacologyCount('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);
  */
-Openphacts.CompoundSearch.prototype.compoundPharmacologyCount = function(URI, assayOrganism, targetOrganism, activityType, activityValue, minActivityValue, minExActivityValue, maxActivityValue, maxExActivityValue, activityUnit, activityRelation, pChembl, minpChembl, minExpChembl, maxpChembl, maxExpChembl, targetType, lens, callback) {
+CompoundSearch.prototype.compoundPharmacologyCount = function(URI, assayOrganism, targetOrganism, activityType, activityValue, minActivityValue, minExActivityValue, maxActivityValue, maxExActivityValue, activityUnit, activityRelation, pChembl, minpChembl, minExpChembl, maxpChembl, maxExpChembl, targetType, lens, callback) {
     params = {};
     params['_format'] = "json";
     params['app_key'] = this.appKey;
@@ -273,15 +302,20 @@ Openphacts.CompoundSearch.prototype.compoundPharmacologyCount = function(URI, as
     targetType ? params['target_type'] = targetType : '';
     lens ? params['_lens'] = lens : '';
 
-    var compoundQuery = $.ajax({
-        url: this.baseURL + '/compound/pharmacology/count',
-        dataType: 'json',
-        cache: true,
-        data: params
-    }).done(function(response, status, request) {
-        callback.call(this, true, request.status, response.result);
-    }).fail(function(response, status, statusText) {
-        callback.call(this, false, response.status);
+    nets({
+        url: this.baseURL + '/compound/pharmacology/count?' + Utils.encodeParams(params),
+        method: "GET",
+        // 30 second timeout just in case
+        timeout: 30000,
+        headers: {
+            "Accept": "application/json"
+        }
+    }, function(err, resp, body) {
+        if (resp.statusCode === 200) {
+            callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
+        } else {
+            callback.call(this, false, resp.statusCode);
+        }
     });
 }
 
@@ -292,35 +326,39 @@ Openphacts.CompoundSearch.prototype.compoundPharmacologyCount = function(URI, as
  * @param {requestCallback} callback - Function that will be called with the result
  * @method
  */
-Openphacts.CompoundSearch.prototype.compoundClassifications = function(URI, tree, callback) {
-    var compoundQuery = $.ajax({
-        url: this.baseURL + '/compound/classifications',
-        dataType: 'json',
-        cache: true,
-        data: {
-            _format: "json",
-            uri: URI,
-            app_id: this.appID,
-            app_key: this.appKey,
-            tree: tree
-        },
-        success: function(response, status, request) {
-            callback.call(this, true, request.status, response.result);
-        },
-        error: function(request, status, error) {
-            callback.call(this, false, request.status);
+CompoundSearch.prototype.compoundClassifications = function(URI, tree, callback) {
+    params = {};
+    params['_format'] = "json";
+    params['app_key'] = this.appKey;
+    params['app_id'] = this.appID;
+    params['uri'] = URI;
+    params['tree'] = tree;
+
+    nets({
+        url: this.baseURL + '/compound/classifications?' + Utils.encodeParams(params),
+        method: "GET",
+        // 30 second timeout just in case
+        timeout: 30000,
+        headers: {
+            "Accept": "application/json"
+        }
+    }, function(err, resp, body) {
+        if (resp.statusCode === 200) {
+            callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
+        } else {
+            callback.call(this, false, resp.statusCode);
         }
     });
 }
 
 /**
- * Parse the results from {@link Openphacts.CompoundSearch#fetchCompound}
- * @param {Object} response - the JSON response from {@link Openphacts.CompoundSearch#fetchCompound}
+ * Parse the results from {@link CompoundSearch#fetchCompound}
+ * @param {Object} response - the JSON response from {@link CompoundSearch#fetchCompound}
  * @returns {FetchCompoundResponse} Containing the flattened response
  * @method
  */
-Openphacts.CompoundSearch.prototype.parseCompoundResponse = function(response) {
-    var constants = new Openphacts.Constants();
+CompoundSearch.prototype.parseCompoundResponse = function(response) {
+    var constants = new Constants();
     var drugbankData = {},
         chemspiderData = {},
         chemblData = {},
@@ -339,8 +377,7 @@ Openphacts.CompoundSearch.prototype.parseCompoundResponse = function(response) {
     } else if (constants.SRC_CLS_MAPPINGS[response.primaryTopic[constants.IN_DATASET]] === 'conceptWikiValue') {
         conceptWikiData = me.parseConceptwikiBlock(response.primaryTopic);
     }
-
-    Openphacts.arrayify(response.primaryTopic.exactMatch).forEach(function(match, i, allValues) {
+    Utils.arrayify(response.primaryTopic.exactMatch).forEach(function(match, i, allValues) {
         var src = match[constants.IN_DATASET];
         if (constants.SRC_CLS_MAPPINGS[src] == 'drugbankValue') {
             drugbankData = me.parseDrugbankBlock(match);
@@ -385,13 +422,13 @@ Openphacts.CompoundSearch.prototype.parseCompoundResponse = function(response) {
 }
 
 /**
- * Parse the results from {@link Openphacts.CompoundSearch#fetchCompound} which have a lens applied
- * @param {Object} response - the JSON response from {@link Openphacts.CompoundSearch#fetchCompound}
+ * Parse the results from {@link CompoundSearch#fetchCompound} which have a lens applied
+ * @param {Object} response - the JSON response from {@link CompoundSearch#fetchCompound}
  * @returns {FetchCompoundLensResponse} Containing the flattened response
  * @method
  */
-Openphacts.CompoundSearch.prototype.parseCompoundLensResponse = function(response) {
-    var constants = new Openphacts.Constants();
+CompoundSearch.prototype.parseCompoundLensResponse = function(response) {
+    var constants = new Constants();
     var drugbankData, chemspiderData, chemblData, conceptWikiData;
 
     // There will be many different compounds due to the lens but at this stage there is no way of connecting
@@ -600,8 +637,8 @@ Openphacts.CompoundSearch.prototype.parseCompoundLensResponse = function(respons
     };
 }
 
-Openphacts.CompoundSearch.prototype.parseDrugbankBlock = function(drugbankBlock) {
-    var constants = new Openphacts.Constants();
+CompoundSearch.prototype.parseDrugbankBlock = function(drugbankBlock) {
+    var constants = new Constants();
     var URI = null,
         description = null,
         biotransformationItem = null,
@@ -637,8 +674,8 @@ Openphacts.CompoundSearch.prototype.parseDrugbankBlock = function(drugbankBlock)
 
 }
 
-Openphacts.CompoundSearch.prototype.parseChemspiderBlock = function(chemspiderBlock) {
-    var constants = new Openphacts.Constants();
+CompoundSearch.prototype.parseChemspiderBlock = function(chemspiderBlock) {
+    var constants = new Constants();
     var URI = null,
         hba = null,
         hbd = null,
@@ -700,8 +737,8 @@ Openphacts.CompoundSearch.prototype.parseChemspiderBlock = function(chemspiderBl
 
 }
 
-Openphacts.CompoundSearch.prototype.parseChemblBlock = function(chemblBlock) {
-    var constants = new Openphacts.Constants();
+CompoundSearch.prototype.parseChemblBlock = function(chemblBlock) {
+    var constants = new Constants();
     var mwFreebase = null;
     var chemblData = chemblBlock;
     var URI = chemblData[constants.ABOUT];
@@ -722,8 +759,8 @@ Openphacts.CompoundSearch.prototype.parseChemblBlock = function(chemblBlock) {
     };
 }
 
-Openphacts.CompoundSearch.prototype.parseConceptwikiBlock = function(conceptwikiBlock) {
-    var constants = new Openphacts.Constants();
+CompoundSearch.prototype.parseConceptwikiBlock = function(conceptwikiBlock) {
+    var constants = new Constants();
     var conceptWikiData = conceptwikiBlock;
     var prefLabel = conceptWikiData.prefLabel != null ? conceptWikiData.prefLabel : prefLabel;
     var URI = conceptWikiData[constants.ABOUT] != null ? conceptWikiData[constants.ABOUT] : cwURI;
@@ -743,13 +780,13 @@ Openphacts.CompoundSearch.prototype.parseConceptwikiBlock = function(conceptwiki
 }
 
 /**
- * Parse the results from {@link Openphacts.CompoundSearch#fetchCompoundBatch}
- * @param {Object} response - the JSON response from {@link Openphacts.CompoundSearch#fetchCompoundBatch}
+ * Parse the results from {@link CompoundSearch#fetchCompoundBatch}
+ * @param {Object} response - the JSON response from {@link CompoundSearch#fetchCompoundBatch}
  * @returns {FetchCompoundBatchResponse} Containing the flattened response
  * @method
  */
-Openphacts.CompoundSearch.prototype.parseCompoundBatchResponse = function(response) {
-    var constants = new Openphacts.Constants();
+CompoundSearch.prototype.parseCompoundBatchResponse = function(response) {
+    var constants = new Constants();
     var compounds = [];
     response.items.forEach(function(item, index, items) {
         var id = null,
@@ -917,16 +954,15 @@ Openphacts.CompoundSearch.prototype.parseCompoundBatchResponse = function(respon
 }
 
 /**
- * Parse the results from {@link Openphacts.CompoundSearch#fetchCompoundPharmacology}
- * @param {Object} response - the JSON response from {@link Openphacts.CompoundSearch#fetchCompoundPharmacology}
+ * Parse the results from {@link CompoundSearch#fetchCompoundPharmacology}
+ * @param {Object} response - the JSON response from {@link CompoundSearch#fetchCompoundPharmacology}
  * @returns {FetchCompoundPharmacologyResponse} Containing the flattened response
  * @method
  */
-Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyResponse = function(response) {
+CompoundSearch.prototype.parseCompoundPharmacologyResponse = function(response) {
     var drugbankProvenance, chemspiderProvenance, chemblProvenance, conceptwikiProvenance;
-    var constants = new Openphacts.Constants();
+    var constants = new Constants();
     var records = [];
-
     response.items.forEach(function(item, i, items) {
 
         chemblProvenance = {};
@@ -981,10 +1017,7 @@ Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyResponse = function
         var chemblMolecule = em != null ? em[constants.ABOUT] : null;
         if (em != null) {
             // the exact match block may only have 1 entry
-            if (!Array.isArray(em)) {
-                em = [em];
-            }
-            em.forEach(function(match, index, matches) {
+            Utils.arrayify(em).forEach(function(match, index, matches) {
                 var src = match[constants.IN_DATASET];
                 if (constants.SRC_CLS_MAPPINGS[src] == 'conceptWikiValue') {
                     cw_compound_uri = match[constants.ABOUT];
@@ -1049,7 +1082,7 @@ Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyResponse = function
                 target_provenance = 'https://www.ebi.ac.uk/chembl/target/inspect/' + target._about.split('/').pop();
 		target_organism_name = target.targetOrganismName != null ? target.targetOrganismName : null;
 		if (target.hasTargetComponent != null) {
-			Openphacts.arrayify(target.hasTargetComponent).forEach(function(targetComponent, i) {
+			Utils.arrayify(target.hasTargetComponent).forEach(function(targetComponent, i) {
 				var tc = {};
 				tc.uri = targetComponent._about;
 				if (targetComponent.exactMatch != null) {
@@ -1131,33 +1164,33 @@ Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyResponse = function
 }
 
 /**
- * Parse the results from {@link Openphacts.CompoundSearch#compoundPharmacologyCount}
- * @param {Object} response - the JSON response from {@link Openphacts.CompoundSearch#compoundPharmacologyCount}
+ * Parse the results from {@link CompoundSearch#compoundPharmacologyCount}
+ * @param {Object} response - the JSON response from {@link CompoundSearch#compoundPharmacologyCount}
  * @returns {Number} Count of the number of pharmacology entries for the compound
  * @method
  */
-Openphacts.CompoundSearch.prototype.parseCompoundPharmacologyCountResponse = function(response) {
+CompoundSearch.prototype.parseCompoundPharmacologyCountResponse = function(response) {
     return response.primaryTopic.compoundPharmacologyTotalResults;
 }
 
 /**
- * Parse the results from {@link Openphacts.CompoundSearch#compoundClassMembersCount}
- * @param {Object} response - the JSON response from {@link Openphacts.CompoundSearch#compoundClassMembersCount}
+ * Parse the results from {@link CompoundSearch#compoundClassMembersCount}
+ * @param {Object} response - the JSON response from {@link CompoundSearch#compoundClassMembersCount}
  * @returns {Number} Count of the number of compounds classified for a particular class
  * @method
  */
-Openphacts.CompoundSearch.prototype.parseCompoundClassMembersCountResponse = function(response) {
+CompoundSearch.prototype.parseCompoundClassMembersCountResponse = function(response) {
     return response.primaryTopic.memberCount;
 }
 
 /**
- * Parse the results from {@link Openphacts.CompoundSearch#compoundClassMembers}
- * @param {Object} response - the JSON response from {@link Openphacts.CompoundSearch#compoundClassMembers}
+ * Parse the results from {@link CompoundSearch#compoundClassMembers}
+ * @param {Object} response - the JSON response from {@link CompoundSearch#compoundClassMembers}
  * @returns {Number} Compounds classified for a particular class
  * @method
  */
-Openphacts.CompoundSearch.prototype.parseCompoundClassMembersResponse = function(response) {
-    var constants = new Openphacts.Constants();
+CompoundSearch.prototype.parseCompoundClassMembersResponse = function(response) {
+    var constants = new Constants();
     var compounds = [];
     response.items.forEach(function(item, index, array) {
         compounds.push({
@@ -1167,3 +1200,4 @@ Openphacts.CompoundSearch.prototype.parseCompoundClassMembersResponse = function
     });
     return compounds;
 }
+exports.CompoundSearch = CompoundSearch;

@@ -1,10 +1,23 @@
-Openphacts.Version = function Version() {
+//This content is released under the MIT License, http://opensource.org/licenses/MIT. See licence.txt for more details.
+
+/**
+ * @constructor
+ * @license [MIT]{@link http://opensource.org/licenses/MIT}
+ * @author [Ian Dunlop]{@link https://github.com/ianwdunlop}
+ */
+Version = function Version() {
  
 };
 
-Openphacts.Version.prototype.information = function() {
+/**
+ * Provides metadata and version information about this release of OPS.js.
+ * @method
+ * @example
+ * new Version().information();
+ */
+Version.prototype.information = function() {
 	return {
-               "version": "5.0.2", 
+               "version": "6.0.0", 
                "author": "Ian Dunlop",
 	       "ORCID": "http://orcid.org/0000-0001-7066-3350",
                "title": "OPS.js",
@@ -13,8 +26,10 @@ Openphacts.Version.prototype.information = function() {
                "organization": "School of Computer Science",
                "address": "University of Manchester, UK",
                "year": "2015",
-               "month": "April",
+               "month": "July",
                "url": "http://github.com/openphacts/ops.js",
                "LDA-version": "1.5"
            }; 
 };
+
+exports.Version = Version;

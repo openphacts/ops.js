@@ -1,12 +1,13 @@
+var Openphacts = require("../../../src/OPS.js");
 describe("Disease search", function() {
 
     var searcher, appID, appKey, appUrl;
 
     beforeEach(function() {
-        appID = $.url().param('app_id');
-        appKey = $.url().param('app_key');
-        appUrl = $.url().param('app_url');
-        searcher = new Openphacts.DiseaseSearch(appUrl, appID, appKey);
+        appID = process.env['app_id'];
+        appKey = process.env['app_key'];
+        appUrl = process.env['app_url'];
+	searcher = new DiseaseSearch(appUrl, appID, appKey);
     });
     describe("single disease search", function() {
 

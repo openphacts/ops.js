@@ -1,11 +1,12 @@
+var Openphacts = require("../../../src/OPS.js");
 describe("Map", function() {
   var searcher, appID, appKey, appUrl;
 
   beforeEach(function() {
-      appID = $.url().param('app_id');
-      appKey = $.url().param('app_key');
-      appUrl = $.url().param('app_url');
-      searcher = new Openphacts.MapSearch(appUrl, appID, appKey);
+        appID = process.env['app_id'];
+        appKey = process.env['app_key'];
+        appUrl = process.env['app_url'];
+      searcher = new MapSearch(appUrl, appID, appKey);
   });
 
   describe("list of mapped urls", function() {
