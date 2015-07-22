@@ -25,7 +25,7 @@ We love receiving patches for bug fixes and new features. Please follow these si
 5. Submit patch.
 
 ## Citations  
-To cite OPS.js in publications please see (the zenodo DOI)[https://zenodo.org/record/21008#.Va955flVhBc "OPS.js zenodo record"].
+To cite OPS.js in publications please see [the zenodo record](https://zenodo.org/record/21008#.Va955flVhBc "OPS.js zenodo record").
 
 >Ian Dunlop et al.. (2015). ops.js: OPS.js 6.0.1 for Open PHACTS 1.5 API. Zenodo. 10.5281/zenodo.21008
 
