@@ -1,4 +1,4 @@
-# OPS.js [![Build Status](https://travis-ci.org/openphacts/ops.js.svg?branch=develop)](https://travis-ci.org/openphacts/ops.js) [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.21004.svg)](http://dx.doi.org/10.5281/zenodo.21004)
+# OPS.js [![Build Status](https://travis-ci.org/openphacts/ops.js.svg?branch=develop)](https://travis-ci.org/openphacts/ops.js) [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.21008.svg)](http://dx.doi.org/10.5281/zenodo.21008)
 
 ## Open PHACTS API Version
 
@@ -25,22 +25,27 @@ We love receiving patches for bug fixes and new features. Please follow these si
 5. Submit patch.
 
 ## Citations  
-To cite OPS.js in publications please use:  
+To cite OPS.js in publications please see (the zenodo DOI)[https://zenodo.org/record/21008#.Va955flVhBc "OPS.js zenodo record"].
 
->Ian Dunlop. OPS.js. 6.0.1. Javascript library for accessing the Open PHACTS Linked Data API. University of Manchester. http://github.com/openphacts/ops.js
+>Ian Dunlop et al.. (2015). ops.js: OPS.js 6.0.1 for Open PHACTS 1.5 API. Zenodo. 10.5281/zenodo.21008
 
-Bibtex:
+For Bibtex use:
 
->@Manual{,  
->title = {OPS.js 6.0.1: Javascript library for accessing the Open PHACTS Linked Data API},  
->author = {{Ian Dunlop}},  
->organization = {School of Computer Science},  
->address = {University of Manchester, United Kingdom},  
->year = 2015,  
->url = {http://github.com/openphacts/ops.js}  
+>@misc{ian_dunlop_2015_21008,  
+>  author       = {Ian Dunlop and  
+>                  Egon Willighagen and  
+>                  Elblood and  
+>                  andrawaag and  
+>                  Stian Soiland-Reyes and  
+>                  PANDORINO},  
+>  title        = {ops.js: OPS.js 6.0.1 for Open PHACTS 1.5 API},  
+>  month        = jul,  
+>  year         = 2015,  
+>  doi          = {10.5281/zenodo.21008},  
+>  url          = {http://dx.doi.org/10.5281/zenodo.21008}  
 >} 
 
-You can also load OPS.js in to a browser (or Node) and enter the following console command:
+You can get version information by using an OPS.js method in a browser or Node:
 
 `new Version().information()`
 
@@ -56,7 +61,7 @@ Look at https://dev.openphacts.org for more information about the source methods
 [Jasmine](http://pivotal.github.io/jasmine/ "Jasmine javascript testing framework") is used to test the ops.js api. There are various test runners which can be used, they
 are contained within the 'test' directory with the specs for the tests in the 'test/spec' directory. To run them us jasmine-node like this:
 
-jasmine-node --config app_id your_app_id --config app_key your_app_key --config app_url https://beta.openphacts.org/1.4 test/spec/integration/
+jasmine-node --config app_id your_app_id --config app_key your_app_key --config app_url https://beta.openphacts.org/1.5 test/spec/integration/
 
 ## API call examples:
 
