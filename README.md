@@ -53,8 +53,7 @@ Look at https://dev.openphacts.org for more information about the source methods
 
 ## Testing the library
 
-[Jasmine](http://pivotal.github.io/jasmine/ "Jasmine javascript testing framework") is used to test the ops.js api. There are various test runners which can be used, they
-are contained within the 'test' directory with the specs for the tests in the 'test/spec' directory. To run them us jasmine-node like this:
+[Jasmine](http://pivotal.github.io/jasmine/ "Jasmine javascript testing framework") is used to test the ops.js api. The specs for the tests are in the 'test/spec' directory. To run them use jasmine-node like this:
 
 jasmine-node --config app_id your_app_id --config app_key your_app_key --config app_url https://beta.openphacts.org/1.4 test/spec/integration/
 
