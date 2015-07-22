@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: ActivitySearch.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: ActivitySearch.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>//This content is released under the MIT License, http://opensource.org/licenses/MIT. See licence.txt for more details.
+var Utils = require("./Utils");
+var Constants = require("./Constants");
+var nets = require("nets");
+
+/**
+ * @constructor
+ * @param {string} baseURL - URL for the Open PHACTS API
+ * @param {string} appID - Application ID for the application being used. Created by {@link https://dev.openphacts.org}
+ * @param {string} appKey - Application Key for the application ID.
+ * @license [MIT]{@link http://opensource.org/licenses/MIT}
+ * @author [Ian Dunlop]{@link https://github.com/ianwdunlop}
+ */
+ActivitySearch = function ActivitySearch(baseURL, appID, appKey) {
+	this.baseURL = baseURL;
+	this.appID = appID;
+	this.appKey = appKey;
+}
+
+ActivitySearch.prototype.getTypes = function(activityUnit, page, pageSize, orderBy, lens, callback) {
+    params={};
+    params['_format'] = "json";
+    params['app_key'] = this.appKey;
+    params['app_id'] = this.appID;
+    activityUnit ? params['activity_unit'] = activityUnit : '';
+    page ? params['_page'] = page : '';
+    pageSize ? params['_pageSize'] = pageSize : '';
+    orderBy ? params['_orderBy'] = orderBy : '';
+    lens ? params['_lens'] = lens : '';
+    nets({
+        url: this.baseURL + '/pharmacology/filters/activities?' + Utils.encodeParams(params),
+        method: "GET",
+        // 30 second timeout just in case
+        timeout: 30000,
+        headers: {
+            "Accept": "application/json"
+        }
+    }, function(err, resp, body) {
+        if (resp.statusCode === 200) {
+            callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
+        } else {
+            callback.call(this, false, resp.statusCode);
+        }
+    });
+
+}
+
+ActivitySearch.prototype.getUnits = function(activityType, lens, callback) {
+    params={};
+    params['_format'] = "json";
+    params['app_key'] = this.appKey;
+    params['app_id'] = this.appID;
+    lens ? params['_lens'] = lens : '';
+    var unitsURL = null;
+    activityType != null ? unitsURL = '/pharmacology/filters/units/' + activityType : unitsURL = '/pharmacology/filters/units';
+    nets({
+        url: this.baseURL + unitsURL + '?' + Utils.encodeParams(params),
+        method: "GET",
+        // 30 second timeout just in case
+        timeout: 30000,
+        headers: {
+            "Accept": "application/json"
+        }
+    }, function(err, resp, body) {
+        if (resp.statusCode === 200) {
+            callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
+        } else {
+            callback.call(this, false, resp.statusCode);
+        }
+    });
+
+}
+
+ActivitySearch.prototype.getAllUnits = function(page, pageSize, orderBy, lens, callback) {
+    params={};
+    params['_format'] = "json";
+    params['app_key'] = this.appKey;
+    params['app_id'] = this.appID;
+    lens ? params['_lens'] = lens : '';
+    page ? params['_page'] = page : '';
+    pageSize ? params['_pageSize'] = pageSize : '';
+    orderBy ? params['_orderBy'] = orderBy : '';
+    nets({
+        url: this.baseURL + '/pharmacology/filters/units?' + Utils.encodeParams(params),
+        method: "GET",
+        // 30 second timeout just in case
+        timeout: 30000,
+        headers: {
+            "Accept": "application/json"
+        }
+    }, function(err, resp, body) {
+        if (resp.statusCode === 200) {
+            callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
+        } else {
+            callback.call(this, false, resp.statusCode);
+        }
+    });
+
+}
+
+ActivitySearch.prototype.parseTypes = function(response) {
+    var activityTypes = [];
+	    Utils.arrayify(response.items).forEach(function(item, i) {
+          activityTypes.push({uri: item["_about"], label: item.label});
+	    });
+	return activityTypes;
+}
+
+ActivitySearch.prototype.parseUnits = function(response) {
+    var units = [];
+	response.primaryTopic.unit.forEach(function(type, i) {
+            units.push({uri: type["_about"], label: type.label});
+	});
+	return units;
+}
+
+ActivitySearch.prototype.parseAllUnits = function(response) {
+    var units = [];
+	response.items.forEach(function(item, i) {
+            units.push({uri: item["_about"], label: item.label});
+	});
+	return units;
+}
+
+exports.ActivitySearch = ActivitySearch;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ActivitySearch.html">ActivitySearch</a></li><li><a href="CompoundSearch.html">CompoundSearch</a></li><li><a href="ConceptWikiSearch.html">ConceptWikiSearch</a></li><li><a href="DataSources.html">DataSources</a></li><li><a href="DiseaseSearch.html">DiseaseSearch</a></li><li><a href="MapSearch.html">MapSearch</a></li><li><a href="PathwaySearch.html">PathwaySearch</a></li><li><a href="StructureSearch.html">StructureSearch</a></li><li><a href="TargetSearch.html">TargetSearch</a></li><li><a href="TissueSearch.html">TissueSearch</a></li><li><a href="TreeSearch.html">TreeSearch</a></li><li><a href="Version.html">Version</a></li></ul><h3>Namespaces</h3><ul><li><a href="Openphacts.html">Openphacts</a></li></ul><h3>Global</h3><ul><li><a href="global.html#arrayify">arrayify</a></li><li><a href="global.html#encodeParams">encodeParams</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Wed Jul 22 2015 13:50:06 GMT+0100 (GMT Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

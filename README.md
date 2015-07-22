@@ -6,7 +6,7 @@
 
 ## About
 OPS.js is a javascript NodeJS based library for accessing the Open PHACTS Linked Data API (LDA). It uses [nets](https://www.npmjs.com/package/nets) to handle the asynchronous network calls. OPS.js can also be used to parse responses from the LDA.
-Please read the [API documentation](http://openphacts.github.io/ops.js "OPS.js API documentation").
+Please read the [API documentation](http://openphacts.github.io/ops.js "OPS.js API documentation"). The API documentation is also available locally within the `docs` folder. To view them open the `docs/index.html` file in a browser.
  
 ## Dependencies & requirements
 [NodeJS](https://nodejs.org/), [NPM](https://www.npmjs.com/), [nets](https://www.npmjs.com/package/nets), [JSDoc](https://www.npmjs.com/package/jsdoc) & [browserify](https://www.npmjs.com/package/browserify)
@@ -58,8 +58,7 @@ Look at https://dev.openphacts.org for more information about the source methods
 
 ## Testing the library
 
-[Jasmine](http://pivotal.github.io/jasmine/ "Jasmine javascript testing framework") is used to test the ops.js api. There are various test runners which can be used, they
-are contained within the 'test' directory with the specs for the tests in the 'test/spec' directory. To run them us jasmine-node like this:
+[Jasmine](http://pivotal.github.io/jasmine/ "Jasmine javascript testing framework") is used to test the ops.js api. The specs for the tests are in the 'test/spec' directory. To run them use jasmine-node like this:
 
 jasmine-node --config app_id your_app_id --config app_key your_app_key --config app_url https://beta.openphacts.org/1.5 test/spec/integration/
 
