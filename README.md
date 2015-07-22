@@ -1,4 +1,4 @@
-# OPS.js [![Build Status](https://travis-ci.org/openphacts/ops.js.svg?branch=develop)](https://travis-ci.org/openphacts/ops.js) [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.14723.svg)](http://dx.doi.org/10.5281/zenodo.14723)
+# OPS.js [![Build Status](https://travis-ci.org/openphacts/ops.js.svg?branch=develop)](https://travis-ci.org/openphacts/ops.js) [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.21004.svg)](http://dx.doi.org/10.5281/zenodo.21004)
 
 ## Open PHACTS API Version
 
@@ -153,4 +153,7 @@ searcher.exact('CNC(=O)c1cc(ccn1)Oc2ccc(cc2)NC(=O)Nc3ccc(c(c3)C(F)(F)F)Cl', 0, c
 ## Contributors
 [Rishi Ramgolam](https://github.com/rishiramgolam "rishiramgolam")  
 [Elblood](https://github.com/Elblood "Elblood")  
-[Andra Waagmeester](https://github.com/andrawaag "andraawag")
+[Andra Waagmeester](https://github.com/andrawaag "andraawag")  
+[Egon Willighagen](https://github.com/egonw "egonw")  
+[PANDORINO](https://github.com/PANDORINO "PANDORINO")  
+[Stian Soiland-Reyes](https://github.com/stain "stain")
