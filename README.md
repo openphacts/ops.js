@@ -78,7 +78,7 @@ var callback=function(success, status, response){
 // limit to 20 results, species human (branch 4), with type set to compounds (uuid 07a800....)  
 searcher.byTag('Aspirin', '20', '4', '07a84994-e464-4bbf-812a-a4b96fa3d197', callback);
 ```
-```
+
 ### Compound information
 
 ```javascript
