@@ -1,4 +1,6 @@
 var Openphacts = require("../../../src/OPS.js");
+jasmine.getEnv().defaultTimeoutInterval = 30000;
+
 describe("Trees", function() {
   var searcher, appID, appKey, appUrl;
 
