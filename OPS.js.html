@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>JSDoc: Source: OPS.js</title>
-    
+
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
     <!--[if lt IE 9]>
@@ -16,24 +16,41 @@
 <body>
 
 <div id="main">
-    
+
     <h1 class="page-title">Source: OPS.js</h1>
+
     
-    
+
 
 
     
     <section>
         <article>
-            <pre class="prettyprint source"><code>//This content is released under the MIT License, http://opensource.org/licenses/MIT. See licence.txt for more details.
+            <pre class="prettyprint source linenums"><code>//This content is released under the MIT License, http://opensource.org/licenses/MIT. See licence.txt for more details.
 /**
  * Main container of the OPS.js library. It is the parent class for all the components.
- * 
+ *
  * @namespace
  * @license [MIT]{@link http://opensource.org/licenses/MIT}
- * @author Ian Dunlop 
+ * @author [Ian Dunlop]{@link https://github.com/ianwdunlop}
  */
-var Openphacts = Openphacts || {};
+
+var Openphacts = {} || Openphacts;
+Openphacts.CompoundSearch = require("./CompoundSearch");
+Openphacts.TargetSearch = require("./TargetSearch");
+Openphacts.ConceptWikiSearch = require("./ConceptWikiSearch");
+Openphacts.TreeSearch = require("./TreeSearch");
+Openphacts.PathwaySearch = require("./PathwaySearch");
+Openphacts.StructureSearch = require("./StructureSearch");
+Openphacts.TissueSearch = require("./TissueSearch");
+Openphacts.ActivitySearch = require("./ActivitySearch");
+Openphacts.DataSources = require("./DataSources");
+Openphacts.DiseaseSearch = require("./DiseaseSearch");
+Openphacts.MapSearch = require("./MapSearch");
+Openphacts.Version = require("./Version");
+
+module.exports = Openphacts;
+
 /**
  * General callback for any request
  * @callback requestCallback
@@ -42,7 +59,7 @@ var Openphacts = Openphacts || {};
  * @param {string} response - Response message
  */
 /**
- * Contains data for a compound fetched with {@link Openphacts.CompoundSearch#fetchCompound}
+ * Contains data for a compound fetched with {@link CompoundSearch#fetchCompound}
  * @typedef {Object} FetchCompoundResponse
  * @property {string} cwURI - Concept Wiki URI which represents the compound
  * @property {string} prefLabel - The preferred label for the compound
@@ -71,7 +88,7 @@ var Openphacts = Openphacts || {};
  * @property {string} chemblProvenance - chemblProvenance
  */
 /**
- * Contains data for compounds fetched with {@link Openphacts.CompoundSearch#fetchCompoundBatch}
+ * Contains data for compounds fetched with {@link CompoundSearch#fetchCompoundBatch}
  * @typedef {Array.&lt;Object>} FetchCompoundBatchResponse
  * @property {string} cwURI - Concept Wiki URI which represents the compound
  * @property {string} prefLabel - The preferred label for the compound
@@ -101,7 +118,7 @@ var Openphacts = Openphacts || {};
  */
 
 /**
- * An array of pharmacology records for a compound returned from {@link Openphacts.CompoundSearch#compoundPharmacology}
+ * An array of pharmacology records for a compound returned from {@link CompoundSearch#compoundPharmacology}
  * @typedef {Array.&lt;Object>} FetchCompoundPharmacologyResponse
  * @property {string} compoundInchikey - compound_inchikey
  * @property {string} compoundDrugType - compound_drug_type
@@ -156,7 +173,7 @@ var Openphacts = Openphacts || {};
  * @property {string} chemblProvenance - chemblProvenance
  */
 /**
- * Contains data for a target fetched with {@link Openphacts.TargetSearch#fetchTarget}
+ * Contains data for a target fetched with {@link TargetSearch#fetchTarget}
  * @typedef {Object} FetchTargetResponse
  * @property {string} cellularLocation - cellularLocation
  * @property {string} molecularWeight - molecularWeight
@@ -181,7 +198,7 @@ var Openphacts = Openphacts || {};
  * @property {string} conceptwikiProvenance - conceptwikiProvenance
  */
 /**
- * Contains data for targets fetched with {@link Openphacts.TargetSearch#fetchTargetBatch}
+ * Contains data for targets fetched with {@link TargetSearch#fetchTargetBatch}
  * @typedef {Array.&lt;Object>} FetchTargetBatchResponse
  * @property {string} cellularLocation - cellularLocation
  * @property {string} molecularWeight - molecularWeight
@@ -205,6 +222,54 @@ var Openphacts = Openphacts || {};
  * @property {string} uniprotProvenance - uniprotProvenance
  * @property {string} conceptwikiProvenance - conceptwikiProvenance
  */
+/**
+ * Contains information about a single disease fetched with {@link DiseaseSearch#fetchDisease}
+ * @typedef {Object} FetchDiseaseResponse
+ * @property {string} URI - URI
+ * @property {string} name - name
+ * @property {Array} diseaseClass - diseaseClass
+ */
+/**
+ * Contains list of diseases for a single target fetched with {@link DiseaseSearch#diseasesByTarget}
+ * @typedef {Array.&lt;Object>} DiseasesByTargetResponse
+ * @property {string} URI - URI
+ * @property {string} name - name
+ * @property {Array.&lt;object>} gene - containing URI for the gene, link to the gene it encodes, encodesLabel and encodesProvenance link to where the label came from
+ */
+/** 
+ * Contains list of targets for a particular disease fetched with {@link DiseaseSearch#targetsByDisease}
+ * @typedef {Array.&lt;Object>} TargetsByDiseaseResponse
+ * @property {string} URI - URI
+ * @property {string} dataset - dataset
+ */
+/**
+ * Contains list of disease target associations for a target fetched with {@link DiseaseSearch#associationsByTarget} or disease fetched with {@link DiseaseSearch#associationsByDisease}
+ * @typedef {Array.&lt;Object>} AssociationsResponse
+ * @property {string} about - link to source files describing the disease-target associations
+ * @property {string} dataset - link to the void dataset describing the links between the diseases and other datasets
+ * @property {Array.&lt;string>} description - description
+ * @property {Array.&lt;DiseaseResponse>} disease - disease
+ * @property {Array.&lt;object>} gene - containing URI for the gene, link to the gene it encodes, encodesLabel and encodesProvenance link to where the label came from
+ * @property {Array.&lt;string>} pmid - pubmed ID
+ * @property {Array.&lt;string>} primarySource - primarySource
+ * @property {Array.&lt;Object>} type - containing URI and label
+ */
+/**
+ * Contains list of diseases contained within a {@link AssociationsResponse}
+ * @typedef {Array.&lt;Object>} DiseaseResponse
+ * @property {string} URI - link to the disease
+ * @property {string} dataset - source of the data
+ * @property {Array.&lt;Object>} diseaseClasses - containing URI, source dataset and name
+ */
+/**
+ * Contains various types of data about the compounds matching a source compound when a lens is applied using {@link CompoundSearch#fetchCompound}
+ * Note that the items in each list cannot be linked together but you can use the {@link MapSearch#mapURL} call to discover which items are about the same compound.
+ * @typedef {Array.&lt;Object>} FetchCompoundLensResponse
+ * @property {Array} lensChemspider - List of compounds from chemspider
+ * @property {Array} lensDrugbank - list of drugbank info items relating to the chemspider compounds
+ * @property {Array} lensCW - list of conceptwiki info about the compounds
+ * @property {Array} lensChembl - list of chembl info items about the compounds
+ */
 </code></pre>
         </article>
     </section>
@@ -215,13 +280,13 @@ var Openphacts = Openphacts || {};
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Openphacts.CompoundSearch.html">CompoundSearch</a></li><li><a href="Openphacts.TargetSearch.html">TargetSearch</a></li></ul><h3>Namespaces</h3><ul><li><a href="Openphacts.html">Openphacts</a></li></ul><h3><a href="global.html">Global</a></h3>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ActivitySearch.html">ActivitySearch</a></li><li><a href="CompoundSearch.html">CompoundSearch</a></li><li><a href="ConceptWikiSearch.html">ConceptWikiSearch</a></li><li><a href="DataSources.html">DataSources</a></li><li><a href="DiseaseSearch.html">DiseaseSearch</a></li><li><a href="MapSearch.html">MapSearch</a></li><li><a href="PathwaySearch.html">PathwaySearch</a></li><li><a href="StructureSearch.html">StructureSearch</a></li><li><a href="TargetSearch.html">TargetSearch</a></li><li><a href="TissueSearch.html">TissueSearch</a></li><li><a href="TreeSearch.html">TreeSearch</a></li><li><a href="Version.html">Version</a></li></ul><h3>Namespaces</h3><ul><li><a href="Openphacts.html">Openphacts</a></li></ul><h3>Global</h3><ul><li><a href="global.html#arrayify">arrayify</a></li><li><a href="global.html#encodeParams">encodeParams</a></li></ul>
 </nav>
 
-<br clear="both">
+<br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Mon Sep 29 2014 13:31:57 GMT+0100 (BST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Wed Jul 22 2015 13:50:06 GMT+0100 (GMT Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>

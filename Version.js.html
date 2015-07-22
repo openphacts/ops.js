@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Namespace: Openphacts</title>
+    <title>JSDoc: Source: Version.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,109 +17,53 @@
 
 <div id="main">
 
-    <h1 class="page-title">Namespace: Openphacts</h1>
+    <h1 class="page-title">Source: Version.js</h1>
 
     
 
 
 
-
-<section>
-
-<header>
     
-        <h2>
-        Openphacts
-        </h2>
-        
-    
-</header>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>//This content is released under the MIT License, http://opensource.org/licenses/MIT. See licence.txt for more details.
 
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description">Main container of the OPS.js library. It is the parent class for all the components.</div>
-        
+/**
+ * @constructor
+ * @license [MIT]{@link http://opensource.org/licenses/MIT}
+ * @author [Ian Dunlop]{@link https://github.com/ianwdunlop}
+ */
+Version = function Version() {
+ 
+};
 
-        
+/**
+ * Provides metadata and version information about this release of OPS.js.
+ * @method
+ * @example
+ * new Version().information();
+ */
+Version.prototype.information = function() {
+	return {
+               "version": "6.0.1", 
+               "author": "Ian Dunlop",
+	       "ORCID": "http://orcid.org/0000-0001-7066-3350",
+               "title": "OPS.js",
+               "description": "Javascript library for accessing the Open PHACTS Linked Data API",
+               "project": "Open PHACTS",
+               "organization": "School of Computer Science",
+               "address": "University of Manchester, UK",
+               "year": "2015",
+               "month": "July",
+               "url": "http://github.com/openphacts/ops.js",
+               "LDA-version": "1.5"
+           }; 
+};
 
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-author">Author:</dt>
-    <dd class="tag-author">
-        <ul>
-            <li><a href="https://github.com/ianwdunlop">Ian Dunlop</a></li>
-        </ul>
-    </dd>
-    
-
-    
-
-    
-    <dt class="tag-license">License:</dt>
-    <dd class="tag-license"><ul class="dummy"><li><a href="http://opensource.org/licenses/MIT">MIT</a></li></ul></dd>
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="OPS.js.html">OPS.js</a>, <a href="OPS.js.html#line10">line 10</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+exports.Version = Version;
+</code></pre>
+        </article>
+    </section>
 
 
 

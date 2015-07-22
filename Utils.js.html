@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Namespace: Openphacts</title>
+    <title>JSDoc: Source: Utils.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,109 +17,53 @@
 
 <div id="main">
 
-    <h1 class="page-title">Namespace: Openphacts</h1>
+    <h1 class="page-title">Source: Utils.js</h1>
 
     
 
 
 
-
-<section>
-
-<header>
     
-        <h2>
-        Openphacts
-        </h2>
-        
-    
-</header>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Check if some data is an array and return either itself if it is an array
+ * or an array with it as the first member if it is not. Used for the cases where
+ * the API returns either an array or a singleton.
+ * @param {Object}
+ * @returns {Array}
+ * @method
+ * @license [MIT]{@link http://opensource.org/licenses/MIT}
+ * @author [Ian Dunlop]{@link https://github.com/ianwdunlop}
+ */
+exports.arrayify = function(data) {
+    if (!Array.isArray(data)) {
+        return [data];
+    } else {
+        return data;;
+    }
+}
 
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description">Main container of the OPS.js library. It is the parent class for all the components.</div>
-        
-
-        
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-author">Author:</dt>
-    <dd class="tag-author">
-        <ul>
-            <li><a href="https://github.com/ianwdunlop">Ian Dunlop</a></li>
-        </ul>
-    </dd>
-    
-
-    
-
-    
-    <dt class="tag-license">License:</dt>
-    <dd class="tag-license"><ul class="dummy"><li><a href="http://opensource.org/licenses/MIT">MIT</a></li></ul></dd>
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="OPS.js.html">OPS.js</a>, <a href="OPS.js.html#line10">line 10</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+/**
+ * Turns an object containing key/value pairs into URI encoded 'key1=value1&amp;key2=value2...' parameters for
+ * an http request.
+ * @param {Object}
+ * @returns {String}
+ * @method
+ * @license [MIT]{@link http://opensource.org/licenses/MIT}
+ * @author [Ian Dunlop]{@link https://github.com/ianwdunlop}
+ */
+exports.encodeParams = function(params) {
+    var requestParams = "";
+    Object.keys(params).forEach(function(key, index) {
+        requestParams += key + "=" + encodeURIComponent(params[key]) + "&amp;";
+    });
+    requestParams = requestParams.substr(0, requestParams.length - 1);
+    return requestParams;
+}
+</code></pre>
+        </article>
+    </section>
 
 
 
