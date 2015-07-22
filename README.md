@@ -5,7 +5,7 @@
 1.5
 
 ## About
-OPS.js is a javascript based library for accessing the Open PHACTS Linked Data API (LDA). It uses [nets](https://www.npmjs.com/package/nets) to handle the asynchronous network calls. OPS.js can also be used to parse responses from the LDA.
+OPS.js is a javascript NodeJS based library for accessing the Open PHACTS Linked Data API (LDA). It uses [nets](https://www.npmjs.com/package/nets) to handle the asynchronous network calls. OPS.js can also be used to parse responses from the LDA.
 Please read the [API documentation](http://openphacts.github.io/ops.js "OPS.js API documentation").
  
 ## Dependencies & requirements
@@ -45,6 +45,7 @@ You can also load OPS.js in to a browser (or Node) and enter the following conso
 `new Version().information()`
 
 ## Using the library
+If running in a browser based application use `src/combined.js`. With NodeJS use `npm install ops.js`.  
 See the [API documentation](http://openphacts.github.io/ops.js "OPS.js API documentation")  
 
 Each API call generally has 1 method to fetch the results using an asynchronous call with a callback and then another method to parse these results.
