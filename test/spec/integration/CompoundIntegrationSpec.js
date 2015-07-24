@@ -1,4 +1,6 @@
 var Openphacts = require("../../../src/OPS.js");
+//var nock = require('nock');
+//nock.recorder.rec();
 jasmine.getEnv().defaultTimeoutInterval = 30000;
 
 describe("Compound search", function() {
