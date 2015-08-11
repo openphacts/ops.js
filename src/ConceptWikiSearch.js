@@ -32,8 +32,9 @@ ConceptWikiSearch.prototype.freeText = function(query, limit, branch, type, call
     params['app_key'] = this.appKey;
     params['app_id'] = this.appID;
     params['q'] = query;
-    limit ? params['limit'] = limit : '';
-    branch ? params['branch'] = branch : '';
+    limit ? params['l'] = limit : '';
+    branch ? params['b'] = branch : '';
+    type != null ? params['t'] = type : '';
     nets({
         url: this.baseURL + '/search?' + Utils.encodeParams(params),
         method: "GET",
