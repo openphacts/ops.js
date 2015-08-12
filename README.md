@@ -27,7 +27,7 @@ We love receiving patches for bug fixes and new features. Please follow these si
 ## Citations  
 To cite OPS.js in publications please see [the zenodo record](https://zenodo.org/record/21008#.Va955flVhBc "OPS.js zenodo record").
 
->Ian Dunlop et al.. (2015). ops.js: OPS.js 6.0.1 for Open PHACTS 1.5 API. Zenodo. 10.5281/zenodo.21008
+>Ian Dunlop et al.. (2015). ops.js: OPS.js 6.1.2 for Open PHACTS 1.5 API. Zenodo. 10.5281/zenodo.21008
 
 For Bibtex use:
 
@@ -38,7 +38,7 @@ For Bibtex use:
 >                  andrawaag and  
 >                  Stian Soiland-Reyes and  
 >                  PANDORINO},  
->  title        = {ops.js: OPS.js 6.0.1 for Open PHACTS 1.5 API},  
+>  title        = {ops.js: OPS.js 6.1.2 for Open PHACTS 1.5 API},  
 >  month        = jul,  
 >  year         = 2015,  
 >  doi          = {10.5281/zenodo.21008},  
