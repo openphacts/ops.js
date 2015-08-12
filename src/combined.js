@@ -1933,10 +1933,11 @@ function createXHR(options, callback) {
         // IE must die
     }
     xhr.ontimeout = errorFunc
-    xhr.open(method, uri, !sync)
+    xhr.open(method, uri, !sync, options.username, options.password)
     //has to be after open
-    xhr.withCredentials = !!options.withCredentials
-    
+    if(!sync) {
+        xhr.withCredentials = !!options.withCredentials
+    }
     // Cannot set timeout with sync request
     // not setting timeout on the xhr object, because of old webkits etc. not handling that correctly
     // both npm's request and jquery 1.x use this kind of timeout, so this is being consistent
@@ -4306,14 +4307,19 @@ DiseaseSearch.prototype.parseDiseasesByTargetResponse = function(response) {
         URI = item[constants.ABOUT];
         gene = {};
         gene["URI"] = item.forGene[constants.ABOUT];
-        gene["encodes"] = item.forGene.encodes[constants.ABOUT];
-        if (item.forGene.encodes.exactMatch != null) {
-            gene["encodesProvenance"] = item.forGene.encodes.exactMatch[constants.ABOUT] != null ? item.forGene.encodes.exactMatch[constants.ABOUT] : null;
-            gene["encodesLabel"] = item.forGene.encodes.exactMatch.prefLabel != null ? item.forGene.encodes.exactMatch.prefLabel : null;
+	gene["encodes"] = [];
+	Utils.arrayify(item.forGene.encodes).forEach(function(encode, i) {
+               var about = encode[constants.ABOUT];
+	    	if (encode.exactMatch != null) {
+               var provenance = encode.exactMatch[constants.ABOUT] != null ? item.forGene.encodes.exactMatch[constants.ABOUT] : null;
+               var label = encode.exactMatch.prefLabel != null ? item.forGene.encodes.exactMatch.prefLabel : null;
+	       gene["encodes"].push({"uri": about, "provenance": provenance, "label": label});
         } else {
-            gene["encodesProvenance"] = null;
-            gene["encodesLabel"] = null;
+		gene["encodes"].push({"uri": about});
+               gene["provenance"] = null;
+               gene["label"] = null;
         }
+	});
         diseases.push({
             "name": name,
             "URI": URI,
@@ -4777,7 +4783,7 @@ module.exports = Openphacts;
  * @typedef {Array.<Object>} DiseasesByTargetResponse
  * @property {string} URI - URI
  * @property {string} name - name
- * @property {Array.<object>} gene - containing URI for the gene, link to the gene it encodes, encodesLabel and encodesProvenance link to where the label came from
+ * @property {Array.<object>} gene - containing URI for the gene and an array of encoded genes with link to the gene it encodes, label and provenance link to where the label came from
  */
 /** 
  * Contains list of targets for a particular disease fetched with {@link DiseaseSearch#targetsByDisease}
@@ -7420,7 +7426,7 @@ Version = function Version() {
  */
 Version.prototype.information = function() {
 	return {
-               "version": "6.0.0", 
+               "version": "6.1.2", 
                "author": "Ian Dunlop",
 	       "ORCID": "http://orcid.org/0000-0001-7066-3350",
                "title": "OPS.js",
@@ -7429,7 +7435,7 @@ Version.prototype.information = function() {
                "organization": "School of Computer Science",
                "address": "University of Manchester, UK",
                "year": "2015",
-               "month": "July",
+               "month": "August",
                "url": "http://github.com/openphacts/ops.js",
                "LDA-version": "1.5"
            }; 
