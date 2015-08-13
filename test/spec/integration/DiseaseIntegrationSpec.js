@@ -209,18 +209,18 @@ expect(this_result.length).toBeGreaterThan(0);
             runs(function() {
                 expect(this_success).toBe(true);
                 expect(this_status).toBe(200);
-
                 // API contract states that these will be present
                 expect(this_result).toBeDefined();
                 expect(this_result.length).toBeGreaterThan(0);
                 expect(this_result[0].name).not.toBeNull();
                 expect(this_result[0].URI).not.toBeNull();
                 expect(this_result[0].gene).not.toBeNull();
-		expect(this_result[0].gene.URI).not.toBeNull();
 		expect(this_result[0].gene.encodes).not.toBeNull();
+		expect(this_result[0].gene.encodes[0]).not.toBeNull();
+		expect(this_result[0].gene.encodes[0].uri).not.toBeNull();
 		// encodesProvenance & encodesLabel are optional
-		expect(this_result[0].gene.encodesProvenance).toBeDefined();
-		expect(this_result[0].gene.encodesLabel).toBeDefined();
+		expect(this_result[0].gene.encodes[0].label).toBeDefined();
+		expect(this_result[0].gene.encodes[0].provenance).toBeDefined();
             });
             searcher.diseasesByTarget('http://purl.uniprot.org/uniprot/Q9Y5Y9', null, null, null, null, callback);
         });

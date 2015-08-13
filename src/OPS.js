@@ -206,7 +206,7 @@ module.exports = Openphacts;
  * @typedef {Array.<Object>} DiseasesByTargetResponse
  * @property {string} URI - URI
  * @property {string} name - name
- * @property {Array.<object>} gene - containing URI for the gene, link to the gene it encodes, encodesLabel and encodesProvenance link to where the label came from
+ * @property {Array.<object>} gene - containing URI for the gene and an array of encoded genes with link to the gene it encodes, label and provenance link to where the label came from
  */
 /** 
  * Contains list of targets for a particular disease fetched with {@link DiseaseSearch#targetsByDisease}

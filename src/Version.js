@@ -17,7 +17,7 @@ Version = function Version() {
  */
 Version.prototype.information = function() {
 	return {
-               "version": "6.0.2", 
+               "version": "6.1.2", 
                "author": "Ian Dunlop",
 	       "ORCID": "http://orcid.org/0000-0001-7066-3350",
                "title": "OPS.js",
@@ -26,7 +26,7 @@ Version.prototype.information = function() {
                "organization": "School of Computer Science",
                "address": "University of Manchester, UK",
                "year": "2015",
-               "month": "July",
+               "month": "August",
                "url": "http://github.com/openphacts/ops.js",
                "LDA-version": "1.5"
            }; 

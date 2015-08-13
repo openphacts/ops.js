@@ -515,14 +515,19 @@ DiseaseSearch.prototype.parseDiseasesByTargetResponse = function(response) {
         URI = item[constants.ABOUT];
         gene = {};
         gene["URI"] = item.forGene[constants.ABOUT];
-        gene["encodes"] = item.forGene.encodes[constants.ABOUT];
-        if (item.forGene.encodes.exactMatch != null) {
-            gene["encodesProvenance"] = item.forGene.encodes.exactMatch[constants.ABOUT] != null ? item.forGene.encodes.exactMatch[constants.ABOUT] : null;
-            gene["encodesLabel"] = item.forGene.encodes.exactMatch.prefLabel != null ? item.forGene.encodes.exactMatch.prefLabel : null;
+	gene["encodes"] = [];
+	Utils.arrayify(item.forGene.encodes).forEach(function(encode, i) {
+               var about = encode[constants.ABOUT];
+	    	if (encode.exactMatch != null) {
+               var provenance = encode.exactMatch[constants.ABOUT] != null ? item.forGene.encodes.exactMatch[constants.ABOUT] : null;
+               var label = encode.exactMatch.prefLabel != null ? item.forGene.encodes.exactMatch.prefLabel : null;
+	       gene["encodes"].push({"uri": about, "provenance": provenance, "label": label});
         } else {
-            gene["encodesProvenance"] = null;
-            gene["encodesLabel"] = null;
+		gene["encodes"].push({"uri": about});
+               gene["provenance"] = null;
+               gene["label"] = null;
         }
+	});
         diseases.push({
             "name": name,
             "URI": URI,
