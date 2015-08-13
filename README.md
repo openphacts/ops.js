@@ -25,13 +25,13 @@ We love receiving patches for bug fixes and new features. Please follow these si
 5. Submit patch.
 
 ## Citations  
-To cite OPS.js in publications please see [the zenodo record](https://zenodo.org/record/21396#.VbJPs_lVhBc "OPS.js zenodo record").
+To cite OPS.js in publications please see [the zenodo record](https://zenodo.org/record/27866#.VcyPCPlVhBc "OPS.js zenodo record").
 
->Ian Dunlop et al.. (2015). ops.js: OPS.js 6.1.2 for Open PHACTS 1.5 API. Zenodo. 10.5281/zenodo.21008
+>Ian Dunlop et al.. (2015). ops.js: OPS.js 6.1.2 for Open PHACTS 1.5 API. Zenodo. 10.5281/zenodo.27866
 
 For Bibtex use:
 
->@misc{ian_dunlop_2015_21008,  
+>@misc{ian_dunlop_2015_27866,  
 >  author       = {Ian Dunlop and  
 >                  Egon Willighagen and  
 >                  Elblood and  
@@ -41,8 +41,8 @@ For Bibtex use:
 >  title        = {ops.js: OPS.js 6.1.2 for Open PHACTS 1.5 API},  
 >  month        = aug,  
 >  year         = 2015,  
->  doi          = {10.5281/zenodo.21396},  
->  url          = {http://dx.doi.org/10.5281/zenodo.21396}  
+>  doi          = {10.5281/zenodo.27866},  
+>  url          = {http://dx.doi.org/10.5281/zenodo.27866}  
 >} 
 
 You can get version information by using an OPS.js method in a browser or Node:

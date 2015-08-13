@@ -1,4 +1,4 @@
-@misc{ian_dunlop_2015_21008,  
+@misc{ian_dunlop_2015_27866,  
 author       = {Ian Dunlop and  
                 Egon Willighagen and  
                 Elblood and  
@@ -8,6 +8,6 @@ author       = {Ian Dunlop and
 title        = {ops.js: OPS.js 6.1.2 for Open PHACTS 1.5 API},  
 month        = aug,  
 year         = 2015,  
-doi          = {10.5281/zenodo.21008},  
-url          = {http://dx.doi.org/10.5281/zenodo.21008}  
+doi          = {10.5281/zenodo.27866},  
+url          = {http://dx.doi.org/10.5281/zenodo.27866}  
 } 
