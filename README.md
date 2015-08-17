@@ -62,6 +62,19 @@ Look at https://dev.openphacts.org for more information about the source methods
 
 jasmine-node --config app_id your_app_id --config app_key your_app_key --config app_url https://beta.openphacts.org/1.5 test/spec/integration/
 
+### Testing with Docker
+
+If you use Docker, you can run the [openphacts/ops-api-test](https://hub.docker.com/r/openphacts/ops-api-test/) image
+to run the tests, without needing to install NodeJS. 
+
+Run with the `-it` parameter to get colour output. 
+You might want to override environment variables like `app_url`, `app_id` and `app_key`.
+Example:
+
+    docker run -it -e app_url=http://heater.cs.man.ac.uk:3002 openphacts/ops-api-test
+
+
+
 ## API call examples:
 
 More examples can be found in the integration tests and in the [API docs](http://openphacts.github.io/ops.js "OPS.js API documentation").
