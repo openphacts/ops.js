@@ -1,4 +1,4 @@
-FROM node:0.12-onbuild
+FROM node:0.10-onbuild
 
 # URI for API (without trailing /)
 ENV app_url http://beta.openphacts.org/1.5
