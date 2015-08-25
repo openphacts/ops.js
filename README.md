@@ -1,4 +1,4 @@
-# OPS.js [![Build Status](https://travis-ci.org/openphacts/ops.js.svg?branch=develop)](https://travis-ci.org/openphacts/ops.js) [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.21396.svg)](http://dx.doi.org/10.5281/zenodo.21396)
+# OPS.js [![Build Status](https://travis-ci.org/openphacts/ops.js.svg?branch=develop)](https://travis-ci.org/openphacts/ops.js) [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.21396.svg)](http://dx.doi.org/10.5281/zenodo.27866)
 
 ## Open PHACTS API Version
 
@@ -27,27 +27,31 @@ We love receiving patches for bug fixes and new features. Please follow these si
 ## Citations  
 To cite OPS.js in publications please see [the zenodo record](https://zenodo.org/record/27866#.VcyPCPlVhBc "OPS.js zenodo record").
 
->Ian Dunlop et al.. (2015). ops.js: OPS.js 6.1.2 for Open PHACTS 1.5 API. Zenodo. 10.5281/zenodo.27866
+>Ian Dunlop et al.. (2015). ops.js: OPS.js 6.1.3 for Open PHACTS 1.5 API. Zenodo. 10.5281/zenodo.27866
 
 For Bibtex use:
 
->@misc{ian_dunlop_2015_27866,  
->  author       = {Ian Dunlop and  
->                  Egon Willighagen and  
->                  Elblood and  
->                  andrawaag and  
->                  Stian Soiland-Reyes and  
->                  PANDORINO},  
->  title        = {ops.js: OPS.js 6.1.2 for Open PHACTS 1.5 API},  
->  month        = aug,  
->  year         = 2015,  
->  doi          = {10.5281/zenodo.27866},  
->  url          = {http://dx.doi.org/10.5281/zenodo.27866}  
->} 
+```latex
+@misc{ian_dunlop_2015_27866,  
+  author       = {Ian Dunlop and  
+                  Egon Willighagen and  
+                  Elblood and  
+                  andrawaag and  
+                  Stian Soiland-Reyes and  
+                  PANDORINO},  
+  title        = {ops.js: OPS.js 6.1.3 for Open PHACTS 1.5 API},  
+  month        = aug,  
+  year         = 2015,  
+  doi          = {10.5281/zenodo.27866},  
+  url          = {http://dx.doi.org/10.5281/zenodo.27866}  
+}
+``` 
 
 You can get version information by using an OPS.js method in a browser or Node:
 
-`new Version().information()`
+```javascript
+    new Version().information()
+```
 
 ## Using the library
 If running in a browser based application use `src/combined.js`. With NodeJS use `npm install ops.js`.  
@@ -60,7 +64,23 @@ Look at https://dev.openphacts.org for more information about the source methods
 
 [Jasmine](http://pivotal.github.io/jasmine/ "Jasmine javascript testing framework") is used to test the ops.js api. The specs for the tests are in the 'test/spec' directory. To run them use jasmine-node like this:
 
+```bash
 jasmine-node --config app_id your_app_id --config app_key your_app_key --config app_url https://beta.openphacts.org/1.5 test/spec/integration/
+```
+
+### Testing with Docker
+
+If you use Docker, you can run the [openphacts/ops-api-test](https://hub.docker.com/r/openphacts/ops-api-test/) image
+to run the tests, without needing to install NodeJS. 
+
+Run with the `-it` parameter to get colour output. 
+You might want to override environment variables like `app_url`, `app_id` and `app_key`.
+Example:
+
+```bash
+docker run -it -e app_url=http://heater.cs.man.ac.uk:3002 openphacts/ops-api-test
+```
+
 
 ## API call examples:
 

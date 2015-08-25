@@ -442,9 +442,9 @@ PathwaySearch.prototype.parseByCompoundResponse = function(response) {
         parts = item.hasPart;
         about = parts[constants.ABOUT];
         type = parts.type;
-        geneProductLabel = parts.exactMatch.prefLabel;
+        geneProductLabel = parts.exactMatch != null ? parts.exactMatch.prefLabel : null;
         geneProductURI = parts[constants.ABOUT];
-        geneProductCWURI = parts.exactMatch[constants.ABOUT];
+        geneProductCWURI = parts.exactMatch != null ? parts.exactMatch[constants.ABOUT] : null;
         organism = item.pathway_organism[constants.ABOUT];
         organismLabel = item.pathway_organism.label;
         description = item.description ? item.description : null;
