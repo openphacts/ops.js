@@ -1933,11 +1933,10 @@ function createXHR(options, callback) {
         // IE must die
     }
     xhr.ontimeout = errorFunc
-    xhr.open(method, uri, !sync, options.username, options.password)
+    xhr.open(method, uri, !sync)
     //has to be after open
-    if(!sync) {
-        xhr.withCredentials = !!options.withCredentials
-    }
+    xhr.withCredentials = !!options.withCredentials
+    
     // Cannot set timeout with sync request
     // not setting timeout on the xhr object, because of old webkits etc. not handling that correctly
     // both npm's request and jquery 1.x use this kind of timeout, so this is being consistent
@@ -5265,9 +5264,9 @@ PathwaySearch.prototype.parseByCompoundResponse = function(response) {
         parts = item.hasPart;
         about = parts[constants.ABOUT];
         type = parts.type;
-        geneProductLabel = parts.exactMatch.prefLabel;
+        geneProductLabel = parts.exactMatch != null ? parts.exactMatch.prefLabel : null;
         geneProductURI = parts[constants.ABOUT];
-        geneProductCWURI = parts.exactMatch[constants.ABOUT];
+        geneProductCWURI = parts.exactMatch != null ? parts.exactMatch[constants.ABOUT] : null;
         organism = item.pathway_organism[constants.ABOUT];
         organismLabel = item.pathway_organism.label;
         description = item.description ? item.description : null;
