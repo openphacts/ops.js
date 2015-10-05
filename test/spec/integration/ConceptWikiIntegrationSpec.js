@@ -8,7 +8,6 @@ describe("Concept Wiki", function() {
         appID = process.env['app_id'];
         appKey = process.env['app_key'];
         appUrl = process.env['app_url'];
-	console.log('1');
         searcher = new ConceptWikiSearch(appUrl, appID, appKey);
   });
 
@@ -30,12 +29,10 @@ describe("Concept Wiki", function() {
       });
 
       runs(function() {
-	      console.log('a');
         expect(this_success).toEqual(true);
         expect(this_status).toEqual(200);
         expect(this_result[0]).toBeDefined();
       });
-      console.log('2');
       searcher.findCompounds('Aspirin', '20', callback);
     });
  });
@@ -64,6 +61,7 @@ describe("Concept Wiki", function() {
         expect(this_result[0].uri).toBeDefined();
         expect(this_result[0].prefLabel).toBeDefined();
         expect(this_result[0].type).toBeDefined();
+	expect(this_result[0].originalType).toBeDefined();
       });
       searcher.findTargets('PDE5', '20', callback);
     });
@@ -95,21 +93,26 @@ describe("Concept Wiki", function() {
       var this_success = null;
       var this_status = null;
       var this_response = null;
+      var this_result = null;
 
       var callback=function(success, status, response){
         this_success = success;
         this_status = status;
-        this_response = response;
+        this_result = searcher.parseResponse(response);
       };
 
       waitsFor(function() {
-        return this_response != null;
+        return this_result != null;
       });
 
       runs(function() {
         expect(this_success).toEqual(true);
         expect(this_status).toEqual(200);
-        expect(this_response).not.toBeNull();
+        expect(this_result[0]).toBeDefined();
+        expect(this_result[0].uri).toBeDefined();
+        expect(this_result[0].prefLabel).toBeDefined();
+        expect(this_result[0].type).toBeDefined();
+	expect(this_result[0].originalType).toBeDefined();
       });
       searcher.freeText('Aspirin', 20, 'chebi', 'compound', callback);
     });
