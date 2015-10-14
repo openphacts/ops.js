@@ -37,6 +37,7 @@ CompoundSearch.prototype.fetchCompound = function(URI, lens, callback) {
     params['app_id'] = this.appID;
     params['uri'] = URI;
     lens ? params['_lens'] = lens : '';
+    console.log(this.baseURL + '/compound?' + Utils.encodeParams(params));
     nets({
         url: this.baseURL + '/compound?' + Utils.encodeParams(params),
         method: "GET",
@@ -49,6 +50,7 @@ CompoundSearch.prototype.fetchCompound = function(URI, lens, callback) {
         if (resp.statusCode === 200) {
             callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
         } else {
+		console.log('fail ' + err + ' ' + resp);
             callback.call(this, false, resp.statusCode);
         }
     });

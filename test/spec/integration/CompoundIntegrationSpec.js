@@ -41,7 +41,7 @@ describe("Compound search", function() {
                 //expect(this_result.chemblURI).not.toBeNull();
                 expect(this_result.inchiKey).not.toBeNull();
                 //expect(this_result.drugbankURI).not.toBeNull();
-
+console.log('1');
                 // API contract implies that prefLabel, chemblURI & drugbankURI  should be present but this is not the case in 1.4 API
                 expect(this_result.chemblURI).toBeDefined();
                 expect(this_result.prefLabel).toBeDefined();
@@ -55,12 +55,14 @@ describe("Compound search", function() {
                 expect(this_result.psa).toBeDefined();
                 expect(this_result.ro5Violations).toBeDefined();
                 expect(this_result.hba).toBeDefined();
+		console.log('2');
                 expect(this_result.hbd).toBeDefined();
                 expect(this_result.description).toBeDefined();
                 expect(this_result.biotransformationItem).toBeDefined();
                 expect(this_result.toxicity).toBeDefined();
                 expect(this_result.proteinBinding).toBeDefined();
                 expect(this_result.drugbankURI).toBeDefined();
+		console.log('3');
             });
             searcher.fetchCompound('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a46a-4ed1d7bdf9d5', null, callback);
         });
@@ -108,6 +110,7 @@ describe("Compound search", function() {
                 expect(this_result.toxicity).toBeDefined();
                 expect(this_result.proteinBinding).toBeDefined();
                 expect(this_result.drugbankURI).toBeDefined();
+		console.log('4');
             });
             searcher.fetchCompound('http://ops.rsc.org/OPS2954', null, callback);
         });
@@ -259,6 +262,7 @@ describe("Compound search", function() {
                 return this_result != null;
             });
             runs(function() {
+		    console.log('multi comp');
                 expect(this_success).toBe(true);
                 expect(this_status).toBe(200);
                 expect(this_result).not.toBeNull();
@@ -425,6 +429,7 @@ describe("Compound search", function() {
                 return this_result != null;
             });
             runs(function() {
+		    console.log('comp pharma');
                 expect(this_success).toEqual(true);
                 expect(this_status).toEqual(200);
                 expect(this_result[0]).toBeDefined();
