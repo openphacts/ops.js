@@ -518,12 +518,19 @@ describe("Trees", function() {
       var this_status = null;
       var this_result = null;
       var callback=function(success, status, response){
-        this_success = success;
-	this_status = status;
-        this_result = searcher.parseTargetClassPharmacologyPaginated(response);
+          // Handle backend issues like timeouts with empty responses
+	  if (success === true) {
+              this_success = success;
+	      this_status = status;
+              this_result = searcher.parseTargetClassPharmacologyPaginated(response);
+	  } else {
+              this_success = success;
+	      this_status = status;
+              this_result = {};
+	  }
       };
       waitsFor(function() {
-        return this_success != null;
+        return this_result != null;
       });
       runs(function() {
         //TODO need the mandatory and optional values from the api docs
