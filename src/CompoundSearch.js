@@ -37,7 +37,6 @@ CompoundSearch.prototype.fetchCompound = function(URI, lens, callback) {
     params['app_id'] = this.appID;
     params['uri'] = URI;
     lens ? params['_lens'] = lens : '';
-    console.log(this.baseURL + '/compound?' + Utils.encodeParams(params));
     nets({
         url: this.baseURL + '/compound?' + Utils.encodeParams(params),
         method: "GET",
@@ -77,6 +76,7 @@ CompoundSearch.prototype.fetchCompoundBatch = function(URIList, lens, callback) 
     var URIs = URIList.join('|');
     params['uri_list'] = URIs;
     lens ? params['_lens'] = lens : '';
+    console.log(this.baseURL + '/compound/batch?' + Utils.encodeParams(params));
     nets({
         url: this.baseURL + '/compound/batch?' + Utils.encodeParams(params),
         method: "GET",
@@ -843,7 +843,7 @@ CompoundSearch.prototype.parseCompoundBatchResponse = function(response) {
         fullMWT = item.molweight != null ? item.molweight : null;
         psa = item.psa != null ? item.psa : null;
         ro5Violations = item.ro5_violations != null ? item.ro5_violations : null;
-        rtb = item.rtb !== null ? item.rtb : null;
+        rtb = item.rtb != null ? item.rtb : rtb;
         smiles = item.smiles != null ? item.smiles : null;
         if (Array.isArray(item.exactMatch)) {
             item.exactMatch.forEach(function(match, i, allValues) {

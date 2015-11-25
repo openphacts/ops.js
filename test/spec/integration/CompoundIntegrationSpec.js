@@ -263,6 +263,7 @@ console.log('1');
             });
             runs(function() {
 		    console.log('multi comp');
+		    console.log(this_result);
                 expect(this_success).toBe(true);
                 expect(this_status).toBe(200);
                 expect(this_result).not.toBeNull();
