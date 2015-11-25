@@ -49,7 +49,6 @@ CompoundSearch.prototype.fetchCompound = function(URI, lens, callback) {
         if (resp.statusCode === 200) {
             callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
         } else {
-		console.log('fail ' + err + ' ' + resp);
             callback.call(this, false, resp.statusCode);
         }
     });
@@ -76,7 +75,6 @@ CompoundSearch.prototype.fetchCompoundBatch = function(URIList, lens, callback) 
     var URIs = URIList.join('|');
     params['uri_list'] = URIs;
     lens ? params['_lens'] = lens : '';
-    console.log(this.baseURL + '/compound/batch?' + Utils.encodeParams(params));
     nets({
         url: this.baseURL + '/compound/batch?' + Utils.encodeParams(params),
         method: "GET",
@@ -1032,7 +1030,7 @@ CompoundSearch.prototype.parseCompoundPharmacologyResponse = function(response) 
                     compound_inchi = match['inchi'];
                     compound_inchikey = match['inchikey'];
                     compound_smiles = match['smiles'];
-                    compound_full_mwt = match['molweight'];
+                    compound_full_mwt = match['molweight'] != null ? match['molweight'] : compound_full_mwt;
                     var chemSpiderLink = 'http://www.chemspider.com/' + csid;
                     compound_smiles_item = chemSpiderLink;
                     compound_inchi_item = chemSpiderLink;
