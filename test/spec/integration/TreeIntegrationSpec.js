@@ -464,9 +464,11 @@ describe("Trees", function() {
       var this_status = null;
       var this_result = null;
       var callback=function(success, status, response){
-        this_success = success;
-	this_status = status;
+      if (response) {
         this_result = searcher.parseTargetClassPharmacologyPaginated(response);
+      }
+      this_success = success;
+      this_status = status;
       };
       waitsFor(function() {
         return this_success != null;
@@ -579,9 +581,11 @@ describe("Trees", function() {
       var this_status = null;
       var this_result = null;
       var callback=function(success, status, response){
+        if (response) {
+          this_result = searcher.parseTargetClassPharmacologyPaginated(response);
+        }
         this_success = success;
-	this_status = status;
-        this_result = searcher.parseTargetClassPharmacologyPaginated(response);
+      	this_status = status;
       };
       waitsFor(function() {
         return this_success != null;
