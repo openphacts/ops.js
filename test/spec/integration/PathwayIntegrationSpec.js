@@ -18,12 +18,14 @@ describe("Pathways", function() {
       var this_status = null;
       var this_result = null;
       var callback=function(success, status, response){
+        if (response) {
+          this_result = searcher.parseInformationResponse(response);
+        }
         this_success = success;
-	    this_status = status;
-        this_result = searcher.parseInformationResponse(response);
+      this_status = status;
       };
       waitsFor(function() {
-        return this_result != null;
+        return this_success != null;
       });
       runs(function() {
 	    expect(this_success).toBe(true);
@@ -203,12 +205,14 @@ describe("Pathways", function() {
       var this_status = null;
       var this_result = null;
       var callback=function(success, status, response){
+        if (response) {
+          this_result = searcher.parseByTargetResponse(response);
+        }
+        this_status = status;
         this_success = success;
-	    this_status = status;
-        this_result = searcher.parseByTargetResponse(response);
       };
       waitsFor(function() {
-        return this_result != null;
+        return this_success != null;
       });
       runs(function() {
 	    expect(this_success).toBe(true);
@@ -396,9 +400,12 @@ describe("Pathways", function() {
       var this_status = null;
       var this_result = null;
       var callback=function(success, status, response){
+        if (response) {
+          this_result = searcher.parseByReferenceResponse(response);
+        }
         this_success = success;
-	    this_status = status;
-        this_result = searcher.parseByReferenceResponse(response);
+      this_status = status;
+
       };
       waitsFor(function() {
         return this_result != null;
@@ -549,7 +556,7 @@ describe("Pathways", function() {
       });
       searcher.countPathways(null, null, callback);
     });
-// This test wasn't really checking anything except whether the server would reject an invalid appID/appKey. 
+// This test wasn't really checking anything except whether the server would reject an invalid appID/appKey.
 // The count pathways api call will work with any input but return 0 for the number of results
 //    it("and handle errors", function() {
 //      var this_success = null;
