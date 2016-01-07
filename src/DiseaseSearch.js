@@ -37,7 +37,7 @@ DiseaseSearch.prototype.fetchDisease = function(URI, lens, callback) {
     params['app_id'] = this.appID;
     params['uri'] = URI;
     lens ? params['_lens'] = lens : '';
-	nets({
+	Utils.nets({
         url: this.baseURL + '/disease?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -77,7 +77,7 @@ DiseaseSearch.prototype.fetchDiseaseBatch = function(URIList, lens, callback) {
     var URIs = URIList.join('|');
     params['uri_list'] = URIs;
     lens ? params['_lens'] = lens : '';
-	nets({
+	Utils.nets({
         url: this.baseURL + '/disease/batch?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -115,7 +115,7 @@ DiseaseSearch.prototype.diseasesByTargetCount = function(URI, lens, callback) {
     params['app_id'] = this.appID;
     params['uri'] = URI;
     lens ? params['_lens'] = lens : '';
-	nets({
+	Utils.nets({
         url: this.baseURL + '/disease/byTarget/count?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -160,7 +160,7 @@ DiseaseSearch.prototype.diseasesByTarget = function(URI, page, pageSize, orderBy
     pageSize ? params['_pageSize'] = pageSize : '';
     orderBy ? params['_orderBy'] = orderBy : '';
     lens ? params['_lens'] = lens : '';
-	nets({
+	Utils.nets({
         url: this.baseURL + '/disease/byTarget?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -199,7 +199,7 @@ DiseaseSearch.prototype.targetsByDiseaseCount = function(URI, lens, callback) {
         params['app_id'] = this.appID;
         params['uri'] = URI;
         lens ? params['_lens'] = lens : '';
-nets({
+Utils.nets({
         url: this.baseURL + '/disease/getTargets/count?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -243,7 +243,7 @@ DiseaseSearch.prototype.targetsByDisease = function(URI, page, pageSize, orderBy
     pageSize ? params['_pageSize'] = pageSize : '';
     orderBy ? params['_orderBy'] = orderBy : '';
     lens ? params['_lens'] = lens : '';
-nets({
+Utils.nets({
         url: this.baseURL + '/disease/getTargets?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -281,7 +281,7 @@ DiseaseSearch.prototype.associationsByTargetCount = function(URI, lens, callback
     params['app_id'] = this.appID;
     params['uri'] = URI;
     lens ? params['_lens'] = lens : '';
-nets({
+Utils.nets({
         url: this.baseURL + '/disease/assoc/byTarget/count?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -325,7 +325,7 @@ DiseaseSearch.prototype.associationsByTarget = function(URI, page, pageSize, ord
     pageSize ? params['_pageSize'] = pageSize : '';
     orderBy ? params['_orderBy'] = orderBy : '';
     lens ? params['_lens'] = lens : '';
-nets({
+Utils.nets({
         url: this.baseURL + '/disease/assoc/byTarget?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -369,7 +369,7 @@ DiseaseSearch.prototype.associationsByDisease = function(URI, page, pageSize, or
         pageSize ? params['_pageSize'] = pageSize : '';
         orderBy ? params['_orderBy'] = orderBy : '';
         lens ? params['_lens'] = lens : '';
-nets({
+Utils.nets({
         url: this.baseURL + '/disease/assoc/byDisease?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -407,7 +407,7 @@ DiseaseSearch.prototype.associationsByDiseaseCount = function(URI, lens, callbac
         params['app_id'] = this.appID;
         params['uri'] = URI;
         lens ? params['_lens'] = lens : '';
-nets({
+Utils.nets({
         url: this.baseURL + '/disease/assoc/byDisease/count?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case

@@ -2153,7 +2153,7 @@ ActivitySearch.prototype.getTypes = function(activityUnit, page, pageSize, order
     pageSize ? params['_pageSize'] = pageSize : '';
     orderBy ? params['_orderBy'] = orderBy : '';
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/pharmacology/filters/activities?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -2179,7 +2179,7 @@ ActivitySearch.prototype.getUnits = function(activityType, lens, callback) {
     lens ? params['_lens'] = lens : '';
     var unitsURL = null;
     activityType != null ? unitsURL = '/pharmacology/filters/units/' + activityType : unitsURL = '/pharmacology/filters/units';
-    nets({
+    Utils.nets({
         url: this.baseURL + unitsURL + '?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -2206,7 +2206,7 @@ ActivitySearch.prototype.getAllUnits = function(page, pageSize, orderBy, lens, c
     page ? params['_page'] = page : '';
     pageSize ? params['_pageSize'] = pageSize : '';
     orderBy ? params['_orderBy'] = orderBy : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/pharmacology/filters/units?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -2290,7 +2290,7 @@ CompoundSearch.prototype.fetchCompound = function(URI, lens, callback) {
     params['app_id'] = this.appID;
     params['uri'] = URI;
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/compound?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -2328,7 +2328,7 @@ CompoundSearch.prototype.fetchCompoundBatch = function(URIList, lens, callback) 
     var URIs = URIList.join('|');
     params['uri_list'] = URIs;
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/compound/batch?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -2365,7 +2365,7 @@ CompoundSearch.prototype.compoundClassMembersCount = function(URI, lens, callbac
     params['app_id'] = this.appID;
     params['uri'] = URI;
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/compound/members/count?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -2409,7 +2409,7 @@ CompoundSearch.prototype.compoundClassMembers = function(URI, page, pageSize, or
     orderBy ? params['_orderBy'] = orderBy : '';
     lens ? params['_lens'] = lens : '';
 
-    nets({
+    Utils.nets({
         url: this.baseURL + '/compound/members/pages?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -2485,7 +2485,7 @@ CompoundSearch.prototype.compoundPharmacology = function(URI, assayOrganism, tar
     orderBy ? params['_orderBy'] = orderBy : '';
     lens ? params['_lens'] = lens : '';
 
-    nets({
+    Utils.nets({
         url: this.baseURL + '/compound/pharmacology/pages?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -2555,7 +2555,7 @@ CompoundSearch.prototype.compoundPharmacologyCount = function(URI, assayOrganism
     targetType ? params['target_type'] = targetType : '';
     lens ? params['_lens'] = lens : '';
 
-    nets({
+    Utils.nets({
         url: this.baseURL + '/compound/pharmacology/count?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -2587,7 +2587,7 @@ CompoundSearch.prototype.compoundClassifications = function(URI, tree, callback)
     params['uri'] = URI;
     params['tree'] = tree;
 
-    nets({
+    Utils.nets({
         url: this.baseURL + '/compound/classifications?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -3498,7 +3498,7 @@ ConceptWikiSearch.prototype.byTag = function(query, limit, branch, type, callbac
 	limit ? params['limit'] = limit : '';
 	branch ? params['branch'] = branch : '';
 	params['uuid'] = type;
-	nets({
+	Utils.nets({
         url: this.baseURL + '/search/byTag?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -3533,7 +3533,7 @@ ConceptWikiSearch.prototype.freeText = function(query, limit, branch, callback) 
     params['q'] = query;
     limit ? params['limit'] = limit : '';
     branch ? params['branch'] = branch : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/search/freetext?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -3561,7 +3561,7 @@ ConceptWikiSearch.prototype.findCompounds = function(query, limit, branch, callb
     params['q'] = query;
     limit ? params['limit'] = limit : '';
     branch ? params['branch'] = branch : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/search/byTag?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -3589,7 +3589,7 @@ ConceptWikiSearch.prototype.findTargets = function(query, limit, branch, callbac
     params['q'] = query;
     limit ? params['limit'] = limit : '';
     branch ? params['branch'] = branch : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/search/byTag?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -3614,7 +3614,7 @@ ConceptWikiSearch.prototype.findConcept = function(uuid, branch, callback) {
 	params['_format'] = "json";
     params['app_key'] = this.appKey;
     params['app_id'] = this.appID;
-    nets({
+    Utils.nets({
         url: this.baseURL + '/getConceptDescription?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -3767,7 +3767,7 @@ DataSources.prototype.getSources = function(callback) {
 	params['_format'] = "json";
 	params['app_key'] = this.appKey;
 	params['app_id'] = this.appID;
-	nets({
+	Utils.nets({
         url: this.baseURL + '/sources?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -3828,7 +3828,7 @@ DiseaseSearch.prototype.fetchDisease = function(URI, lens, callback) {
     params['app_id'] = this.appID;
     params['uri'] = URI;
     lens ? params['_lens'] = lens : '';
-	nets({
+	Utils.nets({
         url: this.baseURL + '/disease?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -3868,7 +3868,7 @@ DiseaseSearch.prototype.fetchDiseaseBatch = function(URIList, lens, callback) {
     var URIs = URIList.join('|');
     params['uri_list'] = URIs;
     lens ? params['_lens'] = lens : '';
-	nets({
+	Utils.nets({
         url: this.baseURL + '/disease/batch?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -3906,7 +3906,7 @@ DiseaseSearch.prototype.diseasesByTargetCount = function(URI, lens, callback) {
     params['app_id'] = this.appID;
     params['uri'] = URI;
     lens ? params['_lens'] = lens : '';
-	nets({
+	Utils.nets({
         url: this.baseURL + '/disease/byTarget/count?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -3951,7 +3951,7 @@ DiseaseSearch.prototype.diseasesByTarget = function(URI, page, pageSize, orderBy
     pageSize ? params['_pageSize'] = pageSize : '';
     orderBy ? params['_orderBy'] = orderBy : '';
     lens ? params['_lens'] = lens : '';
-	nets({
+	Utils.nets({
         url: this.baseURL + '/disease/byTarget?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -3990,7 +3990,7 @@ DiseaseSearch.prototype.targetsByDiseaseCount = function(URI, lens, callback) {
         params['app_id'] = this.appID;
         params['uri'] = URI;
         lens ? params['_lens'] = lens : '';
-nets({
+Utils.nets({
         url: this.baseURL + '/disease/getTargets/count?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -4034,7 +4034,7 @@ DiseaseSearch.prototype.targetsByDisease = function(URI, page, pageSize, orderBy
     pageSize ? params['_pageSize'] = pageSize : '';
     orderBy ? params['_orderBy'] = orderBy : '';
     lens ? params['_lens'] = lens : '';
-nets({
+Utils.nets({
         url: this.baseURL + '/disease/getTargets?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -4072,7 +4072,7 @@ DiseaseSearch.prototype.associationsByTargetCount = function(URI, lens, callback
     params['app_id'] = this.appID;
     params['uri'] = URI;
     lens ? params['_lens'] = lens : '';
-nets({
+Utils.nets({
         url: this.baseURL + '/disease/assoc/byTarget/count?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -4116,7 +4116,7 @@ DiseaseSearch.prototype.associationsByTarget = function(URI, page, pageSize, ord
     pageSize ? params['_pageSize'] = pageSize : '';
     orderBy ? params['_orderBy'] = orderBy : '';
     lens ? params['_lens'] = lens : '';
-nets({
+Utils.nets({
         url: this.baseURL + '/disease/assoc/byTarget?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -4160,7 +4160,7 @@ DiseaseSearch.prototype.associationsByDisease = function(URI, page, pageSize, or
         pageSize ? params['_pageSize'] = pageSize : '';
         orderBy ? params['_orderBy'] = orderBy : '';
         lens ? params['_lens'] = lens : '';
-nets({
+Utils.nets({
         url: this.baseURL + '/disease/assoc/byDisease?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -4198,7 +4198,7 @@ DiseaseSearch.prototype.associationsByDiseaseCount = function(URI, lens, callbac
         params['app_id'] = this.appID;
         params['uri'] = URI;
         lens ? params['_lens'] = lens : '';
-nets({
+Utils.nets({
         url: this.baseURL + '/disease/assoc/byDisease/count?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -4542,7 +4542,7 @@ MapSearch.prototype.mapURL = function(URI, targetUriPattern, graph, lens, callba
         targetUriPattern ? params['targetUriPattern'] = targetUriPattern : '';
         graph ? params['graph'] = graph : '';
         lens ? params['lensUri'] = lens : '';
-	nets({
+	Utils.nets({
         url: this.baseURL + '/mapUri?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -4846,7 +4846,7 @@ PathwaySearch.prototype.information = function(URI, lens, callback) {
     params['app_id'] = this.appID;
     params['uri'] = URI;
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/pathway?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -4877,7 +4877,7 @@ PathwaySearch.prototype.byCompound = function(URI, organism, lens, page, pageSiz
     //TODO order by neeeds an RDF like syntax to work eg ?cw_uri or DESC(?cw_uri), need to hide that
     //from users by having a descending flag and creating the correct syntax here
     orderBy ? params['_orderBy'] = orderBy : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/pathways/byCompound?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -4903,7 +4903,7 @@ PathwaySearch.prototype.countPathwaysByCompound = function(URI, organism, lens, 
     params['uri'] = URI;
     organism ? params['pathway_organism'] = organism : '';
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/pathways/byCompound/count?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -4934,7 +4934,7 @@ PathwaySearch.prototype.byTarget = function(URI, organism, lens, page, pageSize,
     //TODO order by neeeds an RDF like syntax to work eg ?cw_uri or DESC(?cw_uri), need to hide that
     //from users by having a descending flag and creating the correct syntax here
     orderBy ? orderBy = params['_orderBy'] : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/pathways/byTarget?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -4960,7 +4960,7 @@ PathwaySearch.prototype.countPathwaysByTarget = function(URI, organism, lens, ca
     params['uri'] = URI;
     organism ? params['pathway_organism'] = organism : '';
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/pathways/byTarget/count?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -4998,7 +4998,7 @@ PathwaySearch.prototype.getTargets = function(URI, lens, callback) {
     params['app_id'] = this.appID;
     params['uri'] = URI;
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/pathway/getTargets?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -5023,7 +5023,7 @@ PathwaySearch.prototype.getCompounds = function(URI, lens, callback) {
     params['app_id'] = this.appID;
     params['uri'] = URI;
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/pathway/getCompounds?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -5054,7 +5054,7 @@ PathwaySearch.prototype.byReference = function(URI, organism, lens, page, pageSi
     //TODO order by neeeds an RDF like syntax to work eg ?cw_uri or DESC(?cw_uri), need to hide that
     //from users by having a descending flag and creating the correct syntax here
     orderBy ? orderBy = params['_orderBy'] : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/pathways/byReference?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -5080,7 +5080,7 @@ PathwaySearch.prototype.countPathwaysByReference = function(URI, organism, lens,
     params['uri'] = URI;
     organism ? params['pathway_organism'] = organism : '';
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/pathways/byReference/count?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -5105,7 +5105,7 @@ PathwaySearch.prototype.getReferences = function(URI, lens, callback) {
     params['app_id'] = this.appID;
     params['uri'] = URI;
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/pathway/getReferences?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -5130,7 +5130,7 @@ PathwaySearch.prototype.countPathways = function(organism, lens, callback) {
     params['app_id'] = this.appID;
     organism ? params['pathway_organism'] = organism : '';
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/pathways/count?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -5160,7 +5160,7 @@ PathwaySearch.prototype.list = function(organism, lens, page, pageSize, orderBy,
     //TODO order by neeeds an RDF like syntax to work eg ?cw_uri or DESC(?cw_uri), need to hide that
     //from users by having a descending flag and creating the correct syntax here
     orderBy ? orderBy = params['_orderBy'] : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/pathways?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -5189,7 +5189,7 @@ PathwaySearch.prototype.organisms = function(lens, page, pageSize, orderBy, call
     //TODO order by neeeds an RDF like syntax to work eg ?cw_uri or DESC(?cw_uri), need to hide that
     //from users by having a descending flag and creating the correct syntax here
     orderBy ? orderBy = params['_orderBy'] : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/pathways/organisms?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -5498,7 +5498,7 @@ StructureSearch.prototype.exact = function(smiles, matchType, callback) {
         params['app_id'] = this.appID;
         params['searchOptions.Molecule'] = smiles;
         matchType != null ? params['searchOptions.MatchType'] = matchType : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/structure/exact?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -5525,7 +5525,7 @@ StructureSearch.prototype.substructure = function(smiles, molType, start, count,
     molType != null ? params['searchOptions.MolType'] = molType : '';
     start != null ? params['resultOptions.Start'] = start : '';
     count != null ? params['resultOptions.Count'] = count : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/structure/substructure?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -5549,7 +5549,7 @@ params={};
     params['app_key'] = this.appKey;
     params['app_id'] = this.appID;
     params['inchi_key'] = inchiKey;   
-    nets({
+    Utils.nets({
         url: this.baseURL + '/structure?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -5574,7 +5574,7 @@ params={};
     params['app_id'] = this.appID;
     params['inchi'] = inchi;   
  
-    nets({
+    Utils.nets({
         url: this.baseURL + '/structure?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -5604,7 +5604,7 @@ StructureSearch.prototype.similarity = function(smiles, type, threshold, alpha, 
         beta != null ? params['searchOptions.Beta'] = beta : '';
         start != null ? params['resultOptions.Start'] = start : '';
         count != null ? params['resultOptions.Count'] = count : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/structure/similarity?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -5629,7 +5629,7 @@ params={};
     params['app_id'] = this.appID;
     params['smiles'] = smiles;   
  
-    nets({
+    Utils.nets({
         url: this.baseURL + '/structure?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -5727,7 +5727,7 @@ TargetSearch.prototype.fetchTarget = function(URI, lens, callback) {
     params['app_id'] = this.appID;
     params['uri'] = URI;
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/target?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -5766,7 +5766,7 @@ TargetSearch.prototype.fetchTargetBatch = function(URIList, lens, callback) {
     params['uri_list'] = URIs;
     lens ? params['_lens'] = lens : '';
 
-    nets({
+    Utils.nets({
         url: this.baseURL + '/target/batch?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -5802,7 +5802,7 @@ TargetSearch.prototype.compoundsForTarget = function(URI, callback) {
     params['app_id'] = this.appID;
     params['uri'] = URI;
 
-    nets({
+    Utils.nets({
         url: this.baseURL + '/target/classificationsForCompounds?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -5878,7 +5878,7 @@ TargetSearch.prototype.targetPharmacology = function(URI, assayOrganism, targetO
     pageSize ? params['_pageSize'] = pageSize : '';
     orderBy ? params['_orderBy'] = orderBy : '';
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/target/pharmacology/pages?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -5949,7 +5949,7 @@ TargetSearch.prototype.targetPharmacologyCount = function(URI, assayOrganism, ta
     targetType ? params['target_type'] = targetType : '';
     lens ? params['_lens'] = lens : '';
 
-    nets({
+    Utils.nets({
         url: this.baseURL + '/target/pharmacology/count?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -5979,7 +5979,7 @@ TargetSearch.prototype.targetTypes = function(lens, callback) {
     params['app_key'] = this.appKey;
     params['app_id'] = this.appID;
 
-    nets({
+    Utils.nets({
         url: this.baseURL + '/types?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -6553,7 +6553,7 @@ TissueSearch.prototype.fetchTissue = function(URI, lens, callback) {
     params['app_id'] = this.appID;
     params['uri'] = URI;
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/tissue?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -6592,7 +6592,7 @@ TissueSearch.prototype.fetchTissueBatch = function(URIList, lens, callback) {
     var URIs = URIList.join('|');
     params['uri_list'] = URIs;
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/tissue/batch?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -6697,7 +6697,7 @@ TreeSearch.prototype.getRootNodes = function(root, callback) {
     params['app_key'] = this.appKey;
     params['app_id'] = this.appID;
  
-    nets({
+    Utils.nets({
         url: this.baseURL + '/tree?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -6721,7 +6721,7 @@ TreeSearch.prototype.getChildNodes = function(URI, callback) {
     params['_format'] = "json";
     params['app_key'] = this.appKey;
     params['app_id'] = this.appID;
-    nets({
+    Utils.nets({
         url: this.baseURL + '/tree/children?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -6746,7 +6746,7 @@ TreeSearch.prototype.getParentNodes = function(URI, callback) {
     params['app_key'] = this.appKey;
     params['app_id'] = this.appID;
 
-    nets({
+    Utils.nets({
         url: this.baseURL + '/tree/parents?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -6787,7 +6787,7 @@ TreeSearch.prototype.getTargetClassPharmacologyCount = function(URI, assayOrgani
     maxpChembl != null ? params['max-pChembl'] = maxpChembl : '';
     maxExpChembl != null ? params['maxEx-pChembl'] = maxExpChembl : '';
     lens != null ? params['lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/target/tree/pharmacology/count?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -6830,7 +6830,7 @@ TreeSearch.prototype.getTargetClassPharmacologyPaginated = function(URI, assayOr
     page != null ? params['_page'] = page : '';
     pageSize != null ? params['_pageSize'] = pageSize : '';
     orderBy != null ? params['_orderBy'] = orderBy : '';
-nets({
+Utils.nets({
         url: this.baseURL + '/target/tree/pharmacology/pages?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -6870,7 +6870,7 @@ TreeSearch.prototype.getCompoundClassPharmacologyCount = function(URI, assayOrga
     maxpChembl != null ? params['max-pChembl'] = maxpChembl : '';
     maxExpChembl != null ? params['maxEx-pChembl'] = maxExpChembl : '';
     lens != null ? params['lens'] = lens : '';
-nets({
+Utils.nets({
         url: this.baseURL + '/compound/tree/pharmacology/count?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -6914,7 +6914,7 @@ TreeSearch.prototype.getCompoundClassPharmacologyPaginated = function(URI, assay
     page != null ? params['_page'] = page : '';
     pageSize != null ? params['_pageSize'] = pageSize : '';
     orderBy != null ? params['_orderBy'] = orderBy : '';
-nets({
+Utils.nets({
         url: this.baseURL + '/compound/tree/pharmacology/pages?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case

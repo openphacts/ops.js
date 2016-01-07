@@ -24,7 +24,7 @@ PathwaySearch.prototype.information = function(URI, lens, callback) {
     params['app_id'] = this.appID;
     params['uri'] = URI;
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/pathway?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -55,7 +55,7 @@ PathwaySearch.prototype.byCompound = function(URI, organism, lens, page, pageSiz
     //TODO order by neeeds an RDF like syntax to work eg ?cw_uri or DESC(?cw_uri), need to hide that
     //from users by having a descending flag and creating the correct syntax here
     orderBy ? params['_orderBy'] = orderBy : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/pathways/byCompound?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -81,7 +81,7 @@ PathwaySearch.prototype.countPathwaysByCompound = function(URI, organism, lens, 
     params['uri'] = URI;
     organism ? params['pathway_organism'] = organism : '';
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/pathways/byCompound/count?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -112,7 +112,7 @@ PathwaySearch.prototype.byTarget = function(URI, organism, lens, page, pageSize,
     //TODO order by neeeds an RDF like syntax to work eg ?cw_uri or DESC(?cw_uri), need to hide that
     //from users by having a descending flag and creating the correct syntax here
     orderBy ? orderBy = params['_orderBy'] : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/pathways/byTarget?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -138,7 +138,7 @@ PathwaySearch.prototype.countPathwaysByTarget = function(URI, organism, lens, ca
     params['uri'] = URI;
     organism ? params['pathway_organism'] = organism : '';
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/pathways/byTarget/count?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -176,7 +176,7 @@ PathwaySearch.prototype.getTargets = function(URI, lens, callback) {
     params['app_id'] = this.appID;
     params['uri'] = URI;
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/pathway/getTargets?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -201,7 +201,7 @@ PathwaySearch.prototype.getCompounds = function(URI, lens, callback) {
     params['app_id'] = this.appID;
     params['uri'] = URI;
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/pathway/getCompounds?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -232,7 +232,7 @@ PathwaySearch.prototype.byReference = function(URI, organism, lens, page, pageSi
     //TODO order by neeeds an RDF like syntax to work eg ?cw_uri or DESC(?cw_uri), need to hide that
     //from users by having a descending flag and creating the correct syntax here
     orderBy ? orderBy = params['_orderBy'] : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/pathways/byReference?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -258,7 +258,7 @@ PathwaySearch.prototype.countPathwaysByReference = function(URI, organism, lens,
     params['uri'] = URI;
     organism ? params['pathway_organism'] = organism : '';
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/pathways/byReference/count?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -283,7 +283,7 @@ PathwaySearch.prototype.getReferences = function(URI, lens, callback) {
     params['app_id'] = this.appID;
     params['uri'] = URI;
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/pathway/getReferences?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -308,7 +308,7 @@ PathwaySearch.prototype.countPathways = function(organism, lens, callback) {
     params['app_id'] = this.appID;
     organism ? params['pathway_organism'] = organism : '';
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/pathways/count?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -338,7 +338,7 @@ PathwaySearch.prototype.list = function(organism, lens, page, pageSize, orderBy,
     //TODO order by neeeds an RDF like syntax to work eg ?cw_uri or DESC(?cw_uri), need to hide that
     //from users by having a descending flag and creating the correct syntax here
     orderBy ? orderBy = params['_orderBy'] : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/pathways?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -367,7 +367,7 @@ PathwaySearch.prototype.organisms = function(lens, page, pageSize, orderBy, call
     //TODO order by neeeds an RDF like syntax to work eg ?cw_uri or DESC(?cw_uri), need to hide that
     //from users by having a descending flag and creating the correct syntax here
     orderBy ? orderBy = params['_orderBy'] : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/pathways/organisms?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case

@@ -27,7 +27,7 @@ ActivitySearch.prototype.getTypes = function(activityUnit, page, pageSize, order
     pageSize ? params['_pageSize'] = pageSize : '';
     orderBy ? params['_orderBy'] = orderBy : '';
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/pharmacology/filters/activities?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -53,7 +53,7 @@ ActivitySearch.prototype.getUnits = function(activityType, lens, callback) {
     lens ? params['_lens'] = lens : '';
     var unitsURL = null;
     activityType != null ? unitsURL = '/pharmacology/filters/units/' + activityType : unitsURL = '/pharmacology/filters/units';
-    nets({
+    Utils.nets({
         url: this.baseURL + unitsURL + '?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -80,7 +80,7 @@ ActivitySearch.prototype.getAllUnits = function(page, pageSize, orderBy, lens, c
     page ? params['_page'] = page : '';
     pageSize ? params['_pageSize'] = pageSize : '';
     orderBy ? params['_orderBy'] = orderBy : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/pharmacology/filters/units?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case

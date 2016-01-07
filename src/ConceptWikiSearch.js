@@ -40,7 +40,7 @@ ConceptWikiSearch.prototype.byTag = function(query, limit, branch, type, callbac
 	limit ? params['limit'] = limit : '';
 	branch ? params['branch'] = branch : '';
 	params['uuid'] = type;
-	nets({
+	Utils.nets({
         url: this.baseURL + '/search/byTag?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -75,7 +75,7 @@ ConceptWikiSearch.prototype.freeText = function(query, limit, branch, callback) 
     params['q'] = query;
     limit ? params['limit'] = limit : '';
     branch ? params['branch'] = branch : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/search/freetext?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -103,7 +103,7 @@ ConceptWikiSearch.prototype.findCompounds = function(query, limit, branch, callb
     params['q'] = query;
     limit ? params['limit'] = limit : '';
     branch ? params['branch'] = branch : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/search/byTag?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -131,7 +131,7 @@ ConceptWikiSearch.prototype.findTargets = function(query, limit, branch, callbac
     params['q'] = query;
     limit ? params['limit'] = limit : '';
     branch ? params['branch'] = branch : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/search/byTag?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -156,7 +156,7 @@ ConceptWikiSearch.prototype.findConcept = function(uuid, branch, callback) {
 	params['_format'] = "json";
     params['app_key'] = this.appKey;
     params['app_id'] = this.appID;
-    nets({
+    Utils.nets({
         url: this.baseURL + '/getConceptDescription?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case

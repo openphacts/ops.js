@@ -37,7 +37,7 @@ TissueSearch.prototype.fetchTissue = function(URI, lens, callback) {
     params['app_id'] = this.appID;
     params['uri'] = URI;
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/tissue?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -76,7 +76,7 @@ TissueSearch.prototype.fetchTissueBatch = function(URIList, lens, callback) {
     var URIs = URIList.join('|');
     params['uri_list'] = URIs;
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/tissue/batch?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case

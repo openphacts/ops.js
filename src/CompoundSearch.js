@@ -37,7 +37,7 @@ CompoundSearch.prototype.fetchCompound = function(URI, lens, callback) {
     params['app_id'] = this.appID;
     params['uri'] = URI;
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/compound?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -75,7 +75,7 @@ CompoundSearch.prototype.fetchCompoundBatch = function(URIList, lens, callback) 
     var URIs = URIList.join('|');
     params['uri_list'] = URIs;
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/compound/batch?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -112,7 +112,7 @@ CompoundSearch.prototype.compoundClassMembersCount = function(URI, lens, callbac
     params['app_id'] = this.appID;
     params['uri'] = URI;
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/compound/members/count?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -156,7 +156,7 @@ CompoundSearch.prototype.compoundClassMembers = function(URI, page, pageSize, or
     orderBy ? params['_orderBy'] = orderBy : '';
     lens ? params['_lens'] = lens : '';
 
-    nets({
+    Utils.nets({
         url: this.baseURL + '/compound/members/pages?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -232,7 +232,7 @@ CompoundSearch.prototype.compoundPharmacology = function(URI, assayOrganism, tar
     orderBy ? params['_orderBy'] = orderBy : '';
     lens ? params['_lens'] = lens : '';
 
-    nets({
+    Utils.nets({
         url: this.baseURL + '/compound/pharmacology/pages?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -302,7 +302,7 @@ CompoundSearch.prototype.compoundPharmacologyCount = function(URI, assayOrganism
     targetType ? params['target_type'] = targetType : '';
     lens ? params['_lens'] = lens : '';
 
-    nets({
+    Utils.nets({
         url: this.baseURL + '/compound/pharmacology/count?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -334,7 +334,7 @@ CompoundSearch.prototype.compoundClassifications = function(URI, tree, callback)
     params['uri'] = URI;
     params['tree'] = tree;
 
-    nets({
+    Utils.nets({
         url: this.baseURL + '/compound/classifications?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case

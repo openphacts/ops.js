@@ -38,7 +38,7 @@ DataSources.prototype.getSources = function(callback) {
 	params['_format'] = "json";
 	params['app_key'] = this.appKey;
 	params['app_id'] = this.appID;
-	nets({
+	Utils.nets({
         url: this.baseURL + '/sources?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case

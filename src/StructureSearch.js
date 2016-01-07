@@ -24,7 +24,7 @@ StructureSearch.prototype.exact = function(smiles, matchType, callback) {
         params['app_id'] = this.appID;
         params['searchOptions.Molecule'] = smiles;
         matchType != null ? params['searchOptions.MatchType'] = matchType : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/structure/exact?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -51,7 +51,7 @@ StructureSearch.prototype.substructure = function(smiles, molType, start, count,
     molType != null ? params['searchOptions.MolType'] = molType : '';
     start != null ? params['resultOptions.Start'] = start : '';
     count != null ? params['resultOptions.Count'] = count : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/structure/substructure?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -75,7 +75,7 @@ params={};
     params['app_key'] = this.appKey;
     params['app_id'] = this.appID;
     params['inchi_key'] = inchiKey;   
-    nets({
+    Utils.nets({
         url: this.baseURL + '/structure?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -100,7 +100,7 @@ params={};
     params['app_id'] = this.appID;
     params['inchi'] = inchi;   
  
-    nets({
+    Utils.nets({
         url: this.baseURL + '/structure?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -130,7 +130,7 @@ StructureSearch.prototype.similarity = function(smiles, type, threshold, alpha, 
         beta != null ? params['searchOptions.Beta'] = beta : '';
         start != null ? params['resultOptions.Start'] = start : '';
         count != null ? params['resultOptions.Count'] = count : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/structure/similarity?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -155,7 +155,7 @@ params={};
     params['app_id'] = this.appID;
     params['smiles'] = smiles;   
  
-    nets({
+    Utils.nets({
         url: this.baseURL + '/structure?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
