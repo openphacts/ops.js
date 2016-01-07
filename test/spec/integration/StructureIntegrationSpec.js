@@ -18,9 +18,11 @@ describe("Structure search", function() {
       var this_status = null;
       var this_result = null;
       var callback=function(success, status, response){
+          if (response) {
+	           this_result = searcher.parseExactResponse(response);
+           }
           this_success = success;
-	  this_status = status;
-	  this_result = searcher.parseExactResponse(response);
+ 	        this_status = status;
       };
       waitsFor(function() {
         return this_success != null;
@@ -59,9 +61,11 @@ describe("Structure search", function() {
       var this_status = null;
       var this_result = null;
       var callback=function(success, status, response){
+        if (response) {
+          this_result = searcher.parseSubstructureResponse(response);
+        }
         this_success = success;
         this_status = status;
-        this_result = searcher.parseSubstructureResponse(response);
       };
       waitsFor(function() {
         return this_result != null;
@@ -101,9 +105,11 @@ describe("Structure search", function() {
       var this_status = null;
       var this_result = null;
       var callback=function(success, status, response){
-        this_success = success;
+        if (response) {
+          this_result = searcher.parseInchiKeyToURLResponse(response);
+        }
         this_status = status;
-        this_result = searcher.parseInchiKeyToURLResponse(response);
+        this_success = success;
       };
       waitsFor(function() {
         return this_success != null;
@@ -140,9 +146,11 @@ describe("Structure search", function() {
       var this_status = null;
       var this_result = null;
       var callback=function(success, status, response){
+        if (response) {
+          this_result = searcher.parseInchiToURLResponse(response);
+        }
         this_success = success;
         this_status = status;
-        this_result = searcher.parseInchiToURLResponse(response);
       };
       waitsFor(function() {
         return this_success != null;
@@ -179,9 +187,11 @@ describe("Structure search", function() {
       var this_status = null;
       var this_result = null;
       var callback=function(success, status, response){
+        if (response) {
+          this_result = searcher.parseSimilarityResponse(response);
+        }
         this_success = success;
         this_status = status;
-        this_result = searcher.parseSimilarityResponse(response);
       };
       waitsFor(function() {
         return this_success != null;
@@ -218,9 +228,11 @@ describe("Structure search", function() {
       var this_status = null;
       var this_result = null;
       var callback=function(success, status, response){
+        if (response) {
+          this_result = searcher.parseSmilesToURLResponse(response);
+        }
         this_success = success;
         this_status = status;
-        this_result = searcher.parseSmilesToURLResponse(response);
       };
       waitsFor(function() {
         return this_success != null;
