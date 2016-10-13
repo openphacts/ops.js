@@ -16,7 +16,7 @@ Get your Open PHACTS API application ID and key by registering at https://dev.op
 The OPS.js source code is released under the MIT License, http://opensource.org/licenses/MIT. See licence.txt for more details.
 
 ## Contributing  
-We love receiving patches for bug fixes and new features. Please follow these simple steps to make our lives easier.  
+We love receiving patches for bug fixes and new features. Please follow these simple steps to make our lives easier.
 
 1. Fork the project.
 2. Checkout develop branch.
@@ -27,23 +27,23 @@ We love receiving patches for bug fixes and new features. Please follow these si
 ## Citations  
 To cite OPS.js in publications please see [the zenodo record](https://zenodo.org/record/29418#.VdxqH_lVhBc "OPS.js zenodo record").
 
->Ian Dunlop et al.. (2015). ops.js: OPS.js 6.1.3 for Open PHACTS 1.5 API. Zenodo. 10.5281/zenodo.29418
+>Ian Dunlop et al. (2015). ops.js: OPS.js 6.1.3 for Open PHACTS 1.5 API. Zenodo. 10.5281/zenodo.29418
 
 For Bibtex use:
 
 ```latex
-@misc{ian_dunlop_2015_29418,  
-  author       = {Ian Dunlop and  
-                  Egon Willighagen and  
-                  Elblood and  
-                  andrawaag and  
-                  Stian Soiland-Reyes and  
-                  PANDORINO},  
-  title        = {ops.js: OPS.js 6.1.3 for Open PHACTS 1.5 API},  
-  month        = aug,  
-  year         = 2015,  
+@misc{ian_dunlop_2015_29418,
+  author       = {Ian Dunlop and
+                  Egon Willighagen and
+                  Elblood and
+                  andrawaag and
+                  Stian Soiland-Reyes and
+                  PANDORINO},
+  title        = {ops.js: OPS.js 6.1.3 for Open PHACTS 1.5 API},
+  month        = aug,
+  year         = 2015,
   doi          = {10.5281/zenodo.29418},  
-  url          = {http://dx.doi.org/10.5281/zenodo.29418}  
+  url          = {http://dx.doi.org/10.5281/zenodo.29418}
 }
 ``` 
 
