@@ -241,7 +241,7 @@ PathwaySearch.prototype.getTargets = function(URI, lens, callback) {
  * @example
  * var searcher = new PathwaySearch("https://beta.openphacts.org/1.5", "appID", "appKey");
  * var callback=function(success, status, response){
- *    var targets = searcher.parseGetCompoundsResponse(response);
+ *    var compounds = searcher.parseGetCompoundsResponse(response);
  * };
  * searcher.getCompounds('http://identifiers.org/wikipathways/WP1008', null, callback);
  */
