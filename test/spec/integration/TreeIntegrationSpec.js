@@ -532,7 +532,7 @@ describe("Trees", function() {
 	  }
       };
       waitsFor(function() {
-        return this_result != null;
+        return this_success != null;
       });
       runs(function() {
         //TODO need the mandatory and optional values from the api docs

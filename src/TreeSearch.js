@@ -123,11 +123,14 @@ TreeSearch.prototype.getTargetClassPharmacologyCount = function(URI, assayOrgani
             "Accept": "application/json"
         }
     }, function(err, resp, body) {
-        if (resp.statusCode === 200) {
+	//Handle responses where there is no resp/status code
+        if (resp != null && resp.statusCode === 200) {
             callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
-        } else {
+        } else if (resp != null) {
             callback.call(this, false, resp.statusCode);
-        }
+        } else {
+            callback.call(this, false, null);
+	}
     });
 
 }
