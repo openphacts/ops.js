@@ -68,6 +68,13 @@ Look at https://dev.openphacts.org for more information about the source methods
 jasmine-node --config app_id your_app_id --config app_key your_app_key --config app_url https://beta.openphacts.org/1.5 test/spec/integration/
 ```
 
+In case the test run does not finish with some statistics on the number of tests run, assertions made, and skipped and failed tests,
+then it like failed on one of the tests. To see the exception that was thrown, run Jasmine with the --captureExceptions option:
+
+```bash
+jasmine-node --captureExceptions --config app_id your_app_id --config app_key your_app_key --config app_url https://beta.openphacts.org/1.5 test/spec/integration/
+```
+
 ### Testing with Docker
 
 If you use Docker, you can run the [openphacts/ops-api-test](https://hub.docker.com/r/openphacts/ops-api-test/) image
