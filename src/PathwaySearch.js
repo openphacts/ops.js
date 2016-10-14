@@ -163,7 +163,7 @@ PathwaySearch.prototype.countPathwaysByTarget = function(URI, organism, lens, ca
  * @param {requestCallback} callback - Function that will be called with the result.
  * @method
  * @example
- * var searcher = new PathwaySearch("https://beta.openphacts.org/1.5", "appID", "appKey");
+ * var searcher = new PathwaySearch("https://beta.openphacts.org/2.1", "appID", "appKey");
  * var callback=function(success, status, response){
  *    var targets = searcher.parseGetTargetsResponse(response);
  * };

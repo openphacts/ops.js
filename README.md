@@ -2,7 +2,7 @@
 
 ## Open PHACTS API Version
 
-1.5
+2.1
 
 ## About
 OPS.js is a javascript NodeJS based library, available via [NPM](https://www.npmjs.com/package/ops.js "OPs.js on Node Package Manager"), for accessing the Open PHACTS Linked Data API (LDA). It uses [nets](https://www.npmjs.com/package/nets) to handle the asynchronous network calls. OPS.js can also be used to parse responses from the LDA.
@@ -65,7 +65,7 @@ Look at https://dev.openphacts.org for more information about the source methods
 [Jasmine](http://pivotal.github.io/jasmine/ "Jasmine javascript testing framework") is used to test the ops.js api. The specs for the tests are in the 'test/spec' directory. To run them use jasmine-node like this:
 
 ```bash
-jasmine-node --config app_id your_app_id --config app_key your_app_key --config app_url https://beta.openphacts.org/1.5 test/spec/integration/
+jasmine-node --config app_id your_app_id --config app_key your_app_key --config app_url https://beta.openphacts.org/2.1 test/spec/integration/
 ```
 
 To enable console logging of URIs tested, add the parameter `--config debug true`
@@ -91,7 +91,7 @@ More examples can be found in the integration tests and in the [API docs](http:/
 ### Concept Wiki free text search
 
 ```javascript
-var searcher = new ConceptWikiSearch("https://beta.openphacts.org/1.5", appID, appKey);  
+var searcher = new ConceptWikiSearch("https://beta.openphacts.org/2.1", appID, appKey);  
 var callback=function(success, status, response){  
     searcher.parseResponse(response);
 };  
@@ -104,7 +104,7 @@ searcher.byTag('Aspirin', '20', '4', '07a84994-e464-4bbf-812a-a4b96fa3d197', cal
 ### Compound information
 
 ```javascript
-var searcher = new CompoundSearch("https://beta.openphacts.org/1.5", appID, appKey);  
+var searcher = new CompoundSearch("https://beta.openphacts.org/2.1", appID, appKey);  
 var callback=function(success, status, response){  
     var compoundResult = searcher.parseCompoundResponse(response);  
 };  

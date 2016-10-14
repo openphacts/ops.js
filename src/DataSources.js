@@ -24,7 +24,7 @@ DataSources = function DataSources(baseURL, appID, appKey) {
  * @param {requestCallback} callback - Function that will be called with success, status, and JSON response values.
  * @method
  * @example
- * var datasources = new DataSources("https://beta.openphacts.org/1.5", appID, appKey);
+ * var datasources = new DataSources("https://beta.openphacts.org/2.1", appID, appKey);
  * var callback = function(success, status, response) {
  *    var subsets = response.primaryTopic.subset;
  *    for (i=0; subsets.length; i++) {

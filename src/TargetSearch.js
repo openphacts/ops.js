@@ -24,7 +24,7 @@ TargetSearch = function TargetSearch(baseURL, appID, appKey) {
  * @param {requestCallback} callback - Function that will be called with the result.
  * @method
  * @example
- * var searcher = new TargetSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
+ * var searcher = new TargetSearch("https://beta.openphacts.org/2.1", "appID", "appKey");
  * var callback=function(success, status, response){
  *    var targetResult = searcher.parseTargetResponse(response);
  * };
@@ -61,7 +61,7 @@ TargetSearch.prototype.fetchTarget = function(URI, lens, callback) {
  * @param {requestCallback} callback - Function that will be called with the result.
  * @method
  * @example
- * var searcher = new TargetSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
+ * var searcher = new TargetSearch("https://beta.openphacts.org/2.1", "appID", "appKey");
  * var callback=function(success, status, response){
  *    var targets = searcher.parseTargetBatchResponse(response);
  * };
@@ -99,7 +99,7 @@ TargetSearch.prototype.fetchTargetBatch = function(URIList, lens, callback) {
  * @param {requestCallback} callback - Function that will be called with the result.
  * @method
  * @example
- * var searcher = new TargetSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
+ * var searcher = new TargetSearch("https://beta.openphacts.org/2.1", "appID", "appKey");
  * var callback=function(success, status, response){
  *    var targetResult = searcher.parseTargetResponse(response);
  * };
@@ -156,7 +156,7 @@ TargetSearch.prototype.compoundsForTarget = function(URI, callback) {
  * @param {requestCallback} callback - Function that will be called with the result
  * @method
  * @example
- * var searcher = new TargetSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
+ * var searcher = new TargetSearch("https://beta.openphacts.org/2.1", "appID", "appKey");
  * var callback=function(success, status, response){
  *     var pharmacologyResult == searcher.parseTargetPharmacologyResponse(response);
  * };
@@ -229,7 +229,7 @@ TargetSearch.prototype.targetPharmacology = function(URI, assayOrganism, targetO
  * @param {requestCallback} callback - Function that will be called with the result
  * @method
  * @example
- * var searcher = new TargetSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
+ * var searcher = new TargetSearch("https://beta.openphacts.org/2.1", "appID", "appKey");
  * var callback=function(success, status, response){
  *     var pharmacologyResult == searcher.parseTargetPharmacologyCountResponse(response);
  * };
