@@ -408,7 +408,7 @@ describe("Pathways", function() {
 
       };
       waitsFor(function() {
-        return this_result != null;
+        return this_success != null;
       });
       runs(function() {
 	    expect(this_success).toBe(true);
