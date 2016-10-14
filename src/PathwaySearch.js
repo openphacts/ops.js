@@ -42,6 +42,17 @@ PathwaySearch.prototype.information = function(URI, lens, callback) {
 
 }
 
+/**
+ * Get a list of pathways in which the given compound is active.
+ * @param {string} URI - URI of the compound (e.g.: "http://purl.obolibrary.org/obo/CHEBI_57305")
+ * @param {string} [organism] - Restricts to pathways in this organism, if given
+ * @param {string} [lens] - The Lens name
+ * @param {string} [page=1] - Which page of records to return.
+ * @param {string} [pageSize=10] - How many records to return. Set to 'all' to return all records in a single page
+ * @param {string} [orderBy] - Order the records by this field eg ?assay_type or DESC(?assay_type)
+ * @param {requestCallback} callback - Function that will be called with the result.
+ * @method
+ */
 PathwaySearch.prototype.byCompound = function(URI, organism, lens, page, pageSize, orderBy, callback) {
     params = {};
     params['_format'] = "json";
@@ -73,6 +84,14 @@ PathwaySearch.prototype.byCompound = function(URI, organism, lens, page, pageSiz
 
 }
 
+/**
+ * Get a count of the list of pathways in which the given compound is active.
+ * @param {string} URI - URI of the compound (e.g.: "http://purl.obolibrary.org/obo/CHEBI_57305")
+ * @param {string} [organism] - Restricts to pathways in this organism, if given
+ * @param {string} [lens] - The Lens name
+ * @param {requestCallback} callback - Function that will be called with the result.
+ * @method
+ */
 PathwaySearch.prototype.countPathwaysByCompound = function(URI, organism, lens, callback) {
     params = {};
     params['_format'] = "json";
@@ -99,6 +118,17 @@ PathwaySearch.prototype.countPathwaysByCompound = function(URI, organism, lens, 
 
 }
 
+/**
+ * Get a list of pathways in which the given target is active.
+ * @param {string} URI - URI of the target (e.g.: "http://identifiers.org/ncbigene/282478")
+ * @param {string} [organism] - Restricts to pathways in this organism, if given
+ * @param {string} [lens] - The Lens name
+ * @param {string} [page=1] - Which page of records to return.
+ * @param {string} [pageSize=10] - How many records to return. Set to 'all' to return all records in a single page
+ * @param {string} [orderBy] - Order the records by this field eg ?assay_type or DESC(?assay_type)
+ * @param {requestCallback} callback - Function that will be called with the result.
+ * @method
+ */
 PathwaySearch.prototype.byTarget = function(URI, organism, lens, page, pageSize, orderBy, callback) {
     params = {};
     params['_format'] = "json";
@@ -130,6 +160,14 @@ PathwaySearch.prototype.byTarget = function(URI, organism, lens, page, pageSize,
 
 }
 
+/**
+ * Get a count of the list of pathways in which the given target is active.
+ * @param {string} URI - URI of the target (e.g.: "http://identifiers.org/ncbigene/282478")
+ * @param {string} [organism] - Restricts to pathways in this organism, if given
+ * @param {string} [lens] - The Lens name
+ * @param {requestCallback} callback - Function that will be called with the result.
+ * @method
+ */
 PathwaySearch.prototype.countPathwaysByTarget = function(URI, organism, lens, callback) {
     params = {};
     params['_format'] = "json";
@@ -194,6 +232,19 @@ PathwaySearch.prototype.getTargets = function(URI, lens, callback) {
 
 }
 
+/**
+ * Get a list of compounds that are part of the pathway specified
+ * @param {string} URI - URI of the pathway (e.g.: "http://identifiers.org/wikipathways/WP1008")
+ * @param {string} [lens] - The Lens name
+ * @param {requestCallback} callback - Function that will be called with the result.
+ * @method
+ * @example
+ * var searcher = new PathwaySearch("https://beta.openphacts.org/1.5", "appID", "appKey");
+ * var callback=function(success, status, response){
+ *    var compounds = searcher.parseGetCompoundsResponse(response);
+ * };
+ * searcher.getCompounds('http://identifiers.org/wikipathways/WP1008', null, callback);
+ */
 PathwaySearch.prototype.getCompounds = function(URI, lens, callback) {
     params = {};
     params['_format'] = "json";
@@ -301,6 +352,13 @@ PathwaySearch.prototype.getReferences = function(URI, lens, callback) {
 
 }
 
+/**
+ * Get a count of the pathways
+ * @param {string} [organism] - Restricts to pathways in this organism, if given
+ * @param {string} [lens] - The Lens name
+ * @param {requestCallback} callback - Function that will be called with the result.
+ * @method
+ */
 PathwaySearch.prototype.countPathways = function(organism, lens, callback) {
     params = {};
     params['_format'] = "json";
@@ -326,6 +384,16 @@ PathwaySearch.prototype.countPathways = function(organism, lens, callback) {
 
 }
 
+/**
+ * Get the pathways
+ * @param {string} [organism] - Restricts to pathways in this organism, if given
+ * @param {string} [lens] - The Lens name
+ * @param {string} [page=1] - Which page of records to return.
+ * @param {string} [pageSize=10] - How many records to return. Set to 'all' to return all records in a single page
+ * @param {string} [orderBy] - Order the records by this field eg ?assay_type or DESC(?assay_type)
+ * @param {requestCallback} callback - Function that will be called with the result.
+ * @method
+ */
 PathwaySearch.prototype.list = function(organism, lens, page, pageSize, orderBy, callback) {
     params = {};
     params['_format'] = "json";
@@ -356,6 +424,15 @@ PathwaySearch.prototype.list = function(organism, lens, page, pageSize, orderBy,
 
 }
 
+/**
+ * Get the organisms
+ * @param {string} [lens] - The Lens name
+ * @param {string} [page=1] - Which page of records to return.
+ * @param {string} [pageSize=10] - How many records to return. Set to 'all' to return all records in a single page
+ * @param {string} [orderBy] - Order the records by this field eg ?assay_type or DESC(?assay_type)
+ * @param {requestCallback} callback - Function that will be called with the result.
+ * @method
+ */
 PathwaySearch.prototype.organisms = function(lens, page, pageSize, orderBy, callback) {
     params = {};
     params['_format'] = "json";
