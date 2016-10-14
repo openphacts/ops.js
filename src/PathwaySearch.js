@@ -219,6 +219,33 @@ PathwaySearch.prototype.getCompounds = function(URI, lens, callback) {
 
 }
 
+PathwaySearch.prototype.getInteractions = function(URI, callback) {
+    params = {};
+    params['_format'] = "json";
+    params['app_key'] = this.appKey;
+    params['app_id'] = this.appID;
+    params['uri'] = URI;
+    Utils.nets({
+        url: this.baseURL + '/pathway/getInteractions?' + Utils.encodeParams(params),
+        method: "GET",
+        // 30 second timeout just in case
+        timeout: 30000,
+        headers: {
+            "Accept": "application/json"
+        }
+    }, function(err, resp, body) {
+        // Handle responses where there is no resp/status code
+        if (resp != null && resp.statusCode === 200) {
+            callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
+        } else if (resp != null) {
+            callback.call(this, false, resp.statusCode);
+        } else {
+            callback.call(this, false, null);
+        }
+    });
+
+}
+
 PathwaySearch.prototype.byReference = function(URI, organism, lens, page, pageSize, orderBy, callback) {
     params = {};
     params['_format'] = "json";
@@ -551,6 +578,55 @@ PathwaySearch.prototype.parseGetCompoundsResponse = function(response) {
         'title': title,
         'revision': revision,
         'metabolites': metabolites
+    };
+}
+
+PathwaySearch.prototype.parseGetInteractionsResponse = function(response) {
+    var constants = new Constants();
+    var latest_version, revision, title, parts;
+    latest_version = response.primaryTopic.latest_version;
+    title = latest_version.title;
+    revision = latest_version[constants.ABOUT];
+    var partsComplete = latest_version.hasPart ? latest_version.hasPart : null;
+    var interactions = [];
+        Utils.arrayify(partsComplete).forEach(function(part, i) {
+            about = part._about;
+            type  = part.type;
+            sources = part.source
+            if (Array.isArray(sources)) {
+                collapsed = []
+                sources.forEach(function(source) {
+                    collapsed.push(source._about)
+                });
+                sources = collapsed
+            } else {
+                iri = sources._about
+                sources = [];
+                sources[0] = iri
+            }
+            targets = part.target
+            if (Array.isArray(targets)) {
+                collapsed = []
+                targets.forEach(function(target) {
+                    collapsed.push(target._about)
+                });
+                targets = collapsed
+            } else {
+                iri = targets._about
+                targets = [];
+                targets[0] = iri
+            }
+            interactions.push({
+                'type': type,
+                 'source': sources,
+                 'target': targets,
+                'about': about
+            });
+        });
+    return {
+        'title': title,
+        'revision': revision,
+        'interactions': interactions
     };
 }
 

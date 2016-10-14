@@ -393,6 +393,45 @@ describe("Pathways", function() {
     });
   });
 
+  describe("get interactions for pathway", function() {
+
+    it("and return a response", function() {
+      var this_success = null;
+      var this_status = null;
+      var this_result = null;
+      var callback=function(success, status, response){
+        this_success = success;
+        this_status = status;
+        this_result = searcher.parseGetInteractionsResponse(response);
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toBe(true);
+        expect(this_status).toBe(200);
+        expect(this_result).not.toBeNull();
+      });
+      searcher.getInteractions('http://identifiers.org/wikipathways/WP1015', callback);
+    });
+    it("and handle errors", function() {
+      var this_success = null;
+      var this_status = null;
+      var callback=function(success, status, response){
+        this_success = success;
+        this_status = status;
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toEqual(false);
+        expect(this_status).toEqual(400);
+      });
+      searcher.getInteractions('456436236', callback);
+    });
+  });
+
   describe("pathways by reference", function() {
 
     xit("and return a response", function() {
