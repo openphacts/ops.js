@@ -160,8 +160,8 @@ TreeSearch.prototype.getTargetClassPharmacologyPaginated = function(URI, assayOr
     page != null ? params['_page'] = page : '';
     pageSize != null ? params['_pageSize'] = pageSize : '';
     orderBy != null ? params['_orderBy'] = orderBy : '';
-console.log(this.baseURL + '/target/tree/pharmacology/pages?' + Utils.encodeParams(params));
-Utils.nets({
+    //console.log(this.baseURL + '/target/tree/pharmacology/pages?' + Utils.encodeParams(params));
+    Utils.nets({
         url: this.baseURL + '/target/tree/pharmacology/pages?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
