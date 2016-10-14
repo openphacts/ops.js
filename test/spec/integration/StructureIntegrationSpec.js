@@ -68,7 +68,7 @@ describe("Structure search", function() {
         this_status = status;
       };
       waitsFor(function() {
-        return this_result != null;
+        return this_success != null;
       });
       runs(function() {
         expect(this_success).toEqual(true);
