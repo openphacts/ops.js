@@ -395,7 +395,7 @@ describe("Pathways", function() {
 
   describe("pathways by reference", function() {
 
-    it("and return a response", function() {
+    xit("and return a response", function() {
       var this_success = null;
       var this_status = null;
       var this_result = null;
