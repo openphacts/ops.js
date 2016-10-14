@@ -237,7 +237,7 @@ describe("Pathways", function() {
 	expect(pathway_result.geneProducts[0].exactMatch[0].URI).toBeDefined();
         expect(pathway_result.geneProducts[0].exactMatch[0].label).toBeDefined();
       });
-      searcher.byTarget('http://rdf.ebi.ac.uk/resource/chembl/target/CHEMBL2096668', null, null, null, null, null, callback);
+      searcher.byTarget('http://identifiers.org/ncbigene/282478', null, null, null, null, null, callback);
     });
 
     it("and handle errors", function() {
