@@ -219,6 +219,13 @@ PathwaySearch.prototype.getCompounds = function(URI, lens, callback) {
 
 }
 
+/**
+ * Give a list of interactions for the given pathway.
+ *
+ * @param {string} URI - URI of the pathway (e.g.: "http://identifiers.org/wikipathways/WP1015")
+ * @param {requestCallback} callback - Function that will be called with the result.
+ * @method
+ */
 PathwaySearch.prototype.getInteractions = function(URI, callback) {
     params = {};
     params['_format'] = "json";
@@ -356,6 +363,16 @@ PathwaySearch.prototype.countPathways = function(organism, lens, callback) {
 
 }
 
+/**
+ * Give the count of interactions of the given entity (metabolite, gene, protein).
+ *
+ * @param {string} URI - URI of the compound (e.g.: "http://purl.obolibrary.org/obo/CHEBI_57305")
+ * @param {string} [organism] - Restricts to pathways in this organism, if given
+ * @param {string} [direction] - Only interactions of this direction (values: "up", "down").
+ * @param {string} [interaction_type] - Only interactions of this type (values: "directed" "undirected").
+ * @param {requestCallback} callback - Function that will be called with the result.
+ * @method
+ */
 PathwaySearch.prototype.countInteractionsByEntity = function(URI, organism, direction, interaction_type, callback) {
     params = {};
     params['_format'] = "json";
@@ -387,6 +404,16 @@ PathwaySearch.prototype.countInteractionsByEntity = function(URI, organism, dire
 
 }
 
+/**
+ * Get a list of interactions of the given entity (metabolite, gene, protein).
+ *
+ * @param {string} URI - URI of the compound (e.g.: "http://purl.obolibrary.org/obo/CHEBI_57305")
+ * @param {string} [organism] - Restricts to pathways in this organism, if given
+ * @param {string} [direction] - Only interactions of this direction (values: "up", "down").
+ * @param {string} [interaction_type] - Only interactions of this type (values: "directed" "undirected").
+ * @param {requestCallback} callback - Function that will be called with the result.
+ * @method
+ */
 PathwaySearch.prototype.getInteractionsByEntity = function(URI, organism, direction, interaction_type, callback) {
     params = {};
     params['_format'] = "json";
