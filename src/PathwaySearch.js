@@ -387,6 +387,37 @@ PathwaySearch.prototype.countInteractionsByEntity = function(URI, organism, dire
 
 }
 
+PathwaySearch.prototype.getInteractionsByEntity = function(URI, organism, direction, interaction_type, callback) {
+    params = {};
+    params['_format'] = "json";
+    params['app_key'] = this.appKey;
+    params['app_id'] = this.appID;
+    params['uri'] = URI;
+    organism ? params['pathway_organism'] = organism : '';
+    organism ? params['organism'] = organism : '';
+    organism ? params['direction'] = direction : '';
+    organism ? params['interaction_type'] = interaction_type : '';
+    Utils.nets({
+        url: this.baseURL + '/pathways/interactions/byEntity?' + Utils.encodeParams(params),
+        method: "GET",
+        // 30 second timeout just in case
+        timeout: 30000,
+        headers: {
+            "Accept": "application/json"
+        }
+    }, function(err, resp, body) {
+        // Handle responses where there is no resp/status code
+        if (resp != null && resp.statusCode === 200) {
+            callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
+        } else if (resp != null) {
+            callback.call(this, false, resp.statusCode);
+        } else {
+            callback.call(this, false, null);
+        }
+    });
+
+}
+
 PathwaySearch.prototype.list = function(organism, lens, page, pageSize, orderBy, callback) {
     params = {};
     params['_format'] = "json";
@@ -715,7 +746,48 @@ PathwaySearch.prototype.parseCountPathwaysResponse = function(response) {
     return response.primaryTopic[constants.PATHWAY_COUNT];
 }
 
-PathwaySearch.prototype.parseCountInteractionsResponse = function(response) {
+PathwaySearch.prototype.parseInteractionsByEntityResponse = function(response) {
+    var constants = new Constants();
+    var items = response.items;
+    var interactions = [];
+    items.forEach(function(part, i) {
+        about = part._about;
+        type  = part.type;
+        sources = part.source
+        if (Array.isArray(sources)) {
+            collapsed = []
+            sources.forEach(function(source) {
+                collapsed.push(source._about)
+            });
+            sources = collapsed
+        } else {
+            iri = sources._about
+            sources = [];
+            sources[0] = iri
+        }
+        targets = part.target
+        if (Array.isArray(targets)) {
+            collapsed = []
+            targets.forEach(function(target) {
+                collapsed.push(target._about)
+            });
+            targets = collapsed
+        } else {
+            iri = targets._about
+            targets = [];
+            targets[0] = iri
+        }
+        interactions.push({
+            'type': type,
+              'source': sources,
+              'target': targets,
+            'about': about
+        });
+    });
+    return interactions;
+}
+
+PathwaySearch.prototype.parseCountInteractionsByEntityResponse = function(response) {
     return response.primaryTopic["interactions_count"];
 }
 
