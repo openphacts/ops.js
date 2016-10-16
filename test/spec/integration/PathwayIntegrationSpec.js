@@ -432,6 +432,45 @@ describe("Pathways", function() {
     });
   });
 
+  describe("count interactions by entity", function() {
+
+    it("and return a response", function() {
+      var this_success = null;
+      var this_status = null;
+      var this_result = null;
+      var callback = function(success, status, response) {
+        this_success = success;
+        this_status = status;
+        this_result = searcher.parseCountInteractionsResponse(response);
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toBe(true);
+        expect(this_status).toBe(200);
+        expect(this_result).not.toBeNull();
+      });
+      searcher.countInteractionsByEntity('http://identifiers.org/ensembl/ENSBTAG00000004037', null, null, null, callback);
+    });
+    it("and handle errors", function() {
+      var this_success = null;
+      var this_status = null;
+      var callback=function(success, status, response){
+        this_success = success;
+        this_status = status;
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toEqual(false);
+        expect(this_status).toEqual(400);
+      });
+      searcher.countInteractionsByEntity('456436236', null, null, null, callback);
+    });
+  });
+
   describe("pathways by reference", function() {
 
     xit("and return a response", function() {

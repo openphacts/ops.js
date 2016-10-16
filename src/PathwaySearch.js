@@ -356,6 +356,37 @@ PathwaySearch.prototype.countPathways = function(organism, lens, callback) {
 
 }
 
+PathwaySearch.prototype.countInteractionsByEntity = function(URI, organism, direction, interaction_type, callback) {
+    params = {};
+    params['_format'] = "json";
+    params['app_key'] = this.appKey;
+    params['app_id'] = this.appID;
+    params['uri'] = URI;
+    organism ? params['pathway_organism'] = organism : '';
+    organism ? params['organism'] = organism : '';
+    organism ? params['direction'] = direction : '';
+    organism ? params['interaction_type'] = interaction_type : '';
+    Utils.nets({
+        url: this.baseURL + '/pathways/interactions/byEntity/count?' + Utils.encodeParams(params),
+        method: "GET",
+        // 30 second timeout just in case
+        timeout: 30000,
+        headers: {
+            "Accept": "application/json"
+        }
+    }, function(err, resp, body) {
+        // Handle responses where there is no resp/status code
+        if (resp != null && resp.statusCode === 200) {
+            callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
+        } else if (resp != null) {
+            callback.call(this, false, resp.statusCode);
+        } else {
+            callback.call(this, false, null);
+        }
+    });
+
+}
+
 PathwaySearch.prototype.list = function(organism, lens, page, pageSize, orderBy, callback) {
     params = {};
     params['_format'] = "json";
@@ -682,6 +713,10 @@ PathwaySearch.prototype.parseGetReferencesResponse = function(response) {
 PathwaySearch.prototype.parseCountPathwaysResponse = function(response) {
     var constants = new Constants();
     return response.primaryTopic[constants.PATHWAY_COUNT];
+}
+
+PathwaySearch.prototype.parseCountInteractionsResponse = function(response) {
+    return response.primaryTopic["interactions_count"];
 }
 
 PathwaySearch.prototype.parseListResponse = function(response) {
