@@ -417,7 +417,7 @@ PathwaySearch.prototype.countInteractionsByEntity = function(URI, organism, dire
  * @param {requestCallback} callback - Function that will be called with the result.
  * @method
  */
-PathwaySearch.prototype.getInteractionsByEntity = function(URI, organism, direction, interaction_type, page, pagesize, orderBy, callback) {
+PathwaySearch.prototype.getInteractionsByEntity = function(URI, organism, direction, interaction_type, page, pageSize, orderBy, callback) {
     params = {};
     params['_format'] = "json";
     params['app_key'] = this.appKey;
