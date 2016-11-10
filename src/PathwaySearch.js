@@ -421,9 +421,8 @@ PathwaySearch.prototype.getInteractionsByEntity = function(URI, organism, direct
     params['app_id'] = this.appID;
     params['uri'] = URI;
     organism ? params['pathway_organism'] = organism : '';
-    organism ? params['organism'] = organism : '';
-    organism ? params['direction'] = direction : '';
-    organism ? params['interaction_type'] = interaction_type : '';
+    direction ? params['direction'] = direction : '';
+    interaction_type ? params['interaction_type'] = interaction_type : '';
     Utils.nets({
         url: this.baseURL + '/pathways/interactions/byEntity?' + Utils.encodeParams(params),
         method: "GET",
