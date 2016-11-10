@@ -411,10 +411,13 @@ PathwaySearch.prototype.countInteractionsByEntity = function(URI, organism, dire
  * @param {string} [organism] - Restricts to pathways in this organism, if given
  * @param {string} [direction] - Only interactions of this direction (values: "up", "down").
  * @param {string} [interaction_type] - Only interactions of this type (values: "directed" "undirected").
+ * @param {string} [page=1] - Which page of records to return.
+ * @param {string} [pageSize=10] - How many records to return. Set to 'all' to return all records in a single page
+ * @param {string} [orderBy] - Order the records by this field eg ?assay_type or DESC(?assay_type)
  * @param {requestCallback} callback - Function that will be called with the result.
  * @method
  */
-PathwaySearch.prototype.getInteractionsByEntity = function(URI, organism, direction, interaction_type, callback) {
+PathwaySearch.prototype.getInteractionsByEntity = function(URI, organism, direction, interaction_type, page, pagesize, orderBy, callback) {
     params = {};
     params['_format'] = "json";
     params['app_key'] = this.appKey;
@@ -423,6 +426,9 @@ PathwaySearch.prototype.getInteractionsByEntity = function(URI, organism, direct
     organism ? params['pathway_organism'] = organism : '';
     direction ? params['direction'] = direction : '';
     interaction_type ? params['interaction_type'] = interaction_type : '';
+    page ? params['_page'] = page : '';
+    pageSize ? params['_pageSize'] = pageSize : '';
+    orderBy ? params['_orderBy'] = orderBy : '';
     Utils.nets({
         url: this.baseURL + '/pathways/interactions/byEntity?' + Utils.encodeParams(params),
         method: "GET",
