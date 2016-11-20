@@ -52,7 +52,7 @@ DiseaseSearch = function DiseaseSearch(baseURL, appID, appKey) {
  * @param {requestCallback} callback - Function that will be called with the result.
  * @method
  * @example
- * var searcher = new DiseaseSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
+ * var searcher = new DiseaseSearch("https://beta.openphacts.org/2.1", "appID", "appKey");
  * var callback=function(success, status, response){
  *    var diseaseResult = searcher.parseDiseaseResponse(response);
  * };
@@ -65,7 +65,7 @@ DiseaseSearch.prototype.fetchDisease = function(URI, lens, callback) {
     params['app_id'] = this.appID;
     params['uri'] = URI;
     lens ? params['_lens'] = lens : '';
-	nets({
+	Utils.nets({
         url: this.baseURL + '/disease?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -91,7 +91,7 @@ DiseaseSearch.prototype.fetchDisease = function(URI, lens, callback) {
  * @param {requestCallback} callback - Function that will be called with the result.
  * @method
  * @example
- * var searcher = new DiseaseSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
+ * var searcher = new DiseaseSearch("https://beta.openphacts.org/2.1", "appID", "appKey");
  * var callback=function(success, status, response){
  *    var diseaseResult = searcher.parseDiseaseBatchResponse(response);
  * };
@@ -105,7 +105,7 @@ DiseaseSearch.prototype.fetchDiseaseBatch = function(URIList, lens, callback) {
     var URIs = URIList.join('|');
     params['uri_list'] = URIs;
     lens ? params['_lens'] = lens : '';
-	nets({
+	Utils.nets({
         url: this.baseURL + '/disease/batch?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -130,7 +130,7 @@ DiseaseSearch.prototype.fetchDiseaseBatch = function(URIList, lens, callback) {
  * @param {requestCallback} callback - Function that will be called with the result.
  * @method
  * @example
- * var searcher = new DiseaseSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
+ * var searcher = new DiseaseSearch("https://beta.openphacts.org/2.1", "appID", "appKey");
  * var callback=function(success, status, response){
  *    var diseaseResult = searcher.parseDiseasesByTargetCountResponse(response);
  * };
@@ -143,7 +143,7 @@ DiseaseSearch.prototype.diseasesByTargetCount = function(URI, lens, callback) {
     params['app_id'] = this.appID;
     params['uri'] = URI;
     lens ? params['_lens'] = lens : '';
-	nets({
+	Utils.nets({
         url: this.baseURL + '/disease/byTarget/count?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -172,7 +172,7 @@ DiseaseSearch.prototype.diseasesByTargetCount = function(URI, lens, callback) {
  * @param {requestCallback} callback - Function that will be called with the result.
  * @method
  * @example
- * var searcher = new DiseaseSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
+ * var searcher = new DiseaseSearch("https://beta.openphacts.org/2.1", "appID", "appKey");
  * var callback=function(success, status, response){
  *    var diseases = searcher.parseDiseasesByTargetResponse(response);
  * };
@@ -188,7 +188,7 @@ DiseaseSearch.prototype.diseasesByTarget = function(URI, page, pageSize, orderBy
     pageSize ? params['_pageSize'] = pageSize : '';
     orderBy ? params['_orderBy'] = orderBy : '';
     lens ? params['_lens'] = lens : '';
-	nets({
+	Utils.nets({
         url: this.baseURL + '/disease/byTarget?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -214,7 +214,7 @@ DiseaseSearch.prototype.diseasesByTarget = function(URI, page, pageSize, orderBy
  * @param {requestCallback} callback - Function that will be called with the result.
  * @method
  * @example
- * var searcher = new DiseaseSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
+ * var searcher = new DiseaseSearch("https://beta.openphacts.org/2.1", "appID", "appKey");
  * var callback=function(success, status, response){
  *    var targetResult = searcher.parseTargetsByDiseaseCountResponse(response);
  * };
@@ -227,7 +227,7 @@ DiseaseSearch.prototype.targetsByDiseaseCount = function(URI, lens, callback) {
         params['app_id'] = this.appID;
         params['uri'] = URI;
         lens ? params['_lens'] = lens : '';
-nets({
+Utils.nets({
         url: this.baseURL + '/disease/getTargets/count?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -255,7 +255,7 @@ nets({
      * @param {requestCallback} callback - Function that will be called with the result.
      * @method
      * @example
-     * var searcher = new DiseaseSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
+     * var searcher = new DiseaseSearch("https://beta.openphacts.org/2.1", "appID", "appKey");
      * var callback=function(success, status, response){
      *    var targets = searcher.parseTargetsByDiseaseResponse(response);
      * };
@@ -271,7 +271,7 @@ DiseaseSearch.prototype.targetsByDisease = function(URI, page, pageSize, orderBy
     pageSize ? params['_pageSize'] = pageSize : '';
     orderBy ? params['_orderBy'] = orderBy : '';
     lens ? params['_lens'] = lens : '';
-nets({
+Utils.nets({
         url: this.baseURL + '/disease/getTargets?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -296,7 +296,7 @@ nets({
  * @param {requestCallback} callback - Function that will be called with the result.
  * @method
  * @example
- * var searcher = new DiseaseSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
+ * var searcher = new DiseaseSearch("https://beta.openphacts.org/2.1", "appID", "appKey");
  * var callback=function(success, status, response){
  *    var associationsCount = searcher.parseAssociationsByTargetCountResponse(response);
  * };
@@ -309,7 +309,7 @@ DiseaseSearch.prototype.associationsByTargetCount = function(URI, lens, callback
     params['app_id'] = this.appID;
     params['uri'] = URI;
     lens ? params['_lens'] = lens : '';
-nets({
+Utils.nets({
         url: this.baseURL + '/disease/assoc/byTarget/count?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -337,7 +337,7 @@ nets({
  * @param {requestCallback} callback - Function that will be called with the result.
  * @method
  * @example
- * var searcher = new DiseaseSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
+ * var searcher = new DiseaseSearch("https://beta.openphacts.org/2.1", "appID", "appKey");
  * var callback=function(success, status, response){
  *    var associations = searcher.parseAssociationsByTargetResponse(response);
  * };
@@ -353,7 +353,7 @@ DiseaseSearch.prototype.associationsByTarget = function(URI, page, pageSize, ord
     pageSize ? params['_pageSize'] = pageSize : '';
     orderBy ? params['_orderBy'] = orderBy : '';
     lens ? params['_lens'] = lens : '';
-nets({
+Utils.nets({
         url: this.baseURL + '/disease/assoc/byTarget?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -381,7 +381,7 @@ nets({
  * @param {requestCallback} callback - Function that will be called with the result.
  * @method
  * @example
- * var searcher = new DiseaseSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
+ * var searcher = new DiseaseSearch("https://beta.openphacts.org/2.1", "appID", "appKey");
  * var callback=function(success, status, response){
  *    var associations = searcher.parseAssociationsByDiseaseResponse(response);
  * };
@@ -397,7 +397,7 @@ DiseaseSearch.prototype.associationsByDisease = function(URI, page, pageSize, or
         pageSize ? params['_pageSize'] = pageSize : '';
         orderBy ? params['_orderBy'] = orderBy : '';
         lens ? params['_lens'] = lens : '';
-nets({
+Utils.nets({
         url: this.baseURL + '/disease/assoc/byDisease?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -422,7 +422,7 @@ nets({
      * @param {requestCallback} callback - Function that will be called with the result.
      * @method
      * @example
-     * var searcher = new DiseaseSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
+     * var searcher = new DiseaseSearch("https://beta.openphacts.org/2.1", "appID", "appKey");
      * var callback=function(success, status, response){
      *    var associationsCount = searcher.parseAssociationsByDiseaseCountResponse(response);
      * };
@@ -435,7 +435,7 @@ DiseaseSearch.prototype.associationsByDiseaseCount = function(URI, lens, callbac
         params['app_id'] = this.appID;
         params['uri'] = URI;
         lens ? params['_lens'] = lens : '';
-nets({
+Utils.nets({
         url: this.baseURL + '/disease/assoc/byDisease/count?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -543,14 +543,19 @@ DiseaseSearch.prototype.parseDiseasesByTargetResponse = function(response) {
         URI = item[constants.ABOUT];
         gene = {};
         gene["URI"] = item.forGene[constants.ABOUT];
-        gene["encodes"] = item.forGene.encodes[constants.ABOUT];
-        if (item.forGene.encodes.exactMatch != null) {
-            gene["encodesProvenance"] = item.forGene.encodes.exactMatch[constants.ABOUT] != null ? item.forGene.encodes.exactMatch[constants.ABOUT] : null;
-            gene["encodesLabel"] = item.forGene.encodes.exactMatch.prefLabel != null ? item.forGene.encodes.exactMatch.prefLabel : null;
+	gene["encodes"] = [];
+	Utils.arrayify(item.forGene.encodes).forEach(function(encode, i) {
+               var about = encode[constants.ABOUT];
+	    	if (encode.exactMatch != null) {
+               var provenance = encode.exactMatch[constants.ABOUT] != null ? item.forGene.encodes.exactMatch[constants.ABOUT] : null;
+               var label = encode.exactMatch.prefLabel != null ? item.forGene.encodes.exactMatch.prefLabel : null;
+	       gene["encodes"].push({"uri": about, "provenance": provenance, "label": label});
         } else {
-            gene["encodesProvenance"] = null;
-            gene["encodesLabel"] = null;
+		gene["encodes"].push({"uri": about});
+               gene["provenance"] = null;
+               gene["label"] = null;
         }
+	});
         diseases.push({
             "name": name,
             "URI": URI,
@@ -754,13 +759,13 @@ exports.DiseaseSearch = DiseaseSearch;
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ActivitySearch.html">ActivitySearch</a></li><li><a href="CompoundSearch.html">CompoundSearch</a></li><li><a href="ConceptWikiSearch.html">ConceptWikiSearch</a></li><li><a href="DataSources.html">DataSources</a></li><li><a href="DiseaseSearch.html">DiseaseSearch</a></li><li><a href="MapSearch.html">MapSearch</a></li><li><a href="PathwaySearch.html">PathwaySearch</a></li><li><a href="StructureSearch.html">StructureSearch</a></li><li><a href="TargetSearch.html">TargetSearch</a></li><li><a href="TissueSearch.html">TissueSearch</a></li><li><a href="TreeSearch.html">TreeSearch</a></li><li><a href="Version.html">Version</a></li></ul><h3>Namespaces</h3><ul><li><a href="Openphacts.html">Openphacts</a></li></ul><h3>Global</h3><ul><li><a href="global.html#arrayify">arrayify</a></li><li><a href="global.html#encodeParams">encodeParams</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ActivitySearch.html">ActivitySearch</a></li><li><a href="CompoundSearch.html">CompoundSearch</a></li><li><a href="ConceptWikiSearch.html">ConceptWikiSearch</a></li><li><a href="DataSources.html">DataSources</a></li><li><a href="DiseaseSearch.html">DiseaseSearch</a></li><li><a href="MapSearch.html">MapSearch</a></li><li><a href="PathwaySearch.html">PathwaySearch</a></li><li><a href="StructureSearch.html">StructureSearch</a></li><li><a href="TargetSearch.html">TargetSearch</a></li><li><a href="TissueSearch.html">TissueSearch</a></li><li><a href="TreeSearch.html">TreeSearch</a></li><li><a href="Version.html">Version</a></li></ul><h3>Namespaces</h3><ul><li><a href="Openphacts.html">Openphacts</a></li></ul><h3>Global</h3><ul><li><a href="global.html#arrayify">arrayify</a></li><li><a href="global.html#debug">debug</a></li><li><a href="global.html#encodeParams">encodeParams</a></li><li><a href="global.html#nets">nets</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Wed Jul 22 2015 13:50:06 GMT+0100 (GMT Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Sun Nov 20 2016 17:15:04 GMT+0100 (CET)
 </footer>
 
 <script> prettyPrint(); </script>
