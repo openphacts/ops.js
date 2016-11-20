@@ -131,3 +131,4 @@ searcher.fetchCompound('http://www.conceptwiki.org/concept/38932552-111f-4a4e-a4
 [Egon Willighagen](https://github.com/egonw "egonw")  
 [PANDORINO](https://github.com/PANDORINO "PANDORINO")  
 [Stian Soiland-Reyes](https://github.com/stain "stain")
+[Morton Fox](https://github.com/mortonfox "mortonfox")
