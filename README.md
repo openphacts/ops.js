@@ -2,12 +2,12 @@
 
 ## Open PHACTS API Version
 
-1.5
+2.1
 
 ## About
 OPS.js is a javascript NodeJS based library, available via [NPM](https://www.npmjs.com/package/ops.js "OPs.js on Node Package Manager"), for accessing the Open PHACTS Linked Data API (LDA). It uses [nets](https://www.npmjs.com/package/nets) to handle the asynchronous network calls. OPS.js can also be used to parse responses from the LDA.
 Please read the [API documentation](http://openphacts.github.io/ops.js "OPS.js API documentation"). The API documentation is also available locally within the `docs` folder. To view them open the `docs/index.html` file in a browser.
- 
+
 ## Dependencies & requirements
 [NodeJS](https://nodejs.org/), [NPM](https://www.npmjs.com/), [nets](https://www.npmjs.com/package/nets), [JSDoc](https://www.npmjs.com/package/jsdoc) & [browserify](https://www.npmjs.com/package/browserify)
 Get your Open PHACTS API application ID and key by registering at https://dev.openphacts.org
@@ -45,7 +45,7 @@ For Bibtex use:
   doi          = {10.5281/zenodo.29418},  
   url          = {http://dx.doi.org/10.5281/zenodo.29418}
 }
-``` 
+```
 
 You can get version information by using an OPS.js method in a browser or Node:
 
@@ -65,7 +65,7 @@ Look at https://dev.openphacts.org for more information about the source methods
 [Jasmine](https://jasmine.github.io/ "Jasmine javascript testing framework") is used to test the ops.js api. The specs for the tests are in the 'test/spec' directory. To run them use jasmine-node like this:
 
 ```bash
-jasmine-node --config app_id your_app_id --config app_key your_app_key --config app_url https://beta.openphacts.org/1.5 test/spec/integration/
+jasmine-node --config app_id your_app_id --config app_key your_app_key --config app_url https://beta.openphacts.org/2.1 test/spec/integration/
 ```
 
 In case the test run does not finish with some statistics on the number of tests run, assertions made, and skipped and failed tests,
@@ -75,12 +75,14 @@ then it like failed on one of the tests. To see the exception that was thrown, r
 jasmine-node --captureExceptions --config app_id your_app_id --config app_key your_app_key --config app_url https://beta.openphacts.org/1.5 test/spec/integration/
 ```
 
+To enable console logging of URIs tested, add the parameter `--config debug true`
+
 ### Testing with Docker
 
 If you use Docker, you can run the [openphacts/ops-api-test](https://hub.docker.com/r/openphacts/ops-api-test/) image
-to run the tests, without needing to install NodeJS. 
+to run the tests, without needing to install NodeJS.
 
-Run with the `-it` parameter to get colour output. 
+Run with the `-it` parameter to get colour output.
 You might want to override environment variables like `app_url`, `app_id` and `app_key`.
 Example:
 
@@ -96,7 +98,7 @@ More examples can be found in the integration tests and in the [API docs](http:/
 ### Concept Wiki free text search
 
 ```javascript
-var searcher = new ConceptWikiSearch("https://beta.openphacts.org/1.5", appID, appKey);  
+var searcher = new ConceptWikiSearch("https://beta.openphacts.org/2.1", appID, appKey);  
 var callback=function(success, status, response){  
     searcher.parseResponse(response);
 };  
@@ -109,7 +111,7 @@ searcher.byTag('Aspirin', '20', '4', '07a84994-e464-4bbf-812a-a4b96fa3d197', cal
 ### Compound information
 
 ```javascript
-var searcher = new CompoundSearch("https://beta.openphacts.org/1.5", appID, appKey);  
+var searcher = new CompoundSearch("https://beta.openphacts.org/2.1", appID, appKey);  
 var callback=function(success, status, response){  
     var compoundResult = searcher.parseCompoundResponse(response);  
 };  

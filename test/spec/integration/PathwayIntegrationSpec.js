@@ -18,12 +18,14 @@ describe("Pathways", function() {
       var this_status = null;
       var this_result = null;
       var callback=function(success, status, response){
+        if (response) {
+          this_result = searcher.parseInformationResponse(response);
+        }
         this_success = success;
-	    this_status = status;
-        this_result = searcher.parseInformationResponse(response);
+      this_status = status;
       };
       waitsFor(function() {
-        return this_result != null;
+        return this_success != null;
       });
       runs(function() {
 	    expect(this_success).toBe(true);
@@ -203,12 +205,14 @@ describe("Pathways", function() {
       var this_status = null;
       var this_result = null;
       var callback=function(success, status, response){
+        if (response) {
+          this_result = searcher.parseByTargetResponse(response);
+        }
+        this_status = status;
         this_success = success;
-	    this_status = status;
-        this_result = searcher.parseByTargetResponse(response);
       };
       waitsFor(function() {
-        return this_result != null;
+        return this_success != null;
       });
       runs(function() {
 	    expect(this_success).toBe(true);
@@ -233,7 +237,7 @@ describe("Pathways", function() {
 	expect(pathway_result.geneProducts[0].exactMatch[0].URI).toBeDefined();
         expect(pathway_result.geneProducts[0].exactMatch[0].label).toBeDefined();
       });
-      searcher.byTarget('http://rdf.ebi.ac.uk/resource/chembl/target/CHEMBL2096668', null, null, null, null, null, callback);
+      searcher.byTarget('http://identifiers.org/ncbigene/282478', null, null, null, null, null, callback);
     });
 
     it("and handle errors", function() {
@@ -389,7 +393,7 @@ describe("Pathways", function() {
     });
   });
 
-  describe("pathways by reference", function() {
+  describe("get interactions for pathway", function() {
 
     it("and return a response", function() {
       var this_success = null;
@@ -397,11 +401,134 @@ describe("Pathways", function() {
       var this_result = null;
       var callback=function(success, status, response){
         this_success = success;
-	    this_status = status;
-        this_result = searcher.parseByReferenceResponse(response);
+        this_status = status;
+        this_result = searcher.parseGetInteractionsResponse(response);
+	console.log(JSON.stringify(this_result, "", 2))
       };
       waitsFor(function() {
-        return this_result != null;
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toBe(true);
+        expect(this_status).toBe(200);
+        expect(this_result).not.toBeNull();
+      });
+      searcher.getInteractions('http://identifiers.org/wikipathways/WP1015', callback);
+    });
+    it("and handle errors", function() {
+      var this_success = null;
+      var this_status = null;
+      var callback=function(success, status, response){
+        this_success = success;
+        this_status = status;
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toEqual(false);
+        expect(this_status).toEqual(400);
+      });
+      searcher.getInteractions('456436236', callback);
+    });
+  });
+
+  describe("count interactions by entity", function() {
+
+    it("and return a response", function() {
+      var this_success = null;
+      var this_status = null;
+      var this_result = null;
+      var callback = function(success, status, response) {
+        this_success = success;
+        this_status = status;
+        this_result = searcher.parseCountInteractionsByEntityResponse(response);
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toBe(true);
+        expect(this_status).toBe(200);
+        expect(this_result).not.toBeNull();
+      });
+      searcher.countInteractionsByEntity('http://identifiers.org/ensembl/ENSBTAG00000004037', null, null, null, callback);
+    });
+    it("and handle errors", function() {
+      var this_success = null;
+      var this_status = null;
+      var callback=function(success, status, response){
+        this_success = success;
+        this_status = status;
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toEqual(false);
+        expect(this_status).toEqual(400);
+      });
+      searcher.countInteractionsByEntity('456436236', null, null, null, callback);
+    });
+  });
+
+  describe("interactions by entity", function() {
+
+    it("and return a response", function() {
+      var this_success = null;
+      var this_status = null;
+      var this_result = null;
+      var callback = function(success, status, response) {
+        this_success = success;
+        this_status = status;
+	console.log(JSON.stringify(response, "", 2))
+        this_result = searcher.parseInteractionsByEntityResponse(response);
+	console.log(JSON.stringify(this_result, "", 2))
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toBe(true);
+        expect(this_status).toBe(200);
+        expect(this_result).not.toBeNull();
+      });
+      searcher.getInteractionsByEntity('http://identifiers.org/ensembl/ENSBTAG00000004037', null, null, null, callback);
+    });
+    it("and handle errors", function() {
+      var this_success = null;
+      var this_status = null;
+      var callback=function(success, status, response){
+        this_success = success;
+        this_status = status;
+      };
+      waitsFor(function() {
+        return this_success != null;
+      });
+      runs(function() {
+        expect(this_success).toEqual(false);
+        expect(this_status).toEqual(400);
+      });
+      searcher.countInteractionsByEntity('456436236', null, null, null, callback);
+    });
+  });
+
+  describe("pathways by reference", function() {
+
+    xit("and return a response", function() {
+      var this_success = null;
+      var this_status = null;
+      var this_result = null;
+      var callback=function(success, status, response){
+        if (response) {
+          this_result = searcher.parseByReferenceResponse(response);
+        }
+        this_success = success;
+      this_status = status;
+
+      };
+      waitsFor(function() {
+        return this_success != null;
       });
       runs(function() {
 	    expect(this_success).toBe(true);
@@ -549,7 +676,7 @@ describe("Pathways", function() {
       });
       searcher.countPathways(null, null, callback);
     });
-// This test wasn't really checking anything except whether the server would reject an invalid appID/appKey. 
+// This test wasn't really checking anything except whether the server would reject an invalid appID/appKey.
 // The count pathways api call will work with any input but return 0 for the number of results
 //    it("and handle errors", function() {
 //      var this_success = null;

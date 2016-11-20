@@ -26,7 +26,7 @@ MapSearch.prototype.mapURL = function(URI, targetUriPattern, graph, lens, callba
         targetUriPattern ? params['targetUriPattern'] = targetUriPattern : '';
         graph ? params['graph'] = graph : '';
         lens ? params['lensUri'] = lens : '';
-	nets({
+	Utils.nets({
         url: this.baseURL + '/mapUri?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case

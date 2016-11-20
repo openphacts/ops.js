@@ -24,7 +24,7 @@ PathwaySearch.prototype.information = function(URI, lens, callback) {
     params['app_id'] = this.appID;
     params['uri'] = URI;
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/pathway?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -66,7 +66,7 @@ PathwaySearch.prototype.byCompound = function(URI, organism, lens, page, pageSiz
     //TODO order by neeeds an RDF like syntax to work eg ?cw_uri or DESC(?cw_uri), need to hide that
     //from users by having a descending flag and creating the correct syntax here
     orderBy ? params['_orderBy'] = orderBy : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/pathways/byCompound?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -100,7 +100,7 @@ PathwaySearch.prototype.countPathwaysByCompound = function(URI, organism, lens, 
     params['uri'] = URI;
     organism ? params['pathway_organism'] = organism : '';
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/pathways/byCompound/count?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -142,7 +142,7 @@ PathwaySearch.prototype.byTarget = function(URI, organism, lens, page, pageSize,
     //TODO order by neeeds an RDF like syntax to work eg ?cw_uri or DESC(?cw_uri), need to hide that
     //from users by having a descending flag and creating the correct syntax here
     orderBy ? orderBy = params['_orderBy'] : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/pathways/byTarget?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -176,7 +176,7 @@ PathwaySearch.prototype.countPathwaysByTarget = function(URI, organism, lens, ca
     params['uri'] = URI;
     organism ? params['pathway_organism'] = organism : '';
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/pathways/byTarget/count?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -201,7 +201,7 @@ PathwaySearch.prototype.countPathwaysByTarget = function(URI, organism, lens, ca
  * @param {requestCallback} callback - Function that will be called with the result.
  * @method
  * @example
- * var searcher = new PathwaySearch("https://beta.openphacts.org/1.5", "appID", "appKey");
+ * var searcher = new PathwaySearch("https://beta.openphacts.org/2.1", "appID", "appKey");
  * var callback=function(success, status, response){
  *    var targets = searcher.parseGetTargetsResponse(response);
  * };
@@ -214,7 +214,7 @@ PathwaySearch.prototype.getTargets = function(URI, lens, callback) {
     params['app_id'] = this.appID;
     params['uri'] = URI;
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/pathway/getTargets?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -252,7 +252,7 @@ PathwaySearch.prototype.getCompounds = function(URI, lens, callback) {
     params['app_id'] = this.appID;
     params['uri'] = URI;
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/pathway/getCompounds?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -265,6 +265,40 @@ PathwaySearch.prototype.getCompounds = function(URI, lens, callback) {
             callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
         } else {
             callback.call(this, false, resp.statusCode);
+        }
+    });
+
+}
+
+/**
+ * Give a list of interactions for the given pathway.
+ *
+ * @param {string} URI - URI of the pathway (e.g.: "http://identifiers.org/wikipathways/WP1015")
+ * @param {requestCallback} callback - Function that will be called with the result.
+ * @method
+ */
+PathwaySearch.prototype.getInteractions = function(URI, callback) {
+    params = {};
+    params['_format'] = "json";
+    params['app_key'] = this.appKey;
+    params['app_id'] = this.appID;
+    params['uri'] = URI;
+    Utils.nets({
+        url: this.baseURL + '/pathway/getInteractions?' + Utils.encodeParams(params),
+        method: "GET",
+        // 30 second timeout just in case
+        timeout: 30000,
+        headers: {
+            "Accept": "application/json"
+        }
+    }, function(err, resp, body) {
+        // Handle responses where there is no resp/status code
+        if (resp != null && resp.statusCode === 200) {
+            callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
+        } else if (resp != null) {
+            callback.call(this, false, resp.statusCode);
+        } else {
+            callback.call(this, false, null);
         }
     });
 
@@ -283,7 +317,7 @@ PathwaySearch.prototype.byReference = function(URI, organism, lens, page, pageSi
     //TODO order by neeeds an RDF like syntax to work eg ?cw_uri or DESC(?cw_uri), need to hide that
     //from users by having a descending flag and creating the correct syntax here
     orderBy ? orderBy = params['_orderBy'] : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/pathways/byReference?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -292,11 +326,14 @@ PathwaySearch.prototype.byReference = function(URI, organism, lens, page, pageSi
             "Accept": "application/json"
         }
     }, function(err, resp, body) {
-        if (resp.statusCode === 200) {
+	//Handle responses where there is no resp/status code
+        if (resp != null && resp.statusCode === 200) {
             callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
-        } else {
+        } else if (resp != null) {
             callback.call(this, false, resp.statusCode);
-        }
+        } else {
+            callback.call(this, false, null);
+	}
     });
 
 }
@@ -309,7 +346,7 @@ PathwaySearch.prototype.countPathwaysByReference = function(URI, organism, lens,
     params['uri'] = URI;
     organism ? params['pathway_organism'] = organism : '';
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/pathways/byReference/count?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -334,7 +371,7 @@ PathwaySearch.prototype.getReferences = function(URI, lens, callback) {
     params['app_id'] = this.appID;
     params['uri'] = URI;
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/pathway/getReferences?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -366,7 +403,7 @@ PathwaySearch.prototype.countPathways = function(organism, lens, callback) {
     params['app_id'] = this.appID;
     organism ? params['pathway_organism'] = organism : '';
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/pathways/count?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -379,6 +416,93 @@ PathwaySearch.prototype.countPathways = function(organism, lens, callback) {
             callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
         } else {
             callback.call(this, false, resp.statusCode);
+        }
+    });
+
+}
+
+/**
+ * Give the count of interactions of the given entity (metabolite, gene, protein).
+ *
+ * @param {string} URI - URI of the compound (e.g.: "http://purl.obolibrary.org/obo/CHEBI_57305")
+ * @param {string} [organism] - Restricts to pathways in this organism, if given
+ * @param {string} [direction] - Only interactions of this direction (values: "up", "down").
+ * @param {string} [interaction_type] - Only interactions of this type (values: "directed" "undirected").
+ * @param {requestCallback} callback - Function that will be called with the result.
+ * @method
+ */
+PathwaySearch.prototype.countInteractionsByEntity = function(URI, organism, direction, interaction_type, callback) {
+    params = {};
+    params['_format'] = "json";
+    params['app_key'] = this.appKey;
+    params['app_id'] = this.appID;
+    params['uri'] = URI;
+    organism ? params['pathway_organism'] = organism : '';
+    organism ? params['organism'] = organism : '';
+    organism ? params['direction'] = direction : '';
+    organism ? params['interaction_type'] = interaction_type : '';
+    Utils.nets({
+        url: this.baseURL + '/pathways/interactions/byEntity/count?' + Utils.encodeParams(params),
+        method: "GET",
+        // 30 second timeout just in case
+        timeout: 30000,
+        headers: {
+            "Accept": "application/json"
+        }
+    }, function(err, resp, body) {
+        // Handle responses where there is no resp/status code
+        if (resp != null && resp.statusCode === 200) {
+            callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
+        } else if (resp != null) {
+            callback.call(this, false, resp.statusCode);
+        } else {
+            callback.call(this, false, null);
+        }
+    });
+
+}
+
+/**
+ * Get a list of interactions of the given entity (metabolite, gene, protein).
+ *
+ * @param {string} URI - URI of the compound (e.g.: "http://purl.obolibrary.org/obo/CHEBI_57305")
+ * @param {string} [organism] - Restricts to pathways in this organism, if given
+ * @param {string} [direction] - Only interactions of this direction (values: "up", "down").
+ * @param {string} [interaction_type] - Only interactions of this type (values: "directed" "undirected").
+ * @param {string} [page=1] - Which page of records to return.
+ * @param {string} [pageSize=10] - How many records to return. Set to 'all' to return all records in a single page
+ * @param {string} [orderBy] - Order the records by this field eg ?assay_type or DESC(?assay_type)
+ * @param {requestCallback} callback - Function that will be called with the result.
+ * @method
+ */
+PathwaySearch.prototype.getInteractionsByEntity = function(URI, organism, direction, interaction_type, page, pageSize, orderBy, callback) {
+    params = {};
+    params['_format'] = "json";
+    params['app_key'] = this.appKey;
+    params['app_id'] = this.appID;
+    params['uri'] = URI;
+    organism ? params['pathway_organism'] = organism : '';
+    direction ? params['direction'] = direction : '';
+    interaction_type ? params['interaction_type'] = interaction_type : '';
+    page ? params['_page'] = page : '';
+    pageSize ? params['_pageSize'] = pageSize : '';
+    orderBy ? params['_orderBy'] = orderBy : '';
+    Utils.nets({
+        url: this.baseURL + '/pathways/interactions/byEntity?' + Utils.encodeParams(params),
+        method: "GET",
+        // 30 second timeout just in case
+        timeout: 30000,
+        headers: {
+            "Accept": "application/json"
+        }
+    }, function(err, resp, body) {
+        // Handle responses where there is no resp/status code
+        if (resp != null && resp.statusCode === 200) {
+            callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
+        } else if (resp != null) {
+            callback.call(this, false, resp.statusCode);
+        } else {
+            callback.call(this, false, null);
         }
     });
 
@@ -406,7 +530,7 @@ PathwaySearch.prototype.list = function(organism, lens, page, pageSize, orderBy,
     //TODO order by neeeds an RDF like syntax to work eg ?cw_uri or DESC(?cw_uri), need to hide that
     //from users by having a descending flag and creating the correct syntax here
     orderBy ? orderBy = params['_orderBy'] : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/pathways?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -444,7 +568,7 @@ PathwaySearch.prototype.organisms = function(lens, page, pageSize, orderBy, call
     //TODO order by neeeds an RDF like syntax to work eg ?cw_uri or DESC(?cw_uri), need to hide that
     //from users by having a descending flag and creating the correct syntax here
     orderBy ? orderBy = params['_orderBy'] : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/pathways/organisms?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -628,6 +752,55 @@ PathwaySearch.prototype.parseGetCompoundsResponse = function(response) {
     };
 }
 
+PathwaySearch.prototype.parseGetInteractionsResponse = function(response) {
+    var constants = new Constants();
+    var latest_version, revision, title, parts;
+    latest_version = response.primaryTopic.latest_version;
+    title = latest_version.title;
+    revision = latest_version[constants.ABOUT];
+    var partsComplete = latest_version.hasPart ? latest_version.hasPart : null;
+    var interactions = [];
+        Utils.arrayify(partsComplete).forEach(function(part, i) {
+            about = part._about;
+            type  = part.type;
+            sources = part.source
+            if (Array.isArray(sources)) {
+                collapsed = []
+                sources.forEach(function(source) {
+                    collapsed.push(source._about)
+                });
+                sources = collapsed
+            } else {
+                iri = sources._about
+                sources = [];
+                sources[0] = iri
+            }
+            targets = part.target
+            if (Array.isArray(targets)) {
+                collapsed = []
+                targets.forEach(function(target) {
+                    collapsed.push(target._about)
+                });
+                targets = collapsed
+            } else {
+                iri = targets._about
+                targets = [];
+                targets[0] = iri
+            }
+            interactions.push({
+                'type': type,
+                 'source': sources,
+                 'target': targets,
+                'about': about
+            });
+        });
+    return {
+        'title': title,
+        'revision': revision,
+        'interactions': interactions
+    };
+}
+
 PathwaySearch.prototype.parseByReferenceResponse = function(response) {
     var constants = new Constants();
     var items = response.items;
@@ -680,6 +853,51 @@ PathwaySearch.prototype.parseGetReferencesResponse = function(response) {
 PathwaySearch.prototype.parseCountPathwaysResponse = function(response) {
     var constants = new Constants();
     return response.primaryTopic[constants.PATHWAY_COUNT];
+}
+
+PathwaySearch.prototype.parseInteractionsByEntityResponse = function(response) {
+    var constants = new Constants();
+    var items = response.items;
+    var interactions = [];
+    items.forEach(function(part, i) {
+        about = part._about;
+        type  = part.type;
+        sources = part.source
+        if (Array.isArray(sources)) {
+            collapsed = []
+            sources.forEach(function(source) {
+                collapsed.push(source._about)
+            });
+            sources = collapsed
+        } else {
+            iri = sources._about
+            sources = [];
+            sources[0] = iri
+        }
+        targets = part.target
+        if (Array.isArray(targets)) {
+            collapsed = []
+            targets.forEach(function(target) {
+                collapsed.push(target._about)
+            });
+            targets = collapsed
+        } else {
+            iri = targets._about
+            targets = [];
+            targets[0] = iri
+        }
+        interactions.push({
+            'type': type,
+              'source': sources,
+              'target': targets,
+            'about': about
+        });
+    });
+    return interactions;
+}
+
+PathwaySearch.prototype.parseCountInteractionsByEntityResponse = function(response) {
+    return response.primaryTopic["interactions_count"];
 }
 
 PathwaySearch.prototype.parseListResponse = function(response) {

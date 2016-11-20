@@ -41,7 +41,6 @@ describe("Compound search", function() {
                 //expect(this_result.chemblURI).not.toBeNull();
                 expect(this_result.inchiKey).not.toBeNull();
                 //expect(this_result.drugbankURI).not.toBeNull();
-
                 // API contract implies that prefLabel, chemblURI & drugbankURI  should be present but this is not the case in 1.4 API
                 expect(this_result.chemblURI).toBeDefined();
                 expect(this_result.prefLabel).toBeDefined();

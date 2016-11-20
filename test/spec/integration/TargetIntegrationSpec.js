@@ -299,7 +299,6 @@ describe("Target search", function() {
             expect(this_success).toBe(true);
             expect(this_status).toBe(200);
             expect(this_result).toBeDefined();
-    
             // optional values
             expect(this_result[0].targetTitle).toBeDefined();
             expect(this_result[0].compoundInchikeySrc).toBeDefined();
@@ -339,16 +338,15 @@ describe("Target search", function() {
     	// chemblDOIs is an array but could be empty
             expect(this_result[0].chemblDOIs).not.toBeNull();
     	expect(this_result[0].activityComment).toBeDefined();
-    
+            expect(this_result[0].cwCompoundUri).toBeDefined();
+            expect(this_result[0].compoundPrefLabel).toBeDefined();
+            expect(this_result[0].compoundInchikey).toBeDefined();
+            expect(this_result[0].csid).toBeDefined();
+            expect(this_result[0].csCompoundUri).toBeDefined();
+            expect(this_result[0].compoundInchi).toBeDefined();
+            expect(this_result[0].compoundSmiles).toBeDefined();
     	// mandatory values
             expect(this_result[0].chemblActivityUri).not.toBeNull();
-            expect(this_result[0].cwCompoundUri).not.toBeNull();
-            expect(this_result[0].compoundPrefLabel).not.toBeNull();
-            expect(this_result[0].compoundInchikey).not.toBeNull();
-            expect(this_result[0].compoundSmiles).not.toBeNull();
-            expect(this_result[0].compoundInchi).not.toBeNull();
-            expect(this_result[0].csCompoundUri).not.toBeNull();
-            expect(this_result[0].csid).not.toBeNull();
           });
     
           searcher.targetPharmacology('http://www.conceptwiki.org/concept/b932a1ed-b6c3-4291-a98a-e195668eda49', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 1, 20, null, null, callback);

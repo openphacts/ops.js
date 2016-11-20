@@ -24,7 +24,7 @@ TargetSearch = function TargetSearch(baseURL, appID, appKey) {
  * @param {requestCallback} callback - Function that will be called with the result.
  * @method
  * @example
- * var searcher = new TargetSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
+ * var searcher = new TargetSearch("https://beta.openphacts.org/2.1", "appID", "appKey");
  * var callback=function(success, status, response){
  *    var targetResult = searcher.parseTargetResponse(response);
  * };
@@ -37,7 +37,7 @@ TargetSearch.prototype.fetchTarget = function(URI, lens, callback) {
     params['app_id'] = this.appID;
     params['uri'] = URI;
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/target?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -61,7 +61,7 @@ TargetSearch.prototype.fetchTarget = function(URI, lens, callback) {
  * @param {requestCallback} callback - Function that will be called with the result.
  * @method
  * @example
- * var searcher = new TargetSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
+ * var searcher = new TargetSearch("https://beta.openphacts.org/2.1", "appID", "appKey");
  * var callback=function(success, status, response){
  *    var targets = searcher.parseTargetBatchResponse(response);
  * };
@@ -76,7 +76,7 @@ TargetSearch.prototype.fetchTargetBatch = function(URIList, lens, callback) {
     params['uri_list'] = URIs;
     lens ? params['_lens'] = lens : '';
 
-    nets({
+    Utils.nets({
         url: this.baseURL + '/target/batch?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -99,7 +99,7 @@ TargetSearch.prototype.fetchTargetBatch = function(URIList, lens, callback) {
  * @param {requestCallback} callback - Function that will be called with the result.
  * @method
  * @example
- * var searcher = new TargetSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
+ * var searcher = new TargetSearch("https://beta.openphacts.org/2.1", "appID", "appKey");
  * var callback=function(success, status, response){
  *    var targetResult = searcher.parseTargetResponse(response);
  * };
@@ -112,7 +112,7 @@ TargetSearch.prototype.compoundsForTarget = function(URI, callback) {
     params['app_id'] = this.appID;
     params['uri'] = URI;
 
-    nets({
+    Utils.nets({
         url: this.baseURL + '/target/classificationsForCompounds?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -156,7 +156,7 @@ TargetSearch.prototype.compoundsForTarget = function(URI, callback) {
  * @param {requestCallback} callback - Function that will be called with the result
  * @method
  * @example
- * var searcher = new TargetSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
+ * var searcher = new TargetSearch("https://beta.openphacts.org/2.1", "appID", "appKey");
  * var callback=function(success, status, response){
  *     var pharmacologyResult == searcher.parseTargetPharmacologyResponse(response);
  * };
@@ -188,7 +188,7 @@ TargetSearch.prototype.targetPharmacology = function(URI, assayOrganism, targetO
     pageSize ? params['_pageSize'] = pageSize : '';
     orderBy ? params['_orderBy'] = orderBy : '';
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/target/pharmacology/pages?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -229,7 +229,7 @@ TargetSearch.prototype.targetPharmacology = function(URI, assayOrganism, targetO
  * @param {requestCallback} callback - Function that will be called with the result
  * @method
  * @example
- * var searcher = new TargetSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
+ * var searcher = new TargetSearch("https://beta.openphacts.org/2.1", "appID", "appKey");
  * var callback=function(success, status, response){
  *     var pharmacologyResult == searcher.parseTargetPharmacologyCountResponse(response);
  * };
@@ -259,7 +259,7 @@ TargetSearch.prototype.targetPharmacologyCount = function(URI, assayOrganism, ta
     targetType ? params['target_type'] = targetType : '';
     lens ? params['_lens'] = lens : '';
 
-    nets({
+    Utils.nets({
         url: this.baseURL + '/target/pharmacology/count?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -289,7 +289,7 @@ TargetSearch.prototype.targetTypes = function(lens, callback) {
     params['app_key'] = this.appKey;
     params['app_id'] = this.appID;
 
-    nets({
+    Utils.nets({
         url: this.baseURL + '/types?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case

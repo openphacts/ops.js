@@ -24,7 +24,7 @@ StructureSearch.prototype.exact = function(smiles, matchType, callback) {
         params['app_id'] = this.appID;
         params['searchOptions.Molecule'] = smiles;
         matchType != null ? params['searchOptions.MatchType'] = matchType : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/structure/exact?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -33,11 +33,14 @@ StructureSearch.prototype.exact = function(smiles, matchType, callback) {
             "Accept": "application/json"
         }
     }, function(err, resp, body) {
-        if (resp.statusCode === 200) {
+	//Handle responses where there is no resp/status code
+        if (resp != null && resp.statusCode === 200) {
             callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
-        } else {
+        } else if (resp != null) {
             callback.call(this, false, resp.statusCode);
-        }
+        } else {
+            callback.call(this, false, null);
+	}
     });
 
 }
@@ -51,7 +54,7 @@ StructureSearch.prototype.substructure = function(smiles, molType, start, count,
     molType != null ? params['searchOptions.MolType'] = molType : '';
     start != null ? params['resultOptions.Start'] = start : '';
     count != null ? params['resultOptions.Count'] = count : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/structure/substructure?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -60,11 +63,14 @@ StructureSearch.prototype.substructure = function(smiles, molType, start, count,
             "Accept": "application/json"
         }
     }, function(err, resp, body) {
-        if (resp.statusCode === 200) {
+	//Handle responses where there is no resp/status code
+        if (resp != null && resp.statusCode === 200) {
             callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
-        } else {
+        } else if (resp != null) {
             callback.call(this, false, resp.statusCode);
-        }
+        } else {
+            callback.call(this, false, null);
+	}
     });
 
 }
@@ -75,7 +81,7 @@ params={};
     params['app_key'] = this.appKey;
     params['app_id'] = this.appID;
     params['inchi_key'] = inchiKey;   
-    nets({
+    Utils.nets({
         url: this.baseURL + '/structure?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -84,11 +90,14 @@ params={};
             "Accept": "application/json"
         }
     }, function(err, resp, body) {
-        if (resp.statusCode === 200) {
+	//Handle responses where there is no resp/status code
+        if (resp != null && resp.statusCode === 200) {
             callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
-        } else {
+        } else if (resp != null) {
             callback.call(this, false, resp.statusCode);
-        }
+        } else {
+            callback.call(this, false, null);
+	}
     });
 
 }
@@ -100,7 +109,7 @@ params={};
     params['app_id'] = this.appID;
     params['inchi'] = inchi;   
  
-    nets({
+    Utils.nets({
         url: this.baseURL + '/structure?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -109,11 +118,14 @@ params={};
             "Accept": "application/json"
         }
     }, function(err, resp, body) {
-        if (resp.statusCode === 200) {
+	//Handle responses where there is no resp/status code
+        if (resp != null && resp.statusCode === 200) {
             callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
-        } else {
+        } else if (resp != null) {
             callback.call(this, false, resp.statusCode);
-        }
+        } else {
+            callback.call(this, false, null);
+	}
     });
 
 }
@@ -130,7 +142,7 @@ StructureSearch.prototype.similarity = function(smiles, type, threshold, alpha, 
         beta != null ? params['searchOptions.Beta'] = beta : '';
         start != null ? params['resultOptions.Start'] = start : '';
         count != null ? params['resultOptions.Count'] = count : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/structure/similarity?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -139,11 +151,14 @@ StructureSearch.prototype.similarity = function(smiles, type, threshold, alpha, 
             "Accept": "application/json"
         }
     }, function(err, resp, body) {
-        if (resp.statusCode === 200) {
+	//Handle responses where there is no resp/status code
+        if (resp != null && resp.statusCode === 200) {
             callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
-        } else {
+        } else if (resp != null) {
             callback.call(this, false, resp.statusCode);
-        }
+        } else {
+            callback.call(this, false, null);
+	}
     });
 
 }
@@ -155,7 +170,7 @@ params={};
     params['app_id'] = this.appID;
     params['smiles'] = smiles;   
  
-    nets({
+    Utils.nets({
         url: this.baseURL + '/structure?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -164,11 +179,14 @@ params={};
             "Accept": "application/json"
         }
     }, function(err, resp, body) {
-        if (resp.statusCode === 200) {
+	//Handle responses where there is no resp/status code
+        if (resp != null && resp.statusCode === 200) {
             callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
-        } else {
+        } else if (resp != null) {
             callback.call(this, false, resp.statusCode);
-        }
+        } else {
+            callback.call(this, false, null);
+	}
     });
 
 }

@@ -24,7 +24,7 @@ TissueSearch = function TissueSearch(baseURL, appID, appKey) {
  * @param {requestCallback} callback - Function that will be called with the result.
  * @method
  * @example
- * var searcher = new TissueSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
+ * var searcher = new TissueSearch("https://beta.openphacts.org/2.1", "appID", "appKey");
  * var callback=function(success, status, response){
  *    var tissueResult = searcher.parseTissueResponse(response);
  * };
@@ -37,7 +37,7 @@ TissueSearch.prototype.fetchTissue = function(URI, lens, callback) {
     params['app_id'] = this.appID;
     params['uri'] = URI;
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/tissue?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -62,7 +62,7 @@ TissueSearch.prototype.fetchTissue = function(URI, lens, callback) {
  * @param {requestCallback} callback - Function that will be called with the result.
  * @method
  * @example
- * var searcher = new TissueSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
+ * var searcher = new TissueSearch("https://beta.openphacts.org/2.1", "appID", "appKey");
  * var callback=function(success, status, response){
  *    var tissueResult = searcher.parseTissueBatchResponse(response);
  * };
@@ -76,7 +76,7 @@ TissueSearch.prototype.fetchTissueBatch = function(URIList, lens, callback) {
     var URIs = URIList.join('|');
     params['uri_list'] = URIs;
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/tissue/batch?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case

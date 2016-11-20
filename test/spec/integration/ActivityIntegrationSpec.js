@@ -81,12 +81,14 @@ describe("Activities", function() {
       var this_status = null;
       var this_result = null;
       var callback=function(success, status, response){
+        if (response != null) {
+          this_result = searcher.parseAllUnits(response);
+        }
         this_success = success;
         this_status = status;
-        this_result = searcher.parseAllUnits(response);
       };
       waitsFor(function() {
-        return this_result != null;
+        return this_success != null;
       });
       runs(function() {
         expect(this_success).toBe(true);

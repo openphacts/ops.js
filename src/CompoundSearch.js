@@ -24,7 +24,7 @@ CompoundSearch = function CompoundSearch(baseURL, appID, appKey) {
  * @param {requestCallback} callback - Function that will be called with the result.
  * @method
  * @example
- * var searcher = new CompoundSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
+ * var searcher = new CompoundSearch("https://beta.openphacts.org/2.1", "appID", "appKey");
  * var callback=function(success, status, response){
  *    var compoundResult = searcher.parseCompoundResponse(response);
  * };
@@ -37,7 +37,7 @@ CompoundSearch.prototype.fetchCompound = function(URI, lens, callback) {
     params['app_id'] = this.appID;
     params['uri'] = URI;
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/compound?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -61,7 +61,7 @@ CompoundSearch.prototype.fetchCompound = function(URI, lens, callback) {
  * @param {requestCallback} callback - Function that will be called with the result.
  * @method
  * @example
- * var searcher = new CompoundSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
+ * var searcher = new CompoundSearch("https://beta.openphacts.org/2.1", "appID", "appKey");
  * var callback=function(success, status, response){
  *    var compoundResults = searcher.parseCompoundBatchResponse(response);
  * };
@@ -75,7 +75,7 @@ CompoundSearch.prototype.fetchCompoundBatch = function(URIList, lens, callback) 
     var URIs = URIList.join('|');
     params['uri_list'] = URIs;
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/compound/batch?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -99,7 +99,7 @@ CompoundSearch.prototype.fetchCompoundBatch = function(URIList, lens, callback) 
  * @param {requestCallback} callback - Function that will be called with the result.
  * @method
  * @example
- * var searcher = new CompoundSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
+ * var searcher = new CompoundSearch("https://beta.openphacts.org/2.1", "appID", "appKey");
  * var callback=function(success, status, response){
  *    var result = searcher.parseCompoundClassMembersCountResponse(response);
  * };
@@ -112,7 +112,7 @@ CompoundSearch.prototype.compoundClassMembersCount = function(URI, lens, callbac
     params['app_id'] = this.appID;
     params['uri'] = URI;
     lens ? params['_lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/compound/members/count?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -139,7 +139,7 @@ CompoundSearch.prototype.compoundClassMembersCount = function(URI, lens, callbac
  * @param {requestCallback} callback - Function that will be called with the result
  * @method
  * @example
- * var searcher = new CompoundSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
+ * var searcher = new CompoundSearch("https://beta.openphacts.org/2.1", "appID", "appKey");
  * var callback=function(success, status, response){
  *     var classMembersResult == searcher.parseCompoundClassMembersResponse(response);
  * };
@@ -156,7 +156,7 @@ CompoundSearch.prototype.compoundClassMembers = function(URI, page, pageSize, or
     orderBy ? params['_orderBy'] = orderBy : '';
     lens ? params['_lens'] = lens : '';
 
-    nets({
+    Utils.nets({
         url: this.baseURL + '/compound/members/pages?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -199,7 +199,7 @@ CompoundSearch.prototype.compoundClassMembers = function(URI, page, pageSize, or
  * @param {requestCallback} callback - Function that will be called with the result
  * @method
  * @example
- * var searcher = new CompoundSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
+ * var searcher = new CompoundSearch("https://beta.openphacts.org/2.1", "appID", "appKey");
  * var callback=function(success, status, response){
  *     var pharmacologyResult == searcher.parseCompoundPharmacologyResponse(response);
  * };
@@ -232,7 +232,7 @@ CompoundSearch.prototype.compoundPharmacology = function(URI, assayOrganism, tar
     orderBy ? params['_orderBy'] = orderBy : '';
     lens ? params['_lens'] = lens : '';
 
-    nets({
+    Utils.nets({
         url: this.baseURL + '/compound/pharmacology/pages?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -272,7 +272,7 @@ CompoundSearch.prototype.compoundPharmacology = function(URI, assayOrganism, tar
  * @param {requestCallback} callback - Function that will be called with the result
  * @method
  * @example
- * var searcher = new CompoundSearch("https://beta.openphacts.org/1.5", "appID", "appKey");
+ * var searcher = new CompoundSearch("https://beta.openphacts.org/2.1", "appID", "appKey");
  * var callback=function(success, status, response){
  *     var pharmacologyResult == searcher.parseCompoundPharmacologyCountResponse(response);
  * };
@@ -302,7 +302,7 @@ CompoundSearch.prototype.compoundPharmacologyCount = function(URI, assayOrganism
     targetType ? params['target_type'] = targetType : '';
     lens ? params['_lens'] = lens : '';
 
-    nets({
+    Utils.nets({
         url: this.baseURL + '/compound/pharmacology/count?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -334,7 +334,7 @@ CompoundSearch.prototype.compoundClassifications = function(URI, tree, callback)
     params['uri'] = URI;
     params['tree'] = tree;
 
-    nets({
+    Utils.nets({
         url: this.baseURL + '/compound/classifications?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -841,7 +841,7 @@ CompoundSearch.prototype.parseCompoundBatchResponse = function(response) {
         fullMWT = item.molweight != null ? item.molweight : null;
         psa = item.psa != null ? item.psa : null;
         ro5Violations = item.ro5_violations != null ? item.ro5_violations : null;
-        rtb = item.rtb !== null ? item.rtb : null;
+        rtb = item.rtb != null ? item.rtb : rtb;
         smiles = item.smiles != null ? item.smiles : null;
         if (Array.isArray(item.exactMatch)) {
             item.exactMatch.forEach(function(match, i, allValues) {
@@ -1030,7 +1030,7 @@ CompoundSearch.prototype.parseCompoundPharmacologyResponse = function(response) 
                     compound_inchi = match['inchi'];
                     compound_inchikey = match['inchikey'];
                     compound_smiles = match['smiles'];
-                    compound_full_mwt = match['molweight'];
+                    compound_full_mwt = match['molweight'] != null ? match['molweight'] : compound_full_mwt;
                     var chemSpiderLink = 'http://www.chemspider.com/' + csid;
                     compound_smiles_item = chemSpiderLink;
                     compound_inchi_item = chemSpiderLink;

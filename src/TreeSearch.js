@@ -24,7 +24,7 @@ TreeSearch.prototype.getRootNodes = function(root, callback) {
     params['app_key'] = this.appKey;
     params['app_id'] = this.appID;
  
-    nets({
+    Utils.nets({
         url: this.baseURL + '/tree?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -48,7 +48,7 @@ TreeSearch.prototype.getChildNodes = function(URI, callback) {
     params['_format'] = "json";
     params['app_key'] = this.appKey;
     params['app_id'] = this.appID;
-    nets({
+    Utils.nets({
         url: this.baseURL + '/tree/children?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -73,7 +73,7 @@ TreeSearch.prototype.getParentNodes = function(URI, callback) {
     params['app_key'] = this.appKey;
     params['app_id'] = this.appID;
 
-    nets({
+    Utils.nets({
         url: this.baseURL + '/tree/parents?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -114,7 +114,7 @@ TreeSearch.prototype.getTargetClassPharmacologyCount = function(URI, assayOrgani
     maxpChembl != null ? params['max-pChembl'] = maxpChembl : '';
     maxExpChembl != null ? params['maxEx-pChembl'] = maxExpChembl : '';
     lens != null ? params['lens'] = lens : '';
-    nets({
+    Utils.nets({
         url: this.baseURL + '/target/tree/pharmacology/count?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -123,11 +123,14 @@ TreeSearch.prototype.getTargetClassPharmacologyCount = function(URI, assayOrgani
             "Accept": "application/json"
         }
     }, function(err, resp, body) {
-        if (resp.statusCode === 200) {
+	//Handle responses where there is no resp/status code
+        if (resp != null && resp.statusCode === 200) {
             callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
-        } else {
+        } else if (resp != null) {
             callback.call(this, false, resp.statusCode);
-        }
+        } else {
+            callback.call(this, false, null);
+	}
     });
 
 }
@@ -157,7 +160,8 @@ TreeSearch.prototype.getTargetClassPharmacologyPaginated = function(URI, assayOr
     page != null ? params['_page'] = page : '';
     pageSize != null ? params['_pageSize'] = pageSize : '';
     orderBy != null ? params['_orderBy'] = orderBy : '';
-nets({
+    //console.log(this.baseURL + '/target/tree/pharmacology/pages?' + Utils.encodeParams(params));
+    Utils.nets({
         url: this.baseURL + '/target/tree/pharmacology/pages?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -166,11 +170,14 @@ nets({
             "Accept": "application/json"
         }
     }, function(err, resp, body) {
-        if (resp.statusCode === 200) {
+	//Handle responses where there is no resp/status code
+        if (resp != null && resp.statusCode === 200) {
             callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
-        } else {
+        } else if (resp != null) {
             callback.call(this, false, resp.statusCode);
-        }
+        } else {
+            callback.call(this, false, null);
+	}
     });
 
 }
@@ -197,7 +204,7 @@ TreeSearch.prototype.getCompoundClassPharmacologyCount = function(URI, assayOrga
     maxpChembl != null ? params['max-pChembl'] = maxpChembl : '';
     maxExpChembl != null ? params['maxEx-pChembl'] = maxExpChembl : '';
     lens != null ? params['lens'] = lens : '';
-nets({
+Utils.nets({
         url: this.baseURL + '/compound/tree/pharmacology/count?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
@@ -241,7 +248,7 @@ TreeSearch.prototype.getCompoundClassPharmacologyPaginated = function(URI, assay
     page != null ? params['_page'] = page : '';
     pageSize != null ? params['_pageSize'] = pageSize : '';
     orderBy != null ? params['_orderBy'] = orderBy : '';
-nets({
+Utils.nets({
         url: this.baseURL + '/compound/tree/pharmacology/pages?' + Utils.encodeParams(params),
         method: "GET",
         // 30 second timeout just in case
