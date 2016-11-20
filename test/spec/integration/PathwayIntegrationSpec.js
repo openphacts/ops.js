@@ -403,7 +403,6 @@ describe("Pathways", function() {
         this_success = success;
         this_status = status;
         this_result = searcher.parseGetInteractionsResponse(response);
-	console.log(JSON.stringify(this_result, "", 2))
       };
       waitsFor(function() {
         return this_success != null;
