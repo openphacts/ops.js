@@ -1,4 +1,4 @@
-# OPS.js [![Build Status](https://travis-ci.org/openphacts/ops.js.svg?branch=develop)](https://travis-ci.org/openphacts/ops.js) [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.21396.svg)](http://dx.doi.org/10.5281/zenodo.29418)
+# OPS.js [![Build Status](https://travis-ci.org/openphacts/ops.js.svg?branch=develop)](https://travis-ci.org/openphacts/ops.js) [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.167595.svg)](http://dx.doi.org/10.5281/zenodo.167595)
 
 ## Open PHACTS API Version
 
@@ -25,25 +25,26 @@ We love receiving patches for bug fixes and new features. Please follow these si
 5. Submit patch.
 
 ## Citations  
-To cite OPS.js in publications please see [the zenodo record](https://zenodo.org/record/29418#.VdxqH_lVhBc "OPS.js zenodo record").
+To cite OPS.js in publications please see [the zenodo record](https://zenodo.org/record/167595 "OPS.js zenodo record").
 
->Ian Dunlop et al. (2015). ops.js: OPS.js 6.1.3 for Open PHACTS 1.5 API. Zenodo. 10.5281/zenodo.29418
+>Ian Dunlop et al. (2016). ops.js: OPS.js 7.0.0 for Open PHACTS 2.1 API. Zenodo. 10.5281/zenodo.167595
 
 For Bibtex use:
 
 ```latex
-@misc{ian_dunlop_2015_29418,
+@misc{ian_dunlop_2016_167595,
   author       = {Ian Dunlop and
                   Egon Willighagen and
                   Elblood and
-                  andrawaag and
+                  Andra Waagmeester and
                   Stian Soiland-Reyes and
-                  PANDORINO},
-  title        = {ops.js: OPS.js 6.1.3 for Open PHACTS 1.5 API},
-  month        = aug,
-  year         = 2015,
-  doi          = {10.5281/zenodo.29418},  
-  url          = {http://dx.doi.org/10.5281/zenodo.29418}
+                  PANDORINO and
+                  Morton Fox},
+  title        = {ops.js: OPS.js 7.0.0 for Open PHACTS 2.1 API},
+  month        = nov,
+  year         = 2016,
+  doi          = {10.5281/zenodo.167595},
+  url          = {http://dx.doi.org/10.5281/zenodo.167595}
 }
 ```
 
