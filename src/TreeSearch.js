@@ -42,6 +42,12 @@ TreeSearch.prototype.getRootNodes = function(root, callback) {
 
 }
 
+/**
+ * Fetch the child nodes of the given URI.
+ * @param {string} URI - The URI for which the childs are to be returned.
+ * @param {requestCallback} callback - Function that will be called with the result.
+ * @method
+ */
 TreeSearch.prototype.getChildNodes = function(URI, callback) {
 	var params = {};
 	params['uri'] = URI;
@@ -66,6 +72,12 @@ TreeSearch.prototype.getChildNodes = function(URI, callback) {
 
 }
 
+/**
+ * Fetch the parent nodes of the given URI.
+ * @param {string} URI - The URI for which the parents are to be returned.
+ * @param {requestCallback} callback - Function that will be called with the result.
+ * @method
+ */
 TreeSearch.prototype.getParentNodes = function(URI, callback) {
 	var params = {};
 	params['uri'] = URI;
