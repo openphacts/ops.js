@@ -499,10 +499,14 @@ PathwaySearch.prototype.getInteractionsByEntity = function(URI, organism, direct
         // Handle responses where there is no resp/status code
         if (resp != null && resp.statusCode === 200) {
             callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
-        } else if (resp != null) {
-            callback.call(this, false, resp.statusCode);
+        } else if (callback != null) {
+            if (resp != null) {
+              callback.call(this, false, resp.statusCode);
+          } else {
+              callback.call(this, false, null);
+          }
         } else {
-            callback.call(this, false, null);
+            // no callback function??
         }
     });
 
