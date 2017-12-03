@@ -49,10 +49,12 @@ ConceptWikiSearch.prototype.byTag = function(query, limit, branch, type, callbac
             "Accept": "application/json"
         }
     }, function(err, resp, body) {
-        if (resp.statusCode === 200) {
+        if (resp != null && resp.statusCode === 200) {
             callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
-        } else {
+        } else if (resp != null) {
             callback.call(this, false, resp.statusCode);
+        } else {
+            callback.call(this, false, null);
         }
     });
 
@@ -84,10 +86,12 @@ ConceptWikiSearch.prototype.freeText = function(query, limit, branch, callback) 
             "Accept": "application/json"
         }
     }, function(err, resp, body) {
-        if (resp.statusCode === 200) {
+        if (resp != null && resp.statusCode === 200) {
             callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
-        } else {
+        } else if (resp != null) {
             callback.call(this, false, resp.statusCode);
+        } else {
+            callback.call(this, false, null);
         }
     });
 
@@ -112,10 +116,12 @@ ConceptWikiSearch.prototype.findCompounds = function(query, limit, branch, callb
             "Accept": "application/json"
         }
     }, function(err, resp, body) {
-        if (resp.statusCode === 200) {
+        if (resp != null && resp.statusCode === 200) {
             callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
-        } else {
+        } else if (resp != null) {
             callback.call(this, false, resp.statusCode);
+        } else {
+            callback.call(this, false, null);
         }
     });
 
@@ -140,10 +146,12 @@ ConceptWikiSearch.prototype.findTargets = function(query, limit, branch, callbac
             "Accept": "application/json"
         }
     }, function(err, resp, body) {
-        if (resp.statusCode === 200) {
+        if (resp != null && resp.statusCode === 200) {
             callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
-        } else {
+        } else if (resp != null) {
             callback.call(this, false, resp.statusCode);
+        } else {
+            callback.call(this, false, null);
         }
     });
 
@@ -165,10 +173,12 @@ ConceptWikiSearch.prototype.findConcept = function(uuid, branch, callback) {
             "Accept": "application/json"
         }
     }, function(err, resp, body) {
-        if (resp.statusCode === 200) {
+        if (resp != null && resp.statusCode === 200) {
             callback.call(this, true, resp.statusCode, JSON.parse(body.toString()).result);
-        } else {
+        } else if (resp != null) {
             callback.call(this, false, resp.statusCode);
+        } else {
+            callback.call(this, false, null);
         }
     });
 
