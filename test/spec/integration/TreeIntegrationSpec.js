@@ -457,199 +457,199 @@ describe("Trees", function() {
     });
   });
 
-  describe("get pharmacology paginated for enzymes", function() {
-
-    it("using activity value filter", function() {
-      var this_success = null;
-      var this_status = null;
-      var this_result = null;
-      var callback=function(success, status, response){
-      if (response) {
-        this_result = searcher.parseTargetClassPharmacologyPaginated(response);
-      }
-      this_success = success;
-      this_status = status;
-      };
-      waitsFor(function() {
-        return this_success != null;
-      });
-      runs(function() {
-        //TODO need the mandatory and optional values from the api docs
-        expect(this_success).toBe(true);
-        expect(this_status).toBe(200);
-        expect(this_result.length).toBeGreaterThan(0);
-	expect(this_result[0].targetTitle).toBeDefined();
-	expect(this_result[0].targetOrganismName).toBeDefined();
-	expect(this_result[0].targetURI).toBeDefined();
-        expect(this_result[0].chemblActivityURI).toBeDefined();
-        expect(this_result[0].pmid).toBeDefined();
-        //expect(this_result[0].relation).toBeDefined();
-        //expect(this_result[0].standardUnits).toBeDefined();
-        //expect(this_result[0].standardValue).toBeDefined();
-        expect(this_result[0].activityType).toBeDefined();
-        expect(this_result[0].inDataset).toBeDefined();
-        expect(this_result[0].fullMWT).toBeDefined();
-        expect(this_result[0].chemblURI).toBeDefined();
-        expect(this_result[0].cwURI).toBeDefined();
-        expect(this_result[0].prefLabel).toBeDefined();
-        expect(this_result[0].csURI).toBeDefined();
-        expect(this_result[0].inchi).toBeDefined();
-        expect(this_result[0].inchiKey).toBeDefined();
-        expect(this_result[0].smiles).toBeDefined();
-        expect(this_result[0].ro5Violations).toBeDefined();
-        expect(this_result[0].pChembl).toBeDefined();
-        expect(this_result[0].targetComponents).toBeDefined();
-	//	expect(this_result[0].targetComponents[0].label).toBeDefined();
- 	//	expect(this_result[0].targetComponents[0].uri).toBeDefined();
-        //        expect(this_result[0].targetComponents[0].labelProvenance).toBeDefined();
-        expect(this_result[0].assayURI).toBeDefined();
-        expect(this_result[0].assayDescription).toBeDefined();
-        expect(this_result[0].assayOrganismName).toBeDefined();
-        expect(this_result[0].conceptWikiProvenance).toBeDefined();
-        expect(this_result[0].chemspiderProvenance).toBeDefined();
-        expect(this_result[0].assayTargetProvenance).toBeDefined();
-        expect(this_result[0].assayProvenance).toBeDefined();
-	// chemblDOIs is an array but could be empty
-        expect(this_result[0].chemblDOIs).not.toBeNull();
-	expect(this_result[0].activityComment).toBeDefined();
-      });
-      searcher.getTargetClassPharmacologyPaginated('http://purl.uniprot.org/enzyme/1.1.1.1', null, null, null, null, null, null, 20000, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);
-    });
-    xit("and return a response", function() { // times out. Reenable later
-      var this_success = null;
-      var this_status = null;
-      var this_result = null;
-      var callback=function(success, status, response){
-          // Handle backend issues like timeouts with empty responses
-	  if (success === true) {
-              this_success = success;
-	      this_status = status;
-              this_result = searcher.parseTargetClassPharmacologyPaginated(response);
-	  } else {
-              this_success = success;
-	      this_status = status;
-              this_result = {};
-	  }
-      };
-      waitsFor(function() {
-        return this_success != null;
-      });
-      runs(function() {
-        //TODO need the mandatory and optional values from the api docs
-        expect(this_success).toBe(true);
-        expect(this_status).toBe(200);
-        expect(this_result.length).toBeGreaterThan(0);
-        expect(this_result[0].targetTitle).toBeDefined();
-	expect(this_result[0].targetOrganismName).toBeDefined();
-	expect(this_result[0].targetURI).toBeDefined();
-        expect(this_result[0].chemblActivityURI).toBeDefined();
-        expect(this_result[0].pmid).toBeDefined();
-        //expect(this_result[0].relation).toBeDefined();
-        //expect(this_result[0].standardUnits).toBeDefined();
-        //expect(this_result[0].standardValue).toBeDefined();
-        expect(this_result[0].activityType).toBeDefined();
-        expect(this_result[0].inDataset).toBeDefined();
-        expect(this_result[0].fullMWT).toBeDefined();
-        expect(this_result[0].chemblURI).toBeDefined();
-        expect(this_result[0].cwURI).toBeDefined();
-        expect(this_result[0].prefLabel).toBeDefined();
-        expect(this_result[0].csURI).toBeDefined();
-        expect(this_result[0].inchi).toBeDefined();
-        expect(this_result[0].inchiKey).toBeDefined();
-        expect(this_result[0].smiles).toBeDefined();
-        expect(this_result[0].ro5Violations).toBeDefined();
-        expect(this_result[0].pChembl).toBeDefined();
-        expect(this_result[0].targetComponents).toBeDefined();
-	//	expect(this_result[0].targetComponents[0].label).toBeDefined();
- 	//	expect(this_result[0].targetComponents[0].uri).toBeDefined();
-        //        expect(this_result[0].targetComponents[0].labelProvenance).toBeDefined();
-        expect(this_result[0].assayURI).toBeDefined();
-        expect(this_result[0].assayDescription).toBeDefined();
-        expect(this_result[0].assayOrganismName).toBeDefined();
-        expect(this_result[0].conceptWikiProvenance).toBeDefined();
-        expect(this_result[0].chemspiderProvenance).toBeDefined();
-        expect(this_result[0].assayTargetProvenance).toBeDefined();
-        expect(this_result[0].assayProvenance).toBeDefined();
-	// chemblDOIs is an array but could be empty
-        expect(this_result[0].chemblDOIs).not.toBeNull();
-	expect(this_result[0].activityComment).toBeDefined();
-      });
-      searcher.getTargetClassPharmacologyPaginated('http://purl.uniprot.org/enzyme/1.1.1.-', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);
-    });
-    it("using activity relation filter", function() {
-      var this_success = null;
-      var this_status = null;
-      var this_result = null;
-      var callback=function(success, status, response){
-        if (response) {
-          this_result = searcher.parseTargetClassPharmacologyPaginated(response);
-        }
-        this_success = success;
-      	this_status = status;
-      };
-      waitsFor(function() {
-        return this_success != null;
-      });
-      runs(function() {
-        //TODO need the mandatory and optional values from the api docs
-        expect(this_success).toBe(true);
-        expect(this_status).toBe(200);
-        expect(this_result.length).toBeGreaterThan(0);
-	expect(this_result[0].targetTitle).toBeDefined();
-	expect(this_result[0].targetOrganismName).toBeDefined();
-	expect(this_result[0].targetURI).toBeDefined();
-        expect(this_result[0].chemblActivityURI).toBeDefined();
-        expect(this_result[0].pmid).toBeDefined();
-        //expect(this_result[0].relation).toBeDefined();
-        //expect(this_result[0].standardUnits).toBeDefined();
-        //expect(this_result[0].standardValue).toBeDefined();
-        expect(this_result[0].activityType).toBeDefined();
-        expect(this_result[0].inDataset).toBeDefined();
-        expect(this_result[0].fullMWT).toBeDefined();
-        expect(this_result[0].chemblURI).toBeDefined();
-        expect(this_result[0].cwURI).toBeDefined();
-        expect(this_result[0].prefLabel).toBeDefined();
-        expect(this_result[0].csURI).toBeDefined();
-        expect(this_result[0].inchi).toBeDefined();
-        expect(this_result[0].inchiKey).toBeDefined();
-        expect(this_result[0].smiles).toBeDefined();
-        expect(this_result[0].ro5Violations).toBeDefined();
-        expect(this_result[0].pChembl).toBeDefined();
-        expect(this_result[0].targetComponents).toBeDefined();
-	//	expect(this_result[0].targetComponents[0].label).toBeDefined();
- 	//	expect(this_result[0].targetComponents[0].uri).toBeDefined();
-        //        expect(this_result[0].targetComponents[0].labelProvenance).toBeDefined();
-        expect(this_result[0].assayURI).toBeDefined();
-        expect(this_result[0].assayDescription).toBeDefined();
-        expect(this_result[0].assayOrganismName).toBeDefined();
-        expect(this_result[0].conceptWikiProvenance).toBeDefined();
-        expect(this_result[0].chemspiderProvenance).toBeDefined();
-        expect(this_result[0].assayTargetProvenance).toBeDefined();
-        expect(this_result[0].assayProvenance).toBeDefined();
-	// chemblDOIs is an array but could be empty
-        expect(this_result[0].chemblDOIs).not.toBeNull();
-	expect(this_result[0].activityComment).toBeDefined();
-      });
-      searcher.getTargetClassPharmacologyPaginated('http://purl.uniprot.org/enzyme/1.1.1.1', null, null, null, null, null, null, null, null, null, '=', null, null, null, null, null, null, null, null, null, null, callback);
-    });
-
-    xit("and handle errors", function() { // times out. Reenable later
-      var this_success = null;
-      var this_status = null;
-      var callback=function(success, status){
-        this_success = success;
-        this_status = status;
-      };
-      waitsFor(function() {
-        return this_success != null;
-      });
-      runs(function() {
-        expect(this_success).toEqual(false);
-        expect(this_status).toEqual(404);
-      });
-      searcher.getTargetClassPharmacologyPaginated('http://90879879879879797', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);
-    });
-  });
+//   describe("get pharmacology paginated for enzymes", function() {
+// 
+//     it("using activity value filter", function() {
+//       var this_success = null;
+//       var this_status = null;
+//       var this_result = null;
+//       var callback=function(success, status, response){
+//       if (response) {
+//         this_result = searcher.parseTargetClassPharmacologyPaginated(response);
+//       }
+//       this_success = success;
+//       this_status = status;
+//       };
+//       waitsFor(function() {
+//         return this_success != null;
+//       });
+//       runs(function() {
+//         //TODO need the mandatory and optional values from the api docs
+//         expect(this_success).toBe(true);
+//         expect(this_status).toBe(200);
+//         expect(this_result.length).toBeGreaterThan(0);
+// 	expect(this_result[0].targetTitle).toBeDefined();
+// 	expect(this_result[0].targetOrganismName).toBeDefined();
+// 	expect(this_result[0].targetURI).toBeDefined();
+//         expect(this_result[0].chemblActivityURI).toBeDefined();
+//         expect(this_result[0].pmid).toBeDefined();
+//         //expect(this_result[0].relation).toBeDefined();
+//         //expect(this_result[0].standardUnits).toBeDefined();
+//         //expect(this_result[0].standardValue).toBeDefined();
+//         expect(this_result[0].activityType).toBeDefined();
+//         expect(this_result[0].inDataset).toBeDefined();
+//         expect(this_result[0].fullMWT).toBeDefined();
+//         expect(this_result[0].chemblURI).toBeDefined();
+//         expect(this_result[0].cwURI).toBeDefined();
+//         expect(this_result[0].prefLabel).toBeDefined();
+//         expect(this_result[0].csURI).toBeDefined();
+//         expect(this_result[0].inchi).toBeDefined();
+//         expect(this_result[0].inchiKey).toBeDefined();
+//         expect(this_result[0].smiles).toBeDefined();
+//         expect(this_result[0].ro5Violations).toBeDefined();
+//         expect(this_result[0].pChembl).toBeDefined();
+//         expect(this_result[0].targetComponents).toBeDefined();
+// 	//	expect(this_result[0].targetComponents[0].label).toBeDefined();
+//  	//	expect(this_result[0].targetComponents[0].uri).toBeDefined();
+//         //        expect(this_result[0].targetComponents[0].labelProvenance).toBeDefined();
+//         expect(this_result[0].assayURI).toBeDefined();
+//         expect(this_result[0].assayDescription).toBeDefined();
+//         expect(this_result[0].assayOrganismName).toBeDefined();
+//         expect(this_result[0].conceptWikiProvenance).toBeDefined();
+//         expect(this_result[0].chemspiderProvenance).toBeDefined();
+//         expect(this_result[0].assayTargetProvenance).toBeDefined();
+//         expect(this_result[0].assayProvenance).toBeDefined();
+// 	// chemblDOIs is an array but could be empty
+//         expect(this_result[0].chemblDOIs).not.toBeNull();
+// 	expect(this_result[0].activityComment).toBeDefined();
+//       });
+//       searcher.getTargetClassPharmacologyPaginated('http://purl.uniprot.org/enzyme/1.1.1.1', null, null, null, null, null, null, 20000, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);
+//     });
+//     xit("and return a response", function() { // times out. Reenable later
+//       var this_success = null;
+//       var this_status = null;
+//       var this_result = null;
+//       var callback=function(success, status, response){
+//           // Handle backend issues like timeouts with empty responses
+// 	  if (success === true) {
+//               this_success = success;
+// 	      this_status = status;
+//               this_result = searcher.parseTargetClassPharmacologyPaginated(response);
+// 	  } else {
+//               this_success = success;
+// 	      this_status = status;
+//               this_result = {};
+// 	  }
+//       };
+//       waitsFor(function() {
+//         return this_success != null;
+//       });
+//       runs(function() {
+//         //TODO need the mandatory and optional values from the api docs
+//         expect(this_success).toBe(true);
+//         expect(this_status).toBe(200);
+//         expect(this_result.length).toBeGreaterThan(0);
+//         expect(this_result[0].targetTitle).toBeDefined();
+// 	expect(this_result[0].targetOrganismName).toBeDefined();
+// 	expect(this_result[0].targetURI).toBeDefined();
+//         expect(this_result[0].chemblActivityURI).toBeDefined();
+//         expect(this_result[0].pmid).toBeDefined();
+//         //expect(this_result[0].relation).toBeDefined();
+//         //expect(this_result[0].standardUnits).toBeDefined();
+//         //expect(this_result[0].standardValue).toBeDefined();
+//         expect(this_result[0].activityType).toBeDefined();
+//         expect(this_result[0].inDataset).toBeDefined();
+//         expect(this_result[0].fullMWT).toBeDefined();
+//         expect(this_result[0].chemblURI).toBeDefined();
+//         expect(this_result[0].cwURI).toBeDefined();
+//         expect(this_result[0].prefLabel).toBeDefined();
+//         expect(this_result[0].csURI).toBeDefined();
+//         expect(this_result[0].inchi).toBeDefined();
+//         expect(this_result[0].inchiKey).toBeDefined();
+//         expect(this_result[0].smiles).toBeDefined();
+//         expect(this_result[0].ro5Violations).toBeDefined();
+//         expect(this_result[0].pChembl).toBeDefined();
+//         expect(this_result[0].targetComponents).toBeDefined();
+// 	//	expect(this_result[0].targetComponents[0].label).toBeDefined();
+//  	//	expect(this_result[0].targetComponents[0].uri).toBeDefined();
+//         //        expect(this_result[0].targetComponents[0].labelProvenance).toBeDefined();
+//         expect(this_result[0].assayURI).toBeDefined();
+//         expect(this_result[0].assayDescription).toBeDefined();
+//         expect(this_result[0].assayOrganismName).toBeDefined();
+//         expect(this_result[0].conceptWikiProvenance).toBeDefined();
+//         expect(this_result[0].chemspiderProvenance).toBeDefined();
+//         expect(this_result[0].assayTargetProvenance).toBeDefined();
+//         expect(this_result[0].assayProvenance).toBeDefined();
+// 	// chemblDOIs is an array but could be empty
+//         expect(this_result[0].chemblDOIs).not.toBeNull();
+// 	expect(this_result[0].activityComment).toBeDefined();
+//       });
+//       searcher.getTargetClassPharmacologyPaginated('http://purl.uniprot.org/enzyme/1.1.1.-', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);
+//     });
+//     it("using activity relation filter", function() {
+//       var this_success = null;
+//       var this_status = null;
+//       var this_result = null;
+//       var callback=function(success, status, response){
+//         if (response) {
+//           this_result = searcher.parseTargetClassPharmacologyPaginated(response);
+//         }
+//         this_success = success;
+//       	this_status = status;
+//       };
+//       waitsFor(function() {
+//         return this_success != null;
+//       });
+//       runs(function() {
+//         //TODO need the mandatory and optional values from the api docs
+//         expect(this_success).toBe(true);
+//         expect(this_status).toBe(200);
+//         expect(this_result.length).toBeGreaterThan(0);
+// 	expect(this_result[0].targetTitle).toBeDefined();
+// 	expect(this_result[0].targetOrganismName).toBeDefined();
+// 	expect(this_result[0].targetURI).toBeDefined();
+//         expect(this_result[0].chemblActivityURI).toBeDefined();
+//         expect(this_result[0].pmid).toBeDefined();
+//         //expect(this_result[0].relation).toBeDefined();
+//         //expect(this_result[0].standardUnits).toBeDefined();
+//         //expect(this_result[0].standardValue).toBeDefined();
+//         expect(this_result[0].activityType).toBeDefined();
+//         expect(this_result[0].inDataset).toBeDefined();
+//         expect(this_result[0].fullMWT).toBeDefined();
+//         expect(this_result[0].chemblURI).toBeDefined();
+//         expect(this_result[0].cwURI).toBeDefined();
+//         expect(this_result[0].prefLabel).toBeDefined();
+//         expect(this_result[0].csURI).toBeDefined();
+//         expect(this_result[0].inchi).toBeDefined();
+//         expect(this_result[0].inchiKey).toBeDefined();
+//         expect(this_result[0].smiles).toBeDefined();
+//         expect(this_result[0].ro5Violations).toBeDefined();
+//         expect(this_result[0].pChembl).toBeDefined();
+//         expect(this_result[0].targetComponents).toBeDefined();
+// 	//	expect(this_result[0].targetComponents[0].label).toBeDefined();
+//  	//	expect(this_result[0].targetComponents[0].uri).toBeDefined();
+//         //        expect(this_result[0].targetComponents[0].labelProvenance).toBeDefined();
+//         expect(this_result[0].assayURI).toBeDefined();
+//         expect(this_result[0].assayDescription).toBeDefined();
+//         expect(this_result[0].assayOrganismName).toBeDefined();
+//         expect(this_result[0].conceptWikiProvenance).toBeDefined();
+//         expect(this_result[0].chemspiderProvenance).toBeDefined();
+//         expect(this_result[0].assayTargetProvenance).toBeDefined();
+//         expect(this_result[0].assayProvenance).toBeDefined();
+// 	// chemblDOIs is an array but could be empty
+//         expect(this_result[0].chemblDOIs).not.toBeNull();
+// 	expect(this_result[0].activityComment).toBeDefined();
+//       });
+//       searcher.getTargetClassPharmacologyPaginated('http://purl.uniprot.org/enzyme/1.1.1.1', null, null, null, null, null, null, null, null, null, '=', null, null, null, null, null, null, null, null, null, null, callback);
+//     });
+// 
+//     xit("and handle errors", function() { // times out. Reenable later
+//       var this_success = null;
+//       var this_status = null;
+//       var callback=function(success, status){
+//         this_success = success;
+//         this_status = status;
+//       };
+//       waitsFor(function() {
+//         return this_success != null;
+//       });
+//       runs(function() {
+//         expect(this_success).toEqual(false);
+//         expect(this_status).toEqual(404);
+//       });
+//       searcher.getTargetClassPharmacologyPaginated('http://90879879879879797', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, callback);
+//     });
+//   });
 
   describe("get pharmacology count for chebi", function() {
 

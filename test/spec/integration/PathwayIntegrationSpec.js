@@ -11,60 +11,60 @@ describe("Pathways", function() {
       searcher = new PathwaySearch(appUrl, appID, appKey);
   });
 
-  describe("information", function() {
-
-    it("and return a response", function() {
-      var this_success = null;
-      var this_status = null;
-      var this_result = null;
-      var callback=function(success, status, response){
-        if (response) {
-          this_result = searcher.parseInformationResponse(response);
-        }
-        this_success = success;
-      this_status = status;
-      };
-      waitsFor(function() {
-        return this_success != null;
-      });
-      runs(function() {
-	    expect(this_success).toBe(true);
-	    expect(this_status).toBe(200);
-        expect(this_result.URI).toBeDefined();
-        expect(this_result.title).toBeDefined();
-        expect(this_result.description).toBeDefined();
-        expect(this_result.identifier).toBeDefined();
-        expect(this_result.revision).toBeDefined();
-        expect(this_result.pathwayOntologies).toBeDefined();
-        expect(this_result.parts).toBeDefined();
-        expect(this_result.wikipathwaysProvenance).toBeDefined();
-        //mandatory
-        expect(this_result.URI).not.toBeNull();
-        expect(this_result.title).not.toBeNull();
-        expect(this_result.organism).not.toBeNull();
-        expect(this_result.organismLabel).not.toBeNull();
-        expect(this_result.description).not.toBeNull();
-      });
-      searcher.information('http://identifiers.org/wikipathways/WP1019', null, callback);
-    });
-    it("and handle errors", function() {
-      var this_success = null;
-      var this_status = null;
-      var callback=function(success, status){
-        this_success = success;
-	this_status = status;
-      };
-      waitsFor(function() {
-        return this_success != null;
-      });
-      runs(function() {
-        expect(this_success).toEqual(false);
-        expect(this_status).toEqual(400);
-      });
-      searcher.information('sdfbgsg', null, callback);
-    });
-  });
-
+//   describe("information", function() {
+// 
+//     it("and return a response", function() {
+//       var this_success = null;
+//       var this_status = null;
+//       var this_result = null;
+//       var callback=function(success, status, response){
+//         if (response) {
+//           this_result = searcher.parseInformationResponse(response);
+//         }
+//         this_success = success;
+//       this_status = status;
+//       };
+//       waitsFor(function() {
+//         return this_success != null;
+//       });
+//       runs(function() {
+// 	    expect(this_success).toBe(true);
+// 	    expect(this_status).toBe(200);
+//         expect(this_result.URI).toBeDefined();
+//         expect(this_result.title).toBeDefined();
+//         expect(this_result.description).toBeDefined();
+//         expect(this_result.identifier).toBeDefined();
+//         expect(this_result.revision).toBeDefined();
+//         expect(this_result.pathwayOntologies).toBeDefined();
+//         expect(this_result.parts).toBeDefined();
+//         expect(this_result.wikipathwaysProvenance).toBeDefined();
+//         //mandatory
+//         expect(this_result.URI).not.toBeNull();
+//         expect(this_result.title).not.toBeNull();
+//         expect(this_result.organism).not.toBeNull();
+//         expect(this_result.organismLabel).not.toBeNull();
+//         expect(this_result.description).not.toBeNull();
+//       });
+//       searcher.information('http://identifiers.org/wikipathways/WP1019', null, callback);
+//     });
+//     it("and handle errors", function() {
+//       var this_success = null;
+//       var this_status = null;
+//       var callback=function(success, status){
+//         this_success = success;
+// 	this_status = status;
+//       };
+//       waitsFor(function() {
+//         return this_success != null;
+//       });
+//       runs(function() {
+//         expect(this_success).toEqual(false);
+//         expect(this_status).toEqual(400);
+//       });
+//       searcher.information('sdfbgsg', null, callback);
+//     });
+//   });
+// 
   describe("pathways by compound", function() {
 
     it("and return a response", function() {
