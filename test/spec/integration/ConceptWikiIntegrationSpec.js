@@ -21,7 +21,11 @@ describe("Concept Wiki", function() {
       var callback=function(success, status, response){
         this_success = success;
         this_status = status;
-        this_result = searcher.parseResponse(response);
+        if (success === 200) {
+            this_result = searcher.parseResponse(response);
+        } else {
+            this_result = null;
+        }
       };
 
       waitsFor(function() {
