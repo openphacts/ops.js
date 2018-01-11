@@ -2,7 +2,7 @@
 
 ## Open PHACTS API Version
 
-2.1
+2.2
 
 ## About
 OPS.js is a javascript NodeJS based library, available via [NPM](https://www.npmjs.com/package/ops.js "OPs.js on Node Package Manager"), for accessing the Open PHACTS Linked Data API (LDA). It uses [nets](https://www.npmjs.com/package/nets) to handle the asynchronous network calls. OPS.js can also be used to parse responses from the LDA.
@@ -27,7 +27,7 @@ We love receiving patches for bug fixes and new features. Please follow these si
 ## Citations  
 To cite OPS.js in publications please see [the zenodo record](https://zenodo.org/record/167595 "OPS.js zenodo record").
 
->Ian Dunlop et al. (2016). ops.js: OPS.js 7.0.0 for Open PHACTS 2.1 API. Zenodo. 10.5281/zenodo.167595
+>Ian Dunlop et al. (2018). ops.js: OPS.js 7.1.0 for Open PHACTS 2.2 API. Zenodo. 10.5281/zenodo.167595
 
 For Bibtex use:
 
@@ -40,9 +40,9 @@ For Bibtex use:
                   Stian Soiland-Reyes and
                   PANDORINO and
                   Morton Fox},
-  title        = {ops.js: OPS.js 7.0.0 for Open PHACTS 2.1 API},
-  month        = nov,
-  year         = 2016,
+  title        = {ops.js: OPS.js 7.1.0 for Open PHACTS 2.2 API},
+  month        = jan,
+  year         = 2018,
   doi          = {10.5281/zenodo.167595},
   url          = {http://dx.doi.org/10.5281/zenodo.167595}
 }

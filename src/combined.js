@@ -3047,6 +3047,10 @@ CompoundSearch.prototype.parseCompoundResponse = function(response) {
             conceptWikiData = me.parseConceptwikiBlock(match);
         }
     });
+    // Edge case if source URI is chemistry.openphacts
+    if (chemspiderData.URI == null && response.primaryTopic[constants.ABOUT].includes("chemistry.openphacts")) {
+        chemspiderData.URI = response.primaryTopic[constants.ABOUT];
+    }
     return {
         "id": id,
         "cwURI": conceptWikiData.URI != null ? conceptWikiData.URI : null,
@@ -8198,18 +8202,17 @@ Version = function Version() {
  */
 Version.prototype.information = function() {
 	return {
-               "version": "6.1.3", 
+               "version": "7.1.0", 
                "author": "Ian Dunlop",
-	       "ORCID": "http://orcid.org/0000-0001-7066-3350",
+	             "ORCID": "http://orcid.org/0000-0001-7066-3350",
                "title": "OPS.js",
                "description": "Javascript library for accessing the Open PHACTS Linked Data API",
                "project": "Open PHACTS",
-               "organization": "School of Computer Science",
-               "address": "University of Manchester, UK",
-               "year": "2015",
-               "month": "August",
+               "organization": "Data2Discovery",
+               "year": "2018",
+               "month": "January",
                "url": "http://github.com/openphacts/ops.js",
-               "LDA-version": "1.5"
+               "LDA-version": "2.2"
            }; 
 };
 

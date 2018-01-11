@@ -6,9 +6,9 @@ author       = {Ian Dunlop and
                 Stian Soiland-Reyes and  
                 PANDORINO and
                 Morton Fox},  
-title        = {ops.js: OPS.js 7.0.0 for Open PHACTS 2.1 API},
-month        = nov,
-year         = 2016,
+title        = {ops.js: OPS.js 7.1.0 for Open PHACTS 2.2 API},
+month        = jan,
+year         = 2018,
 doi          = {10.5281/zenodo.167595},  
 url          = {http://dx.doi.org/10.5281/zenodo.167595}  
 } 
