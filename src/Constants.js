@@ -19,6 +19,10 @@ Constants.prototype.SRC_CLS_MAPPINGS = {
   'http://rdf.chemspider.com': 'chemspiderValue',
   'http://rdf.chemspider.com/': 'chemspiderValue',
   'http://ops.rsc-us.org' : 'chemspiderValue',
+  'http://chemistry.openphacts.org': 'chemspiderValue',
+  'https://chemistry.openphacts.org': 'chemspiderValue',
+  'http://chemistry.openphacts.org/': 'chemspiderValue',
+  'https://chemistry.openphacts.org/': 'chemspiderValue',
   'http://purl.uniprot.org' : 'uniprotValue',
   'http://purl.uniprot.org/' : 'uniprotValue'
 };

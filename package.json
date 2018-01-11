@@ -12,9 +12,9 @@
     },
     "devDependencies": {
         "jasmine-node": "~1.14.5",
-	"browserify": ">=10.2.6",
-	"jsdoc": ">=3.3.2",
-	"nock": ">=2.9.1"
+        "browserify": ">=10.2.6",
+        "jsdoc": ">=3.3.2",
+        "nock": ">=2.9.1"
     },
     "scripts": {
         "test": "node_modules/.bin/jasmine-node --captureExceptions --config app_id 1c22cbe7 --config app_key 167a3a3d8539b5d85280e7178f4e62ab --config app_url https://beta.openphacts.org/2.1 ./test/spec/integration/"
