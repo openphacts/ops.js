@@ -38,14 +38,14 @@ describe("Pathways", function() {
         expect(this_result.pathwayOntologies).toBeDefined();
         expect(this_result.parts).toBeDefined();
         expect(this_result.wikipathwaysProvenance).toBeDefined();
+        expect(this_result.description).toBeDefined();
         //mandatory
         expect(this_result.URI).not.toBeNull();
         expect(this_result.title).not.toBeNull();
         expect(this_result.organism).not.toBeNull();
         expect(this_result.organismLabel).not.toBeNull();
-        expect(this_result.description).not.toBeNull();
       });
-      searcher.information('http://identifiers.org/wikipathways/WP1019', null, callback);
+      searcher.information('http://identifiers.org/wikipathways/WP1008', null, callback);
     });
     it("and handle errors", function() {
       var this_success = null;
@@ -480,9 +480,7 @@ describe("Pathways", function() {
       var callback = function(success, status, response) {
         this_success = success;
         this_status = status;
-	console.log(JSON.stringify(response, "", 2))
         this_result = searcher.parseInteractionsByEntityResponse(response);
-	console.log(JSON.stringify(this_result, "", 2))
       };
       waitsFor(function() {
         return this_success != null;
@@ -492,7 +490,7 @@ describe("Pathways", function() {
         expect(this_status).toBe(200);
         expect(this_result).not.toBeNull();
       });
-      searcher.getInteractionsByEntity('http://identifiers.org/ensembl/ENSBTAG00000004037', null, null, null, callback);
+      searcher.getInteractionsByEntity('http://identifiers.org/ensembl/ENSBTAG00000004037', null, null, null, null, null, null, callback);
     });
     it("and handle errors", function() {
       var this_success = null;
